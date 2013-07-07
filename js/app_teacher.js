@@ -3,7 +3,8 @@ requirejs.config({
     "paths": {
         "advgame": "/AdvGame/js/advgame",
         "games"  : "/AdvGame/js/games",
-		"editor" : "/AdvGame/js/editor"
+		"editor" : "/AdvGame/js/editor",
+		"templates" : "/AdvGame/mst"
 	}
 });
 
