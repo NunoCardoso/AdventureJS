@@ -1,4 +1,7 @@
-function Game (options) {
+define([
+], function() {
+
+var Game = function (options) {
 
 	this.o = options;
 	this.stage;
@@ -176,9 +179,5 @@ function Game (options) {
 	};
 }
 
-(function ($) {
-	$(function () {
-    	var game = new Game(gamejson);
-   		game.start();
-	});	
-}(jQuery));
+return Game;
+});

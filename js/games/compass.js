@@ -1,4 +1,6 @@
-var gamejson = {
+define([
+], function () {
+return {
     'images': {
 		'background01': 'img/background/jungle.jpg',
 		'PC01' : 'img/character/guybrush.png',
@@ -68,3 +70,4 @@ var gamejson = {
 	},
     "dialogs": []
 };
+});
