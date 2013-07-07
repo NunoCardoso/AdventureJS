@@ -1,30 +1,34 @@
 /*global define, createjs, $ */
 
+/**
+ * This module bootstraps the game on the main menu
+ */
 define([
     'advgame/mainmenu',
-    'advgame/preload',
+    'advgame/images',
     'advgame/playablecharacter',
     'advgame/gamestage',
     'advgame/gameprops'
-], function (mainMenu, preload, playablecharacter, gamestage, gameprops) {
-
+], function (
+	mainMenu,
+	images,
+	playablecharacter,
+	gamestage,
+	gameprops
+) {
     var game = function (options) {
-        var o = options,
-            queue,
 
-            init = function () {
-                gameprops.init();
-                gamestage.init();
-            },
-
-            renderMainMenu = function () {
+        /**
+         * asks mainMenu to render and display
+         */
+        var renderMainMenu = function (queue) {
                 console.log('Images loaded');
-                mainMenu.renderMenu(o.main, queue);
-                mainMenu.display();
+                mainMenu.prepare(options.main, queue.target);
+                mainMenu.render();
 
 // add the PC, for now
-                playablecharacter.renderCharacter(o.pc, queue);
-                playablecharacter.display();
+                playablecharacter.prepare(options.pc, queue.target);
+                playablecharacter.render();
             },
 
             /**
@@ -33,12 +37,14 @@ define([
              * rendering the main menu
              */
             start = function () {
-                init();
-                queue = preload.preloadImages({
-                    images: o.images,
+                gameprops.init();
+                gamestage.init();
+                images.preload({
+                    images: options.images,
                     onComplete: renderMainMenu
                 });
             };
+
         return {
             'start' : start
         };

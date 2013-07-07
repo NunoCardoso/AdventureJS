@@ -1,42 +1,70 @@
 /*global define, createjs, $ */
 
+/**
+ * This module handles the playable character
+ */
 define([
     'advgame/gamestage',
     'advgame/gameprops'
-], function (gamestage, _) {
+], function (gamestage, gameprops) {
 
-    var PC,
+    var pc,
 
-        renderCharacter = function (oPC, queue) {
+        prepare = function (opc, queue) {
 
-            PC = new createjs.BitmapAnimation(
+            pc = new createjs.BitmapAnimation(
                 new createjs.SpriteSheet({
-                    images: [queue.getResult(oPC.images)],
-                    frames: oPC.frames,
-                    animations: oPC.animations
+                    images: [queue.getResult(opc.images)],
+                    frames: opc.frames,
+                    animations: opc.animations
                 })
             );
-            PC.x = 0;
-            PC.y = 230;
-            PC.speed = 2;
-            PC.attitude = 'standright';
-            PC.gotoAndPlay(PC.attitude);
-            _.set('pc', PC);
+            pc.x = 0;
+            pc.y = 230;
+            pc.speed = 2;
+            pc.attitude = 'standright';
+            pc.gotoAndPlay(pc.attitude);
+
+            // this is not a BitmapAnimation function, it is a AdvGame custom function;
+            pc.updatePosition = function (clickedX, clickedY) {
+                // attitudes
+                if (pc.x > clickedX && (pc.x - clickedX > pc.speed)) {
+                    pc.attitude = "walkleft";
+                } else if (pc.x < clickedX  && (clickedX - pc.x > pc.speed)) {
+                    pc.attitude = "walkright";
+                } else {
+                    if (pc.attitude === "walkleft") {
+                        pc.attitude = "standleft";
+                    } else if (pc.attitude === "walkright") {
+                        pc.attitude = "standright";
+                    }
+                }
+                if (pc.attitude === "walkleft") {
+                    pc.x -= pc.speed;
+                } else if (pc.attitude === "walkright") {
+                    pc.x += pc.speed;
+                }
+
+                // change attitude only if it is different
+                if (pc.currentAnimation !== pc.attitude) {
+                    pc.gotoAndPlay(pc.attitude);
+                }
+            };
+
+            gameprops.set('pc', pc);
         },
 
-        display = function () {
-            var stage = gamestage.get();
-            var pc = _.get('pc');
-            var PcContainer = new createjs.Container();
-            PcContainer.addChild(
+        render = function () {
+            pc = gameprops.get('pc');
+            var pcContainer = new createjs.Container();
+            pcContainer.addChild(
                 pc
             );
-            stage.addChild(PcContainer);
-            gamestage.set(stage);
+            gamestage.addChild(pcContainer);
         };
 
     return {
-        'renderCharacter'  : renderCharacter,
-        'display' : display
+        'prepare' : prepare,
+        'render'  : render
     };
 });

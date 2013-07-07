@@ -1,17 +1,19 @@
 /*global define */
 
-define([], function () {
-    var _ = {},
+/**
+ * this module stores game properties, serves it into other modules.
+*/
+define([
+], function (
+) {
+    var _,
 
         init = function () {
             _ = {};
         },
 
         get = function (key) {
-            if (typeof (key) === 'undefined') {
-                return _;
-            }
-            return _[key];
+            return ((typeof (key) !== 'undefined') ? _[key] : _);
         },
 
         set = function (key, value) {

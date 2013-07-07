@@ -1,8 +1,12 @@
 /*global $, createjs, define */
 
+/**
+ * This module handles everything that has to do with stage.
+ * on the Tick, it reads game props, then renders the stage
+ */
 define([
     'advgame/gameprops'
-], function (_) {
+], function (gameprops) {
 
     var stage,
         clickedX,
@@ -10,12 +14,8 @@ define([
         canvasX,
         canvasY,
 
-        set = function (_stage) {
-            stage = _stage;
-        },
-
-        get = function () {
-            return stage;
+        addChild = function (container) {
+            stage.addChild(container);
         },
 
         getCanvasX = function () {
@@ -41,30 +41,9 @@ define([
         },
 
         onTick = function (event) {
-            var props = _.get();
+            var props = gameprops.get();
             if (props.pc) {
-                // attitudes
-                if (props.pc.x > clickedX && (props.pc.x - clickedX > props.pc.speed)) {
-                    props.pc.attitude = "walkleft";
-                } else if (props.pc.x < clickedX  && (clickedX - props.pc.x > props.pc.speed)) {
-                    props.pc.attitude = "walkright";
-                } else {
-                    if (props.pc.attitude === "walkleft") {
-                        props.pc.attitude = "standleft";
-                    } else if (props.pc.attitude === "walkright") {
-                        props.pc.attitude = "standright";
-                    }
-                }
-                if (props.pc.attitude === "walkleft") {
-                    props.pc.x -= props.pc.speed;
-                } else if (props.pc.attitude === "walkright") {
-                    props.pc.x += props.pc.speed;
-                }
-
-                // change attitude only if it is different
-                if (props.pc.currentAnimation !== props.pc.attitude) {
-                    props.pc.gotoAndPlay(props.pc.attitude);
-                }
+                props.pc.updatePosition(clickedX, clickedY);
             }
             stage.update(event);
         },
@@ -73,6 +52,9 @@ define([
             stage = new createjs.Stage("canvas");
             canvasX = $("#canvas").width();
             canvasY = $("#canvas").height();
+
+            // make it faster.
+            stage.autoClear = false;
 
             // listener on stage
             // mousedown allows press event on objects above the stage to be captured
@@ -91,9 +73,9 @@ define([
 
     return {
         'init' : init,
-        'set' : set,
-        'get' : get,
+        'addChild' : addChild,
         'getCanvasX' : getCanvasX,
-        'getCanvasY' : getCanvasY
+        'getCanvasY' : getCanvasY,
+
     };
 });
