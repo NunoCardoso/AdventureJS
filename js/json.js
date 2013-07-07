@@ -1,9 +1,9 @@
 var gamejson = {
     'images': {
-		'background01': 'img/background-jungle.jpg',
-		'PC01' : 'img/guybrush.png',
-        'winebottleinventory01' : 'img/wine-bottle-inventory.jpg',
-		'winebottle01' : 'img/wine-bottle.png'
+		'background01': 'img/background/jungle.jpg',
+		'PC01' : 'img/character/guybrush.png',
+        'winebottleinventory01' : 'img/inventory/wine-bottle.jpg',
+		'winebottle01' : 'img/object/wine-bottle.png'
     },
     'main': {
 		'title' : 'The compass',
@@ -14,12 +14,18 @@ var gamejson = {
     'PC': {
         'id' : 'you01',
 		'images': 'PC01',
-		'frames': {'regX': 0, 'height': 150, 'count': 18, 'regY': 0, 'width': 104},
+		'frames': {
+			'regX'  : 0, 
+			'height': 150, 
+			'count' : 18, 
+			'regY'  : 0, 
+			'width' : 104
+		},
 		'animations':{
-			'walkright':[0,5,'walkright',6],
-			'walkleft':[6,11,'walkleft',6],
+			'walkright' :[0,5,'walkright',6],
+			'walkleft'  :[6,11,'walkleft',6],
 			'standright':12,
-			'standleft':13
+			'standleft' :13
 		}
 	},
 	'objects':[
