@@ -3,12 +3,24 @@
 define([
 ], function () {
     return {
-        'images': {
-            'background01': 'img/background/jungle.jpg',
-            'PC01' : 'img/character/guybrush.png',
-            'winebottleinventory01' : 'img/inventory/wine-bottle.jpg',
-            'winebottle01' : 'img/object/wine-bottle.png'
-        },
+        'images': [
+            {
+                'id'  : 'background01',
+                'src' : 'img/background/jungle.jpg'
+            },
+            {
+                'id'  : 'PC01',
+                'src' : 'img/character/guybrush.png'
+            },
+            {
+                'id'  : 'winebottleinventory01',
+                'src' : 'img/inventory/wine-bottle.jpg'
+            },
+            {
+                'id'  : 'winebottle01',
+                'src' : 'img/object/wine-bottle.png'
+            }
+        ],
         'main': {
             'title' : 'The compass',
             'author' : 'teacher@school.com',
@@ -43,19 +55,21 @@ define([
         'objectInteraction': [],
         'scenes': [
             {
-                "id": "scene01",
-                "background": "background01",
-                "preamble": "This is the first scene.",
-                "characters" : [
+                'id'          : 'scene01',
+                'background'  : 'background01',
+                'description' : 'This is the first scene.',
+                'interactable': true,
+                'ending'      : false,
+                'characters'  : [
                     {
-                        "who" : 'you01',
-                        "position" : {
-                            "x" : 0,
-                            "y" : 230
+                        'who' : 'you01',
+                        'position' : {
+                            'x' : 0,
+                            'y' : 230
                         }
                     }
                 ],
-                'objects': [
+                'objects' : [
                     {
                         'id': 'winebottle01',
                         'x' : 300,
@@ -66,10 +80,10 @@ define([
                 ]
             }
         ],
-        "initialInventory" : [],
-        "initialScene" : {
-            "id" : "scene01"
+        'initialInventory' : [],
+        'initialScene' : {
+            'id' : 'scene01'
         },
-        "dialogs" : []
+        'dialogs' : []
     };
 });

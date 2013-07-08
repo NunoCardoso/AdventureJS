@@ -1,3 +1,49 @@
+<div style="float:right;">
+    <button id="button.playas">Play as...</button>
+    <br>
+    <br>
+    <button id="button.save">Save...</button>
+    <br>
+    <button id="button.load">Load...</button>
+</div>
 
-    <label>Title</label>
-    <input type="text" value="{{main.title}}">
+<label for="main.title">Title</label>
+<input id="main.title" type="text" value="{{main.title}}">
+<BR>
+<label for="main.author">Author</label>
+<input id="main.author" type="text" value="{{main.author}}">
+<BR>
+<label for="main.description">Description</label>
+<textarea id="main.description">{{main.description}}</textarea>
+<BR>
+<label for="main.background">Bakground</label>
+<select id="main.background" size=1></select>
+<BR>
+<label for="main.dimensions">Dimensions</label>
+<select id="main.dimensiows" size=1>
+    <option>800x400</option>
+</select>
+<BR>
+<input id="main.useinventory" type="checkbox">
+<label for="main.useinventory">Use inventory</label>
+<BR>
+<input id="main.useverbs" type="checkbox">
+<label for="main.useverbs">Use verbs</label>
+<BR>
+<input id="main.trackstudents" type="checkbox">
+<label for="main.trackstudents">Track student progress through stages</label>
+<BR>
+
+<label for="main.verbs">Verbs</label>
+<BR>
+<table id="main.verbs" class="table">
+    <thead>
+        <tr>
+            <th>Main verb</th>
+            <th>Cardinality</th>
+            <th>Aux verb</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>

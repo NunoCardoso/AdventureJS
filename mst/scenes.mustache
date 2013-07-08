@@ -1,0 +1,12 @@
+<div class="verticaltabs">
+ <ul>
+    {{#scenes}}
+    <li><a href="#{{id}}">{{id}}</a></li>
+    {{/scenes}}
+  </ul>
+  {{#scenes}}
+  <div id="{{id}}">
+    {{>tab-scene}}
+  </div>
+  {{/scenes}}
+</div>
