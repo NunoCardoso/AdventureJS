@@ -1,0 +1,13 @@
+<div class="verticaltabs">
+ <ul>
+    {{#interactions}}
+    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
+    {{/interactions}}
+    <li><button id="interactions.new">NEW interaction...</button></li>
+  </ul>
+  {{#interactions}}
+  <div id="{{id}}">
+    {{>tab-interaction}}
+  </div>
+  {{/interactions}}
+</div>

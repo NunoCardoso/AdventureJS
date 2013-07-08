@@ -1,0 +1,13 @@
+<div class="verticaltabs">
+ <ul>
+    {{#characters}}
+    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
+    {{/characters}}
+    <li><button id="character.new">NEW character...</button></li>
+  </ul>
+  {{#characters}}
+  <div id="{{id}}">
+    {{>tab-character}}
+  </div>
+  {{/characters}}
+</div>

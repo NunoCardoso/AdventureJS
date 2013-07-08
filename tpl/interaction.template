@@ -1,0 +1,58 @@
+<label for="interaction.{{id}}.verb">Verb:</label>
+<select id="interaction.{{id}}.verb" size=1></select>
+<br>
+
+<input type="radio" name="first" value="character"
+ id="interaction.{{id}}.first1"{{#ifTest 'first.type == "character"'}} CHECKED{{/ifTest}}>
+<label for="interaction.{{id}}.first1">on the character</label>
+<select id="interaction.{{id}}.first.item" size=1></select>
+<br>
+
+<input type="radio" name="first" value="object"
+ id="interaction.{{id}}.first2"{{#ifTest 'first.type == "object"'}} CHECKED{{/ifTest}}>
+<label for="interaction.{{id}}.first2">on the object</label>
+<select id="interaction.{{id}}.first.item" size=1></select>
+<input type="checkbox" id="interaction.{{id}}.first.inInventory"{{#first.inInventory}} CHECKED{{/first.inInventory}}>
+<label for="interaction.{{id}}.first.inInventory">Object is in inventory</label>
+<br>
+
+<input type="checkbox" id="interaction.{{id}}.to"{{#to}} CHECKED{{/to}}>
+<label for="interaction.{{id}}.to">into another item...</label>
+<br>
+
+<input type="radio" name="second" value="character"
+ id="interaction.{{id}}.second1"{{#second}}{{#ifTest 'type == "character"'}} CHECKED{{/ifTest}}{{/second}}>
+<label for="interaction.{{id}}.second1">into character</label>
+<select id="interaction.{{id}}.interaction.second.item" size=1></select>
+<br>
+
+<input type="radio" name="second" value="object"
+ id="interaction.{{id}}.second2"{{#second}}{{#ifTest 'type == "object"'}} CHECKED{{/ifTest}}{{/second}}>
+<label for="interaction.{{id}}.second2">into object</label>
+<select id="interaction.{{id}}.interaction.second.item" size=1></select>
+<input type="checkbox" id="interaction.{{id}}.second.inInventory"{{#second}}{{#inInventory}} CHECKED{{/inInventory}}{{/second}}>
+<label for="interaction.{{id}}.second.inInventory">Object is in inventory</label>
+<br>
+
+<label for="actions">Actions:</label>
+<BR>
+<table id="actions" class="tablesorter">
+    <thead>
+        <tr>
+            <th>action</th>
+            <th>target</th>
+            <th>param</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each actions}}
+        <tr>
+            <td>{{this.action}}</td>
+            <td>{{this.target}}</td>
+            <td>{{this.param}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+

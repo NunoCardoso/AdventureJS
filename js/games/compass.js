@@ -25,11 +25,28 @@ define([
             'title' : 'The compass',
             'author' : 'teacher@school.com',
             'description' : 'Can you build a compass?',
-            'background' : 'background01'
+            'background' : 'background01',
+            'startingScene' : 'scene01',
+            'startingInventory' : [
+                'magnet01',
+                'winebottle01',
+                'needle01'
+            ],
+            'verbs': [
+                {'first': 'Open', 'nr' : 1},
+                {'first': 'Close', 'nr' : 1},
+                {'first': 'Look at', 'nr' : 1},
+                {'first': 'Push', 'nr' : 1},
+                {'first': 'Pull', 'nr' : 1},
+                {'first': 'Talk to', 'nr' : 1},
+                {'first': 'Give', 'nr' : 2, 'second': 'to'},
+                {'first': 'Use', 'nr' : 2, 'second': 'with'}
+            ]
         },
-        'pc': {
+        'characters': {
             'id' : 'you01',
             'images': 'PC01',
+            'playable': true,
             'frames': {
                 'regX'  : 0,
                 'height': 150,
@@ -38,8 +55,8 @@ define([
                 'width' : 104
             },
             'animations': {
-                'walkright' : [0, 5, 'walkright', 6],
-                'walkleft'  : [6, 11, 'walkleft', 6],
+                'walkright' : [0, 5, 'walkright', 5],
+                'walkleft'  : [6, 11, 'walkleft', 5],
                 'standright': 12,
                 'standleft' : 13
             }
@@ -49,10 +66,57 @@ define([
                 'id': 'winebottle01',
                 'label': 'Wine bottle',
                 'imageInInventory': 'winebottleinventory01',
-                'imageInScene' : 'winebottle01'
+                'imageInStage' : 'winebottle01',
+                'canBeOnStage' : false,
+                'canBeOnInventory' : true,
+                'canBePickedUp' : true
             }
         ],
-        'objectInteraction': [],
+        'interactions': [
+            {
+                'id' : 'interaction01',
+                'verb' : 'use',
+                'first': {
+                    'type' : 'object',
+                    'item' : 'needle01',
+                    'inInventory' : true
+                },
+                'to' : true,
+                'second' : {
+                    'type' : 'object',
+                    'item' : 'cork01',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action': 'removeFromInventory',
+                        'target': 'needle01'
+                    },
+                    {
+                        'action': 'removeFromInventory',
+                        'target': 'cork01'
+                    },
+                    {
+                        'action': 'addToInventory',
+                        'target': 'corkwithneedle01'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'target': 'you01',
+                        'param' : 'I stuck the needle into the cork'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction02',
+                'verb' : 'talk',
+                'first' : {
+                    'type' : 'character',
+                    'item' : 'pirate01'
+                },
+                'to' : false
+            }
+        ],
         'scenes': [
             {
                 'id'          : 'scene01',
@@ -62,7 +126,7 @@ define([
                 'ending'      : false,
                 'characters'  : [
                     {
-                        'who' : 'you01',
+                        'id' : 'you01',
                         'position' : {
                             'x' : 0,
                             'y' : 230
@@ -77,13 +141,40 @@ define([
                         'width' : 50,
                         'height' : 50
                     }
-                ]
+                ],
+                'exits' : []
             }
         ],
-        'initialInventory' : [],
-        'initialScene' : {
-            'id' : 'scene01'
-        },
-        'dialogs' : []
+        'dialogs' : [
+            {
+                'id' : 'dialog01',
+                'lines' : [
+                    {
+                        'character' : 'you01',
+                        'line' : 'Hello.'
+                    },
+                    {
+                        'character' : 'pirate01',
+                        'line' : 'Hello back.'
+                    },
+                    {
+                        'character' : 'you01',
+                        'line' : 'Do you have a compass?'
+                    },
+                    {
+                        'character' : 'pirate01',
+                        'line' : 'No. Why would I have a compass?'
+                    },
+                    {
+                        'character' : 'you01',
+                        'line' : 'Because you are in the jungle!'
+                    },
+                    {
+                        'character' : 'pirate01',
+                        'line' : 'I have a GPS, moron. And no, I will not let you use it!'
+                    }
+                ]
+            }
+        ]
     };
 });

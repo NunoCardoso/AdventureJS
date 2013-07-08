@@ -1,0 +1,18 @@
+<label for="dialogs">Dialog:</label>
+<BR>
+<table id="dialogs" class="tablesorter">
+    <thead>
+        <tr>
+            <th>character</th>
+            <th>line</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each lines}}
+        <tr>
+            <td>{{this.character}}</td>
+            <td>{{this.line}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

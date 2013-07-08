@@ -1,0 +1,8 @@
+@font-face {
+   font-family: the8bit;
+   src: url(../fnt/half_bold_pixel-7.ttf);
+}
+
+body, input, textarea, button {
+   font-family: the8bit;
+}

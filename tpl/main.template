@@ -33,10 +33,21 @@
 <input id="main.trackstudents" type="checkbox">
 <label for="main.trackstudents">Track student progress through stages</label>
 <BR>
+<label for="main.startingScene">Starting scene</label>
+<select id="main.startingScene" size=1></select>
+<BR>
+<label for="main.startingInventory">Starting inventory</label>
+<select id="main.startingInventory" size=5 multiple>
+{{#each main.startingInventory}}
+<option>{{this}}</option>
+{{/each}}
+</select>
+<select id="main.notOnStartingInventory" size=5 multiple></select>
+<BR>
 
 <label for="main.verbs">Verbs</label>
 <BR>
-<table id="main.verbs" class="table">
+<table id="main.verbs" class="tablesorter">
     <thead>
         <tr>
             <th>Main verb</th>
@@ -45,5 +56,12 @@
         </tr>
     </thead>
     <tbody>
+    {{#each main.verbs}}
+        <tr>
+            <td>{{this.first}}</td>
+            <td>{{this.nr}}</td>
+            <td>{{this.second}}</td>
+        </tr>
+    {{/each}}
     </tbody>
 </table>

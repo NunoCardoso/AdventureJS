@@ -4,7 +4,7 @@ requirejs.config({
         "advgame": "/AdvGame/js/advgame",
         "games"  : "/AdvGame/js/games",
 		"editor" : "/AdvGame/js/editor",
-		"templates" : "/AdvGame/mst"
+		"templates" : "/AdvGame/tpl"
 	}
 });
 

@@ -1,0 +1,96 @@
+<div style="float:right;">
+    <label>Preview</label>
+    <img class="dynamic-image" data-src-id="{{background}}" width="200" height="150">
+    <br>
+    <button id="scene.{{id}}.preview">Preview scene</button>
+</div>
+
+<label for="scene.{{id}}.background">Background</label>
+<select id="scene.{{id}}.background" size="1"></select>
+<BR>
+
+<input id="scene.{{id}}.interactable"{{#interactable}} CHECKED{{/interactable}} type="checkbox">
+<label for="scene.{{id}}.interactable">Interactable scene (user can use mouse/keyboard)</label>
+<BR>
+
+<input id="scene.{{id}}.ending"{{#ending}} CHECKED{{/ending}} type="checkbox">
+<label for="scene.{{id}}.ending">Ending scene</label>
+<BR>
+
+<label for="scene.{{id}}.description">Description</label>
+<textarea id="scene.{{id}}.description">{{description}}</textarea>
+<BR>
+
+<label for="scene.{{id}}.characters">Character setup:</label>
+<table id="scene.{{id}}.characters" class="tablesorter">
+    <thead>
+        <tr>
+            <th>Character</th>
+            <th>x</th>
+            <th>y</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#characters}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{position.x}}</td>
+            <td>{{position.y}}</td>
+            <td><a href="#">[delete]</td>
+        </tr>
+        {{/characters}}
+    </tbody>
+</table>
+
+<label for="scene.{{id}}.objects">Object setup:</label>
+<table id="scene.{{id}}.objects" class="tablesorter">
+    <thead>
+        <tr>
+            <th>Object</th>
+            <th>x</th>
+            <th>y</th>
+            <th>w</th>
+            <th>h</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#objects}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{x}}</td>
+            <td>{{y}}</td>
+            <td>{{width}}</td>
+            <td>{{height}}</td>
+            <td><a href="#">[delete]</td>
+        </tr>
+        {{/objects}}
+    </tbody>
+</table>
+
+<label for="scene.{{id}}.exits">Exit setup:</label>
+<table id="scene.{{id}}.exits" class="tablesorter">
+    <thead>
+        <tr>
+            <th>Exit</th>
+            <th>x</th>
+            <th>y</th>
+            <th>w</th>
+            <th>h</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#exits}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{x}}</td>
+            <td>{{y}}</td>
+            <td>{{width}}</td>
+            <td>{{height}}</td>
+            <td><a href="#">[delete]</td>
+        </tr>
+        {{/exits}}
+    </tbody>
+</table>
