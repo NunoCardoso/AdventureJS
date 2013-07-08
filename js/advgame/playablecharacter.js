@@ -8,58 +8,66 @@ define([
     'advgame/gameprops'
 ], function (gamestage, gameprops) {
 
-    var pc,
+    var pc = [],
 
-        prepare = function (opc, queue) {
+        prepare = function (characters, queue) {
+            var i, c, _c;
+            for (i = 0; i < characters.length; i++) {
+                c = characters[i];
+                _c = new createjs.BitmapAnimation(
+                    new createjs.SpriteSheet({
+                        images: [queue.getResult(c.images)],
+                        frames: c.frames,
+                        animations: c.animations
+                    })
+                );
+                _c.x = 0;
+                _c.y = 230;
+                _c.speed = c.speed;
+                _c.attitude = 'standright';
+                _c.gotoAndPlay(_c.attitude);
 
-            pc = new createjs.BitmapAnimation(
-                new createjs.SpriteSheet({
-                    images: [queue.getResult(opc.images)],
-                    frames: opc.frames,
-                    animations: opc.animations
-                })
-            );
-            pc.x = 0;
-            pc.y = 230;
-            pc.speed = 2;
-            pc.attitude = 'standright';
-            pc.gotoAndPlay(pc.attitude);
+                if (c.playable) {
+                    // this is not a BitmapAnimation function, it is a AdvGame custom function;
+                    _c.updatePosition = function (mouse) {
+                        // attitudes
+                        if (_c.x > mouse.x && (_c.x - mouse.x > _c.speed)) {
+                            _c.attitude = "walkleft";
+                        } else if (_c.x < mouse.x  && (mouse.x - _c.x > _c.speed)) {
+                            _c.attitude = "walkright";
+                        } else {
+                            if (_c.attitude === "walkleft") {
+                                _c.attitude = "standleft";
+                            } else if (_c.attitude === "walkright") {
+                                _c.attitude = "standright";
+                            }
+                        }
+                        if (_c.attitude === "walkleft") {
+                            _c.x -= _c.speed;
+                        } else if (_c.attitude === "walkright") {
+                            _c.x += _c.speed;
+                        }
 
-            // this is not a BitmapAnimation function, it is a AdvGame custom function;
-            pc.updatePosition = function (clickedX, clickedY) {
-                // attitudes
-                if (pc.x > clickedX && (pc.x - clickedX > pc.speed)) {
-                    pc.attitude = "walkleft";
-                } else if (pc.x < clickedX  && (clickedX - pc.x > pc.speed)) {
-                    pc.attitude = "walkright";
-                } else {
-                    if (pc.attitude === "walkleft") {
-                        pc.attitude = "standleft";
-                    } else if (pc.attitude === "walkright") {
-                        pc.attitude = "standright";
-                    }
+                        // change attitude only if it is different
+                        if (_c.currentAnimation !== _c.attitude) {
+                            _c.gotoAndPlay(_c.attitude);
+                        }
+                    };
                 }
-                if (pc.attitude === "walkleft") {
-                    pc.x -= pc.speed;
-                } else if (pc.attitude === "walkright") {
-                    pc.x += pc.speed;
-                }
-
-                // change attitude only if it is different
-                if (pc.currentAnimation !== pc.attitude) {
-                    pc.gotoAndPlay(pc.attitude);
-                }
-            };
-
-            gameprops.set('pc', pc);
+                pc[i] = _c;
+            }
+            gameprops.set('characters', pc);
         },
 
         render = function () {
-            pc = gameprops.get('pc');
-            var pcContainer = new createjs.Container();
-            pcContainer.addChild(
-                pc
-            );
+            var pcContainer,
+                i,
+                characters = gameprops.get('characters');
+
+            pcContainer = new createjs.Container();
+            for (i = 0; i < characters.length; i++) {
+                pcContainer.addChild(characters[i]);
+            }
             gamestage.addChild(pcContainer);
         };
 

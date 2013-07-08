@@ -9,63 +9,49 @@ define([
 ], function (gameprops) {
 
     var stage,
-        clickedX,
-        clickedY,
-        canvasX,
-        canvasY,
+        clickedXY,
+        canvasXY,
 
         addChild = function (container) {
             stage.addChild(container);
         },
 
-        getCanvasX = function () {
-            return canvasX;
+        setClickedXY = function (xy) {
+            clickedXY = xy;
         },
 
-        getCanvasY = function () {
-            return canvasY;
+        getCanvasXY = function () {
+            return canvasXY;
         },
 
-        onStartButtonPress = function (e) {
-            console.log("start button press!");
-        },
-
-        onStartButtonMouseOver = function (e) {
-            console.log("start button mouse over!");
-        },
-
-        onStageMouseDown = function (e) {
-            console.log("stage click!");
-            clickedX = e.stageX;
-            clickedY = e.stageY;
+        setCanvasXY = function (xy) {
+            canvasXY = xy;
         },
 
         onTick = function (event) {
-            var props = gameprops.get();
-            if (props.pc) {
-                props.pc.updatePosition(clickedX, clickedY);
+            var i,
+                props = gameprops.get();
+            if (props.characters && clickedXY) {
+                for (i = 0; i < props.characters.length; i++) {
+                    if (props.characters[i].updatePosition) {
+                        props.characters[i].updatePosition(clickedXY);
+                    }
+                }
             }
             stage.update(event);
         },
 
         init = function () {
             stage = new createjs.Stage("canvas");
-            canvasX = $("#canvas").width();
-            canvasY = $("#canvas").height();
+            canvasXY = {
+                x : $("#canvas").width(),
+                y : $("#canvas").height()
+            };
 
             // make it faster.
             stage.autoClear = false;
-
-            // listener on stage
-            // mousedown allows press event on objects above the stage to be captured
-            stage.addEventListener("mousedown", $.proxy(onStageMouseDown, this));
-
-            // listener on button
-            //    _.main.startButton.addEventListener("press", $.proxy(onStartButtonPress, this));
-            //    _.main.startButton.addEventListener("mouseover", $.proxy(onStartButtonMouseOver, this));
-
-
-
+            // allow mouseOver with a FPS 40
+            stage.enableMouseOver(25);
             // ticker
             createjs.Ticker.setFPS(40);
             createjs.Ticker.addEventListener("tick", $.proxy(onTick, this));
@@ -74,8 +60,8 @@ define([
     return {
         'init' : init,
         'addChild' : addChild,
-        'getCanvasX' : getCanvasX,
-        'getCanvasY' : getCanvasY,
-
+        'setClickedXY' : setClickedXY,
+        'getCanvasXY' : getCanvasXY,
+        'setCanvasXY' : setCanvasXY,
     };
 });

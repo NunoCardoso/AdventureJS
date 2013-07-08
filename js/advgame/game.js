@@ -27,7 +27,7 @@ define([
                 mainMenu.render();
 
 // add the PC, for now
-                playablecharacter.prepare(options.pc, queue.target);
+                playablecharacter.prepare(options.characters, queue.target);
                 playablecharacter.render();
             },
 

@@ -43,9 +43,10 @@ define([
                 {'first': 'Use', 'nr' : 2, 'second': 'with'}
             ]
         },
-        'characters': {
+        'characters': [{
             'id' : 'you01',
             'images': 'PC01',
+            'speed' : 2,
             'playable': true,
             'frames': {
                 'regX'  : 0,
@@ -60,7 +61,7 @@ define([
                 'standright': 12,
                 'standleft' : 13
             }
-        },
+        }],
         'objects': [
             {
                 'id': 'winebottle01',
