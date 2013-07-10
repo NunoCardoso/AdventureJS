@@ -28,7 +28,7 @@ define([
                 mainMenu.prepare(options.main, queue.target);
                 mainMenu.render();
 
-                gameconsole.prepare();
+                gameconsole.prepare(options.console, queue.target);
                 gameconsole.render();
 
 // add the PC, for now
