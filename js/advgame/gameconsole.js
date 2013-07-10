@@ -8,7 +8,7 @@ define([
     'advgame/gamestage',
 ], function (gameprops, gamestage) {
 
-    var gameconsole,
+    var _,
         x = 0,
         y = 400,
         w = 800,
@@ -16,22 +16,22 @@ define([
 
         prepare = function (oconsole) {
 
-            gameconsole = {};
+            _ = {};
 
             // black background
-            gameconsole.background = new createjs.Shape();
-            gameconsole.background.name = "gameconsoleBackground";
-            gameconsole.background.graphics.beginFill("black").drawRoundRect(x, y, w, h, 0);
+            _.background = new createjs.Shape();
+            _.background.name = "_Background";
+            _.background.graphics.beginFill("black").drawRoundRect(x, y, w, h, 0);
 
             // action
-            gameconsole.action = new createjs.Text("", "16px the8bit", "#FFFFFF");
-            gameconsole.action.textAlign = "center";
-            gameconsole.action.textBaseline = "top";
-            gameconsole.action.x = gamestage.getCanvasXY().x / 2;
-            gameconsole.action.y = 401;
+            _.action = new createjs.Text("", "16px the8bit", "#FFFFFF");
+            _.action.textAlign = "center";
+            _.action.textBaseline = "top";
+            _.action.x = gamestage.getCanvasXY().x / 2;
+            _.action.y = 401;
 
             // verbs
-            gameconsole.verbs = [];
+            _.verbs = [];
             var i,
                 initialX = 0,
                 initialY = 420,
@@ -41,11 +41,11 @@ define([
 
             for (i = 0; i < oconsole.verbs.length; i++) {
                 var verb = oconsole.verbs[i];
-                gameconsole.verbs[i] = new createjs.Text(verb.first, "22px the8bit", "#FFFFFF");
+                _.verbs[i] = new createjs.Text(verb.first, "22px the8bit", "#FFFFFF");
 
-                gameconsole.verbs[i].textAlign = "left";
-                gameconsole.verbs[i].textBaseline = "middle";
-                gameconsole.verbs[i].alpha = 0.7;
+                _.verbs[i].textAlign = "left";
+                _.verbs[i].textBaseline = "middle";
+                _.verbs[i].alpha = 0.7;
                 var rowNumber = parseInt(i / maxColumns, 10);
                 var colNumber = i % maxColumns;
 
@@ -53,27 +53,27 @@ define([
                 var positionXwithMargin = positionX + 10;
                 var positionY = initialY + rowNumber * incrementY;
                 var positionYonMiddle = positionY + (incrementY / 2); // align middle
-                gameconsole.verbs[i].x = positionXwithMargin;
-                gameconsole.verbs[i].y = positionYonMiddle;
+                _.verbs[i].x = positionXwithMargin;
+                _.verbs[i].y = positionYonMiddle;
 
                 // hovering on text sucks. Let's add a flat hit area!
                 var hitArea = new createjs.Shape();
                 hitArea.graphics.beginFill("red")
                     .drawRect(-10, -30, incrementX, incrementY);
 
-				gameconsole.verbs[i].hitArea = hitArea;
+				_.verbs[i].hitArea = hitArea;
             }
-            gameprops.set('gameconsole', gameconsole);
+            gameprops.set('_', _);
         },
 
 		onCharacterMouseOver = function (e) {
 			console.log("character mouse over");
-			gameconsole.action.text = 'Look at ' + e.target.name;
+			_.action.text = 'Look at ' + e.target.name;
 		},
 
 		onCharacterMouseOut = function (e) {
 			console.log("character mouse out");
-			gameconsole.action.text = '';
+			_.action.text = '';
 		},
 
 		onVerbMouseOver = function (e) {
@@ -90,35 +90,35 @@ define([
 
 		onVerbClick = function (e) {
 			console.log("verb click");
-			gameconsole.action.text = e.target.name;
+			_.action.text = e.target.name;
 		},
 
 		render = function () {
             var i,
-                gameconsoleContainer = new createjs.Container(),
+                _Container = new createjs.Container(),
                 actionContainer = new createjs.Container(),
                 verbContainer = new createjs.Container(),
                 arrowContainer = new createjs.Container(),
                 inventoryContainer = new createjs.Container();
 
-            gameconsole = gameprops.get('gameconsole');
+            _ = gameprops.get('_');
 
-            gameconsoleContainer.addChild(
-                gameconsole.background
+            _Container.addChild(
+                _.background
             );
             actionContainer.addChild(
-                gameconsole.action
+                _.action
             );
 
-            for (i = 0; i < gameconsole.verbs.length; i++) {
+            for (i = 0; i < _.verbs.length; i++) {
 				verbContainer.addChild(
-                    gameconsole.verbs[i]
+                    _.verbs[i]
                 );
-                gameconsole.verbs[i].addEventListener('mouseover', $.proxy(onVerbMouseOver, this));
-                gameconsole.verbs[i].addEventListener('mouseout', $.proxy(onVerbMouseOut, this));
-                gameconsole.verbs[i].addEventListener('click', $.proxy(onVerbClick, this));
+                _.verbs[i].addEventListener('mouseover', $.proxy(onVerbMouseOver, this));
+                _.verbs[i].addEventListener('mouseout', $.proxy(onVerbMouseOut, this));
+                _.verbs[i].addEventListener('click', $.proxy(onVerbClick, this));
 			}
-            gamestage.addChild(gameconsoleContainer);
+            gamestage.addChild(_Container);
             gamestage.addChild(actionContainer);
             gamestage.addChild(verbContainer);
 		};
