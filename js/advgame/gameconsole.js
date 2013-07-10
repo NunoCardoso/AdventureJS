@@ -56,11 +56,12 @@ define([
                 gameconsole.verbs[i].x = positionXwithMargin;
                 gameconsole.verbs[i].y = positionYonMiddle;
 
+                // hovering on text sucks. Let's add a flat hit area!
                 var hitArea = new createjs.Shape();
-                hitArea.graphics.beginFill("#ff0000")
- 	               .drawRect(positionX,positionY,incrementX,incrementY);
+                hitArea.graphics.beginFill("red")
+                    .drawRect(-10, -30, incrementX, incrementY);
 
-//				gameconsole.verbs[i].hitArea = hitArea;
+				gameconsole.verbs[i].hitArea = hitArea;
             }
             gameprops.set('gameconsole', gameconsole);
         },
