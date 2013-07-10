@@ -61,6 +61,16 @@ define([
             gameprops.set('characters', pc);
         },
 
+        onCharacterMouseOver = function (e) {
+            console.log("character mouse over");
+            gameconsole.get().action.text = 'Look at ' + e.target.name;
+        },
+
+        onCharacterMouseOut = function (e) {
+            console.log("character mouse out");
+            gameconsole.get().action.text = '';
+        },
+
         render = function () {
             var pcContainer,
                 i,
@@ -73,8 +83,8 @@ define([
             gamestage.addChild(pcContainer);
 
             for (i = 0; i < characters.length; i++) {
-                characters[i].addEventListener("mouseover", $.proxy(gameconsole.onCharacterMouseOver, this));
-                characters[i].addEventListener("mouseout", $.proxy(gameconsole.onCharacterMouseOut, this));
+                characters[i].addEventListener("mouseover", $.proxy(onCharacterMouseOver, this));
+                characters[i].addEventListener("mouseout", $.proxy(onCharacterMouseOut, this));
             }
         };
 

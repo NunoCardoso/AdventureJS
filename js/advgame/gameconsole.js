@@ -63,18 +63,12 @@ define([
 
 				_.verbs[i].hitArea = hitArea;
             }
-            gameprops.set('_', _);
+            gameprops.set('gameconsole', _);
         },
 
-		onCharacterMouseOver = function (e) {
-			console.log("character mouse over");
-			_.action.text = 'Look at ' + e.target.name;
-		},
-
-		onCharacterMouseOut = function (e) {
-			console.log("character mouse out");
-			_.action.text = '';
-		},
+        get = function () {
+            return _;
+        },
 
 		onVerbMouseOver = function (e) {
 			console.log("verb mouse over");
@@ -95,38 +89,29 @@ define([
 
 		render = function () {
             var i,
-                _Container = new createjs.Container(),
-                actionContainer = new createjs.Container(),
-                verbContainer = new createjs.Container(),
-                arrowContainer = new createjs.Container(),
-                inventoryContainer = new createjs.Container();
+                container = new createjs.Container();
 
-            _ = gameprops.get('_');
+            _ = gameprops.get('gameconsole');
 
-            _Container.addChild(
-                _.background
-            );
-            actionContainer.addChild(
+            container.addChild(
+                _.background,
                 _.action
             );
 
             for (i = 0; i < _.verbs.length; i++) {
-				verbContainer.addChild(
+				container.addChild(
                     _.verbs[i]
                 );
                 _.verbs[i].addEventListener('mouseover', $.proxy(onVerbMouseOver, this));
                 _.verbs[i].addEventListener('mouseout', $.proxy(onVerbMouseOut, this));
                 _.verbs[i].addEventListener('click', $.proxy(onVerbClick, this));
 			}
-            gamestage.addChild(_Container);
-            gamestage.addChild(actionContainer);
-            gamestage.addChild(verbContainer);
+            gamestage.addChild(container);
 		};
 
     return {
         'prepare' : prepare,
         'render' : render,
-        'onCharacterMouseOver' : onCharacterMouseOver,
-        'onCharacterMouseOut' : onCharacterMouseOut
+        'get'   : get
     };
 });
