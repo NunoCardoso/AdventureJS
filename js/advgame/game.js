@@ -8,13 +8,15 @@ define([
     'advgame/images',
     'advgame/playablecharacter',
     'advgame/gamestage',
-    'advgame/gameprops'
+    'advgame/gameprops',
+    'advgame/gameconsole'
 ], function (
 	mainMenu,
 	images,
 	playablecharacter,
 	gamestage,
-	gameprops
+	gameprops,
+    gameconsole
 ) {
     var game = function (options) {
 
@@ -25,6 +27,9 @@ define([
                 console.log('Images loaded');
                 mainMenu.prepare(options.main, queue.target);
                 mainMenu.render();
+
+                gameconsole.prepare();
+                gameconsole.render();
 
 // add the PC, for now
                 playablecharacter.prepare(options.characters, queue.target);

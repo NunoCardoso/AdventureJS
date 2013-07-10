@@ -50,7 +50,7 @@ define([
 
             // make it faster.
             stage.autoClear = false;
-            // allow mouseOver with a FPS 40
+            // allow mouseOver with a pool of 25 times per second
             stage.enableMouseOver(25);
             // ticker
             createjs.Ticker.setFPS(40);

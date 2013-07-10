@@ -9,6 +9,7 @@ define([
 ], function (gameprops, gamestage) {
 
     var main,
+        fixedHeight = 400,
 
         prepare = function (omain, queue) {
 
@@ -38,7 +39,7 @@ define([
             // Main Background
             main.background = new createjs.Bitmap(queue.getResult(omain.background));
             main.background.scaleX = gamestage.getCanvasXY().x / main.background.image.width;
-            main.background.scaleY = gamestage.getCanvasXY().y / main.background.image.height;
+            main.background.scaleY = fixedHeight / main.background.image.height;
 
             // start button
             main.startButton = new createjs.Shape();
