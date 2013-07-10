@@ -26,7 +26,9 @@ define([
             'author' : 'teacher@school.com',
             'description' : 'Can you build a compass?',
             'background' : 'background01',
-            'startingScene' : 'scene01',
+            'startingScene' : 'scene01'
+        },
+        'console' : {
             'startingInventory' : [
                 'magnet01',
                 'winebottle01',
@@ -45,6 +47,7 @@ define([
         },
         'characters': [{
             'id' : 'you01',
+            'name' : 'you',
             'images': 'PC01',
             'speed' : 2,
             'playable': true,

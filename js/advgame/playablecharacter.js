@@ -5,8 +5,9 @@
  */
 define([
     'advgame/gamestage',
-    'advgame/gameprops'
-], function (gamestage, gameprops) {
+    'advgame/gameprops',
+    'advgame/gameconsole'
+], function (gamestage, gameprops, gameconsole) {
 
     var pc = [],
 
@@ -23,6 +24,7 @@ define([
                 );
                 _c.x = 0;
                 _c.y = 230;
+                _c.name = c.name;
                 _c.speed = c.speed;
                 _c.attitude = 'standright';
                 _c.gotoAndPlay(_c.attitude);
@@ -69,6 +71,11 @@ define([
                 pcContainer.addChild(characters[i]);
             }
             gamestage.addChild(pcContainer);
+
+            for (i = 0; i < characters.length; i++) {
+                characters[i].addEventListener("mouseover", $.proxy(gameconsole.onCharacterMouseOver, this));
+                characters[i].addEventListener("mouseout", $.proxy(gameconsole.onCharacterMouseOut, this));
+            }
         };
 
     return {

@@ -16,14 +16,14 @@ define([
             main = {};
 
             // Title
-            main.title = new createjs.Text(omain.title, "20px Arial", "#FFFFFF");
+            main.title = new createjs.Text(omain.title, "20px the8bit", "#FFFFFF");
             main.title.textAlign = "center";
             main.title.textBaseline = "middle";
             main.title.x = gamestage.getCanvasXY().x / 2;
             main.title.y = 20;
 
             // Author
-            main.author = new createjs.Text(omain.author, "17px Arial", "#CCCCCC");
+            main.author = new createjs.Text(omain.author, "17px the8bit", "#CCCCCC");
             main.author.textAlign = "center";
             main.author.textBaseline = "middle";
             main.author.x = gamestage.getCanvasXY().x / 2;
