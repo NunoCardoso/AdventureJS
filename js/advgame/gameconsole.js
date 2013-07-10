@@ -4,15 +4,16 @@
  * This module handles main menu stuff
  */
 define([
+    'advgame/gameconfig',
     'advgame/gameprops',
-    'advgame/gamestage',
-], function (gameprops, gamestage) {
+    'advgame/gamestage'
+], function (
+    gameconfig,
+    gameprops,
+    gamestage
+) {
 
     var _,
-        x = 0,
-        y = 400,
-        w = 800,
-        h = 200,
 
         prepare = function (oconsole) {
 
@@ -21,7 +22,13 @@ define([
             // black background
             _.background = new createjs.Shape();
             _.background.name = "_Background";
-            _.background.graphics.beginFill("black").drawRoundRect(x, y, w, h, 0);
+            _.background.graphics.beginFill("black")
+                .drawRoundRect(
+                    gameconfig.get('console.x'),
+                    gameconfig.get('console.y'),
+                    gameconfig.get('console.w'),
+                    gameconfig.get('console.h'),
+                0);
 
             // action
             _.action = new createjs.Text("", "16px the8bit", "#FFFFFF");
