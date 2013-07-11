@@ -11,7 +11,7 @@ define([
     var main,
         fixedHeight = 400,
 
-        prepare = function (omain, queue) {
+        _prepare = function (omain, queue) {
 
             main = {};
 
@@ -59,7 +59,7 @@ define([
             main.startButtonLabel.x = gamestage.getCanvasXY().x / 2;
             main.startButtonLabel.y = 150 + height / 2;
 
-            gameprops.set('main', main);
+            //gameprops.set('main', main);
         },
 
         onBackgroundClick = function (e) {
@@ -81,11 +81,12 @@ define([
             main.startButton.alpha = 0.5;
         },
 
-        render = function () {
+        render = function (omain, queue) {
             var bottom = new createjs.Container(),
                 middle = new createjs.Container();
 
-            main = gameprops.get('main');
+            _prepare(omain, queue);
+            //main = gameprops.get('main');
 
             bottom.addChild(
                 main.background,
@@ -115,7 +116,6 @@ define([
         };
 
     return {
-        'prepare' : prepare,
         'render' : render
     };
 });

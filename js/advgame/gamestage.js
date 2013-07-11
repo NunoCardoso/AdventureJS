@@ -30,12 +30,11 @@ define([
 
         onTick = function (event) {
             var i,
-                props = gameprops.get();
-            if (props.characters && clickedXY) {
-                for (i = 0; i < props.characters.length; i++) {
-                    if (props.characters[i].updatePosition) {
-                        props.characters[i].updatePosition(clickedXY);
-                    }
+                pc = stage.getChildByName('you');
+                //props = gameprops.get();
+            if (pc && clickedXY) {
+                if (pc.updatePosition) {
+                    pc.updatePosition(clickedXY);
                 }
             }
             stage.update(event);

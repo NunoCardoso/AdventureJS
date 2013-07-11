@@ -4,14 +4,16 @@
  * This module handles the playable character
  */
 define([
+    'advgame/gameconfig',
     'advgame/gamestage',
     'advgame/gameprops',
     'advgame/gameconsole'
-], function (gamestage, gameprops, gameconsole) {
+], function (gameconfig, gamestage, gameprops, gameconsole) {
 
-    var pc = [],
+    var pc,
 
-        prepare = function (characters, queue) {
+        _prepare = function (characters, queue) {
+            pc = [];
             var i, c, _c;
             for (i = 0; i < characters.length; i++) {
                 c = characters[i];
@@ -58,7 +60,7 @@ define([
                 }
                 pc[i] = _c;
             }
-            gameprops.set('characters', pc);
+           // gameprops.set('characters', pc);
         },
 
         onCharacterMouseOver = function (e) {
@@ -68,28 +70,25 @@ define([
 
         onCharacterMouseOut = function (e) {
             console.log("character mouse out");
-            gameconsole.get().action.text = '';
+            gameconsole.get().action.text = gameconfig.get('console.action.defaultText');
         },
 
-        render = function () {
-            var pcContainer,
-                i,
-                characters = gameprops.get('characters');
+        render = function (characters, queue) {
+            var pcContainer = new createjs.Container(),
+                i;
 
-            pcContainer = new createjs.Container();
-            for (i = 0; i < characters.length; i++) {
-                pcContainer.addChild(characters[i]);
+            _prepare(characters, queue);
+
+            for (i = 0; i < pc.length; i++) {
+                pcContainer.addChild(pc[i]);
+                pc[i].addEventListener("mouseover", $.proxy(onCharacterMouseOver, this));
+                pc[i].addEventListener("mouseout", $.proxy(onCharacterMouseOut, this));
             }
             gamestage.addChild(pcContainer);
 
-            for (i = 0; i < characters.length; i++) {
-                characters[i].addEventListener("mouseover", $.proxy(onCharacterMouseOver, this));
-                characters[i].addEventListener("mouseout", $.proxy(onCharacterMouseOut, this));
-            }
         };
 
     return {
-        'prepare' : prepare,
         'render'  : render
     };
 });

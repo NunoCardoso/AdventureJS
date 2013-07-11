@@ -25,15 +25,12 @@ define([
          */
         var renderMainMenu = function (queue) {
                 console.log('Images loaded');
-                mainMenu.prepare(options.main, queue.target);
-                mainMenu.render();
+                mainMenu.render(options.main, queue.target);
 
-                gameconsole.prepare(options.console, queue.target);
-                gameconsole.render();
+                gameconsole.render(options.console, queue.target);
 
 // add the PC, for now
-                playablecharacter.prepare(options.characters, queue.target);
-                playablecharacter.render();
+                playablecharacter.render(options.characters, queue.target);
             },
 
             /**

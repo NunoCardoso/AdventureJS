@@ -15,7 +15,7 @@ define([
 
     var _,
 
-        prepare = function (oconsole) {
+        _prepare = function (oconsole) {
 
             _ = {};
 
@@ -31,7 +31,7 @@ define([
                 0);
 
             // action
-            _.action = new createjs.Text("", "16px the8bit", "#FFFFFF");
+            _.action = new createjs.Text(gameconfig.get('console.action.defaultText'), "16px the8bit", "#FFFFFF");
             _.action.textAlign = "center";
             _.action.textBaseline = "top";
             _.action.x = gamestage.getCanvasXY().x / 2;
@@ -70,35 +70,35 @@ define([
 
 				_.verbs[i].hitArea = hitArea;
             }
-            gameprops.set('gameconsole', _);
+            //gameprops.set('gameconsole', _);
         },
 
         get = function () {
             return _;
         },
 
-		onVerbMouseOver = function (e) {
+		_onVerbMouseOver = function (e) {
 			console.log("verb mouse over");
 			// e.target is the verb
 			e.target.alpha = 1;
 		},
 
-		onVerbMouseOut = function (e) {
+		_onVerbMouseOut = function (e) {
 			console.log("verb mouse out");
 			// e.target is the verb
 			e.target.alpha = 0.7;
 		},
 
-		onVerbClick = function (e) {
+		_onVerbClick = function (e) {
 			console.log("verb click");
 			_.action.text = e.target.name;
 		},
 
-		render = function () {
+		render = function (oconsole) {
             var i,
                 container = new createjs.Container();
 
-            _ = gameprops.get('gameconsole');
+            _prepare(oconsole);
 
             container.addChild(
                 _.background,
@@ -109,15 +109,14 @@ define([
 				container.addChild(
                     _.verbs[i]
                 );
-                _.verbs[i].addEventListener('mouseover', $.proxy(onVerbMouseOver, this));
-                _.verbs[i].addEventListener('mouseout', $.proxy(onVerbMouseOut, this));
-                _.verbs[i].addEventListener('click', $.proxy(onVerbClick, this));
+                _.verbs[i].addEventListener('mouseover', $.proxy(_onVerbMouseOver, this));
+                _.verbs[i].addEventListener('mouseout', $.proxy(_onVerbMouseOut, this));
+                _.verbs[i].addEventListener('click', $.proxy(_onVerbClick, this));
 			}
             gamestage.addChild(container);
 		};
 
     return {
-        'prepare' : prepare,
         'render' : render,
         'get'   : get
     };
