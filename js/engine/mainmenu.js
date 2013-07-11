@@ -4,8 +4,8 @@
  * This module handles main menu stuff
  */
 define([
-    'advgame/gamestage',
-    'advgame/images'
+    'engine/gamestage',
+    'engine/images'
 ], function (gamestage, images) {
 
     var main,

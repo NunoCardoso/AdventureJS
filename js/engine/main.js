@@ -5,7 +5,7 @@
  */
 
 define([
-	'advgame/game',
+	'engine/game',
 	'games/compass'
 ], function (Game, compass) {
 

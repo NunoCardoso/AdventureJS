@@ -4,10 +4,10 @@
  * This module handles the playable character
  */
 define([
-    'advgame/gameconfig',
-    'advgame/images',
-    'advgame/gamestage',
-    'advgame/gameconsole'
+    'engine/gameconfig',
+    'engine/images',
+    'engine/gamestage',
+    'engine/gameconsole'
 ], function (gameconfig, images, gamestage, gameconsole) {
 
     var pc,

@@ -4,11 +4,11 @@
  * This module bootstraps the game on the main menu
  */
 define([
-    'advgame/mainmenu',
-    'advgame/images',
-    'advgame/playablecharacter',
-    'advgame/gamestage',
-    'advgame/gameconsole'
+    'engine/mainmenu',
+    'engine/images',
+    'engine/playablecharacter',
+    'engine/gamestage',
+    'engine/gameconsole'
 ], function (
 	mainMenu,
 	images,

@@ -4,9 +4,9 @@
  * This module handles main menu stuff
  */
 define([
-    'advgame/gameconfig',
-    'advgame/images',
-    'advgame/gamestage'
+    'engine/gameconfig',
+    'engine/images',
+    'engine/gamestage'
 ], function (
     gameconfig,
     images,
