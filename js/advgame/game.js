@@ -23,13 +23,11 @@ define([
          */
         var renderMainMenu = function (queue) {
                 console.log('Images loaded');
-                mainMenu.render(options.main, queue.target);
-
-                gameconsole.render(options.console, queue.target);
-
+                images.setQueueLoaded(queue.target);
+                mainMenu.render(options.main);
+                gameconsole.render(options.console);
                 // add the PC, for now
-                playablecharacter.render(options.characters, queue.target);
-
+                playablecharacter.render(options.characters);
                 // add tick listener
                 gamestage.activate();
             },

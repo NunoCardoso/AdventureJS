@@ -5,12 +5,13 @@
  */
 define([
     'advgame/gamestage',
-], function (gamestage) {
+    'advgame/images'
+], function (gamestage, images) {
 
     var main,
         fixedHeight = 400,
 
-        _prepare = function (omain, queue) {
+        _prepare = function (omain) {
 
             main = {};
 
@@ -29,14 +30,14 @@ define([
             main.author.y = 50;
 
             // Description
-            main.description = new createjs.Text(omain.description, "14px Arial", "#FFFFFF");
+            main.description = new createjs.Text(omain.description, "14px the8bit", "#FFFFFF");
             main.description.textAlign = "center";
             main.description.textBaseline = "middle";
             main.description.x = gamestage.getCanvasXY().x / 2;
             main.description.y = 100;
 
             // Main Background
-            main.background = new createjs.Bitmap(queue.getResult(omain.background));
+            main.background = new createjs.Bitmap(images.getQueueLoaded().getResult(omain.background));
             main.background.scaleX = gamestage.getCanvasXY().x / main.background.image.width;
             main.background.scaleY = fixedHeight / main.background.image.height;
 
@@ -52,7 +53,7 @@ define([
             main.startButton.graphics.beginFill("red").drawRoundRect(x, y, width, height, round);
 
             // start button label
-            main.startButtonLabel = new createjs.Text("start game!", "bold 24px Arial", "#FFFFFF");
+            main.startButtonLabel = new createjs.Text("start game!", "bold 24px the8bit", "#FFFFFF");
             main.startButtonLabel.textAlign = "center";
             main.startButtonLabel.textBaseline = "middle";
             main.startButtonLabel.x = gamestage.getCanvasXY().x / 2;
@@ -78,11 +79,11 @@ define([
             main.startButton.alpha = 0.5;
         },
 
-        render = function (omain, queue) {
+        render = function (omain) {
             var bottom = new createjs.Container(),
                 middle = new createjs.Container();
 
-            _prepare(omain, queue);
+            _prepare(omain);
 
             bottom.addChild(
                 main.background,

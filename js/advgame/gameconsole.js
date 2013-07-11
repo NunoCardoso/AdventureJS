@@ -5,12 +5,13 @@
  */
 define([
     'advgame/gameconfig',
+    'advgame/images',
     'advgame/gamestage'
 ], function (
     gameconfig,
+    images,
     gamestage
 ) {
-
     var _,
 
         _prepare = function (oconsole) {

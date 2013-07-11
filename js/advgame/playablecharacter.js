@@ -5,20 +5,21 @@
  */
 define([
     'advgame/gameconfig',
+    'advgame/images',
     'advgame/gamestage',
     'advgame/gameconsole'
-], function (gameconfig, gamestage, gameconsole) {
+], function (gameconfig, images, gamestage, gameconsole) {
 
     var pc,
 
-        _prepare = function (characters, queue) {
+        _prepare = function (characters) {
             pc = [];
             var i, c, _c;
             for (i = 0; i < characters.length; i++) {
                 c = characters[i];
                 _c = new createjs.BitmapAnimation(
                     new createjs.SpriteSheet({
-                        images: [queue.getResult(c.images)],
+                        images: [images.getQueueLoaded().getResult(c.images)],
                         frames: c.frames,
                         animations: c.animations
                     })
@@ -71,12 +72,12 @@ define([
             gameconsole.get().action.text = gameconfig.get('console.action.defaultText');
         },
 
-        render = function (characters, queue) {
+        render = function (characters) {
             var pcContainer = new createjs.Container(),
                 i;
 
             pcContainer.name = 'pcContainer';
-            _prepare(characters, queue);
+            _prepare(characters);
 
             for (i = 0; i < pc.length; i++) {
                 pcContainer.addChild(pc[i]);

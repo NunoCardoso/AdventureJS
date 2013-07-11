@@ -7,8 +7,10 @@ define([
 ], function (
 ) {
 
-    var queue;
-    var preload = function (options) {
+    var queue,
+        queueLoaded,
+
+        preload = function (options) {
             var manifest = [],
                 queue = new createjs.LoadQueue();
 
@@ -17,17 +19,22 @@ define([
             queue.loadManifest(options.images);
         },
 
-        getQueue = function () {
-            return queue;
+        setQueueLoaded = function (_queueLoaded) {
+            queueLoaded = _queueLoaded;
+        },
+
+        getQueueLoaded = function () {
+            return queueLoaded;
         },
 
         get = function (item) {
-            queue.getResult(item);
+            queueLoaded.getResult(item);
         };
 
     return {
         'preload' : preload,
         'get' : get,
-        'getQueue' : getQueue
+        'setQueueLoaded' : setQueueLoaded,
+        'getQueueLoaded' : getQueueLoaded
     };
 });
