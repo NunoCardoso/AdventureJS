@@ -5,8 +5,7 @@
  * on the Tick, it reads game props, then renders the stage
  */
 define([
-    'advgame/gameprops'
-], function (gameprops) {
+], function () {
 
     var stage,
         clickedXY,
@@ -29,9 +28,11 @@ define([
         },
 
         onTick = function (event) {
-            var i,
-                pc = stage.getChildByName('you');
-                //props = gameprops.get();
+            var container = stage.getChildByName('pcContainer'),
+                pc;
+            if (container) {
+                pc = container.getChildByName('you');
+            }
             if (pc && clickedXY) {
                 if (pc.updatePosition) {
                     pc.updatePosition(clickedXY);
@@ -46,7 +47,9 @@ define([
                 x : $("#canvas").width(),
                 y : $("#canvas").height()
             };
+        },
 
+        activate = function () {
             // make it faster.
             stage.autoClear = false;
             // allow mouseOver with a pool of 25 times per second
@@ -58,6 +61,7 @@ define([
 
     return {
         'init' : init,
+        'activate' : activate,
         'addChild' : addChild,
         'setClickedXY' : setClickedXY,
         'getCanvasXY' : getCanvasXY,

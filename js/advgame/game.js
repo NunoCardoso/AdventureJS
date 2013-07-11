@@ -8,14 +8,12 @@ define([
     'advgame/images',
     'advgame/playablecharacter',
     'advgame/gamestage',
-    'advgame/gameprops',
     'advgame/gameconsole'
 ], function (
 	mainMenu,
 	images,
 	playablecharacter,
 	gamestage,
-	gameprops,
     gameconsole
 ) {
     var game = function (options) {
@@ -29,8 +27,11 @@ define([
 
                 gameconsole.render(options.console, queue.target);
 
-// add the PC, for now
+                // add the PC, for now
                 playablecharacter.render(options.characters, queue.target);
+
+                // add tick listener
+                gamestage.activate();
             },
 
             /**
@@ -39,7 +40,6 @@ define([
              * rendering the main menu
              */
             start = function () {
-                gameprops.init();
                 gamestage.init();
                 images.preload({
                     images: options.images,

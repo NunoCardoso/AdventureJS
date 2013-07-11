@@ -5,11 +5,9 @@
  */
 define([
     'advgame/gameconfig',
-    'advgame/gameprops',
     'advgame/gamestage'
 ], function (
     gameconfig,
-    gameprops,
     gamestage
 ) {
 
@@ -70,7 +68,6 @@ define([
 
 				_.verbs[i].hitArea = hitArea;
             }
-            //gameprops.set('gameconsole', _);
         },
 
         get = function () {

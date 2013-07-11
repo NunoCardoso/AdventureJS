@@ -4,9 +4,8 @@
  * This module handles main menu stuff
  */
 define([
-    'advgame/gameprops',
     'advgame/gamestage',
-], function (gameprops, gamestage) {
+], function (gamestage) {
 
     var main,
         fixedHeight = 400,
@@ -58,8 +57,6 @@ define([
             main.startButtonLabel.textBaseline = "middle";
             main.startButtonLabel.x = gamestage.getCanvasXY().x / 2;
             main.startButtonLabel.y = 150 + height / 2;
-
-            //gameprops.set('main', main);
         },
 
         onBackgroundClick = function (e) {
@@ -86,7 +83,6 @@ define([
                 middle = new createjs.Container();
 
             _prepare(omain, queue);
-            //main = gameprops.get('main');
 
             bottom.addChild(
                 main.background,
@@ -107,12 +103,6 @@ define([
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));
             main.startButton.addEventListener("mouseover", $.proxy(onStartButtonMouseOver, this));
             main.startButton.addEventListener("mouseout", $.proxy(onStartButtonMouseOut, this));
-
-            /*   onStartButtonMouseOver = function (e) {
-                console.log("start button mouse over!");
-            },
-            */
-            //    _.main.startButton.addEventListener("mouseover", $.proxy(onStartButtonMouseOver, this));
         };
 
     return {

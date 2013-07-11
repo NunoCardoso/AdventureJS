@@ -6,9 +6,8 @@
 define([
     'advgame/gameconfig',
     'advgame/gamestage',
-    'advgame/gameprops',
     'advgame/gameconsole'
-], function (gameconfig, gamestage, gameprops, gameconsole) {
+], function (gameconfig, gamestage, gameconsole) {
 
     var pc,
 
@@ -60,7 +59,6 @@ define([
                 }
                 pc[i] = _c;
             }
-           // gameprops.set('characters', pc);
         },
 
         onCharacterMouseOver = function (e) {
@@ -77,6 +75,7 @@ define([
             var pcContainer = new createjs.Container(),
                 i;
 
+            pcContainer.name = 'pcContainer';
             _prepare(characters, queue);
 
             for (i = 0; i < pc.length; i++) {
