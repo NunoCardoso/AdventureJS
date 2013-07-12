@@ -23,10 +23,10 @@ define([], function () {
         this.y = options.y;
 
         // hovering on text sucks. Let's add a flat hit area!
- /*       var hitArea = new createjs.Shape();
+       var hitArea = new createjs.Shape();
         hitArea.graphics.beginFill("red")
             .drawRect(-10, -30, options.w, options.h);
         this.hitArea = hitArea;
-    */};
+    };
     return Verb;
 });
