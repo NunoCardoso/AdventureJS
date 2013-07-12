@@ -6,71 +6,76 @@
 define([
     'engine/gameconfig',
     'engine/images',
-    'engine/gamestage'
+    'engine/gamestage',
+    'engine/console/verb',
+    'engine/console/background',
+    'engine/console/sentence'
 ], function (
     gameconfig,
     images,
-    gamestage
+    gamestage,
+    Verb,
+    Background,
+    Sentence
 ) {
     var _,
+
+        _calculateVerbPosition = function (i, params) {
+
+            var rowNumber = parseInt(i / params.maxColumns, 10),
+                colNumber = i % params.maxColumns,
+                positionX = params.initialX + colNumber * params.incrementX,
+                positionXwithMargin = positionX + 10,
+                positionY = params.initialY + rowNumber * params.incrementY,
+                positionYonMiddle = positionY + (params.incrementY / 2); // align middle
+
+            return {
+                'x' : positionXwithMargin,
+                'y' : positionYonMiddle
+            };
+        },
 
         _prepare = function (oconsole) {
 
             _ = {};
 
-            // black background
-            _.background = new createjs.Shape();
-            _.background.name = "_Background";
-            _.background.graphics.beginFill("black")
-                .drawRoundRect(
-                    gameconfig.get('console.x'),
-                    gameconfig.get('console.y'),
-                    gameconfig.get('console.w'),
-                    gameconfig.get('console.h'),
-                0);
+            _.background = new Background({
+                x : gameconfig.get('console.x'),
+                y : gameconfig.get('console.y'),
+                w : gameconfig.get('console.w'),
+                h : gameconfig.get('console.h')
+            });
 
-            // action
-            _.action = new createjs.Text(gameconfig.get('console.action.defaultText'), "20px the8bit", "#FFFFFF");
-            _.action.textAlign = "center";
-            _.action.textBaseline = "top";
-            _.action.x = gamestage.getCanvasXY().x / 2;
-            _.action.y = 401;
-            // when mouse out on verbs, if there is a locked verb (clicked previously),
-            // do not remove it from action
-            _.action.lockedVerb = false;
+            _.sentence = new Sentence(
+                gameconfig.get('console.sentence.defaultText'),
+                {
+                    x : gameconfig.get('console.w') / 2,
+                    y : gameconfig.get('console.y')
+                }
+            );
 
             // verbs
             _.verbs = [];
+
             var i,
-                initialX = 0,
-                initialY = 420,
-                incrementX = 133,
-                incrementY = 40,
-                maxColumns = 3;
+                verbParams = {
+                    initialX   : 0,
+                    initialY   : gameconfig.get('console.verbs.y'),
+                    incrementX : gameconfig.get('console.verbs.incrementX'),
+                    incrementY : gameconfig.get('console.verbs.incrementY'),
+                    maxColumns : gameconfig.get('console.verbs.columns')
+                };
 
             for (i = 0; i < oconsole.verbs.length; i++) {
-                var verb = oconsole.verbs[i];
-                _.verbs[i] = new createjs.Text(verb.first, "28px the8bit", "#FFFFFF");
+                var position = _calculateVerbPosition(i, verbParams);
 
-                _.verbs[i].textAlign = "left";
-                _.verbs[i].textBaseline = "middle";
-                _.verbs[i].alpha = 0.7;
-                var rowNumber = parseInt(i / maxColumns, 10);
-                var colNumber = i % maxColumns;
-
-                var positionX = initialX + colNumber * incrementX;
-                var positionXwithMargin = positionX + 10;
-                var positionY = initialY + rowNumber * incrementY;
-                var positionYonMiddle = positionY + (incrementY / 2); // align middle
-                _.verbs[i].x = positionXwithMargin;
-                _.verbs[i].y = positionYonMiddle;
-
-                // hovering on text sucks. Let's add a flat hit area!
-                var hitArea = new createjs.Shape();
-                hitArea.graphics.beginFill("red")
-                    .drawRect(-10, -30, incrementX, incrementY);
-
-				_.verbs[i].hitArea = hitArea;
+                _.verbs[i] = new Verb({
+                    text : oconsole.verbs[i].first,
+                    x    : position.x,
+                    y    : position.y,
+                    w    : gameconfig.get('console.verbs.incrementX'),
+                    h    : gameconfig.get('console.verbs.incrementY')
+                });
             }
         },
 
@@ -82,35 +87,36 @@ define([
 			console.log("verb mouse over");
 			// e.target is the verb
 			e.target.alpha = 1;
-            _.action.text = e.target.text;
+            _.sentence.text = e.target.text;
 		},
 
 		_onVerbMouseOut = function (e) {
 			console.log("verb mouse out");
 			// e.target is the verb
 			e.target.alpha = 0.7;
-            if (_.action.lockedVerb) {
-                _.action.text = _.action.lockedVerb.text;
+            if (_.sentence.lockedVerb) {
+                _.sentence.text = _.sentence.lockedVerb.text;
             } else {
-                _.action.text = gameconfig.get('console.verbs.defaultText');
+                _.sentence.text = gameconfig.get('console.verbs.defaultText');
             }
 		},
 
 		_onVerbClick = function (e) {
 			console.log("verb click");
-            _.action.lockedVerb = e.target;
-			_.action.text = e.target.text;
+            _.sentence.lockedVerb = e.target;
+			_.sentence.text = e.target.text;
 		},
 
 		render = function (oconsole) {
             var i,
                 container = new createjs.Container();
 
+            container.name = 'container.console';
             _prepare(oconsole);
 
             container.addChild(
                 _.background,
-                _.action
+                _.sentence
             );
 
             for (i = 0; i < _.verbs.length; i++) {
@@ -121,6 +127,7 @@ define([
                 _.verbs[i].addEventListener('mouseout',  $.proxy(_onVerbMouseOut, this));
                 _.verbs[i].addEventListener('click',     $.proxy(_onVerbClick, this));
 			}
+
             gamestage.addChild(container);
 		};
 

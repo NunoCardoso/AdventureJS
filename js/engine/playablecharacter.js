@@ -64,12 +64,12 @@ define([
 
         onCharacterMouseOver = function (e) {
             console.log("character mouse over");
-            gameconsole.get().action.text = gameconsole.get().action.lockedVerb.text + ' ' + e.target.name;
+            gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + e.target.name;
         },
 
         onCharacterMouseOut = function (e) {
             console.log("character mouse out");
-            gameconsole.get().action.text = gameconfig.get('console.action.defaultText');
+            gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
         },
 
         render = function (characters) {
