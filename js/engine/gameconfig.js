@@ -14,7 +14,7 @@ define([
         verbWidth = 400,
         verbHeight = consoleHeight - actionHeight,
         verbColumns = 3,
-        verbRows = 4,
+        verbRows = 3,
 
         _ = {
             'console.x' : 0,
@@ -24,6 +24,7 @@ define([
             'console.action.y' : gameHeight,
             'console.verbs.x' : 0,
             'console.verbs.y' : gameHeight + consoleHeight,
+            'console.verbs.defaultText' : 'Look at',
             'console.verbs.columns' : verbColumns,
             'console.verbs.rows' : verbRows,
             'console.verbs.incrementX' : parseInt(verbWidth / verbColumns, 10),

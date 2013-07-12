@@ -36,18 +36,18 @@
 <label for="main.startingScene">Starting scene</label>
 <select id="main.startingScene" size=1></select>
 <BR>
-<label for="main.startingInventory">Starting inventory</label>
-<select id="main.startingInventory" size=5 multiple>
-{{#each main.startingInventory}}
+<label for="console.startingInventory">Starting inventory</label>
+<select id="console.startingInventory" size=5 multiple>
+{{#each console.startingInventory}}
 <option>{{this}}</option>
 {{/each}}
 </select>
-<select id="main.notOnStartingInventory" size=5 multiple></select>
+<select id="console.notOnStartingInventory" size=5 multiple></select>
 <BR>
 
-<label for="main.verbs">Verbs</label>
+<label for="console.verbs">Verbs</label>
 <BR>
-<table id="main.verbs" class="tablesorter">
+<table id="console.verbs" class="tablesorter">
     <thead>
         <tr>
             <th>Main verb</th>
@@ -56,7 +56,7 @@
         </tr>
     </thead>
     <tbody>
-    {{#each main.verbs}}
+    {{#each console.verbs}}
         <tr>
             <td>{{this.first}}</td>
             <td>{{this.nr}}</td>

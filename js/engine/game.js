@@ -8,12 +8,14 @@ define([
     'engine/images',
     'engine/playablecharacter',
     'engine/gamestage',
-    'engine/gameconsole'
+    'engine/keyboard',
+    'engine/console/main'
 ], function (
 	mainMenu,
 	images,
 	playablecharacter,
 	gamestage,
+    keyboard,
     gameconsole
 ) {
     var game = function (options) {
@@ -29,6 +31,7 @@ define([
                 // add the PC, for now
                 playablecharacter.render(options.characters);
                 // add tick listener
+                keyboard.attachEvents();
                 gamestage.activate();
             },
 

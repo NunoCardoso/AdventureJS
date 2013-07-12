@@ -35,14 +35,15 @@ define([
                 'needle01'
             ],
             'verbs': [
-                {'first': 'Open', 'nr' : 1},
-                {'first': 'Close', 'nr' : 1},
-                {'first': 'Look at', 'nr' : 1},
-                {'first': 'Push', 'nr' : 1},
-                {'first': 'Pull', 'nr' : 1},
-                {'first': 'Talk to', 'nr' : 1},
                 {'first': 'Give', 'nr' : 2, 'second': 'to'},
-                {'first': 'Use', 'nr' : 2, 'second': 'with'}
+                {'first': 'Use', 'nr' : 2, 'second': 'with'},
+                {'first': 'Pick up', 'nr' : 1},
+                {'first': 'Open', 'nr' : 1},
+                {'first': 'Push', 'nr' : 1},
+                {'first': 'Look at', 'nr' : 1},
+                {'first': 'Close', 'nr' : 1},
+                {'first': 'Pull', 'nr' : 1},
+                {'first': 'Talk to', 'nr' : 1}
             ]
         },
         'characters': [{
@@ -59,8 +60,8 @@ define([
                 'width' : 104
             },
             'animations': {
-                'walkright' : [0, 5, 'walkright', 5],
-                'walkleft'  : [6, 11, 'walkleft', 5],
+                'walkright' : [0, 5, 'walkright', 6],
+                'walkleft'  : [6, 11, 'walkleft', 6],
                 'standright': 12,
                 'standleft' : 13
             }

@@ -15,6 +15,10 @@ define([
             stage.addChild(container);
         },
 
+        getChildByName = function (name) {
+            return stage.getChildByName(name);
+        },
+
         setClickedXY = function (xy) {
             clickedXY = xy;
         },
@@ -63,6 +67,7 @@ define([
         'init' : init,
         'activate' : activate,
         'addChild' : addChild,
+        'getChildByName' : getChildByName,
         'setClickedXY' : setClickedXY,
         'getCanvasXY' : getCanvasXY,
         'setCanvasXY' : setCanvasXY,

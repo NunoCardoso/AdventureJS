@@ -40,6 +40,7 @@ define([
             main.background = new createjs.Bitmap(images.getQueueLoaded().getResult(omain.background));
             main.background.scaleX = gamestage.getCanvasXY().x / main.background.image.width;
             main.background.scaleY = fixedHeight / main.background.image.height;
+            main.background.name = "background";
 
             // start button
             main.startButton = new createjs.Shape();
@@ -80,25 +81,21 @@ define([
         },
 
         render = function (omain) {
-            var bottom = new createjs.Container(),
-                middle = new createjs.Container();
+            var mainmenuContainer = new createjs.Container();
+            mainmenuContainer.name = "mainmenuContainer";
 
             _prepare(omain);
 
-            bottom.addChild(
+            mainmenuContainer.addChild(
                 main.background,
                 main.title,
                 main.author,
-                main.description
-            );
-
-            middle.addChild(
+                main.description,
                 main.startButton,
                 main.startButtonLabel
             );
 
-            gamestage.addChild(bottom);
-            gamestage.addChild(middle);
+            gamestage.addChild(mainmenuContainer);
 
             main.background.addEventListener("click", $.proxy(onBackgroundClick, this));
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));

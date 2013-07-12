@@ -3,6 +3,6 @@
    src: url(../fnt/half_bold_pixel-7.ttf);
 }
 
-body, input, textarea, button {
-   font-family: the8bit;
+body, input, textarea, button, label, a, td, th, p, option {
+   font-family: the8bit !important;
 }

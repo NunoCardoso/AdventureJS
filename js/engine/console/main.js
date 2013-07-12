@@ -30,11 +30,14 @@ define([
                 0);
 
             // action
-            _.action = new createjs.Text(gameconfig.get('console.action.defaultText'), "16px the8bit", "#FFFFFF");
+            _.action = new createjs.Text(gameconfig.get('console.action.defaultText'), "20px the8bit", "#FFFFFF");
             _.action.textAlign = "center";
             _.action.textBaseline = "top";
             _.action.x = gamestage.getCanvasXY().x / 2;
             _.action.y = 401;
+            // when mouse out on verbs, if there is a locked verb (clicked previously),
+            // do not remove it from action
+            _.action.lockedVerb = false;
 
             // verbs
             _.verbs = [];
@@ -47,7 +50,7 @@ define([
 
             for (i = 0; i < oconsole.verbs.length; i++) {
                 var verb = oconsole.verbs[i];
-                _.verbs[i] = new createjs.Text(verb.first, "22px the8bit", "#FFFFFF");
+                _.verbs[i] = new createjs.Text(verb.first, "28px the8bit", "#FFFFFF");
 
                 _.verbs[i].textAlign = "left";
                 _.verbs[i].textBaseline = "middle";
@@ -79,17 +82,24 @@ define([
 			console.log("verb mouse over");
 			// e.target is the verb
 			e.target.alpha = 1;
+            _.action.text = e.target.text;
 		},
 
 		_onVerbMouseOut = function (e) {
 			console.log("verb mouse out");
 			// e.target is the verb
 			e.target.alpha = 0.7;
+            if (_.action.lockedVerb) {
+                _.action.text = _.action.lockedVerb.text;
+            } else {
+                _.action.text = gameconfig.get('console.verbs.defaultText');
+            }
 		},
 
 		_onVerbClick = function (e) {
 			console.log("verb click");
-			_.action.text = e.target.name;
+            _.action.lockedVerb = e.target;
+			_.action.text = e.target.text;
 		},
 
 		render = function (oconsole) {
@@ -108,8 +118,8 @@ define([
                     _.verbs[i]
                 );
                 _.verbs[i].addEventListener('mouseover', $.proxy(_onVerbMouseOver, this));
-                _.verbs[i].addEventListener('mouseout', $.proxy(_onVerbMouseOut, this));
-                _.verbs[i].addEventListener('click', $.proxy(_onVerbClick, this));
+                _.verbs[i].addEventListener('mouseout',  $.proxy(_onVerbMouseOut, this));
+                _.verbs[i].addEventListener('click',     $.proxy(_onVerbClick, this));
 			}
             gamestage.addChild(container);
 		};
