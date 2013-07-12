@@ -21,6 +21,20 @@ define([
                 'src' : 'img/object/wine-bottle.png'
             }
         ],
+        'sounds': [
+            {
+                'id'  : 'sound.fall',
+                'src' : 'snd/fall.wav'
+            },
+            {
+                'id'  : 'sound.laser',
+                'src' : 'snd/laser.aiff'
+            },
+            {
+                'id'  : 'sound.fight',
+                'src' : 'snd/fight.wav'
+            }
+        ],
         'main': {
             'title' : 'The compass',
             'author' : 'teacher@school.com',

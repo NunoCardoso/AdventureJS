@@ -9,14 +9,16 @@ define([
     'engine/gamestage',
     'engine/console/verb',
     'engine/console/background',
-    'engine/console/sentence'
+    'engine/console/sentence',
+    'engine/sounds'
 ], function (
     gameconfig,
     images,
     gamestage,
     Verb,
     Background,
-    Sentence
+    Sentence,
+    sounds
 ) {
     var _,
 
@@ -54,7 +56,6 @@ define([
                 }
             );
 
-            // verbs
             _.verbs = [];
 
             var i,
@@ -103,6 +104,7 @@ define([
 
 		_onVerbClick = function (e) {
 			console.log("verb click");
+            sounds.play('sound.fall');
             _.sentence.lockedVerb = e.target;
 			_.sentence.text = e.target.text;
 		},

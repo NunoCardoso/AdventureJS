@@ -6,6 +6,7 @@
 define([
     'engine/mainmenu',
     'engine/images',
+    'engine/sounds',
     'engine/playablecharacter',
     'engine/gamestage',
     'engine/keyboard',
@@ -13,6 +14,7 @@ define([
 ], function (
 	mainMenu,
 	images,
+    sounds,
 	playablecharacter,
 	gamestage,
     keyboard,
@@ -24,8 +26,6 @@ define([
          * asks mainMenu to render and display
          */
         var renderMainMenu = function (queue) {
-                console.log('Images loaded');
-                images.setQueueLoaded(queue.target);
                 mainMenu.render(options.main);
                 gameconsole.render(options.console);
                 // add the PC, for now
@@ -35,6 +35,20 @@ define([
                 gamestage.activate();
             },
 
+            onSoundsLoaded = function (queue) {
+                console.log('Sounds loaded');
+                renderMainMenu();
+            },
+
+            onImagesLoaded = function (queue) {
+                console.log('Images loaded');
+                images.setQueueLoaded(queue.target);
+                sounds.preload({
+                    sounds: options.sounds,
+                    onComplete: onSoundsLoaded
+                });
+            },
+
             /**
              * call that starts the game.
              * Game is started by preloading images, then when done,
@@ -42,9 +56,10 @@ define([
              */
             start = function () {
                 gamestage.init();
+                if (!createjs.Sound.initializeDefaultPlugins()) { return; }
                 images.preload({
                     images: options.images,
-                    onComplete: renderMainMenu
+                    onComplete: onImagesLoaded
                 });
             };
 
