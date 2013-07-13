@@ -15,10 +15,17 @@ define([
         verbHeight = consoleHeight - sentenceHeight,
         verbColumns = 3,
         verbRows = 3,
+        progressbarWidth = 200,
+        progressbarHeight = 20,
 
         _ = {
             'game.w'    : gameWidth,
             'game.h'    : gameHeight + consoleHeight,
+            'progressbar.x' : (gameWidth / 2) - (progressbarWidth / 2),
+            'progressbar.y' : (gameHeight / 2),
+            'progressbar.w' : progressbarWidth,
+            'progressbar.h' : progressbarHeight,
+            'loading' : 'Loading...',
             'console.x' : 0,
             'console.y' : gameHeight,
             'console.w' : gameWidth,

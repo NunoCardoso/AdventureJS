@@ -6,24 +6,18 @@
 define([
     'engine/mainmenu',
     'engine/assets',
-    'engine/sounds',
-    'engine/playablecharacter',
     'engine/gamestage',
     'engine/keyboard',
     'engine/console/main',
-    'engine/start/background',
-    'engine/start/progressbar',
+    'engine/start/main',
     'engine/gameconfig'
 ], function (
 	mainMenu,
 	assets,
-    sounds,
-	playablecharacter,
 	gamestage,
     keyboard,
     gameconsole,
-    Background,
-    ProgressBar,
+    gamestart,
     gameconfig
 ) {
     var game = function (options) {
@@ -53,57 +47,12 @@ define([
              * rendering the main menu
              */
             start = function () {
+
+                var assetList = options.images.concat(options.sounds);
                 gamestage.init();
-
-                // start Background
-                var background = new Background({
-                    x: 0,
-                    y: 0,
-                    w: gameconfig.get('game.w'),
-                    h: gameconfig.get('game.h')
-                }),
-
-                    p = {
-                        x : 20,
-                        y : 20,
-                        w : 200,
-                        h : 20
-                    },
-
-                    total = options.images.length + options.sounds.length,
-                    loaded = 0,
-                    remaining = total,
-                    w2 = parseInt(((loaded * p.w) / total), 10),
-
-                    progressbarleft = new ProgressBar({
-                        'x' : p.x,
-                        'y' : p.y,
-                        'w' : w2,
-                        'h' : p.h
-                    }, 'red'),
-
-                    progressbarright = new ProgressBar({
-                        'x' : p.x + w2,
-                        'y' : p.y,
-                        'w' : p.x + p.w,
-                        'h' : p.h
-                    }, 'white'),
-
-                    startContainer = new createjs.Container();
-
-                startContainer.name = "container.start";
-
-                startContainer.addChild(
-                    background,
-                    progressbarright,
-                    progressbarleft
-                );
-
-                gamestage.addChild(startContainer);
-                gamestage.update();
-                assets.preload({
-                    assets     : options.images.concat(options.sounds),
-                    onComplete : onAssetsLoaded
+                gamestart.init({
+                    'assetList' : assetList,
+                    'onAssetsLoaded' : onAssetsLoaded
                 });
             };
 

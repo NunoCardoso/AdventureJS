@@ -14,12 +14,11 @@ define([], function () {
         this.Background_initialize();
         this.name = "background.start";
         this.graphics.beginFill("black")
-            .drawRoundRect(
+            .drawRect(
                 boundaries.x,
                 boundaries.y,
                 boundaries.w,
-                boundaries.h,
-                0
+                boundaries.h
             );
     };
     return Background;
