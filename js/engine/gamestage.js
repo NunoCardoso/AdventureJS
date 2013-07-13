@@ -11,6 +11,10 @@ define([
         clickedXY,
         canvasXY,
 
+        update = function () {
+            stage.update();
+        },
+
         addChild = function (container) {
             stage.addChild(container);
         },
@@ -71,5 +75,6 @@ define([
         'setClickedXY' : setClickedXY,
         'getCanvasXY' : getCanvasXY,
         'setCanvasXY' : setCanvasXY,
+        'update':update
     };
 });

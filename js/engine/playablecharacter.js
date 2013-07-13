@@ -5,10 +5,10 @@
  */
 define([
     'engine/gameconfig',
-    'engine/images',
+    'engine/assets',
     'engine/gamestage',
     'engine/console/main'
-], function (gameconfig, images, gamestage, gameconsole) {
+], function (gameconfig, assets, gamestage, gameconsole) {
 
     var pc,
 
@@ -19,7 +19,7 @@ define([
                 c = characters[i];
                 _c = new createjs.BitmapAnimation(
                     new createjs.SpriteSheet({
-                        images: [images.getQueueLoaded().getResult(c.images)],
+                        images: [assets.getQueueLoaded().getResult(c.images)],
                         frames: c.frames,
                         animations: c.animations
                     })

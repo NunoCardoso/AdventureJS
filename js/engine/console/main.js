@@ -5,7 +5,7 @@
  */
 define([
     'engine/gameconfig',
-    'engine/images',
+    'engine/assets',
     'engine/gamestage',
     'engine/console/verb',
     'engine/console/background',
@@ -13,7 +13,7 @@ define([
     'engine/sounds'
 ], function (
     gameconfig,
-    images,
+    assets,
     gamestage,
     Verb,
     Background,

@@ -9,6 +9,10 @@ define([
                 'src' : 'img/background/jungle.jpg'
             },
             {
+                'id'  : 'background02',
+                'src' : 'img/background/legend-of-kyrandia.jpg'
+            },
+            {
                 'id'  : 'PC01',
                 'src' : 'img/character/guybrush.png'
             },
@@ -39,7 +43,7 @@ define([
             'title' : 'The compass',
             'author' : 'teacher@school.com',
             'description' : 'Can you build a compass?',
-            'background' : 'background01',
+            'background' : 'background02',
             'startingScene' : 'scene01'
         },
         'console' : {

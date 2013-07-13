@@ -17,6 +17,8 @@ define([
         verbRows = 3,
 
         _ = {
+            'game.w'    : gameWidth,
+            'game.h'    : gameHeight + consoleHeight,
             'console.x' : 0,
             'console.y' : gameHeight,
             'console.w' : gameWidth,

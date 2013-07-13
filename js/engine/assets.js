@@ -4,7 +4,9 @@
  * This module preloads images
  */
 define([
+    'engine/gamestage'
 ], function (
+    gamestage
 ) {
 
     var queue,
@@ -14,9 +16,16 @@ define([
             var manifest = [],
                 queue = new createjs.LoadQueue();
 
+            queue.addEventListener("fileload", function (e) {
+                console.log(e);
+                gamestage.update();
+            });
+
             queue.addEventListener("complete", options.onComplete);
-            // options.images structure is identical of the loadqueue manifest
-            queue.loadManifest(options.images);
+            // options.images structure is identical
+            // of the loadqueue manifest,
+            // so is options.sounds
+            queue.loadManifest(options.assets);
         },
 
         setQueueLoaded = function (_queueLoaded) {

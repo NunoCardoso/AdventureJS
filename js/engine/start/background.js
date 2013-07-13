@@ -12,7 +12,7 @@ define([], function () {
     Background.prototype.Background_initialize = Background.prototype.initialize;
     Background.prototype.initialize = function (boundaries) {
         this.Background_initialize();
-        this.name = "background.console";
+        this.name = "background.start";
         this.graphics.beginFill("black")
             .drawRoundRect(
                 boundaries.x,

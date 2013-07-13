@@ -5,8 +5,8 @@
  */
 define([
     'engine/gamestage',
-    'engine/images'
-], function (gamestage, images) {
+    'engine/assets'
+], function (gamestage, assets) {
 
     var main,
         fixedHeight = 400,
@@ -37,7 +37,7 @@ define([
             main.description.y = 100;
 
             // Main Background
-            main.background = new createjs.Bitmap(images.getQueueLoaded().getResult(omain.background));
+            main.background = new createjs.Bitmap(assets.getQueueLoaded().getResult(omain.background));
             main.background.scaleX = gamestage.getCanvasXY().x / main.background.image.width;
             main.background.scaleY = fixedHeight / main.background.image.height;
             main.background.name = "background";
