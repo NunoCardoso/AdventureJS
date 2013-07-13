@@ -27,6 +27,8 @@ define([
          */
         var renderMainMenu = function (queue) {
                 mainMenu.render(options.main);
+                // now tat main is rendered, clean the start container
+                gamestage.removeChild(gamestage.getChildByName('container.start'));
                 gameconsole.render(options.console);
                 // add the PC, for now
                 //playablecharacter.render(options.characters);

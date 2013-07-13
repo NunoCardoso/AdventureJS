@@ -19,6 +19,10 @@ define([
             stage.addChild(container);
         },
 
+        removeChild = function (container) {
+            stage.removeChild(container);
+        },
+
         getChildByName = function (name) {
             return stage.getChildByName(name);
         },
@@ -71,10 +75,11 @@ define([
         'init' : init,
         'activate' : activate,
         'addChild' : addChild,
+        'removeChild' : removeChild,
         'getChildByName' : getChildByName,
         'setClickedXY' : setClickedXY,
         'getCanvasXY' : getCanvasXY,
         'setCanvasXY' : setCanvasXY,
-        'update':update
+        'update': update
     };
 });
