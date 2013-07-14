@@ -9,14 +9,18 @@ define([
     'engine/gamestage',
     'engine/character/main',
     'engine/console/main',
-    'engine/object/main'
+    'engine/object/main',
+    'engine/scene/exit',
+    'engine/scene/background',
 ], function (
     assets,
     gameconfig,
     gamestage,
     playablecharacter,
     gameconsole,
-    gameobject
+    gameobject,
+    Exit,
+    Background
 ) {
     var GameScene = function (options) {
         this.initialize(options);
@@ -40,19 +44,11 @@ define([
 
         // if scene has background... (start scene does not have one)
         if (scene.background) {
-            this.background = new createjs.Bitmap(
-                assets.getQueueLoaded().getResult(scene.background)
-            );
-            this.background.scaleX = gameconfig.get('game.w') / this.background.image.width;
-            this.background.scaleY = gameconfig.get('game.h') / this.background.image.height;
-
-            if (this.interactable && scene.playableCharacter) {
-                this.background.addEventListener("click", $.proxy(function (e) {
-                    console.log("main menu background click!");
-                    this.playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
-                }, this));
-            }
-
+            this.background = new Background({
+                'background' : scene.background,
+                'interactable' : this.interactable,
+                'playableCharacter' : this.playableCharacter
+            });
             this.addChild(this.background);
         }
 
@@ -72,8 +68,8 @@ define([
         if (scene.exits) {
             this.exits = [];
             for (i = 0; i < scene.exits.length; i++) {
-                console.log("TODO");
-    //            this.exits[i] = new Exit(scene.exits[i]);
+                this.exits[i] = new Exit(scene.exits[i]);
+                this.addChild(this.exits[i]);
             }
         }
 

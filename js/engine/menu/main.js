@@ -24,7 +24,6 @@ define([
         nextScene,
 
         onStartButtonClick = function (e) {
-            console.log("starting " + nextScene);
             gamestage.switchScene('scene.menu',
                 gamescenemain.get('scene.' + nextScene)
                 );

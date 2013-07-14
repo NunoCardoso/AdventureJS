@@ -10,6 +10,17 @@ body, input, textarea, button {
 #canvas {
    width: 800px;
    height: 600px;
-   cursor: url(../img/cursor/crosshair.gif) 15 15;
    margin:auto;
+}
+
+#canvas.crosshair {
+    cursor: url(../img/cursor/crosshair.gif) 15 15;
+}
+
+#canvas.exitright {
+    cursor: url(../img/cursor/right.png) 15 15;
+}
+
+#canvas.exitleft {
+    cursor: url(../img/cursor/left.png) 15 15;
 }
