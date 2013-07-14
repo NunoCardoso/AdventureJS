@@ -48,20 +48,19 @@ define([
             }
         };
 
+        this.onObjectMouseOver = function (e) {
+            gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + this.label;
+        };
+
+        this.onObjectMouseOut = function (e) {
+            gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
+        };
+
         this.addListeners = function () {
             this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
             this.addEventListener("mouseout", $.proxy(this.onObjectMouseOut, this));
         };
     };
-
-    this.onObjectMouseOver = function (e) {
-        gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + this.label;
-    };
-
-    this.onObjectMouseOut = function (e) {
-        gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
-    };
-
 
     return GameObject;
 });

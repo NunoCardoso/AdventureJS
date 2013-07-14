@@ -34,7 +34,6 @@ define([
             },
 
             onAssetsLoaded = function () {
-
                 gameobjects.load(game.objects);
                 gamecharacter.load(game.playableCharacter);
                 gameconsole.load(game.console);

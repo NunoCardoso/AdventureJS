@@ -87,7 +87,7 @@ define([
         'objects': [
             {
                 'id': 'winebottle01',
-                'label': 'Wine bottle',
+                'label': 'wine bottle',
                 'imageInInventory': 'winebottleinventory01',
                 'imageInStage' : 'winebottle01',
                 'canBeOnStage' : false,

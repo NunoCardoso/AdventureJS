@@ -25,6 +25,7 @@ define([
         this.color = options.color;
 
         this.render = function () {
+            this.graphics.clear();
             this.graphics
                 .beginStroke("white")
                 .beginFill(this.color)
