@@ -10,5 +10,6 @@ body, input, textarea, button {
 #canvas {
    width: 800px;
    height: 600px;
-   cursor: url(../img/cursor/crosshair.gif);
+   cursor: url(../img/cursor/crosshair.gif) 15 15;
+   margin:auto;
 }

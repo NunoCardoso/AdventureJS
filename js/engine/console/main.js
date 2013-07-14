@@ -46,13 +46,7 @@ define([
                 h : gameconfig.get('console.h')
             });
 
-            _.sentence = new Sentence(
-                gameconfig.get('console.sentence.defaultText'),
-                {
-                    x : gameconfig.get('console.w') / 2,
-                    y : gameconfig.get('console.y')
-                }
-            );
+            _.sentence = new Sentence();
 
             _.verbs = [];
 

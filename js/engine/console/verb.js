@@ -11,6 +11,7 @@ define([], function () {
     Verb.prototype = new createjs.Text();
     Verb.prototype.Text_initialize = Verb.prototype.initialize;
     Verb.prototype.initialize = function (options) {
+
         this.Text_initialize();
         this.name = 'console.verb.' + options.text;
         this.text = options.text;
@@ -23,7 +24,7 @@ define([], function () {
         this.y = options.y;
 
         // hovering on text sucks. Let's add a flat hit area!
-       var hitArea = new createjs.Shape();
+        var hitArea = new createjs.Shape();
         hitArea.graphics.beginFill("red")
             .drawRect(-10, -30, options.w, options.h);
         this.hitArea = hitArea;
