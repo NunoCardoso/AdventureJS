@@ -5,7 +5,6 @@
  */
 define([
     'engine/menu/main',
-    'engine/assets',
     'engine/gamestage',
     'engine/keyboard',
     'engine/console/main',
@@ -15,14 +14,13 @@ define([
     'engine/character/main'
 ], function (
 	mainMenu,
-	assets,
 	gamestage,
     keyboard,
     gameconsole,
     gameobjects,
     gamestart,
     GameScene,
-    playablecharacter
+    gamecharacter
 ) {
     var game = function (game) {
 
@@ -43,14 +41,6 @@ define([
                 }
             },
 
-            loadPlayableCharacter = function () {
-                gamestage.stashPlayableCharacter(
-                    playablecharacter.render(
-                        game.playableCharacter
-                    )
-                );
-            },
-
             loadConsole = function () {
                 gamestage.stashConsole(
                     gameconsole.render(
@@ -59,12 +49,11 @@ define([
                 );
             },
 
-            onAssetsLoaded = function (queue) {
-                console.log('Assets loaded');
-                assets.setQueueLoaded(queue.target);
+            onAssetsLoaded = function () {
                 // load items that are accessory to scenes
-                loadPlayableCharacter();
                 gameobjects.load(game.objects);
+            //    gamecharacter.load(game.playableCharacter);
+
                 loadConsole();
                 // load scenes after assets are loaded
                 loadScenes();

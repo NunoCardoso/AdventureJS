@@ -4,15 +4,13 @@
  * This is the
  */
 define([
-    'engine/gameconfig',
-    'engine/console/main',
     'engine/assets',
-    'engine/gamestage'
+    'engine/console/main',
+    'engine/gameconfig'
 ], function (
-    gameconfig,
-    gameconsole,
     assets,
-    gamestage
+    gameconsole,
+    gameconfig
 ) {
     var PlayableCharacter = function (options) {
         this.initialize(options);

@@ -47,6 +47,11 @@ define([
                 this.image = this.imageInInventory;
             }
         };
+
+        this.addListeners = function () {
+            this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
+            this.addEventListener("mouseout", $.proxy(this.onObjectMouseOut, this));
+        };
     };
 
     this.onObjectMouseOver = function (e) {
@@ -57,8 +62,6 @@ define([
         gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
     };
 
-    this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
-    this.addEventListener("mouseout", $.proxy(this.onObjectMouseOut, this));
 
     return GameObject;
 });

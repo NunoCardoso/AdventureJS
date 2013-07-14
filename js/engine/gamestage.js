@@ -5,14 +5,15 @@
  * on the Tick, it reads game props, then renders the stage
  */
 define([
-    'engine/gameconfig'
+    'engine/gameconfig',
+    'engine/character/main'
 ], function (
-    gameconfig
+    gameconfig,
+    playablecharacter
 ) {
 
     var stage,
         stashedScenes = {},
-        stashedPlayableCharacter,
         stashedConsole,
 
         update = function () {
@@ -38,14 +39,6 @@ define([
 
         getStashedScene = function (key) {
             return stashedScenes[key];
-        },
-
-        stashPlayableCharacter = function (character) {
-            stashedPlayableCharacter = character;
-        },
-
-        getPlayableCharacter = function () {
-            return stashedPlayableCharacter;
         },
 
         stashConsole = function (console) {
@@ -77,9 +70,7 @@ define([
         },
 
         onTick = function (event) {
-            if (stashedPlayableCharacter) {
-                stashedPlayableCharacter.updatePosition();
-            }
+            playablecharacter.updatePosition();
             stage.update(event);
         },
 
@@ -108,8 +99,6 @@ define([
         'removeChild' : removeChild,
         'stashScene' : stashScene,
         'getStashScene' : getStashedScene,
-        'stashPlayableCharacter' : stashPlayableCharacter,
-        'getPlayableCharacter' : getPlayableCharacter,
         'stashConsole' : stashConsole,
         'getConsole' : getConsole,
         'removeStashedScene' : removeStashedScene,

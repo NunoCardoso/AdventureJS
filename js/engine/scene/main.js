@@ -7,13 +7,13 @@ define([
     'engine/assets',
     'engine/gameconfig',
     'engine/gamestage',
-    'engine/character/playablecharacter',
+    'engine/character/main',
     'engine/object/main'
 ], function (
     assets,
     gameconfig,
     gamestage,
-    PlayableCharacter,
+    playablecharacter,
     gameobject
 ) {
     var GameScene = function (options) {
@@ -30,12 +30,12 @@ define([
         this.interactable = scene.interactable;
         this.ending       = scene.ending;
 
-        if (scene.playableCharacter) {
-            this.playableCharacter   = gamestage.getPlayableCharacter();
+/*        if (scene.playableCharacter) {
+            this.playableCharacter   = playablecharacter.get();
             this.playableCharacter.x = scene.playableCharacter.position.x;
             this.playableCharacter.y = scene.playableCharacter.position.y;
         }
-
+*/
         // if scene has background... (start scene does not have one)
         if (scene.background) {
             this.background = new createjs.Bitmap(
@@ -62,6 +62,7 @@ define([
                 var o = gameobject.get(scene.objects[i].id);
                 o.renderAs('stage');
                 o.setDimensions(scene.objects[i]);
+                o.addListeners();
                 this.addChild(o);
             }
         }

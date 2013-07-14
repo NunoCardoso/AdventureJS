@@ -11,12 +11,23 @@ define([
 
     var pc,
 
-        render = function (character) {
+        load = function (character) {
             pc = new PlayableCharacter(character);
+        },
+
+        get = function () {
             return pc;
+        },
+
+        updatePosition = function () {
+            if (pc) {
+                pc.updatePosition();
+            }
         };
 
     return {
-        'render'  : render
+        'load' : load,
+        'get'  : get,
+        'updatePosition' : updatePosition
     };
 });

@@ -56,7 +56,11 @@ define([
 
         assets.preload({
             assetList  : options.assetList,
-            onComplete : options.onAssetsLoaded,
+            onComplete : function (queue) {
+                console.log('Assets loaded');
+                assets.setQueueLoaded(queue.target);
+                options.onAssetsLoaded.call();
+            },
             loadedFile : loadedFile,
             progressBar: progressBar
         });
