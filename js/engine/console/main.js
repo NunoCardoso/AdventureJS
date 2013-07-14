@@ -8,17 +8,17 @@ define([
     'engine/gamestage',
     'engine/console/verb',
     'engine/console/background',
-    'engine/console/sentence',
-    'engine/sounds'
+    'engine/console/sentence'
 ], function (
     gameconfig,
     gamestage,
     Verb,
     Background,
-    Sentence,
-    sounds
+    Sentence
 ) {
-    var _,
+    var background,
+        sentence,
+        verbs = [],
 
         _calculateVerbPosition = function (i, params) {
 
@@ -37,18 +37,14 @@ define([
 
         _prepare = function (oconsole) {
 
-            _ = {};
-
-            _.background = new Background({
+            background = new Background({
                 x : gameconfig.get('console.x'),
                 y : gameconfig.get('console.y'),
                 w : gameconfig.get('console.w'),
                 h : gameconfig.get('console.h')
             });
 
-            _.sentence = new Sentence();
-
-            _.verbs = [];
+            sentence = new Sentence();
 
             var i,
                 verbParams = {
@@ -62,7 +58,7 @@ define([
             for (i = 0; i < oconsole.verbs.length; i++) {
                 var position = _calculateVerbPosition(i, verbParams);
 
-                _.verbs[i] = new Verb({
+                verbs[i] = new Verb({
                     text : oconsole.verbs[i].first,
                     x    : position.x,
                     y    : position.y,
@@ -72,33 +68,24 @@ define([
             }
         },
 
-        get = function () {
-            return _;
-        },
-
 		_onVerbMouseOver = function (e) {
 			console.log("verb mouse over");
 			// e.target is the verb
 			e.target.alpha = 1;
-            _.sentence.text = e.target.text;
+            sentence.displayVerb(e.target);
 		},
 
 		_onVerbMouseOut = function (e) {
 			console.log("verb mouse out");
 			// e.target is the verb
 			e.target.alpha = 0.7;
-            if (_.sentence.lockedVerb) {
-                _.sentence.text = _.sentence.lockedVerb.text;
-            } else {
-                _.sentence.text = gameconfig.get('console.verbs.defaultText');
-            }
+            sentence.undisplayVerb(e.target);
 		},
 
 		_onVerbClick = function (e) {
 			console.log("verb click");
-            sounds.play('sound.fall');
-            _.sentence.lockedVerb = e.target;
-			_.sentence.text = e.target.text;
+            createjs.Sound.play('sound.fall');
+            sentence.setVerb(e.target);
 		},
 
 		load = function (oconsole) {
@@ -106,24 +93,28 @@ define([
 
         },
 
-        getContainer = function () {
+        getSentence = function () {
+            return sentence;
+        },
+
+        get = function () {
             var i,
                 container = new createjs.Container();
 
             container.name = 'container.console';
 
             container.addChild(
-                _.background,
-                _.sentence
+                background,
+                sentence
             );
 
-            for (i = 0; i < _.verbs.length; i++) {
+            for (i = 0; i < verbs.length; i++) {
 				container.addChild(
-                    _.verbs[i]
+                    verbs[i]
                 );
-                _.verbs[i].addEventListener('mouseover', $.proxy(_onVerbMouseOver, this));
-                _.verbs[i].addEventListener('mouseout',  $.proxy(_onVerbMouseOut, this));
-                _.verbs[i].addEventListener('click',     $.proxy(_onVerbClick, this));
+                verbs[i].addEventListener('mouseover', $.proxy(_onVerbMouseOver, this));
+                verbs[i].addEventListener('mouseout',  $.proxy(_onVerbMouseOut, this));
+                verbs[i].addEventListener('click',     $.proxy(_onVerbClick, this));
 			}
 
             return container;
@@ -131,7 +122,7 @@ define([
 
     return {
         'load' : load,
-        'get'   : get,
-        'getContainer' : getContainer
+        'get'  : get,
+        'getSentence' : getSentence
     };
 });

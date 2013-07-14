@@ -29,7 +29,7 @@ define([
         this.x = 0;
         this.y = 0;
         this.clickedXY = null;
-        this.name = options.name;
+        this.label = options.name;
         this.speed = options.speed;
         this.attitude = 'standright';
         this.gotoAndPlay(this.attitude);
@@ -67,11 +67,11 @@ define([
 
 
         this.onCharacterMouseOver = function (e) {
-            gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + e.target.name;
+            gameconsole.getSentence().displayObject(e.target);
         };
 
         this.onCharacterMouseOut = function (e) {
-            gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
+            gameconsole.getSentence().undisplayObject();
         };
 
         this.addEventListener("mouseover", $.proxy(this.onCharacterMouseOver, this));

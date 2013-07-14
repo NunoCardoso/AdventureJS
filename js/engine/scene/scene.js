@@ -78,7 +78,7 @@ define([
         }
 
         if (this.interactable) {
-            this.addChild(gameconsole.getContainer());
+            this.addChild(gameconsole.get());
         }
     };
     return GameScene;

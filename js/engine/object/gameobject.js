@@ -49,11 +49,11 @@ define([
         };
 
         this.onObjectMouseOver = function (e) {
-            gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + this.label;
+            gameconsole.getSentence().displayObject(e.target);
         };
 
         this.onObjectMouseOut = function (e) {
-            gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
+            gameconsole.getSentence().undisplayObject();
         };
 
         this.addListeners = function () {

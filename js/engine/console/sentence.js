@@ -31,6 +31,15 @@ define([
 
         this.setVerb = function (verb) {
             this.selectedVerb = verb;
+            this.text = verb.text;
+        };
+
+        this.displayVerb = function (verb) {
+            this.text = verb.text;
+        };
+
+        this.undisplayVerb = function () {
+            this.text = this.selectedVerb.text || this.defaultText;
         };
 
         this.clearVerb = function () {
@@ -39,6 +48,15 @@ define([
 
         this.setObject = function (object) {
             this.selectedObject = object;
+        };
+
+        this.displayObject = function (verb) {
+            this.text = (this.selectedVerb ? this.selectedVerb.text : this.defaultText)
+                + ' ' + verb.label;
+        };
+
+        this.undisplayObject = function () {
+            this.text = this.selectedVerb.text || this.defaultText;
         };
 
         this.clearObject = function () {
