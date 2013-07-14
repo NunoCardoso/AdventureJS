@@ -7,6 +7,7 @@ define([
     'engine/assets',
     'engine/gamestage',
     'engine/gameconfig',
+    'engine/scene/scene',
     'engine/scene/main',
     'engine/menu/startbutton',
     'engine/menu/startbuttonlabel'
@@ -15,6 +16,7 @@ define([
     gamestage,
     gameconfig,
     GameScene,
+    gamescenemain,
     StartButton,
     StartButtonLabel
 ) {
@@ -23,7 +25,9 @@ define([
 
         onStartButtonClick = function (e) {
             console.log("starting " + nextScene);
-            gamestage.switchScene('scene.menu', 'scene.' + nextScene);
+            gamestage.switchScene('scene.menu',
+                gamescenemain.get('scene.' + nextScene)
+                );
         },
 
         _prepare = function (omain) {
@@ -78,8 +82,8 @@ define([
                 main.startButtonLabel
             );
 
-            gamestage.stashScene(scene);
-            gamestage.switchScene('scene.start', scene.name);
+            gamescenemain.add(scene);
+            gamestage.switchScene('scene.start', gamescenemain.get(scene.name));
 
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));
         };

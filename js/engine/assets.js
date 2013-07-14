@@ -4,9 +4,9 @@
  * This module preloads images
  */
 define([
-    'engine/gamestage'
+  //  'engine/gamestage'
 ], function (
-    gamestage
+ //   gamestage
 ) {
 
     var queue,
@@ -20,7 +20,7 @@ define([
                 // write the name of the file loaded
                 options.loadedFile.text = e.item.src;
                 options.progressBar.add();
-                gamestage.update();
+            //    gamestage.update();
             });
 
             queue.addEventListener("complete", options.onComplete);
@@ -36,15 +36,10 @@ define([
 
         getQueueLoaded = function () {
             return queueLoaded;
-        },
-
-        get = function (item) {
-            queueLoaded.getResult(item);
         };
 
     return {
         'preload' : preload,
-        'get' : get,
         'setQueueLoaded' : setQueueLoaded,
         'getQueueLoaded' : getQueueLoaded
     };

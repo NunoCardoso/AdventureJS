@@ -107,12 +107,16 @@ define([
 			_.sentence.text = e.target.text;
 		},
 
-		render = function (oconsole) {
+		load = function (oconsole) {
+            _prepare(oconsole);
+
+        },
+
+        getContainer = function () {
             var i,
                 container = new createjs.Container();
 
             container.name = 'container.console';
-            _prepare(oconsole);
 
             container.addChild(
                 _.background,
@@ -132,7 +136,8 @@ define([
 		};
 
     return {
-        'render' : render,
-        'get'   : get
+        'load' : load,
+        'get'   : get,
+        'getContainer' : getContainer
     };
 });

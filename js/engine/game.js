@@ -19,7 +19,7 @@ define([
     gameconsole,
     gameobjects,
     gamestart,
-    GameScene,
+    gamescene,
     gamecharacter
 ) {
     var game = function (game) {
@@ -33,30 +33,12 @@ define([
                 gamestage.activate();
             },
 
-            loadScenes = function () {
-                var i;
-                for (i = 0; i < game.scenes.length; i++) {
-                    var gamescene = new GameScene(game.scenes[i]);
-                    gamestage.stashScene(gamescene);
-                }
-            },
-
-            loadConsole = function () {
-                gamestage.stashConsole(
-                    gameconsole.render(
-                        game.console
-                    )
-                );
-            },
-
             onAssetsLoaded = function () {
-                // load items that are accessory to scenes
-                gameobjects.load(game.objects);
-            //    gamecharacter.load(game.playableCharacter);
 
-                loadConsole();
-                // load scenes after assets are loaded
-                loadScenes();
+                gameobjects.load(game.objects);
+                gamecharacter.load(game.playableCharacter);
+                gameconsole.load(game.console);
+                gamescene.load(game.scenes);
                 renderMainMenu();
             },
 

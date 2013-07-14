@@ -6,7 +6,7 @@
 define([
     'engine/gameconfig',
     'engine/gamestage',
-    'engine/scene/main',
+    'engine/scene/scene',
     'engine/assets',
     'engine/start/background',
     'engine/start/progressbar',

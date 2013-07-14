@@ -6,15 +6,15 @@
  */
 define([
     'engine/gameconfig',
+    'engine/scene/main',
     'engine/character/main'
 ], function (
     gameconfig,
+    gamescene,
     playablecharacter
 ) {
 
     var stage,
-        stashedScenes = {},
-        stashedConsole,
 
         update = function () {
             stage.update();
@@ -33,40 +33,23 @@ define([
             stage.removeChild(container);
         },
 
-        stashScene = function (scene) {
-            stashedScenes[scene.name] = scene;
-        },
-
-        getStashedScene = function (key) {
-            return stashedScenes[key];
-        },
-
-        stashConsole = function (console) {
-            stashedConsole = console;
-        },
-
-        getConsole = function () {
-            return stashedConsole;
-        },
-
-        removeStashedScene = function (key) {
-            delete stashedScenes[key];
-        },
-
         getChildByName = function (name) {
             return stage.getChildByName(name);
         },
 
         switchScene = function (_fromscene, _toscene) {
+            // _fromscene is a name of a scene already on stage
             var fromscene = stage.getChildByName(_fromscene);
-            var toscene   = stashedScenes[_toscene];
-            createjs.Tween.get(fromscene).to({alpha: 0}, 500).call(function () {
-                stage.removeChild(fromscene);
-                toscene.alpha = 0;
-                stage.addChild(toscene);
-                createjs.Tween.get(toscene).to({alpha: 1}, 500).call(function () {
-                });
-            });
+            // toscene is a scene object, to add on stage.
+            var toscene   = _toscene;
+            createjs.Tween.get(fromscene).to({alpha: 0}, 500)
+                .call($.proxy(function () {
+                    stage.removeChild(fromscene);
+                    toscene.alpha = 0;
+                    stage.addChild(toscene);
+                    createjs.Tween.get(toscene).to({alpha: 1}, 500).call(function () {
+                    });
+                }, this));
         },
 
         onTick = function (event) {
@@ -97,12 +80,6 @@ define([
         'activate' : activate,
         'addChild' : addChild,
         'removeChild' : removeChild,
-        'stashScene' : stashScene,
-        'getStashScene' : getStashedScene,
-        'stashConsole' : stashConsole,
-        'getConsole' : getConsole,
-        'removeStashedScene' : removeStashedScene,
-        'getStashedScene' : getStashedScene,
         'getChildByName' : getChildByName,
         'update': update,
         'getStage' : getStage,
