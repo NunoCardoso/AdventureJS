@@ -6,7 +6,7 @@
 define([
     'engine/gameconfig',
     'engine/gamestage',
-    'engine/gamescene',
+    'engine/scene/main',
     'engine/assets',
     'engine/start/background',
     'engine/start/progressbar',
@@ -29,8 +29,8 @@ define([
         var background = new Background({
                 x: 0,
                 y: 0,
-                w: gameconfig.get('game.w'),
-                h: gameconfig.get('game.h')
+                w: gameconfig.getCanvasXY().x,
+                h: gameconfig.getCanvasXY().y,
             }),
 
             progressBar = new ProgressBar({
@@ -41,7 +41,7 @@ define([
             progressBarBackground = new ProgressBarBackground(),
             loadedFile = new LoadedFile(),
             loadingText = new LoadingText(),
-            startScene = new GameScene({name: "container.start"});
+            startScene = new GameScene({id: "start"});
 
         startScene.addChild(
             background,

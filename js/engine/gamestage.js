@@ -40,7 +40,6 @@ define([
             stashedPlayableCharacter = character;
         },
 
-
         getPlayableCharacter = function () {
             return stashedPlayableCharacter;
         },
@@ -59,6 +58,14 @@ define([
 
         getChildByName = function (name) {
             return stage.getChildByName(name);
+        },
+
+        switchToScene = function (scenename) {
+            stage.addChild(stashedScenes[scenename]);
+        },
+
+        removeScene = function (scenename) {
+            stage.removeChild(stage.getChildByName(scenename));
         },
 
         setClickedXY = function (xy) {
@@ -112,6 +119,8 @@ define([
         'getStashedScene' : getStashedScene,
         'getChildByName' : getChildByName,
         'setClickedXY' : setClickedXY,
-        'update': update
+        'update': update,
+        'switchToScene' : switchToScene,
+        'removeScene' : removeScene
     };
 });

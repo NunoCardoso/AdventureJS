@@ -39,7 +39,7 @@ define([
                 var i;
                 for (i = 0; i < game.scenes.length; i++) {
                     var gamescene = new GameScene(game.scenes[i]);
-                    gamestage.stashScene(game.scenes[i].id, gamescene);
+                    gamestage.stashScene(gamescene.name, gamescene);
                 }
             },
 

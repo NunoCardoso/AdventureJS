@@ -6,7 +6,7 @@
 define([
     'engine/gamestage',
     'engine/gameconfig',
-    'engine/gamescene',
+    'engine/scene/main',
     'engine/assets',
     'engine/menu/startbutton',
     'engine/menu/startbuttonlabel'
@@ -28,7 +28,8 @@ define([
 
         onStartButtonClick = function (e) {
             console.log("starting " + nextScene);
-
+            gamestage.switchToScene('scene.' + nextScene);
+            gamestage.removeScene('scene.menu');
         },
 
         onStartButtonMouseOver = function (e) {
@@ -70,7 +71,7 @@ define([
             // Main Background
             main.background = new createjs.Bitmap(assets.getQueueLoaded().getResult(omain.background));
             main.background.scaleX = gameconfig.getCanvasXY().x / main.background.image.width;
-            main.background.scaleY = gameconfig.get('game.h') / main.background.image.height;
+            main.background.scaleY = gameconfig.getCanvasXY().y / main.background.image.height;
             main.background.name = "background";
 
             // start button
@@ -80,7 +81,7 @@ define([
 
         render = function (omain) {
 
-            var scene = new GameScene({name: 'scene.menu'});
+            var scene = new GameScene({id: 'menu'});
 
             _prepare(omain);
 

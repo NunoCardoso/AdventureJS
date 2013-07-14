@@ -25,7 +25,7 @@ define([
 
         _ = {
             'game.w'    : gameWidth,
-            'game.h'    : gameHeight + consoleHeight,
+            'game.h'    : gameHeight,
             'progressbar.x' : (gameWidth / 2) - (progressbarWidth / 2),
             'progressbar.y' : (gameHeight / 2),
             'progressbar.w' : progressbarWidth,
