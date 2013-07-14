@@ -21,19 +21,23 @@ define([
                 })
             );
             pc.x = 0;
-            pc.y = 230;
+            pc.y = 0;
+            pc.clickedXY = null;
             pc.name = c.name;
             pc.speed = c.speed;
             pc.attitude = 'standright';
             pc.gotoAndPlay(pc.attitude);
 
-            if (c.playable) {
-                // this is not a BitmapAnimation function, it is a AdvGame custom function;
-                pc.updatePosition = function (mouse) {
-                    // attitudes
-                    if (pc.x > mouse.x && (pc.x - mouse.x > pc.speed)) {
+            pc.setClickedXY = function (xy) {
+                pc.clickedXY = xy;
+            };
+
+            pc.updatePosition = function () {
+                // attitudes
+                if (pc.clickedXY) {
+                    if (pc.x > pc.clickedXY.x && (pc.x - pc.clickedXY.x > pc.speed)) {
                         pc.attitude = "walkleft";
-                    } else if (pc.x < mouse.x  && (mouse.x - pc.x > pc.speed)) {
+                    } else if (pc.x < pc.clickedXY.x  && (pc.clickedXY.x - pc.x > pc.speed)) {
                         pc.attitude = "walkright";
                     } else {
                         if (pc.attitude === "walkleft") {
@@ -42,18 +46,18 @@ define([
                             pc.attitude = "standright";
                         }
                     }
-                    if (pc.attitude === "walkleft") {
-                        pc.x -= pc.speed;
-                    } else if (pc.attitude === "walkright") {
-                        pc.x += pc.speed;
-                    }
+                }
+                if (pc.attitude === "walkleft") {
+                    pc.x -= pc.speed;
+                } else if (pc.attitude === "walkright") {
+                    pc.x += pc.speed;
+                }
 
-                    // change attitude only if it is different
-                    if (pc.currentAnimation !== pc.attitude) {
-                        pc.gotoAndPlay(pc.attitude);
-                    }
-                };
-            }
+                // change attitude only if it is different
+                if (pc.currentAnimation !== pc.attitude) {
+                    pc.gotoAndPlay(pc.attitude);
+                }
+            };
         },
 
         onCharacterMouseOver = function (e) {

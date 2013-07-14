@@ -26,6 +26,16 @@ define([
         this.GameScene_initialize();
         this.name = 'scene.' + scene.id;
 
+        this.description  = scene.description;
+        this.interactable = scene.interactable;
+        this.ending       = scene.ending;
+
+        if (scene.playableCharacter) {
+            this.playableCharacter = gamestage.getPlayableCharacter();
+            this.playableCharacter.x = scene.playableCharacter.position.x;
+            this.playableCharacter.y = scene.playableCharacter.position.y;
+        }
+
         // if scene has background... (start scene does not have one)
         if (scene.background) {
             this.background = new createjs.Bitmap(
@@ -34,12 +44,15 @@ define([
             this.background.scaleX = gameconfig.get('game.w') / this.background.image.width;
             this.background.scaleY = gameconfig.get('game.h') / this.background.image.height;
 
+            if (this.interactable && scene.playableCharacter) {
+                this.background.addEventListener("click", $.proxy(function (e) {
+                    console.log("main menu background click!");
+                    this.playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
+                }, this));
+            }
+
             this.addChild(this.background);
         }
-
-        this.description  = scene.description;
-        this.interactable = scene.interactable;
-        this.ending       = scene.ending;
 
         var i;
 
@@ -51,19 +64,16 @@ define([
             }
         }
 
-        if (scene.playableCharacter) {
-            this.playableCharacter = gamestage.getPlayableCharacter();
-            this.playableCharacter.x = scene.playableCharacter.position.x;
-            this.playableCharacter.y = scene.playableCharacter.position.y;
-            this.addChild(this.playableCharacter);
-        }
-
         if (scene.exits) {
             this.exits = [];
             for (i = 0; i < scene.exits.length; i++) {
                 console.log("TODO");
     //            this.exits[i] = new Exit(scene.exits[i]);
             }
+        }
+
+        if (scene.playableCharacter) {
+            this.addChild(this.playableCharacter);
         }
 
         if (this.interactable) {

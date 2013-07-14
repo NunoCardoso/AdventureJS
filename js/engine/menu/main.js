@@ -4,27 +4,22 @@
  * This module handles main menu stuff
  */
 define([
+    'engine/assets',
     'engine/gamestage',
     'engine/gameconfig',
     'engine/scene/main',
-    'engine/assets',
     'engine/menu/startbutton',
     'engine/menu/startbuttonlabel'
 ], function (
+    assets,
     gamestage,
     gameconfig,
     GameScene,
-    assets,
     StartButton,
     StartButtonLabel
 ) {
     var main,
         nextScene,
-
-        onBackgroundClick = function (e) {
-            console.log("main menu background click!");
-            gamestage.setClickedXY({x : e.stageX, y : e.stageY});
-        },
 
         onStartButtonClick = function (e) {
             console.log("starting " + nextScene);
@@ -93,11 +88,9 @@ define([
                 main.startButtonLabel
             );
 
-
             gamestage.stashScene(scene);
             gamestage.switchScene('scene.start', scene.name);
 
-            main.background.addEventListener("click", $.proxy(onBackgroundClick, this));
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));
             main.startButton.addEventListener("mouseover", $.proxy(onStartButtonMouseOver, this));
             main.startButton.addEventListener("mouseout", $.proxy(onStartButtonMouseOut, this));

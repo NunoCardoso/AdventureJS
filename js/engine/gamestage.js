@@ -14,10 +14,14 @@ define([
         stashedScenes = {},
         stashedPlayableCharacter,
         stashedConsole,
-        clickedXY,
 
         update = function () {
             stage.update();
+        },
+
+        // use only for console debug, please
+        getStage = function () {
+            return stage;
         },
 
         addChild = function (container) {
@@ -72,20 +76,9 @@ define([
             });
         },
 
-        setClickedXY = function (xy) {
-            clickedXY = xy;
-        },
-
         onTick = function (event) {
-            var container = stage.getChildByName('pcContainer'),
-                pc;
-            if (container) {
-                pc = container.getChildByName('you');
-            }
-            if (pc && clickedXY) {
-                if (pc.updatePosition) {
-                    pc.updatePosition(clickedXY);
-                }
+            if (stashedPlayableCharacter) {
+                stashedPlayableCharacter.updatePosition();
             }
             stage.update(event);
         },
@@ -122,8 +115,8 @@ define([
         'removeStashedScene' : removeStashedScene,
         'getStashedScene' : getStashedScene,
         'getChildByName' : getChildByName,
-        'setClickedXY' : setClickedXY,
         'update': update,
+        'getStage' : getStage,
         'switchScene' : switchScene
     };
 });
