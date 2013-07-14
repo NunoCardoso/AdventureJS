@@ -29,8 +29,6 @@ define([
          */
         var renderMainMenu = function (queue) {
                 mainMenu.render(game.main);
-                // now that main menu is rendered, clean the start container
-                gamestage.removeChild(gamestage.getChildByName('container.start'));
                 keyboard.attachEvents();
                 gamestage.activate();
             },
@@ -39,7 +37,7 @@ define([
                 var i;
                 for (i = 0; i < game.scenes.length; i++) {
                     var gamescene = new GameScene(game.scenes[i]);
-                    gamestage.stashScene(gamescene.name, gamescene);
+                    gamestage.stashScene(gamescene);
                 }
             },
 

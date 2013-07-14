@@ -52,11 +52,9 @@ define([
         }
 
         if (scene.playableCharacter) {
-            // get playableCharacter from gamestage.stashedPlayableCharacter
             this.playableCharacter = gamestage.getPlayableCharacter();
             this.playableCharacter.x = scene.playableCharacter.position.x;
             this.playableCharacter.y = scene.playableCharacter.position.y;
-
             this.addChild(this.playableCharacter);
         }
 
@@ -69,7 +67,7 @@ define([
         }
 
         if (this.interactable) {
-            this.addChild(gamestage.getStashedConsole);
+            this.addChild(gamestage.getConsole());
         }
     };
     return GameScene;

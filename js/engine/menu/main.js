@@ -28,8 +28,7 @@ define([
 
         onStartButtonClick = function (e) {
             console.log("starting " + nextScene);
-            gamestage.switchToScene('scene.' + nextScene);
-            gamestage.removeScene('scene.menu');
+            gamestage.switchScene('scene.menu', 'scene.' + nextScene);
         },
 
         onStartButtonMouseOver = function (e) {
@@ -94,7 +93,9 @@ define([
                 main.startButtonLabel
             );
 
-            gamestage.addChild(scene);
+
+            gamestage.stashScene(scene);
+            gamestage.switchScene('scene.start', scene.name);
 
             main.background.addEventListener("click", $.proxy(onBackgroundClick, this));
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));

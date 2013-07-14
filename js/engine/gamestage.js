@@ -1,4 +1,4 @@
-/*global $, createjs, define */
+/*global Tween, $, createjs, define */
 
 /**
  * This module handles everything that has to do with stage.
@@ -28,8 +28,8 @@ define([
             stage.removeChild(container);
         },
 
-        stashScene = function (key, scene) {
-            stashedScenes[key] = scene;
+        stashScene = function (scene) {
+            stashedScenes[scene.name] = scene;
         },
 
         getStashedScene = function (key) {
@@ -60,12 +60,16 @@ define([
             return stage.getChildByName(name);
         },
 
-        switchToScene = function (scenename) {
-            stage.addChild(stashedScenes[scenename]);
-        },
-
-        removeScene = function (scenename) {
-            stage.removeChild(stage.getChildByName(scenename));
+        switchScene = function (_fromscene, _toscene) {
+            var fromscene = stage.getChildByName(_fromscene);
+            var toscene   = stashedScenes[_toscene];
+            createjs.Tween.get(fromscene).to({alpha: 0}, 500).call(function () {
+                stage.removeChild(fromscene);
+                toscene.alpha = 0;
+                stage.addChild(toscene);
+                createjs.Tween.get(toscene).to({alpha: 1}, 500).call(function () {
+                });
+            });
         },
 
         setClickedXY = function (xy) {
@@ -120,7 +124,6 @@ define([
         'getChildByName' : getChildByName,
         'setClickedXY' : setClickedXY,
         'update': update,
-        'switchToScene' : switchToScene,
-        'removeScene' : removeScene
+        'switchScene' : switchScene
     };
 });
