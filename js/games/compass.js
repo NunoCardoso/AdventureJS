@@ -155,11 +155,11 @@ define([
                 },
                 'objects' : [
                     {
-                        'id': 'winebottle01',
-                        'x' : 300,
-                        'y' : 300,
-                        'width' : 50,
-                        'height' : 50
+                        'id' : 'winebottle01',
+                        'x'  : 300,
+                        'y'  : 330,
+                        'w'  : 50,
+                        'h'  : 50
                     }
                 ],
                 'exits' : []

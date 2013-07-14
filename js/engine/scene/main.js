@@ -8,13 +8,13 @@ define([
     'engine/gameconfig',
     'engine/gamestage',
     'engine/character/playablecharacter',
-    'engine/object/gameobject'
+    'engine/object/main'
 ], function (
     assets,
     gameconfig,
     gamestage,
     PlayableCharacter,
-    GameObject
+    gameobject
 ) {
     var GameScene = function (options) {
         this.initialize(options);
@@ -31,7 +31,7 @@ define([
         this.ending       = scene.ending;
 
         if (scene.playableCharacter) {
-            this.playableCharacter = gamestage.getPlayableCharacter();
+            this.playableCharacter   = gamestage.getPlayableCharacter();
             this.playableCharacter.x = scene.playableCharacter.position.x;
             this.playableCharacter.y = scene.playableCharacter.position.y;
         }
@@ -59,8 +59,10 @@ define([
         if (scene.objects) {
             this.objects = [];
             for (i = 0; i < scene.objects.length; i++) {
-                this.objects[i] = new GameObject(scene.objects[i]);
-                this.addChild(this.objects[i]);
+                var o = gameobject.get(scene.objects[i].id);
+                o.renderAs('stage');
+                o.setDimensions(scene.objects[i]);
+                this.addChild(o);
             }
         }
 

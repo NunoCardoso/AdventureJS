@@ -26,16 +26,6 @@ define([
             gamestage.switchScene('scene.menu', 'scene.' + nextScene);
         },
 
-        onStartButtonMouseOver = function (e) {
-            console.log("start button mouse over!");
-            main.startButton.alpha = 1;
-        },
-
-        onStartButtonMouseOut = function (e) {
-            console.log("start button mouse out!");
-            main.startButton.alpha = 0.5;
-        },
-
         _prepare = function (omain) {
 
             main = {};
@@ -92,8 +82,6 @@ define([
             gamestage.switchScene('scene.start', scene.name);
 
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));
-            main.startButton.addEventListener("mouseover", $.proxy(onStartButtonMouseOver, this));
-            main.startButton.addEventListener("mouseout", $.proxy(onStartButtonMouseOut, this));
         };
 
     return {

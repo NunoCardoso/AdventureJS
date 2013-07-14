@@ -9,6 +9,7 @@ define([
     'engine/gamestage',
     'engine/keyboard',
     'engine/console/main',
+    'engine/object/main',
     'engine/start/main',
     'engine/scene/main',
     'engine/character/main'
@@ -18,6 +19,7 @@ define([
 	gamestage,
     keyboard,
     gameconsole,
+    gameobjects,
     gamestart,
     GameScene,
     playablecharacter
@@ -62,6 +64,7 @@ define([
                 assets.setQueueLoaded(queue.target);
                 // load items that are accessory to scenes
                 loadPlayableCharacter();
+                gameobjects.load(game.objects);
                 loadConsole();
                 // load scenes after assets are loaded
                 loadScenes();

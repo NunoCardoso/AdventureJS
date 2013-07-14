@@ -69,18 +69,15 @@ define([
 
 
         this.onCharacterMouseOver = function (e) {
-            console.log("character mouse over");
             gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + e.target.name;
         };
 
         this.onCharacterMouseOut = function (e) {
-            console.log("character mouse out");
             gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
         };
 
         this.addEventListener("mouseover", $.proxy(this.onCharacterMouseOver, this));
         this.addEventListener("mouseout", $.proxy(this.onCharacterMouseOut, this));
-
     };
     return PlayableCharacter;
 });

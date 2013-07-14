@@ -23,7 +23,9 @@ define([
         this.color = options.color;
 
         this.render = function () {
-            this.graphics.beginFill(this.color)
+            this.graphics
+                .beginStroke("white")
+                .beginFill(this.color)
                 .drawRect(
                     this.x,
                     this.y,
