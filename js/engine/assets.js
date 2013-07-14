@@ -4,9 +4,7 @@
  * This module preloads images
  */
 define([
-  //  'engine/gamestage'
 ], function (
- //   gamestage
 ) {
 
     var queue,
@@ -20,7 +18,6 @@ define([
                 // write the name of the file loaded
                 options.loadedFile.text = e.item.src;
                 options.progressBar.add();
-            //    gamestage.update();
             });
 
             queue.addEventListener("complete", options.onComplete);

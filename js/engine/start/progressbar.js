@@ -4,9 +4,11 @@
  * This module handles main menu stuff
  */
 define([
-    'engine/gameconfig'
+    'engine/gameconfig',
+    'engine/gamestage',
 ], function (
-    gameconfig
+    gameconfig,
+    gamestage
 ) {
     var ProgressBar = function (options) {
         this.initialize(options);
@@ -38,6 +40,7 @@ define([
             this.loaded++;
             this.w = (this.loaded / this.total) * gameconfig.get('progressbar.w');
             this.render();
+            gamestage.update();
         };
 
         this.x = gameconfig.get('progressbar.x') / 2;
