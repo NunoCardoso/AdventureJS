@@ -10,7 +10,8 @@ define([
     'engine/keyboard',
     'engine/console/main',
     'engine/start/main',
-    'engine/gameconfig'
+    'engine/scene/main',
+    'engine/character/playablecharacter'
 ], function (
 	mainMenu,
 	assets,
@@ -18,28 +19,54 @@ define([
     keyboard,
     gameconsole,
     gamestart,
-    gameconfig
+    GameScene,
+    playablecharacter
 ) {
-    var game = function (options) {
+    var game = function (game) {
 
         /**
          * asks mainMenu to render and display
          */
         var renderMainMenu = function (queue) {
-                mainMenu.render(options.main);
+                mainMenu.render(game.main);
                 // now that main menu is rendered, clean the start container
                 gamestage.removeChild(gamestage.getChildByName('container.start'));
-                 // gameconsole.render(options.console);
-                // add the PC, for now
-                //playablecharacter.render(options.characters);
-                // add tick listener
                 keyboard.attachEvents();
                 gamestage.activate();
+            },
+
+            loadScenes = function () {
+                var i;
+                for (i = 0; i < game.scenes.length; i++) {
+                    var gamescene = new GameScene(game.scenes[i]);
+                    gamestage.stashScene(game.scenes[i].id, gamescene);
+                }
+            },
+
+            loadPlayableCharacter = function () {
+                gamestage.stashPlayableCharacter(
+                    playablecharacter.render(
+                        game.playableCharacter
+                    )
+                );
+            },
+
+            loadConsole = function () {
+                gamestage.stashConsole(
+                    gameconsole.render(
+                        game.console
+                    )
+                );
             },
 
             onAssetsLoaded = function (queue) {
                 console.log('Assets loaded');
                 assets.setQueueLoaded(queue.target);
+                // load items that are accessory to scenes
+                loadPlayableCharacter();
+                loadConsole();
+                // load scenes after assets are loaded
+                loadScenes();
                 renderMainMenu();
             },
 
@@ -49,11 +76,10 @@ define([
              * rendering the main menu
              */
             start = function () {
-
-                var assetList = options.images.concat(options.sounds);
+                var assetList = game.images.concat(game.sounds);
                 gamestage.init();
                 gamestart.init({
-                    'assetList' : assetList,
+                    'assetList'      : assetList,
                     'onAssetsLoaded' : onAssetsLoaded
                 });
             };

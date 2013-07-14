@@ -25,19 +25,6 @@ define([
                 gameconfig.get('startbutton.h'),
                 gameconfig.get('startbutton.r')
             );
-
-        this.onStartButtonMouseOver = function (e) {
-            console.log("start button click!");
-            this.alpha = 1;
-        };
-
-        this.onStartButtonMouseOut = function (e) {
-            console.log("start button click!");
-            this.alpha = 0.5;
-        };
-
-        this.addEventListener("mouseover", this.onStartButtonMouseOver);
-        this.addEventListener("mouseout", this.onStartButtonMouseOut);
     };
     return StartButton;
 });

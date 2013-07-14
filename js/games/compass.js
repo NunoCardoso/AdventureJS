@@ -13,7 +13,7 @@ define([
                 'src' : 'img/background/legend-of-kyrandia.jpg'
             },
             {
-                'id'  : 'PC01',
+                'id'  : 'playableCharacter01',
                 'src' : 'img/character/guybrush.png'
             },
             {
@@ -40,10 +40,10 @@ define([
             }
         ],
         'main': {
-            'title' : 'The compass',
-            'author' : 'teacher@school.com',
-            'description' : 'Can you build a compass?',
-            'background' : 'background02',
+            'title'         : 'The compass',
+            'author'        : 'teacher@school.com',
+            'description'   : 'Can you build a compass?',
+            'background'    : 'background02',
             'startingScene' : 'scene01'
         },
         'console' : {
@@ -52,38 +52,38 @@ define([
                 'winebottle01',
                 'needle01'
             ],
-            'verbs': [
-                {'first': 'Give', 'nr' : 2, 'second': 'to'},
-                {'first': 'Use', 'nr' : 2, 'second': 'with'},
+            'verbs' : [
+                {'first': 'Give',    'nr' : 2, 'second': 'to'},
+                {'first': 'Use',     'nr' : 2, 'second': 'with'},
                 {'first': 'Pick up', 'nr' : 1},
-                {'first': 'Open', 'nr' : 1},
-                {'first': 'Push', 'nr' : 1},
+                {'first': 'Open',    'nr' : 1},
+                {'first': 'Push',    'nr' : 1},
                 {'first': 'Look at', 'nr' : 1},
-                {'first': 'Close', 'nr' : 1},
-                {'first': 'Pull', 'nr' : 1},
+                {'first': 'Close',   'nr' : 1},
+                {'first': 'Pull',    'nr' : 1},
                 {'first': 'Talk to', 'nr' : 1}
             ]
         },
-        'characters': [{
-            'id' : 'you01',
-            'name' : 'you',
-            'images': 'PC01',
-            'speed' : 2,
-            'playable': true,
-            'frames': {
-                'regX'  : 0,
-                'height': 150,
-                'count' : 18,
-                'regY'  : 0,
-                'width' : 104
+        'playableCharacter': {
+            'id'     : 'you01',
+            'name'   : 'you',
+            'images' : 'playableCharacter01',
+            'speed'  : 2,
+            'frames' : {
+                'regX'   : 0,
+                'height' : 150,
+                'count'  : 18,
+                'regY'   : 0,
+                'width'  : 104
             },
-            'animations': {
-                'walkright' : [0, 5, 'walkright', 6],
-                'walkleft'  : [6, 11, 'walkleft', 6],
-                'standright': 12,
-                'standleft' : 13
+            'animations' : {
+                'walkright'  : [0, 5, 'walkright', 6],
+                'walkleft'   : [6, 11, 'walkleft', 6],
+                'standright' : 12,
+                'standleft'  : 13
             }
-        }],
+        },
+        'nonPlayableCharacter' : [],
         'objects': [
             {
                 'id': 'winebottle01',
@@ -142,20 +142,17 @@ define([
         ],
         'scenes': [
             {
-                'id'          : 'scene01',
-                'background'  : 'background01',
-                'description' : 'This is the first scene.',
-                'interactable': true,
-                'ending'      : false,
-                'characters'  : [
-                    {
-                        'id' : 'you01',
-                        'position' : {
-                            'x' : 0,
-                            'y' : 230
-                        }
+                'id'                 : 'scene01',
+                'background'         : 'background01',
+                'description'        : 'This is the first scene.',
+                'interactable'       : true,
+                'ending'             : false,
+                'playableCharacter'  : {
+                    'position' : {
+                        'x'    : 0,
+                        'y'    : 230
                     }
-                ],
+                },
                 'objects' : [
                     {
                         'id': 'winebottle01',

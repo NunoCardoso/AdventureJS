@@ -6,7 +6,8 @@
 define([
 ], function (
 ) {
-    var gameWidth = 800,
+    var canvasXY,
+        gameWidth = 800,
         gameHeight = 400,
         consoleWidth = gameWidth,
         consoleHeight = 200,
@@ -49,11 +50,21 @@ define([
             'console.verbs.incrementY' : parseInt(verbHeight / verbRows, 10)
         },
 
+        getCanvasXY = function () {
+            return canvasXY;
+        },
+
+        setCanvasXY = function (xy) {
+            canvasXY = xy;
+        },
+
         get = function (key) {
             return _[key];
         };
 
     return {
-        'get' : get
+        'get' : get,
+        'setCanvasXY' : setCanvasXY,
+        'getCanvasXY' : getCanvasXY
     };
 });

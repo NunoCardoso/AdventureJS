@@ -130,7 +130,7 @@ define([
                 _.verbs[i].addEventListener('click',     $.proxy(_onVerbClick, this));
 			}
 
-            gamestage.addChild(container);
+            return container;
 		};
 
     return {

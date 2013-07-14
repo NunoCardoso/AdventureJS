@@ -39,11 +39,8 @@ define([
             }),
 
             progressBarBackground = new ProgressBarBackground(),
-
             loadedFile = new LoadedFile(),
-
             loadingText = new LoadingText(),
-
             startScene = new GameScene({name: "container.start"});
 
         startScene.addChild(

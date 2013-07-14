@@ -5,11 +5,16 @@
  * on the Tick, it reads game props, then renders the stage
  */
 define([
-], function () {
+    'engine/gameconfig'
+], function (
+    gameconfig
+) {
 
     var stage,
+        stashedScenes = {},
+        stashedPlayableCharacter,
+        stashedConsole,
         clickedXY,
-        canvasXY,
 
         update = function () {
             stage.update();
@@ -23,20 +28,41 @@ define([
             stage.removeChild(container);
         },
 
+        stashScene = function (key, scene) {
+            stashedScenes[key] = scene;
+        },
+
+        getStashedScene = function (key) {
+            return stashedScenes[key];
+        },
+
+        stashPlayableCharacter = function (character) {
+            stashedPlayableCharacter = character;
+        },
+
+
+        getPlayableCharacter = function () {
+            return stashedPlayableCharacter;
+        },
+
+        stashConsole = function (console) {
+            stashedConsole = console;
+        },
+
+        getConsole = function () {
+            return stashedConsole;
+        },
+
+        removeStashedScene = function (key) {
+            delete stashedScenes[key];
+        },
+
         getChildByName = function (name) {
             return stage.getChildByName(name);
         },
 
         setClickedXY = function (xy) {
             clickedXY = xy;
-        },
-
-        getCanvasXY = function () {
-            return canvasXY;
-        },
-
-        setCanvasXY = function (xy) {
-            canvasXY = xy;
         },
 
         onTick = function (event) {
@@ -55,10 +81,10 @@ define([
 
         init = function () {
             stage = new createjs.Stage("canvas");
-            canvasXY = {
+            gameconfig.setCanvasXY({
                 x : $("#canvas").width(),
                 y : $("#canvas").height()
-            };
+            });
         },
 
         activate = function () {
@@ -76,10 +102,16 @@ define([
         'activate' : activate,
         'addChild' : addChild,
         'removeChild' : removeChild,
+        'stashScene' : stashScene,
+        'getStashScene' : getStashedScene,
+        'stashPlayableCharacter' : stashPlayableCharacter,
+        'getPlayableCharacter' : getPlayableCharacter,
+        'stashConsole' : stashConsole,
+        'getConsole' : getConsole,
+        'removeStashedScene' : removeStashedScene,
+        'getStashedScene' : getStashedScene,
         'getChildByName' : getChildByName,
         'setClickedXY' : setClickedXY,
-        'getCanvasXY' : getCanvasXY,
-        'setCanvasXY' : setCanvasXY,
         'update': update
     };
 });
