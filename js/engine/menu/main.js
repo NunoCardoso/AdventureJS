@@ -6,14 +6,28 @@
 define([
     'engine/gamestage',
     'engine/gamescene',
-    'engine/assets'
+    'engine/assets',
+    'engine/menu/startbutton',
+    'engine/menu/startbuttonlabel'
 ], function (
     gamestage,
     GameScene,
-    assets
+    assets,
+    StartButton,
+    StartButtonLabel
 ) {
     var main,
         fixedHeight = 400,
+
+
+        onBackgroundClick = function (e) {
+            console.log("main menu background click!");
+            gamestage.setClickedXY({x : e.stageX, y : e.stageY});
+        },
+
+        onStartButtonClick = function (e) {
+            console.log("start button click!");
+        },
 
         _prepare = function (omain) {
 
@@ -47,41 +61,12 @@ define([
             main.background.name = "background";
 
             // start button
-            main.startButton = new createjs.Shape();
-            main.startButton.name = "startButton";
-            var width = 200;
-            var x = gamestage.getCanvasXY().x / 2 - width / 2;
-            var y = 150;
-            var height = 60;
-            var round = 10;
-            main.startButton.alpha = 0.5;
-            main.startButton.graphics.beginFill("red").drawRoundRect(x, y, width, height, round);
+            main.startButton = new StartButton({
+                onClick: onStartButtonClick
+            });
 
-            // start button label
-            main.startButtonLabel = new createjs.Text("start game!", "bold 24px the8bit", "#FFFFFF");
-            main.startButtonLabel.textAlign = "center";
-            main.startButtonLabel.textBaseline = "middle";
-            main.startButtonLabel.x = gamestage.getCanvasXY().x / 2;
-            main.startButtonLabel.y = 150 + height / 2;
-        },
+            main.startButtonLabel = new StartButtonLabel();
 
-        onBackgroundClick = function (e) {
-            console.log("main menu background click!");
-            gamestage.setClickedXY({x : e.stageX, y : e.stageY});
-        },
-
-        onStartButtonClick = function (e) {
-            console.log("start button click!");
-        },
-
-        onStartButtonMouseOver = function (e) {
-            console.log("start button click!");
-            main.startButton.alpha = 1;
-        },
-
-        onStartButtonMouseOut = function (e) {
-            console.log("start button click!");
-            main.startButton.alpha = 0.5;
         },
 
         render = function (omain) {
@@ -103,8 +88,6 @@ define([
 
             main.background.addEventListener("click", $.proxy(onBackgroundClick, this));
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));
-            main.startButton.addEventListener("mouseover", $.proxy(onStartButtonMouseOver, this));
-            main.startButton.addEventListener("mouseout", $.proxy(onStartButtonMouseOut, this));
         };
 
     return {

@@ -17,6 +17,10 @@ define([
         verbRows = 3,
         progressbarWidth = 200,
         progressbarHeight = 20,
+        startButtonWidth = 200,
+        startButtonY = 150,
+        startButtonHeight = 60,
+        buttonRounds = 10,
 
         _ = {
             'game.w'    : gameWidth,
@@ -25,6 +29,11 @@ define([
             'progressbar.y' : (gameHeight / 2),
             'progressbar.w' : progressbarWidth,
             'progressbar.h' : progressbarHeight,
+            'startbutton.x' : (gameWidth / 2) - (startButtonWidth / 2),
+            'startbutton.y' : startButtonY,
+            'startbutton.w' : startButtonWidth,
+            'startbutton.h' : startButtonHeight,
+            'startbutton.r' : buttonRounds,
             'loading' : 'Loading...',
             'console.x' : 0,
             'console.y' : gameHeight,
