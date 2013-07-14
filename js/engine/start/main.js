@@ -6,6 +6,7 @@
 define([
     'engine/gameconfig',
     'engine/gamestage',
+    'engine/gamescene',
     'engine/assets',
     'engine/start/background',
     'engine/start/progressbar',
@@ -15,6 +16,7 @@ define([
 ], function (
     gameconfig,
     gamestage,
+    GameScene,
     assets,
     Background,
     ProgressBar,
@@ -42,11 +44,9 @@ define([
 
             loadingText = new LoadingText(),
 
-            startContainer = new createjs.Container();
+            startScene = new GameScene({name: "container.start"});
 
-        startContainer.name = "container.start";
-
-        startContainer.addChild(
+        startScene.addChild(
             background,
             progressBarBackground,
             progressBar,
@@ -54,8 +54,9 @@ define([
             loadingText
         );
 
-        gamestage.addChild(startContainer);
+        gamestage.addChild(startScene);
         gamestage.update();
+
         assets.preload({
             assetList  : options.assetList,
             onComplete : options.onAssetsLoaded,

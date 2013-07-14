@@ -17,7 +17,6 @@ define([
                 queue = new createjs.LoadQueue();
 
             queue.addEventListener("fileload", function (e) {
-                console.log(e);
                 // write the name of the file loaded
                 options.loadedFile.text = e.item.src;
                 options.progressBar.add();

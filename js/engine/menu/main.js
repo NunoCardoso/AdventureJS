@@ -5,9 +5,13 @@
  */
 define([
     'engine/gamestage',
+    'engine/gamescene',
     'engine/assets'
-], function (gamestage, assets) {
-
+], function (
+    gamestage,
+    GameScene,
+    assets
+) {
     var main,
         fixedHeight = 400,
 
@@ -81,12 +85,12 @@ define([
         },
 
         render = function (omain) {
-            var mainmenuContainer = new createjs.Container();
-            mainmenuContainer.name = "mainmenuContainer";
+
+            var scene = new GameScene({name: 'scene.menu'});
 
             _prepare(omain);
 
-            mainmenuContainer.addChild(
+            scene.addChild(
                 main.background,
                 main.title,
                 main.author,
@@ -95,7 +99,7 @@ define([
                 main.startButtonLabel
             );
 
-            gamestage.addChild(mainmenuContainer);
+            gamestage.addChild(scene);
 
             main.background.addEventListener("click", $.proxy(onBackgroundClick, this));
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));

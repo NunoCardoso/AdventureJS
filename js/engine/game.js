@@ -4,7 +4,7 @@
  * This module bootstraps the game on the main menu
  */
 define([
-    'engine/mainmenu',
+    'engine/menu/main',
     'engine/assets',
     'engine/gamestage',
     'engine/keyboard',
@@ -27,9 +27,9 @@ define([
          */
         var renderMainMenu = function (queue) {
                 mainMenu.render(options.main);
-                // now tat main is rendered, clean the start container
+                // now that main menu is rendered, clean the start container
                 gamestage.removeChild(gamestage.getChildByName('container.start'));
-                gameconsole.render(options.console);
+                 // gameconsole.render(options.console);
                 // add the PC, for now
                 //playablecharacter.render(options.characters);
                 // add tick listener
