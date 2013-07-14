@@ -70,7 +70,7 @@ define([
             'images' : 'playableCharacter01',
             'speed'  : 2,
             'frames' : {
-                'regX'   : 0,
+                'regX'   : 52,
                 'height' : 150,
                 'count'  : 18,
                 'regY'   : 0,

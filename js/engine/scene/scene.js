@@ -37,9 +37,9 @@ define([
         this.ending       = scene.ending;
 
         if (scene.playableCharacter) {
-            this.playableCharacter   = playablecharacter.get();
-            this.playableCharacter.x = scene.playableCharacter.position.x;
-            this.playableCharacter.y = scene.playableCharacter.position.y;
+            this.playableCharacter = playablecharacter.get();
+            this.playableCharacter.setX(scene.playableCharacter.position.x);
+            this.playableCharacter.setY(scene.playableCharacter.position.y);
         }
 
         // if scene has background... (start scene does not have one)
@@ -75,6 +75,7 @@ define([
 
         if (scene.playableCharacter) {
             this.addChild(this.playableCharacter);
+            this.addChild(this.playableCharacter.getLine());
         }
 
         if (this.interactable) {

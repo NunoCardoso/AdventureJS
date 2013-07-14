@@ -6,11 +6,13 @@
 define([
     'engine/assets',
     'engine/console/main',
-    'engine/gameconfig'
+    'engine/gameconfig',
+    'engine/character/main'
 ], function (
     assets,
     gameconsole,
-    gameconfig
+    gameconfig,
+    playablecharacter
 ) {
     var GameObject = function (options) {
         this.initialize(options);
@@ -56,9 +58,17 @@ define([
             gameconsole.getSentence().undisplayObject();
         };
 
+        this.onObjectClick = function (e) {
+            var result = gameconsole.getSentence().setObject(e.target);
+            if (result) {
+                playablecharacter.get().say(result.text);
+            }
+        };
+
         this.addListeners = function () {
             this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
-            this.addEventListener("mouseout", $.proxy(this.onObjectMouseOut, this));
+            this.addEventListener("mouseout",  $.proxy(this.onObjectMouseOut, this));
+            this.addEventListener("click",     $.proxy(this.onObjectClick, this));
         };
     };
 

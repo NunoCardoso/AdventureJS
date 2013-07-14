@@ -63,7 +63,9 @@ define([
                     x    : position.x,
                     y    : position.y,
                     w    : gameconfig.get('console.verbs.incrementX'),
-                    h    : gameconfig.get('console.verbs.incrementY')
+                    h    : gameconfig.get('console.verbs.incrementY'),
+                    nr   : oconsole.verbs[i].nr,
+                    second : oconsole.verbs[i].second
                 });
             }
         },

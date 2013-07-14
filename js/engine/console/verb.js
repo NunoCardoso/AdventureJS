@@ -22,6 +22,8 @@ define([], function () {
         this.alpha = 0.7;
         this.x = options.x;
         this.y = options.y;
+        this.nr = options.nr;
+        this.second = options.second;
 
         // hovering on text sucks. Let's add a flat hit area!
         var hitArea = new createjs.Shape();

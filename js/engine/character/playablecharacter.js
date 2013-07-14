@@ -6,11 +6,13 @@
 define([
     'engine/assets',
     'engine/console/main',
-    'engine/gameconfig'
+    'engine/gameconfig',
+    'engine/character/decisionmaker'
 ], function (
     assets,
     gameconsole,
-    gameconfig
+    gameconfig,
+    decisionmaker
 ) {
     var PlayableCharacter = function (options) {
         this.initialize(options);
@@ -34,8 +36,44 @@ define([
         this.attitude = 'standright';
         this.gotoAndPlay(this.attitude);
 
+        this.line = new createjs.Text("", "bold 24px the8bit", "#FFFFFF");
+        this.line.textAlign = "center";
+        this.line.textBaseline = "bottom";
+        this.line.x = this.x;
+        this.line.y = this.y;
+
+        this.setX = function (x) {
+            this.x = x;
+            this.line.x = x;
+        };
+
+        this.setY = function (y) {
+            this.y = y;
+            this.line.y = y;
+        };
+
         this.setClickedXY = function (xy) {
             this.clickedXY = xy;
+        };
+
+        this.getLine = function () {
+            return this.line;
+        };
+
+        this.say = function (text) {
+            this.line.text = text;
+            // 0.1 sec per letter;
+            var interv = text.length * 100;
+            setTimeout(
+                $.proxy(function () {
+                    this.line.text = '';
+                }, this),
+                interv
+            );
+        };
+
+        this.unsay = function (text) {
+            this.line.text = '';
         };
 
         this.updatePosition = function () {
@@ -54,9 +92,9 @@ define([
                 }
             }
             if (this.attitude === "walkleft") {
-                this.x -= this.speed;
+                this.setX(this.x - this.speed);
             } else if (this.attitude === "walkright") {
-                this.x += this.speed;
+                this.setX(this.x + this.speed);
             }
 
             // change attitude only if it is different
@@ -64,7 +102,6 @@ define([
                 this.gotoAndPlay(this.attitude);
             }
         };
-
 
         this.onCharacterMouseOver = function (e) {
             gameconsole.getSentence().displayObject(e.target);
@@ -74,8 +111,17 @@ define([
             gameconsole.getSentence().undisplayObject();
         };
 
+        this.onCharacterClick = function (e) {
+            var result = gameconsole.getSentence().setObject(e.target);
+            if (result) {
+                // use decisionmaker;
+                this.say(result.text);
+            }
+        };
+
         this.addEventListener("mouseover", $.proxy(this.onCharacterMouseOver, this));
-        this.addEventListener("mouseout", $.proxy(this.onCharacterMouseOut, this));
+        this.addEventListener("mouseout",  $.proxy(this.onCharacterMouseOut, this));
+        this.addEventListener("click",     $.proxy(this.onCharacterClick, this));
     };
     return PlayableCharacter;
 });
