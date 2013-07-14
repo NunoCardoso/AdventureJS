@@ -11,7 +11,7 @@ define([
     'engine/console/main',
     'engine/start/main',
     'engine/scene/main',
-    'engine/character/playablecharacter'
+    'engine/character/main'
 ], function (
 	mainMenu,
 	assets,

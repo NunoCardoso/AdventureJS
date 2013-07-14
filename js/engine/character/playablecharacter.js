@@ -1,83 +1,86 @@
 /*global define, createjs, $ */
 
 /**
- * This module handles the playable character
+ * This is the
  */
 define([
     'engine/gameconfig',
+    'engine/console/main',
     'engine/assets',
-    'engine/gamestage',
-    'engine/console/main'
-], function (gameconfig, assets, gamestage, gameconsole) {
+    'engine/gamestage'
+], function (
+    gameconfig,
+    gameconsole,
+    assets,
+    gamestage
+) {
+    var PlayableCharacter = function (options) {
+        this.initialize(options);
+    };
 
-    var pc,
+    PlayableCharacter.prototype = new createjs.BitmapAnimation();
+    PlayableCharacter.prototype.PlayableCharacter_initialize = PlayableCharacter.prototype.initialize;
+    PlayableCharacter.prototype.initialize = function (options) {
 
-        _prepare = function (c) {
-            pc = new createjs.BitmapAnimation(
-                new createjs.SpriteSheet({
-                    images: [assets.getQueueLoaded().getResult(c.images)],
-                    frames: c.frames,
-                    animations: c.animations
-                })
-            );
-            pc.x = 0;
-            pc.y = 0;
-            pc.clickedXY = null;
-            pc.name = c.name;
-            pc.speed = c.speed;
-            pc.attitude = 'standright';
-            pc.gotoAndPlay(pc.attitude);
+        this.spriteSheet = new createjs.SpriteSheet({
+            images: [assets.getQueueLoaded().getResult(options.images)],
+            frames: options.frames,
+            animations: options.animations
+        });
 
-            pc.setClickedXY = function (xy) {
-                pc.clickedXY = xy;
-            };
+        this.x = 0;
+        this.y = 0;
+        this.clickedXY = null;
+        this.name = options.name;
+        this.speed = options.speed;
+        this.attitude = 'standright';
+        this.gotoAndPlay(this.attitude);
 
-            pc.updatePosition = function () {
-                // attitudes
-                if (pc.clickedXY) {
-                    if (pc.x > pc.clickedXY.x && (pc.x - pc.clickedXY.x > pc.speed)) {
-                        pc.attitude = "walkleft";
-                    } else if (pc.x < pc.clickedXY.x  && (pc.clickedXY.x - pc.x > pc.speed)) {
-                        pc.attitude = "walkright";
-                    } else {
-                        if (pc.attitude === "walkleft") {
-                            pc.attitude = "standleft";
-                        } else if (pc.attitude === "walkright") {
-                            pc.attitude = "standright";
-                        }
-                    }
-                }
-                if (pc.attitude === "walkleft") {
-                    pc.x -= pc.speed;
-                } else if (pc.attitude === "walkright") {
-                    pc.x += pc.speed;
-                }
-
-                // change attitude only if it is different
-                if (pc.currentAnimation !== pc.attitude) {
-                    pc.gotoAndPlay(pc.attitude);
-                }
-            };
-        },
-
-        onCharacterMouseOver = function (e) {
-            console.log("character mouse over");
-            gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + e.target.name;
-        },
-
-        onCharacterMouseOut = function (e) {
-            console.log("character mouse out");
-            gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
-        },
-
-        render = function (character) {
-            _prepare(character);
-            pc.addEventListener("mouseover", $.proxy(onCharacterMouseOver, this));
-            pc.addEventListener("mouseout", $.proxy(onCharacterMouseOut, this));
-            return pc;
+        this.setClickedXY = function (xy) {
+            this.clickedXY = xy;
         };
 
-    return {
-        'render'  : render
+        this.updatePosition = function () {
+            // attitudes
+            if (this.clickedXY) {
+                if (this.x > this.clickedXY.x && (this.x - this.clickedXY.x > this.speed)) {
+                    this.attitude = "walkleft";
+                } else if (this.x < this.clickedXY.x  && (this.clickedXY.x - this.x > this.speed)) {
+                    this.attitude = "walkright";
+                } else {
+                    if (this.attitude === "walkleft") {
+                        this.attitude = "standleft";
+                    } else if (this.attitude === "walkright") {
+                        this.attitude = "standright";
+                    }
+                }
+            }
+            if (this.attitude === "walkleft") {
+                this.x -= this.speed;
+            } else if (this.attitude === "walkright") {
+                this.x += this.speed;
+            }
+
+            // change attitude only if it is different
+            if (this.currentAnimation !== this.attitude) {
+                this.gotoAndPlay(this.attitude);
+            }
+        };
+
+
+        this.onCharacterMouseOver = function (e) {
+            console.log("character mouse over");
+            gameconsole.get().sentence.text = gameconsole.get().sentence.lockedVerb.text + ' ' + e.target.name;
+        };
+
+        this.onCharacterMouseOut = function (e) {
+            console.log("character mouse out");
+            gameconsole.get().sentence.text = gameconfig.get('console.sentence.defaultText');
+        };
+
+        this.addEventListener("mouseover", $.proxy(this.onCharacterMouseOver, this));
+        this.addEventListener("mouseout", $.proxy(this.onCharacterMouseOut, this));
+
     };
+    return PlayableCharacter;
 });
