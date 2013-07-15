@@ -30,9 +30,16 @@ define([
          * asks gamemenu to render and display
          */
         var renderGameMenu = function (queue) {
-                gamemenu.render(game.main);
+
+                var scene = gamescene.newScene({id: 'menu'}); // scene name wil be scene.menu
+                scene = gamemenu.render(game.main, scene);
+                gamescene.add(scene);
+                gamestage.getInstance().switchScene(
+                    'scene.start',
+                    scene.name
+                );
                 keyboard.attachEvents();
-                gamestage.getInstance().activate();
+                gamestage.activate();
             },
 
             onAssetsLoaded = function () {

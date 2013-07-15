@@ -5,7 +5,7 @@
  */
 define([
     'engine/config',
-    'engine/gamestage',
+    'engine/stage/main',
 ], function (
     config,
     gamestage
@@ -39,7 +39,7 @@ define([
             this.loaded++;
             this.w = (this.loaded / this.total) * config.get('progressbar.w');
             this.render();
-            gamestage.update();
+            gamestage.getInstance().update();
         };
 
         this.x = config.get('progressbar.x') / 2;

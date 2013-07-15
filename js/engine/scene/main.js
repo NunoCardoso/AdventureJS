@@ -22,6 +22,10 @@ define([
             return _[key];
         },
 
+        newScene = function (options) {
+            return new GameScene(options);
+        },
+
         add = function (scene) {
             _[scene.name] = scene;
         };
@@ -29,6 +33,7 @@ define([
     return {
         'preload' : preload,
         'get'     : get,
+        'newScene': newScene,
         'add'     : add
     };
 });

@@ -4,7 +4,7 @@
  * This module handles the playable character
  */
 define([
-    'engine/pcharacter/pcharacter'
+    'engine/pcharacter/playablecharacter'
 ], function (
     PlayableCharacter
 ) {

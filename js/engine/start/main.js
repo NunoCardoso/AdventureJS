@@ -5,7 +5,7 @@
  */
 define([
     'engine/lib/assets',
-    'engine/scene/scene',
+    'engine/scene/main',
     'engine/stage/main',
     'engine/start/background',
     'engine/start/loadedfile',
@@ -14,7 +14,7 @@ define([
     'engine/start/progressbarbackground'
 ], function (
     assets,
-    GameScene,
+    gamescene,
     gamestage,
     Background,
     LoadedFile,
@@ -31,7 +31,7 @@ define([
             progressBarBackground = new ProgressBarBackground(),
             loadedFile  = new LoadedFile(),
             loadingText = new LoadingText(),
-            startScene  = new GameScene({id: "start"}); // scene mane is 'scene.start'
+            startScene  = gamescene.newScene({id: "start"}); // scene name is 'scene.start'
 
         startScene.addChild(
             background,

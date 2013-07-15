@@ -4,11 +4,11 @@
  * This module is a game object class
  */
 define([
-    'engine/assets',
-    'engine/console/action'
+    'engine/console/action',
+    'engine/lib/assets'
 ], function (
-    assets,
-    action
+    action,
+    assets
 ) {
     var GameObject = function (options) {
         this.initialize(options);

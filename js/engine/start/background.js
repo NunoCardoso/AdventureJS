@@ -8,8 +8,8 @@ define([
 ], function (
     config
 ) {
-    var Background = function (boundaries) {
-        this.initialize(boundaries);
+    var Background = function () {
+        this.initialize();
     };
 
     Background.prototype = new createjs.Shape();

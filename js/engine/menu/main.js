@@ -8,31 +8,15 @@ define([
     'engine/lib/assets',
     'engine/menu/startbutton',
     'engine/menu/startbuttonlabel',
-    'engine/scene/scene',
-    'engine/scene/main',
-    'engine/stage/main'
 ], function (
     config,
     assets,
     StartButton,
-    StartButtonLabel,
-    Scene,
-    gamescene,
-    gamestage
+    StartButtonLabel
 ) {
-    var main,
-        nextScene,
-
-        onStartButtonClick = function (e) {
-            gamestage.switchScene('scene.menu',
-                gamescene.get('scene.' + nextScene)
-                );
-        },
+    var main = {},
 
         _prepare = function (options) {
-
-            main = {};
-            nextScene = options.startingScene;
 
             // Title
             main.title = new createjs.Text(options.title, "20px the8bit", "#FFFFFF");
@@ -61,13 +45,11 @@ define([
             main.background.scaleY = config.getCanvasXY().y / main.background.image.height;
 
             // start button
-            main.startButton = new StartButton();
+            main.startButton = new StartButton({to: options.startingScene});
             main.startButtonLabel = new StartButtonLabel();
         },
 
-        render = function (options) {
-
-            var scene = new Scene({id: 'menu'}); // scene name wil be scene.menu
+        render = function (options, scene) {
 
             _prepare(options);
 
@@ -80,10 +62,7 @@ define([
                 main.startButtonLabel
             );
 
-            gamescene.add(scene);
-            gamestage.switchScene('scene.start', gamescene.get(scene.name));
-
-            main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));
+            return scene;
         };
 
     return {

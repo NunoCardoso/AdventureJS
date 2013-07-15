@@ -8,14 +8,12 @@ define([
     'engine/lib/assets',
     'engine/object/main',
     'engine/pcharacter/main',
-    'engine/scene/main',
     'engine/stage/main'
 ], function (
     config,
     assets,
     gameobject,
     playablecharacter,
-    gamescene,
     gamestage
 ) {
     var Exit = function (options, from) {
@@ -58,7 +56,7 @@ define([
                     .setWhenFinished($.proxy(function () {
                         gamestage.switchScene(
                             'scene.' + this.from,
-                            gamescene.get('scene.' + this.to)
+                            'scene.' + this.to
                         );
                     }, this));
             }, this));

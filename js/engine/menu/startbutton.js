@@ -4,9 +4,11 @@
  * This is the start button on the game menu
  */
 define([
-    'engine/config'
+    'engine/config',
+    'engine/stage/main'
 ], function (
-    config
+    config,
+    gamestage
 ) {
     var StartButton = function (options) {
         this.initialize(options);
@@ -16,6 +18,7 @@ define([
     StartButton.prototype.StartButton_initialize = StartButton.prototype.initialize;
     StartButton.prototype.initialize = function (options) {
         this.alpha = 0.5;
+        this.nextScene = options.to;
         this.graphics
             .beginStroke("#880000")
             .beginFill("red")
@@ -26,6 +29,14 @@ define([
                 config.get('startbutton.h'),
                 config.get('startbutton.r')
             );
+
+        this.addEventListener("click", $.proxy(function (e) {
+            gamestage.getInstance().switchScene(
+                'scene.menu',
+                'scene.' + this.nextScene
+            );
+        }, this));
+
         this.addEventListener("mouseover", $.proxy(function (e) {
             this.alpha = 1;
         }, this));

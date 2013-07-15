@@ -10,7 +10,6 @@ define([
     'engine/console/sentence'
 ], function (
     config,
-    action,
     Verb,
     Background,
     Sentence

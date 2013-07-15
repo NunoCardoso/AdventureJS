@@ -50,7 +50,7 @@ define([
         }
 
         // render this scene with the given playableCharacter
-        this.render = function (console, playableCharacter) {
+        this.render = function (options) {
 
             if (this.background) {
                 this.addChild(this.background);
@@ -62,23 +62,30 @@ define([
                 o = gameobject.get(this.objects[i].id);
                 o.renderAs('stage');
                 o.setDimensions(this.objects[i]);
-                o.activateClickListener(playableCharacter);
+                if (options.playableCharacter) {
+                    o.activateClickListener(options.playableCharacter);
+                }
                 this.addChild(o);
             }
 
             for (i = 0; i < this.exits.length; i++) {
                 e = new Exit(this.exits[i], scene.id);
-                e.activateClickListener(playableCharacter);
+                if (options.playableCharacter) {
+                    e.activateClickListener(options.playableCharacter);
+                }
                 this.addChild(e);
             }
 
-            if (console) {
+            if (options.console) {
                 this.addChild(console);
             }
 
-            if (playableCharacter) {
-                this.addChild(playableCharacter);
-                this.addChild(playableCharacter.getLine());
+            if (options.playableCharacter) {
+                // maybe this isn't true, goind from exits
+                options.playableCharacter.x = this.playableCharacterPosition.x;
+                options.playableCharacter.y = this.playableCharacterPosition.y;
+                this.addChild(options.playableCharacter);
+                this.addChild(options.playableCharacter.getLine());
             }
         };
     };
