@@ -1,18 +1,14 @@
 /*global define, createjs, $ */
 
 /**
- * This module handles main menu stuff
+ * This module is a game object class
  */
 define([
     'engine/assets',
-    'engine/console/main',
-    'engine/gameconfig',
-    'engine/character/main'
+    'engine/console/action'
 ], function (
     assets,
-    gameconsole,
-    gameconfig,
-    playablecharacter
+    action
 ) {
     var GameObject = function (options) {
         this.initialize(options);
@@ -51,24 +47,25 @@ define([
         };
 
         this.onObjectMouseOver = function (e) {
-            gameconsole.getSentence().displayObject(e.target);
+            action.mouseOverObject(e.target);
         };
 
         this.onObjectMouseOut = function (e) {
-            gameconsole.getSentence().undisplayObject();
+            action.mouseOutObject();
         };
 
         this.onObjectClick = function (e) {
-            var result = gameconsole.getSentence().setObject(e.target);
+            var result = action.clickObject(e.target);
             if (result) {
                 playablecharacter.get().say(result.text);
             }
         };
 
-        this.addListeners = function () {
-            this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
-            this.addEventListener("mouseout",  $.proxy(this.onObjectMouseOut, this));
-            this.addEventListener("click",     $.proxy(this.onObjectClick, this));
+        this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
+        this.addEventListener("mouseout",  $.proxy(this.onObjectMouseOut, this));
+
+        this.activateClickListener = function (playableCharacter) {
+            this.addEventListener("click", $.proxy(this.onObjectClick, this));
         };
     };
 

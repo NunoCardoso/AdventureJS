@@ -13,6 +13,10 @@ define([
                 'src' : 'img/background/legend-of-kyrandia.jpg'
             },
             {
+                'id'  : 'background03',
+                'src' : 'img/background/jungle2.jpg'
+            },
+            {
                 'id'  : 'playableCharacter01',
                 'src' : 'img/character/guybrush.png'
             },
@@ -168,7 +172,40 @@ define([
                         'y' : 200,
                         'w' : 50,
                         'h' : 200,
-                        'arrow' : 'right'
+                        'arrow' : 'right',
+                        'to' : 'scene02'
+                    }
+                ]
+            },
+            {
+                'id'                 : 'scene02',
+                'background'         : 'background03',
+                'description'        : 'This is the second scene.',
+                'interactable'       : true,
+                'ending'             : false,
+                'playableCharacter'  : {
+                    'position' : {
+                        'x'    : 51,
+                        'y'    : 230
+                    }
+                },
+                'objects' : [
+                    {
+                        'id' : 'winebottle01',
+                        'x'  : 300,
+                        'y'  : 330,
+                        'w'  : 50,
+                        'h'  : 50
+                    }
+                ],
+                'exits' : [
+                    {
+                        'x' : 0,
+                        'y' : 200,
+                        'w' : 50,
+                        'h' : 200,
+                        'arrow' : 'left',
+                        'to' : 'scene01'
                     }
                 ]
             }

@@ -1,26 +1,20 @@
-/*global define, createjs, $ */
+/*global define, createjs */
 
 /**
- * This module handles main menu stuff
+ * This module is a game Scene class
  */
 define([
-    'engine/assets',
-    'engine/gameconfig',
-    'engine/gamestage',
-    'engine/character/main',
-    'engine/console/main',
+    'engine/config',
+    'engine/lib/assets',
     'engine/object/main',
-    'engine/scene/exit',
     'engine/scene/background',
+    'engine/scene/exit'
 ], function (
     assets,
-    gameconfig,
-    gamestage,
-    playablecharacter,
-    gameconsole,
+    config,
     gameobject,
-    Exit,
-    Background
+    Background,
+    Exit
 ) {
     var GameScene = function (options) {
         this.initialize(options);
@@ -35,52 +29,58 @@ define([
         this.description  = scene.description;
         this.interactable = scene.interactable;
         this.ending       = scene.ending;
+        this.playableCharacterPosition = null;
+        this.background   = null;
 
-        if (scene.playableCharacter) {
-            this.playableCharacter = playablecharacter.get();
-            this.playableCharacter.setX(scene.playableCharacter.position.x);
-            this.playableCharacter.setY(scene.playableCharacter.position.y);
-        }
+        this.objects      = scene.objects || [];
+        this.exits        = scene.exits || [];
 
-        // if scene has background... (start scene does not have one)
         if (scene.background) {
             this.background = new Background({
-                'background' : scene.background,
-                'interactable' : this.interactable,
-                'playableCharacter' : this.playableCharacter
+                'background' : scene.background
             });
-            this.addChild(this.background);
         }
 
-        var i;
-
-        if (scene.objects) {
-            this.objects = [];
-            for (i = 0; i < scene.objects.length; i++) {
-                var o = gameobject.get(scene.objects[i].id);
-                o.renderAs('stage');
-                o.setDimensions(scene.objects[i]);
-                o.addListeners();
-                this.addChild(o);
-            }
-        }
-
-        if (scene.exits) {
-            this.exits = [];
-            for (i = 0; i < scene.exits.length; i++) {
-                this.exits[i] = new Exit(scene.exits[i]);
-                this.addChild(this.exits[i]);
-            }
-        }
+        this.isInteractable = function () {
+            return this.interactable;
+        };
 
         if (scene.playableCharacter) {
-            this.addChild(this.playableCharacter);
-            this.addChild(this.playableCharacter.getLine());
+            this.playableCharacterPosition = scene.playableCharacter.position;
         }
 
-        if (this.interactable) {
-            this.addChild(gameconsole.get());
-        }
+        // render this scene with the given playableCharacter
+        this.render = function (console, playableCharacter) {
+
+            if (this.background) {
+                this.addChild(this.background);
+            }
+
+            var i, o, e;
+
+            for (i = 0; i < this.objects.length; i++) {
+                o = gameobject.get(this.objects[i].id);
+                o.renderAs('stage');
+                o.setDimensions(this.objects[i]);
+                o.activateClickListener(playableCharacter);
+                this.addChild(o);
+            }
+
+            for (i = 0; i < this.exits.length; i++) {
+                e = new Exit(this.exits[i], scene.id);
+                e.activateClickListener(playableCharacter);
+                this.addChild(e);
+            }
+
+            if (console) {
+                this.addChild(console);
+            }
+
+            if (playableCharacter) {
+                this.addChild(playableCharacter);
+                this.addChild(playableCharacter.getLine());
+            }
+        };
     };
     return GameScene;
 });

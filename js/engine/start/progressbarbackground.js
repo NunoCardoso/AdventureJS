@@ -1,12 +1,12 @@
-/*global define, createjs, $ */
+/*global define, createjs */
 
 /**
- * This module handles main menu stuff
+ * This module renders the progress bar background
  */
 define([
-    'engine/gameconfig'
+    'engine/config'
 ], function (
-    gameconfig
+    config
 ) {
     var ProgressBarBackground = function (boundaries) {
         this.initialize(boundaries);
@@ -16,13 +16,12 @@ define([
     ProgressBarBackground.prototype.ProgressBarBackground_initialize = ProgressBarBackground.prototype.initialize;
     ProgressBarBackground.prototype.initialize = function (boundaries) {
         this.ProgressBarBackground_initialize();
-        this.name = "background.progressbar.background";
         this.graphics.beginFill("white")
             .drawRect(
-                gameconfig.get('progressbar.x'),
-                gameconfig.get('progressbar.y'),
-                gameconfig.get('progressbar.w'),
-                gameconfig.get('progressbar.h')
+                config.get('progressbar.x'),
+                config.get('progressbar.y'),
+                config.get('progressbar.w'),
+                config.get('progressbar.h')
             );
     };
     return ProgressBarBackground;

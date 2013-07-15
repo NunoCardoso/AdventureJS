@@ -1,7 +1,7 @@
-/*global define, createjs, $ */
+/*global define */
 
 /**
- * This module handles the playable character
+ * This module stores game scenes
  */
 define([
     'engine/scene/scene'
@@ -11,7 +11,7 @@ define([
 
     var _ = {},
 
-        load = function (scenes) {
+        preload = function (scenes) {
             var i;
             for (i = 0; i < scenes.length; i++) {
                 _['scene.' + scenes[i].id] = new GameScene(scenes[i]);
@@ -27,8 +27,8 @@ define([
         };
 
     return {
-        'load' : load,
-        'get'  : get,
-        'add'  : add
+        'preload' : preload,
+        'get'     : get,
+        'add'     : add
     };
 });

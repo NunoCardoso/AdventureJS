@@ -49,6 +49,9 @@ define([
             Handlebars.registerPartial('tab-characters', tabcharacters);
             Handlebars.registerPartial('tab-character', tabcharacter);
 
+            /**
+             * This is an Handlebar extension for a fancy if comparison
+             */
             Handlebars.registerHelper('ifTest', function (conditional, options) {
 
                 var evalStr = '',

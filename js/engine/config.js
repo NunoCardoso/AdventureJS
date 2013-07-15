@@ -24,8 +24,23 @@ define([
         buttonRounds = 10,
 
         _ = {
+            'console.x' : 0,
+            'console.y' : gameHeight,
+            'console.w' : gameWidth,
+            'console.h' : consoleHeight,
+            'console.sentence.y' : gameHeight,
+            'console.sentence.defaultText' : 'Look at',
+            'console.verbs.x' : 0,
+            'console.verbs.y' : gameHeight + sentenceHeight,
+            'console.verbs.columns' : verbColumns,
+            'console.verbs.rows' : verbRows,
+            'console.verbs.incrementX' : parseInt(verbWidth / verbColumns, 10),
+            'console.verbs.incrementY' : parseInt(verbHeight / verbRows, 10),
             'game.w'    : gameWidth,
             'game.h'    : gameHeight,
+            'loadedfile.y' : (gameHeight / 2) + 30,
+            'loading' : 'Loading...',
+            'loading.y' : (gameHeight / 2) - 30,
             'progressbar.x' : (gameWidth / 2) - (progressbarWidth / 2),
             'progressbar.y' : (gameHeight / 2),
             'progressbar.w' : progressbarWidth,
@@ -35,19 +50,7 @@ define([
             'startbutton.w' : startButtonWidth,
             'startbutton.h' : startButtonHeight,
             'startbutton.r' : buttonRounds,
-            'loading' : 'Loading...',
-            'console.x' : 0,
-            'console.y' : gameHeight,
-            'console.w' : gameWidth,
-            'console.h' : consoleHeight,
-            'console.action.y' : gameHeight,
-            'console.verbs.x' : 0,
-            'console.verbs.y' : gameHeight + sentenceHeight,
-            'console.sentence.defaultText' : 'Look at',
-            'console.verbs.columns' : verbColumns,
-            'console.verbs.rows' : verbRows,
-            'console.verbs.incrementX' : parseInt(verbWidth / verbColumns, 10),
-            'console.verbs.incrementY' : parseInt(verbHeight / verbRows, 10)
+            'startgame'     : "start game!"
         },
 
         getCanvasXY = function () {
@@ -63,7 +66,7 @@ define([
         };
 
     return {
-        'get' : get,
+        'get'         : get,
         'setCanvasXY' : setCanvasXY,
         'getCanvasXY' : getCanvasXY
     };

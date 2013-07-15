@@ -1,24 +1,27 @@
-/*global define, createjs, $ */
+/*global define, createjs */
 
 /**
- * This module handles main menu stuff
+ * This module initializes the start background, all black
  */
-define([], function () {
+define([
+    'engine/config'
+], function (
+    config
+) {
     var Background = function (boundaries) {
         this.initialize(boundaries);
     };
 
     Background.prototype = new createjs.Shape();
     Background.prototype.Background_initialize = Background.prototype.initialize;
-    Background.prototype.initialize = function (boundaries) {
+    Background.prototype.initialize = function () {
         this.Background_initialize();
-        this.name = "background.start";
         this.graphics.beginFill("black")
             .drawRect(
-                boundaries.x,
-                boundaries.y,
-                boundaries.w,
-                boundaries.h
+                0,
+                0,
+                config.getCanvasXY().x,
+                config.getCanvasXY().y
             );
     };
     return Background;

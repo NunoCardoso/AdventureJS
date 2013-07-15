@@ -1,76 +1,75 @@
 /*global define, createjs, $ */
 
 /**
- * This module handles main menu stuff
+ * This module handles the game main menu
  */
 define([
-    'engine/assets',
-    'engine/gamestage',
-    'engine/gameconfig',
+    'engine/config',
+    'engine/lib/assets',
+    'engine/menu/startbutton',
+    'engine/menu/startbuttonlabel',
     'engine/scene/scene',
     'engine/scene/main',
-    'engine/menu/startbutton',
-    'engine/menu/startbuttonlabel'
+    'engine/stage/main'
 ], function (
+    config,
     assets,
-    gamestage,
-    gameconfig,
-    GameScene,
-    gamescenemain,
     StartButton,
-    StartButtonLabel
+    StartButtonLabel,
+    Scene,
+    gamescene,
+    gamestage
 ) {
     var main,
         nextScene,
 
         onStartButtonClick = function (e) {
             gamestage.switchScene('scene.menu',
-                gamescenemain.get('scene.' + nextScene)
+                gamescene.get('scene.' + nextScene)
                 );
         },
 
-        _prepare = function (omain) {
+        _prepare = function (options) {
 
             main = {};
-            nextScene = omain.startingScene;
+            nextScene = options.startingScene;
 
             // Title
-            main.title = new createjs.Text(omain.title, "20px the8bit", "#FFFFFF");
+            main.title = new createjs.Text(options.title, "20px the8bit", "#FFFFFF");
             main.title.textAlign = "center";
             main.title.textBaseline = "middle";
-            main.title.x = gameconfig.getCanvasXY().x / 2;
+            main.title.x = config.getCanvasXY().x / 2;
             main.title.y = 20;
 
             // Author
-            main.author = new createjs.Text(omain.author, "17px the8bit", "#CCCCCC");
+            main.author = new createjs.Text(options.author, "17px the8bit", "#CCCCCC");
             main.author.textAlign = "center";
             main.author.textBaseline = "middle";
-            main.author.x = gameconfig.getCanvasXY().x / 2;
+            main.author.x = config.getCanvasXY().x / 2;
             main.author.y = 50;
 
             // Description
-            main.description = new createjs.Text(omain.description, "14px the8bit", "#FFFFFF");
+            main.description = new createjs.Text(options.description, "14px the8bit", "#FFFFFF");
             main.description.textAlign = "center";
             main.description.textBaseline = "middle";
-            main.description.x = gameconfig.getCanvasXY().x / 2;
+            main.description.x = config.getCanvasXY().x / 2;
             main.description.y = 100;
 
             // Main Background
-            main.background = new createjs.Bitmap(assets.getQueueLoaded().getResult(omain.background));
-            main.background.scaleX = gameconfig.getCanvasXY().x / main.background.image.width;
-            main.background.scaleY = gameconfig.getCanvasXY().y / main.background.image.height;
-            main.background.name = "background";
+            main.background = new createjs.Bitmap(assets.getQueueLoaded().getResult(options.background));
+            main.background.scaleX = config.getCanvasXY().x / main.background.image.width;
+            main.background.scaleY = config.getCanvasXY().y / main.background.image.height;
 
             // start button
             main.startButton = new StartButton();
             main.startButtonLabel = new StartButtonLabel();
         },
 
-        render = function (omain) {
+        render = function (options) {
 
-            var scene = new GameScene({id: 'menu'});
+            var scene = new Scene({id: 'menu'}); // scene name wil be scene.menu
 
-            _prepare(omain);
+            _prepare(options);
 
             scene.addChild(
                 main.background,
@@ -81,8 +80,8 @@ define([
                 main.startButtonLabel
             );
 
-            gamescenemain.add(scene);
-            gamestage.switchScene('scene.start', gamescenemain.get(scene.name));
+            gamescene.add(scene);
+            gamestage.switchScene('scene.start', gamescene.get(scene.name));
 
             main.startButton.addEventListener("click", $.proxy(onStartButtonClick, this));
         };

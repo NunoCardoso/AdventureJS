@@ -1,44 +1,46 @@
 /*global define, createjs, $ */
 
 /**
- * This module bootstraps the game on the main menu
+ * This module bootstraps the game, preloads assets, then lands on the main menu
  */
 define([
-    'engine/menu/main',
-    'engine/gamestage',
-    'engine/keyboard',
+    'engine/config',
     'engine/console/main',
+    'engine/lib/keyboard',
+    'engine/menu/main',
     'engine/object/main',
-    'engine/start/main',
+    'engine/pcharacter/main',
     'engine/scene/main',
-    'engine/character/main'
+    'engine/stage/main',
+    'engine/start/main'
 ], function (
-	mainMenu,
-	gamestage,
-    keyboard,
+    config,
     gameconsole,
-    gameobjects,
-    gamestart,
+    keyboard,
+    gamemenu,
+    gameobject,
+    playablecharacter,
     gamescene,
-    gamecharacter
+    gamestage,
+    gamestart
 ) {
     var game = function (game) {
 
         /**
-         * asks mainMenu to render and display
+         * asks gamemenu to render and display
          */
-        var renderMainMenu = function (queue) {
-                mainMenu.render(game.main);
+        var renderGameMenu = function (queue) {
+                gamemenu.render(game.main);
                 keyboard.attachEvents();
-                gamestage.activate();
+                gamestage.getInstance().activate();
             },
 
             onAssetsLoaded = function () {
-                gameobjects.load(game.objects);
-                gamecharacter.load(game.playableCharacter);
-                gameconsole.load(game.console);
-                gamescene.load(game.scenes);
-                renderMainMenu();
+                gameobject.preload(game.objects);
+                playablecharacter.preload(game.playableCharacter);
+                gameconsole.preload(game.console);
+                gamescene.preload(game.scenes);
+                renderGameMenu();
             },
 
             /**
@@ -48,7 +50,11 @@ define([
              */
             start = function () {
                 var assetList = game.images.concat(game.sounds);
-                gamestage.init();
+                gamestage.preload();
+                config.setCanvasXY({
+                    x : $("#canvas").width(),
+                    y : $("#canvas").height()
+                });
                 gamestart.init({
                     'assetList'      : assetList,
                     'onAssetsLoaded' : onAssetsLoaded

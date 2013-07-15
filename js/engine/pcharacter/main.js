@@ -1,17 +1,17 @@
-/*global define, createjs, $ */
+/*global define */
 
 /**
  * This module handles the playable character
  */
 define([
-    'engine/character/playablecharacter'
+    'engine/pcharacter/pcharacter'
 ], function (
     PlayableCharacter
 ) {
 
     var pc,
 
-        load = function (character) {
+        preload = function (character) {
             pc = new PlayableCharacter(character);
         },
 
@@ -26,8 +26,8 @@ define([
         };
 
     return {
-        'load' : load,
-        'get'  : get,
+        'preload' : preload,
+        'get'     : get,
         'updatePosition' : updatePosition
     };
 });

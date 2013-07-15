@@ -1,13 +1,13 @@
-/*global define, createjs, $ */
+/*global define, createjs, $*/
 
 /**
- * This module handles main menu stuff
+ * This module renders a scene background
  */
 define([
-    'engine/gameconfig',
-    'engine/assets'
+    'engine/config',
+    'engine/lib/assets'
 ], function (
-    gameconfig,
+    config,
     assets
 ) {
     var Background = function (options) {
@@ -19,14 +19,18 @@ define([
     Background.prototype.initialize = function (options) {
         this.Background_initialize();
         this.image  = assets.getQueueLoaded().getResult(options.background);
-        this.scaleX = gameconfig.get('game.w') / this.image.width;
-        this.scaleY = gameconfig.get('game.h') / this.image.height;
+        this.scaleX = config.get('game.w') / this.image.width;
+        this.scaleY = config.get('game.h') / this.image.height;
 
-        if (options.interactable && options.playableCharacter) {
+        /**
+         * call this function so that this background
+         * dispatches click events to the playable character
+         */
+        this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {
-                options.playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
+                playableCharacter.get().setClickedXY({x : e.stageX, y : e.stageY});
             }, this));
-        }
+        };
     };
     return Background;
 });

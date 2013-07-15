@@ -4,14 +4,13 @@
  * This module handles main menu stuff
  */
 define([
-    'engine/gameconfig',
-    'engine/gamestage',
+    'engine/config',
     'engine/console/verb',
     'engine/console/background',
     'engine/console/sentence'
 ], function (
-    gameconfig,
-    gamestage,
+    config,
+    action,
     Verb,
     Background,
     Sentence
@@ -19,6 +18,7 @@ define([
     var background,
         sentence,
         verbs = [],
+        container,
 
         _calculateVerbPosition = function (i, params) {
 
@@ -35,64 +35,34 @@ define([
             };
         },
 
-        _prepare = function (oconsole) {
+        preload = function (options) {
 
-            background = new Background({
-                x : gameconfig.get('console.x'),
-                y : gameconfig.get('console.y'),
-                w : gameconfig.get('console.w'),
-                h : gameconfig.get('console.h')
-            });
+            background = new Background();
 
             sentence = new Sentence();
 
             var i,
                 verbParams = {
                     initialX   : 0,
-                    initialY   : gameconfig.get('console.verbs.y'),
-                    incrementX : gameconfig.get('console.verbs.incrementX'),
-                    incrementY : gameconfig.get('console.verbs.incrementY'),
-                    maxColumns : gameconfig.get('console.verbs.columns')
+                    initialY   : config.get('console.verbs.y'),
+                    incrementX : config.get('console.verbs.incrementX'),
+                    incrementY : config.get('console.verbs.incrementY'),
+                    maxColumns : config.get('console.verbs.columns')
                 };
 
-            for (i = 0; i < oconsole.verbs.length; i++) {
+            for (i = 0; i < options.verbs.length; i++) {
                 var position = _calculateVerbPosition(i, verbParams);
 
                 verbs[i] = new Verb({
-                    text : oconsole.verbs[i].first,
+                    text : options.verbs[i].first,
                     x    : position.x,
                     y    : position.y,
-                    w    : gameconfig.get('console.verbs.incrementX'),
-                    h    : gameconfig.get('console.verbs.incrementY'),
-                    nr   : oconsole.verbs[i].nr,
-                    second : oconsole.verbs[i].second
+                    w    : config.get('console.verbs.incrementX'),
+                    h    : config.get('console.verbs.incrementY'),
+                    nr   : options.verbs[i].nr,
+                    second : options.verbs[i].second
                 });
             }
-        },
-
-		_onVerbMouseOver = function (e) {
-			console.log("verb mouse over");
-			// e.target is the verb
-			e.target.alpha = 1;
-            sentence.displayVerb(e.target);
-		},
-
-		_onVerbMouseOut = function (e) {
-			console.log("verb mouse out");
-			// e.target is the verb
-			e.target.alpha = 0.7;
-            sentence.undisplayVerb(e.target);
-		},
-
-		_onVerbClick = function (e) {
-			console.log("verb click");
-            createjs.Sound.play('sound.fall');
-            sentence.setVerb(e.target);
-		},
-
-		load = function (oconsole) {
-            _prepare(oconsole);
-
         },
 
         getSentence = function () {
@@ -100,8 +70,11 @@ define([
         },
 
         get = function () {
-            var i,
-                container = new createjs.Container();
+            if (typeof container !== 'undefined') {
+                return container;
+            }
+            var i;
+            container = new createjs.Container();
 
             container.name = 'container.console';
 
@@ -114,17 +87,14 @@ define([
 				container.addChild(
                     verbs[i]
                 );
-                verbs[i].addEventListener('mouseover', $.proxy(_onVerbMouseOver, this));
-                verbs[i].addEventListener('mouseout',  $.proxy(_onVerbMouseOut, this));
-                verbs[i].addEventListener('click',     $.proxy(_onVerbClick, this));
 			}
 
             return container;
 		};
 
     return {
-        'load' : load,
-        'get'  : get,
+        'preload'     : preload,
+        'get'         : get,
         'getSentence' : getSentence
     };
 });

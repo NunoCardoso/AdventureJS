@@ -6,7 +6,6 @@
 define([
 ], function (
 ) {
-
     var queue,
         queueLoaded,
 

@@ -1,12 +1,12 @@
-/*global Graphics, define, createjs, $ */
+/*global define, createjs, $ */
 
 /**
- * This is the 
+ * This is the start button on the game menu
  */
 define([
-    'engine/gameconfig'
+    'engine/config'
 ], function (
-    gameconfig
+    config
 ) {
     var StartButton = function (options) {
         this.initialize(options);
@@ -15,17 +15,16 @@ define([
     StartButton.prototype = new createjs.Shape();
     StartButton.prototype.StartButton_initialize = StartButton.prototype.initialize;
     StartButton.prototype.initialize = function (options) {
-        this.name = "startButton";
         this.alpha = 0.5;
         this.graphics
             .beginStroke("#880000")
             .beginFill("red")
             .drawRoundRect(
-                gameconfig.get('startbutton.x'),
-                gameconfig.get('startbutton.y'),
-                gameconfig.get('startbutton.w'),
-                gameconfig.get('startbutton.h'),
-                gameconfig.get('startbutton.r')
+                config.get('startbutton.x'),
+                config.get('startbutton.y'),
+                config.get('startbutton.w'),
+                config.get('startbutton.h'),
+                config.get('startbutton.r')
             );
         this.addEventListener("mouseover", $.proxy(function (e) {
             this.alpha = 1;

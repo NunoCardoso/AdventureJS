@@ -1,47 +1,37 @@
-/*global define, createjs, $ */
+/*global define */
 
 /**
  * This is the
  */
 define([
-    'engine/gameconfig',
-    'engine/gamestage',
+    'engine/lib/assets',
     'engine/scene/scene',
-    'engine/assets',
+    'engine/stage/main',
     'engine/start/background',
-    'engine/start/progressbar',
-    'engine/start/progressbarbackground',
     'engine/start/loadedfile',
-    'engine/start/loadingtext'
+    'engine/start/loadingtext',
+    'engine/start/progressbar',
+    'engine/start/progressbarbackground'
 ], function (
-    gameconfig,
-    gamestage,
-    GameScene,
     assets,
+    GameScene,
+    gamestage,
     Background,
-    ProgressBar,
-    ProgressBarBackground,
     LoadedFile,
-    LoadingText
+    LoadingText,
+    ProgressBar,
+    ProgressBarBackground
 ) {
     var init = function (options) {
-   // start Background
-        var background = new Background({
-                x: 0,
-                y: 0,
-                w: gameconfig.getCanvasXY().x,
-                h: gameconfig.getCanvasXY().y,
-            }),
 
+        var background  = new Background(),
             progressBar = new ProgressBar({
-                'total' : options.assetList.length,
-                'color' : 'red'
+                'total' : options.assetList.length
             }),
-
             progressBarBackground = new ProgressBarBackground(),
-            loadedFile = new LoadedFile(),
+            loadedFile  = new LoadedFile(),
             loadingText = new LoadingText(),
-            startScene = new GameScene({id: "start"});
+            startScene  = new GameScene({id: "start"}); // scene mane is 'scene.start'
 
         startScene.addChild(
             background,
@@ -51,8 +41,8 @@ define([
             loadingText
         );
 
-        gamestage.addChild(startScene);
-        gamestage.update();
+        gamestage.getInstance().addChild(startScene);
+        gamestage.getInstance().update();
 
         assets.preload({
             assetList  : options.assetList,

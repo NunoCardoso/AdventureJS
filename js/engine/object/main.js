@@ -1,17 +1,17 @@
-/*global define, createjs, $ */
+/*global define */
 
 /**
- * This module handles the playable character
+ * This module handles objects
  */
 define([
-    'engine/object/gameobject'
+    'engine/object/object'
 ], function (
     GameObject
 ) {
 
     var _ = {},
 
-        load = function (objects) {
+        preload = function (objects) {
             var i;
             for (i = 0; i < objects.length; i++) {
                 _[objects[i].id] = new GameObject(objects[i]);
@@ -23,7 +23,7 @@ define([
         };
 
     return {
-        'load' : load,
-        'get'  : get
+        'preload' : preload,
+        'get'     : get
     };
 });

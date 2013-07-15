@@ -3,7 +3,11 @@
 /**
  * This is the console's Verb class
  */
-define([], function () {
+define([
+    'engine/console/action',
+], function (
+    action
+) {
     var Verb = function (options) {
         this.initialize(options);
     };
@@ -30,6 +34,31 @@ define([], function () {
         hitArea.graphics.beginFill("red")
             .drawRect(-10, -30, options.w, options.h);
         this.hitArea = hitArea;
+
+
+        this.onVerbMouseOver = function (e) {
+            console.log("verb mouse over");
+            // e.target is the verb
+            e.target.alpha = 1;
+            action.mouseOverVerb(e);
+        };
+
+        this.onVerbMouseOut = function (e) {
+            console.log("verb mouse out");
+            // e.target is the verb
+            e.target.alpha = 0.7;
+            action.mouseOutVerb(e);
+        };
+
+        this.onVerbClick = function (e) {
+            console.log("verb click");
+            createjs.Sound.play('sound.fall');
+            action.clickVerb(e);
+        };
+
+        this.addEventListener('mouseover', $.proxy(this.onVerbMouseOver, this));
+        this.addEventListener('mouseout',  $.proxy(this.onVerbMouseOut, this));
+        this.addEventListener('click',     $.proxy(this.onVerbClick, this));
     };
     return Verb;
 });

@@ -1,25 +1,24 @@
-/*global define, createjs, $ */
+/*global define, createjs */
 
 /**
- * This is the 
+ * This is the start button label
  */
 define([
-    'engine/gameconfig'
+    'engine/config'
 ], function (
-    gameconfig
+    config
 ) {
     var StartButtonLabel = function (options) {
         this.initialize(options);
     };
 
-    StartButtonLabel.prototype = new createjs.Text("start game!", "bold 24px the8bit", "#FFFFFF");
+    StartButtonLabel.prototype = new createjs.Text(config.get('startgame'), "bold 24px the8bit", "#FFFFFF");
     StartButtonLabel.prototype.StartButtonLabel_initialize = StartButtonLabel.prototype.initialize;
     StartButtonLabel.prototype.initialize = function (options) {
-        this.name = "StartButtonLabel";
         this.textAlign = "center";
         this.textBaseline = "middle";
-        this.x = gameconfig.get('game.w') / 2;
-        this.y = gameconfig.get('startbutton.y') + gameconfig.get('startbutton.h') / 2;
+        this.x = config.get('game.w') / 2;
+        this.y = config.get('startbutton.y') + config.get('startbutton.h') / 2;
     };
     return StartButtonLabel;
 });
