@@ -5,7 +5,7 @@
  */
 define([
     'engine/config',
-    'engine/console/main',
+    'engine/panel/main',
     'engine/lib/keyboard',
     'engine/menu/main',
     'engine/object/main',
@@ -15,7 +15,7 @@ define([
     'engine/start/main'
 ], function (
     config,
-    gameconsole,
+    gamepanel,
     keyboard,
     gamemenu,
     gameobject,
@@ -45,7 +45,7 @@ define([
             onAssetsLoaded = function () {
                 gameobject.preload(game.objects);
                 playablecharacter.preload(game.playableCharacter);
-                gameconsole.preload(game.console);
+                gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);
                 renderGameMenu();
             },

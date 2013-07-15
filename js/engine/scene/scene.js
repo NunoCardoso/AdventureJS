@@ -76,8 +76,8 @@ define([
                 this.addChild(e);
             }
 
-            if (options.console) {
-                this.addChild(console);
+            if (options.panel) {
+                this.addChild(options.panel);
             }
 
             if (options.playableCharacter) {

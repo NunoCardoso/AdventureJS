@@ -1,10 +1,10 @@
 /*global define, createjs, $ */
 
 /**
- * This is the console's Verb class
+ * This is the pane's Verb class
  */
 define([
-    'engine/console/action',
+    'engine/panel/action',
 ], function (
     action
 ) {
@@ -17,7 +17,7 @@ define([
     Verb.prototype.initialize = function (options) {
 
         this.Text_initialize();
-        this.name = 'console.verb.' + options.text;
+        this.name = 'panel.verb.' + options.text;
         this.text = options.text;
         this.font = "28px the8bit";
         this.color = "#FFFFFF";

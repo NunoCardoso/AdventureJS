@@ -4,7 +4,7 @@
  * This module is a game object class
  */
 define([
-    'engine/console/action',
+    'engine/panel/action',
     'engine/lib/assets'
 ], function (
     action,

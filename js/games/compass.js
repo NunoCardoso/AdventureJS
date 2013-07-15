@@ -50,7 +50,7 @@ define([
             'background'    : 'background02',
             'startingScene' : 'scene01'
         },
-        'console' : {
+        'panel' : {
             'startingInventory' : [
                 'magnet01',
                 'winebottle01',

@@ -5,9 +5,9 @@
  */
 define([
     'engine/config',
-    'engine/console/verb',
-    'engine/console/background',
-    'engine/console/sentence'
+    'engine/panel/verb',
+    'engine/panel/background',
+    'engine/panel/sentence'
 ], function (
     config,
     Verb,
@@ -43,10 +43,10 @@ define([
             var i,
                 verbParams = {
                     initialX   : 0,
-                    initialY   : config.get('console.verbs.y'),
-                    incrementX : config.get('console.verbs.incrementX'),
-                    incrementY : config.get('console.verbs.incrementY'),
-                    maxColumns : config.get('console.verbs.columns')
+                    initialY   : config.get('panel.verbs.y'),
+                    incrementX : config.get('panel.verbs.incrementX'),
+                    incrementY : config.get('panel.verbs.incrementY'),
+                    maxColumns : config.get('panel.verbs.columns')
                 };
 
             for (i = 0; i < options.verbs.length; i++) {
@@ -56,8 +56,8 @@ define([
                     text : options.verbs[i].first,
                     x    : position.x,
                     y    : position.y,
-                    w    : config.get('console.verbs.incrementX'),
-                    h    : config.get('console.verbs.incrementY'),
+                    w    : config.get('panel.verbs.incrementX'),
+                    h    : config.get('panel.verbs.incrementY'),
                     nr   : options.verbs[i].nr,
                     second : options.verbs[i].second
                 });
@@ -75,7 +75,7 @@ define([
             var i;
             container = new createjs.Container();
 
-            container.name = 'container.console';
+            container.name = 'container.panel';
 
             container.addChild(
                 background,

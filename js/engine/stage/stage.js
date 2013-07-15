@@ -6,12 +6,12 @@
  */
 define([
     'engine/config',
-    'engine/console/main',
+    'engine/panel/main',
     'engine/pcharacter/main',
     'engine/scene/main'
 ], function (
     config,
-    gameconsole,
+    gamepanel,
     playablecharacter,
     gamescene
 ) {
@@ -44,7 +44,7 @@ define([
 
                     if (toscene.isInteractable()) {
                         toscene.render({
-                            'console'           : gameconsole.get(),
+                            'panel'             : gamepanel.get(),
                             'playablecharacter' : playablecharacter.get()
                         });
                     }

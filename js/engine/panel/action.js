@@ -5,25 +5,25 @@
  */
 define([
     'engine/config',
-    'engine/console/main'
+    'engine/panel/main'
 ], function (
     config,
-    gameconsole
+    gamepanel
 ) {
 
     var selectedVerb = false,
         selectedVerbSecond = false,
         selectedObject = false,
         text,
-        defaultText = config.get('console.sentence.defaultText'),
+        defaultText = config.get('panel.sentence.defaultText'),
 
         _pushText = function (_text) {
             text = _text;
-            gameconsole.getSentence().text = text;
+            gamepanel.getSentence().text = text;
         },
 
         _pullText = function () {
-            return gameconsole.getSentence().text;
+            return gamepanel.getSentence().text;
         },
 
         _getDefaultText = function () {

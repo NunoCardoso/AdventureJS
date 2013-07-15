@@ -4,7 +4,7 @@
  * This is the
  */
 define([
-    'engine/console/action',
+    'engine/panel/action',
     'engine/lib/assets',
     'engine/pcharacter/decisionmaker',
     'engine/pcharacter/line'

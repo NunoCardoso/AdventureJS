@@ -1,7 +1,7 @@
 /*global define, createjs, $ */
 
 /**
- * This module handles console background
+ * This module handles panel background
  */
 define([
     'engine/config'
@@ -16,13 +16,13 @@ define([
     Background.prototype.Background_initialize = Background.prototype.initialize;
     Background.prototype.initialize = function () {
         this.Background_initialize();
-        this.name = "background.console";
+        this.name = "background.panel";
         this.graphics.beginFill("black")
             .drawRect(
-                config.get('console.x'),
-                config.get('console.y'),
-                config.get('console.w'),
-                config.get('console.h')
+                config.get('panel.x'),
+                config.get('panel.y'),
+                config.get('panel.w'),
+                config.get('panel.h')
             );
     };
     return Background;
