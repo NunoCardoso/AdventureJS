@@ -21,6 +21,10 @@ define([
                 'src' : 'img/character/guybrush2.png'
             },
             {
+                'id'  : 'nonPlayableCharacter01',
+                'src' : 'img/character/pirate.png'
+            },
+            {
                 'id'  : 'winebottleinventory01',
                 'src' : 'img/inventory/wine-bottle.jpg'
             },
@@ -89,7 +93,26 @@ define([
                 'talkleft'   : [24, 27, 'talkleft', 6],
             }
         },
-        'nonPlayableCharacter' : [],
+        'nonPlayableCharacters' : [
+            {
+                'id'     : 'pirate01',
+                'name'   : 'pirate',
+                'images' : 'nonPlayableCharacter01',
+                'frames' : {
+                    'regX'   : 52,
+                    'height' : 150,
+                    'count'  : 12,
+                    'regY'   : 0,
+                    'width'  : 104
+                },
+                'animations' : {
+                    'standleft'  : 1,
+                    'standright' : 2,
+                    'talkleft'   : [5, 8, 'talkleft', 4],
+                    'talkright'  : [9, 12, 'talkright', 4]
+                }
+            }
+        ],
         'objects': [
             {
                 'id': 'winebottle01',
@@ -179,6 +202,15 @@ define([
                         'y'    : 230
                     }
                 },
+                'nonPlayableCharacters' : [
+                    {
+                        'id' : 'pirate01',
+                        'position' : {
+                            'x'    : 400,
+                            'y'    : 230
+                        }
+                    }
+                ],
                 'objects' : [
                     {
                         'id' : 'winebottle01',

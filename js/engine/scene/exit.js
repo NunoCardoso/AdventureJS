@@ -7,14 +7,12 @@ define([
     'engine/config',
     'engine/lib/assets',
     'engine/object/main',
-    'engine/pcharacter/main',
     'engine/interaction/action',
     'require'
 ], function (
     config,
     assets,
     gameobject,
-    playablecharacter,
     action,
     require
 ) {

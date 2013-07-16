@@ -6,7 +6,7 @@
 define([
     'engine/interaction/action',
     'engine/lib/assets',
-    'engine/pcharacter/line'
+    'engine/character/line'
 ], function (
     action,
     assets,
@@ -138,27 +138,6 @@ define([
                 this.attitude = 'standright';
             }
         };
-
-        this.onCharacterMouseOver = function (e) {
-            action.mouseOverPlayableCharacter(e);
-        };
-
-        this.onCharacterMouseOut = function (e) {
-            action.mouseOutPlayableCharacter(e);
-        };
-
-        this.onCharacterClick = function (e) {
-            var result = action.clickPlayableCharacter(e);
-            if (result) {
-                if (result.action === 'dialogMessage') {
-                    this.say(result.text);
-                }
-            }
-        };
-
-        this.addEventListener("mouseover", $.proxy(this.onCharacterMouseOver, this));
-        this.addEventListener("mouseout",  $.proxy(this.onCharacterMouseOut, this));
-        this.addEventListener("click",     $.proxy(this.onCharacterClick, this));
     };
     return PlayableCharacter;
 });

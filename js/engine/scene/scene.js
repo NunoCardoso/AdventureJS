@@ -29,7 +29,8 @@ define([
         this.description  = scene.description;
         this.interactable = scene.interactable;
         this.ending       = scene.ending;
-        this.playableCharacterPosition = null;
+        this.playableCharacter = scene.playableCharacter;
+        this.nonPlayableCharacters = scene.nonPlayableCharacters;
         this.background   = null;
 
         this.objects      = scene.objects || [];
@@ -44,10 +45,6 @@ define([
         this.isInteractable = function () {
             return this.interactable;
         };
-
-        if (scene.playableCharacter) {
-            this.playableCharacterPosition = scene.playableCharacter.position;
-        }
 
         this.render = function (options) {
 
@@ -89,6 +86,21 @@ define([
                 this.addChild(options.sentence);
             }
 
+            if (scene.nonPlayableCharacters) {
+                for (i = 0; i < scene.nonPlayableCharacters.length; i++) {
+                    var _id = scene.nonPlayableCharacters[i].id;
+                    // set the npc position according to what the scene says
+                    options.nonPlayableCharacters[_id].setX(scene.nonPlayableCharacters[i].position.x);
+                    options.nonPlayableCharacters[_id].setY(scene.nonPlayableCharacters[i].position.y);
+                    // register the playable character, so they can talk.
+                    options.nonPlayableCharacters[_id].activateClickListener(
+                        options.playableCharacter
+                    );
+                    this.addChild(options.nonPlayableCharacters[_id]);
+                    this.addChild(options.nonPlayableCharacters[_id].getLine());
+                }
+            }
+
             if (options.playableCharacter) {
 
                 // playableCharacter in new scene - reset clickedXY.
@@ -103,8 +115,8 @@ define([
                     options.playableCharacter.setY(options.characterPosition.y);
                 } else {
                 // character is starting on a scene, get default x and y
-                    options.playableCharacter.setX(this.playableCharacterPosition.x);
-                    options.playableCharacter.setY(this.playableCharacterPosition.y);
+                    options.playableCharacter.setX(this.playableCharacter.position.x);
+                    options.playableCharacter.setY(this.playableCharacter.position.y);
                 }
                 this.addChild(options.playableCharacter);
                 this.addChild(options.playableCharacter.getLine());

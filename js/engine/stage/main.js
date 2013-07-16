@@ -5,10 +5,10 @@
  */
 define([
     'engine/stage/stage',
-    'engine/pcharacter/main'
+    'engine/character/main'
 ], function (
     GameStage,
-    playablecharacter
+    gamecharacter
 ) {
 
     var stage,
@@ -22,7 +22,7 @@ define([
         },
 
         _onTick = function (event) {
-            playablecharacter.updatePosition();
+            gamecharacter.updatePosition();
             stage.update(event);
         },
 

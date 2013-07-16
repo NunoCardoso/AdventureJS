@@ -24,10 +24,6 @@ define([
             sentence.setText(text);
         },
 
-        _pullText = function () {
-            return sentence.getText(text);
-        },
-
         _getDefaultText = function () {
             var t = '';
             if (!selectedVerb) {
@@ -106,15 +102,15 @@ define([
             selectedVerb = false;
         },
 
-        mouseOverPlayableCharacter = function (e) {
+        mouseOverNonPlayableCharacter = function (e) {
             _displayObject(e.target);
         },
 
-        mouseOutPlayableCharacter = function (e) {
+        mouseOutNonPlayableCharacter = function (e) {
             _undisplay(e.target);
         },
 
-        clickPlayableCharacter = function (e) {
+        clickNonPlayableCharacter = function (e) {
             return _setObject(e.target);
         },
 
@@ -155,9 +151,9 @@ define([
         };
 
     return {
-        'mouseOverPlayableCharacter' : mouseOverPlayableCharacter,
-        'mouseOutPlayableCharacter'  : mouseOutPlayableCharacter,
-        'clickPlayableCharacter'     : clickPlayableCharacter,
+        'mouseOverNonPlayableCharacter' : mouseOverNonPlayableCharacter,
+        'mouseOutNonPlayableCharacter'  : mouseOutNonPlayableCharacter,
+        'clickNonPlayableCharacter'     : clickNonPlayableCharacter,
 
         'mouseOverObject' : mouseOverObject,
         'mouseOutObject'  : mouseOutObject,

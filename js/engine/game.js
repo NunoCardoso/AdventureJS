@@ -4,24 +4,24 @@
  * This module bootstraps the game, preloads assets, then lands on the main menu
  */
 define([
+    'engine/character/main',
     'engine/config',
     'engine/interaction/main',
     'engine/lib/keyboard',
     'engine/menu/main',
     'engine/object/main',
     'engine/panel/main',
-    'engine/pcharacter/main',
     'engine/scene/main',
     'engine/stage/main',
     'engine/start/main'
 ], function (
+    gamecharacter,
     config,
     gameinteraction,
     keyboard,
     gamemenu,
     gameobject,
     gamepanel,
-    playablecharacter,
     gamescene,
     gamestage,
     gamestart
@@ -47,7 +47,7 @@ define([
             onAssetsLoaded = function () {
                 gameobject.preload(game.objects);
                 gameinteraction.preload(game.interactions);
-                playablecharacter.preload(game.playableCharacter);
+                gamecharacter.preload(game.playableCharacter, game.nonPlayableCharacters);
                 gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);
                 renderGameMenu();

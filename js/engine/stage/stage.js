@@ -5,19 +5,18 @@
  * on the Tick event, it renders the stage on a certain FPS.
  */
 define([
+    'engine/character/main',
     'engine/config',
     'engine/panel/main',
-    'engine/pcharacter/main',
     'engine/scene/main',
     'engine/sentence/main'
 ], function (
+    gamecharacter,
     config,
     gamepanel,
-    playablecharacter,
     gamescene,
     sentence
 ) {
-
     var GameStage = function (el) {
         this.initialize(el);
     };
@@ -49,7 +48,8 @@ define([
                         toscene.render({
                             'panel'             : gamepanel.get(),
                             'sentence'          : sentence.get(),
-                            'playableCharacter' : playablecharacter.get(),
+                            'playableCharacter' : gamecharacter.getPlayableCharacter(),
+                            'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
                             'characterPosition' : characterPosition
                         });
                     }
