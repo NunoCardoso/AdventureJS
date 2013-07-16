@@ -15,6 +15,7 @@ define([
     var selectedVerb = false,
         selectedVerbSecond = false,
         selectedObject = false,
+        selectedObjectSecond = false,
         text,
         defaultText = config.get('sentence.defaultText'),
 
@@ -47,16 +48,24 @@ define([
         // setting an object can imply an action.
         // return it so that the playable character can do something.
         _setObject = function (object) {
-            selectedObject = object;
-
+            var dec;
             // if verb cardinality is 1, do something.
             if (selectedVerb.nr === 1) {
-                return decision.decide();
+                selectedObject = object;
+                dec = decision.decide(selectedVerb, selectedObject);
+                return dec;
             }
             if (selectedVerb.nr === 2) {
-                selectedVerbSecond = selectedVerb.second;
-                _pushText(text + ' ' + selectedVerb.second);
-                return undefined;
+                if (!selectedObject) {
+                    selectedObject = object;
+                    selectedVerbSecond = selectedVerb.second;
+                    _pushText(text + ' ' + selectedVerb.second);
+                } else {
+                    selectedObjectSecond = object;
+                    _pushText(text + ' ' + selectedObjectSecond);
+                    dec = decision.decide(selectedVerb, selectedObject, selectedObjectSecond);
+                    return dec;
+                }
             }
         },
 

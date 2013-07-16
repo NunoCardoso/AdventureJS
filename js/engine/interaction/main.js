@@ -43,10 +43,12 @@ define([
                             found.push(_[i]);
                         }
 
-                        // if there is a second name, test it.
-                        secondname = _[i].second.type + '.' + _[i].second.item;
-                        if (second.name === secondname) {
-                            found.push(_[i]);
+                        if (typeof second !== 'undefined') {
+                            // if there is a second name, test it.
+                            secondname = _[i].second.type + '.' + _[i].second.item;
+                            if (second.name === secondname) {
+                                found.push(_[i]);
+                            }
                         }
                     } else {
                         // maybe firstname matches second object, and secondname matches first object.

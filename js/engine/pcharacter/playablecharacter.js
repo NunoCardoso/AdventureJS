@@ -6,12 +6,10 @@
 define([
     'engine/interaction/action',
     'engine/lib/assets',
-    'engine/pcharacter/decisionmaker',
     'engine/pcharacter/line'
 ], function (
     action,
     assets,
-    decisionmaker,
     TextLine
 ) {
     var PlayableCharacter = function (options) {
@@ -152,8 +150,9 @@ define([
         this.onCharacterClick = function (e) {
             var result = action.clickPlayableCharacter(e);
             if (result) {
-                // use decisionmaker;
-                this.say(result.text);
+                if (result.action === 'dialogMessage') {
+                    this.say(result.text);
+                }
             }
         };
 
