@@ -4,7 +4,7 @@
  * This module is a game object class
  */
 define([
-    'engine/panel/action',
+    'engine/interaction/action',
     'engine/lib/assets'
 ], function (
     action,
@@ -47,25 +47,26 @@ define([
         };
 
         this.onObjectMouseOver = function (e) {
-            action.mouseOverObject(e.target);
+            action.mouseOverObject(e);
         };
 
         this.onObjectMouseOut = function (e) {
-            action.mouseOutObject();
-        };
-
-        this.onObjectClick = function (e) {
-            var result = action.clickObject(e.target);
-            if (result) {
-                playablecharacter.get().say(result.text);
-            }
+            action.mouseOutObject(e);
         };
 
         this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
         this.addEventListener("mouseout",  $.proxy(this.onObjectMouseOut, this));
 
         this.activateClickListener = function (playableCharacter) {
-            this.addEventListener("click", $.proxy(this.onObjectClick, this));
+            this.addEventListener("click", $.proxy(function (e) {
+                playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
+                playableCharacter.setWhenFinished(function () {
+                    var result = action.clickObject(e);
+                    if (result) {
+                        playableCharacter.say(result.text);
+                    }
+                });
+            }, this));
         };
     };
 

@@ -18,7 +18,7 @@ define([
             },
             {
                 'id'  : 'playableCharacter01',
-                'src' : 'img/character/guybrush.png'
+                'src' : 'img/character/guybrush2.png'
             },
             {
                 'id'  : 'winebottleinventory01',
@@ -76,7 +76,7 @@ define([
             'frames' : {
                 'regX'   : 52,
                 'height' : 150,
-                'count'  : 18,
+                'count'  : 30,
                 'regY'   : 0,
                 'width'  : 104
             },
@@ -84,7 +84,9 @@ define([
                 'walkright'  : [0, 5, 'walkright', 6],
                 'walkleft'   : [6, 11, 'walkleft', 6],
                 'standright' : 12,
-                'standleft'  : 13
+                'standleft'  : 13,
+                'talkright'  : [18, 22, 'talkright', 6],
+                'talkleft'   : [24, 27, 'talkleft', 6],
             }
         },
         'nonPlayableCharacter' : [],
@@ -102,13 +104,12 @@ define([
         'interactions': [
             {
                 'id' : 'interaction01',
-                'verb' : 'use',
+                'verb' : 'Use',
                 'first': {
                     'type' : 'object',
                     'item' : 'needle01',
                     'inInventory' : true
                 },
-                'to' : true,
                 'second' : {
                     'type' : 'object',
                     'item' : 'cork01',
@@ -136,12 +137,33 @@ define([
             },
             {
                 'id' : 'interaction02',
-                'verb' : 'talk',
+                'verb' : 'Talk to',
                 'first' : {
                     'type' : 'character',
                     'item' : 'pirate01'
                 },
-                'to' : false
+                'actions' : [
+                    {
+                        'action': 'playDialog',
+                        'target': 'dialog01'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction03',
+                'verb' : 'Push',
+                'first': {
+                    'type' : 'object',
+                    'item' : 'winebottle01',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'target': 'you01',
+                        'param' : 'I can\'t push a wine bottle!'
+                    }
+                ]
             }
         ],
         'scenes': [
@@ -164,7 +186,7 @@ define([
                         'y'  : 330,
                         'w'  : 50,
                         'h'  : 50
-                    }
+                    },
                 ],
                 'exits' : [
                     {
@@ -173,7 +195,11 @@ define([
                         'w' : 50,
                         'h' : 200,
                         'arrow' : 'right',
-                        'to' : 'scene02'
+                        'to' : 'scene02',
+                        'characterPosition' : {
+                            'x' : 0,
+                            'y' : 230
+                        }
                     }
                 ]
             },
@@ -205,7 +231,11 @@ define([
                         'w' : 50,
                         'h' : 200,
                         'arrow' : 'left',
-                        'to' : 'scene01'
+                        'to' : 'scene01',
+                        'characterPosition' : {
+                            'x' : 700,
+                            'y' : 230
+                        }
                     }
                 ]
             }

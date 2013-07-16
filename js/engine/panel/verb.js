@@ -4,7 +4,7 @@
  * This is the pane's Verb class
  */
 define([
-    'engine/panel/action',
+    'engine/interaction/action',
 ], function (
     action
 ) {

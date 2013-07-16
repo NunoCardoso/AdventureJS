@@ -49,10 +49,15 @@ define([
             this.playableCharacterPosition = scene.playableCharacter.position;
         }
 
-        // render this scene with the given playableCharacter
         this.render = function (options) {
 
+            // clean previous renderings
+            this.removeAllChildren();
+
             if (this.background) {
+                if (options.playableCharacter) {
+                    this.background.activateClickListener(options.playableCharacter);
+                }
                 this.addChild(this.background);
             }
 
@@ -80,10 +85,27 @@ define([
                 this.addChild(options.panel);
             }
 
+            if (options.sentence) {
+                this.addChild(options.sentence);
+            }
+
             if (options.playableCharacter) {
-                // maybe this isn't true, goind from exits
-                options.playableCharacter.x = this.playableCharacterPosition.x;
-                options.playableCharacter.y = this.playableCharacterPosition.y;
+
+                // playableCharacter in new scene - reset clickedXY.
+                options.playableCharacter.resetClickedXY();
+
+                // make it stand
+                options.playableCharacter.stand();
+
+                // character is exiting from a scene, add custom x and y
+                if (options.characterPosition) {
+                    options.playableCharacter.setX(options.characterPosition.x);
+                    options.playableCharacter.setY(options.characterPosition.y);
+                } else {
+                // character is starting on a scene, get default x and y
+                    options.playableCharacter.setX(this.playableCharacterPosition.x);
+                    options.playableCharacter.setY(this.playableCharacterPosition.y);
+                }
                 this.addChild(options.playableCharacter);
                 this.addChild(options.playableCharacter.getLine());
             }

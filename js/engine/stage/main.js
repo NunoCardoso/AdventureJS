@@ -4,9 +4,11 @@
  * This module instantiates the stage singleton
  */
 define([
-    'engine/stage/stage'
+    'engine/stage/stage',
+    'engine/pcharacter/main'
 ], function (
-    GameStage
+    GameStage,
+    playablecharacter
 ) {
 
     var stage,
@@ -20,7 +22,7 @@ define([
         },
 
         _onTick = function (event) {
-           // playablecharacter.updatePosition();
+            playablecharacter.updatePosition();
             stage.update(event);
         },
 

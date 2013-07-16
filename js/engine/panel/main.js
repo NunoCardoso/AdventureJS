@@ -6,16 +6,13 @@
 define([
     'engine/config',
     'engine/panel/verb',
-    'engine/panel/background',
-    'engine/panel/sentence'
+    'engine/panel/background'
 ], function (
     config,
     Verb,
-    Background,
-    Sentence
+    Background
 ) {
     var background,
-        sentence,
         verbs = [],
         container,
 
@@ -37,8 +34,6 @@ define([
         preload = function (options) {
 
             background = new Background();
-
-            sentence = new Sentence();
 
             var i,
                 verbParams = {
@@ -64,10 +59,6 @@ define([
             }
         },
 
-        getSentence = function () {
-            return sentence;
-        },
-
         get = function () {
             if (typeof container !== 'undefined') {
                 return container;
@@ -78,8 +69,7 @@ define([
             container.name = 'container.panel';
 
             container.addChild(
-                background,
-                sentence
+                background
             );
 
             for (i = 0; i < verbs.length; i++) {
@@ -93,7 +83,6 @@ define([
 
     return {
         'preload'     : preload,
-        'get'         : get,
-        'getSentence' : getSentence
+        'get'         : get
     };
 });

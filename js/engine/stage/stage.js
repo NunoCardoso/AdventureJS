@@ -8,12 +8,14 @@ define([
     'engine/config',
     'engine/panel/main',
     'engine/pcharacter/main',
-    'engine/scene/main'
+    'engine/scene/main',
+    'engine/sentence/main'
 ], function (
     config,
     gamepanel,
     playablecharacter,
-    gamescene
+    gamescene,
+    sentence
 ) {
 
     var GameStage = function (el) {
@@ -29,7 +31,7 @@ define([
             y : $("#canvas").height()
         });
 
-        this.switchScene = function (_fromscene, _toscene) {
+        this.switchScene = function (_fromscene, _toscene, characterPosition) {
             // _fromscene is a name of a scene already on stage
             var fromscene = this.getChildByName(_fromscene);
             // toscene is a name of a scene to render.
@@ -43,9 +45,12 @@ define([
                     toscene.alpha = 0;
 
                     if (toscene.isInteractable()) {
+
                         toscene.render({
                             'panel'             : gamepanel.get(),
-                            'playablecharacter' : playablecharacter.get()
+                            'sentence'          : sentence.get(),
+                            'playableCharacter' : playablecharacter.get(),
+                            'characterPosition' : characterPosition
                         });
                     }
 

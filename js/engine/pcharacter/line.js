@@ -25,19 +25,13 @@ define([
         this.setX = function (x) {
             this.x = x;
         };
+
         this.setY = function (y) {
             this.y = y;
         };
 
         this.say = function (text) {
-            // 0.1 sec per letter;
-            var interv = text.length * 100;
-            setTimeout(
-                $.proxy(function () {
-                    this.text = '';
-                }, this),
-                interv
-            );
+            this.text = text;
         };
 
         this.unsay = function () {

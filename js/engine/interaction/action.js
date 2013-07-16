@@ -5,24 +5,26 @@
  */
 define([
     'engine/config',
-    'engine/panel/main'
+    'engine/sentence/main',
+    'engine/interaction/decision'
 ], function (
     config,
-    gamepanel
+    sentence,
+    decision
 ) {
     var selectedVerb = false,
         selectedVerbSecond = false,
         selectedObject = false,
         text,
-        defaultText = config.get('panel.sentence.defaultText'),
+        defaultText = config.get('sentence.defaultText'),
 
         _pushText = function (_text) {
             text = _text;
-            gamepanel.getSentence().text = text;
+            sentence.setText(text);
         },
 
         _pullText = function () {
-            return gamepanel.getSentence().text;
+            return sentence.getText(text);
         },
 
         _getDefaultText = function () {
@@ -42,22 +44,6 @@ define([
             return t;
         },
 
-        _decideAction = function () {
-            // ok, action is going to be performed , let's reset the sentence
-            var textToSay = _getDefaultText();
-
-            selectedVerb = false;
-            selectedVerbSecond = false;
-            selectedObject = false;
-
-            _pushText(textToSay);
-
-            return {
-                'action' : 'say',
-                'text'   : textToSay
-            };
-        },
-
         // setting an object can imply an action.
         // return it so that the playable character can do something.
         _setObject = function (object) {
@@ -65,7 +51,7 @@ define([
 
             // if verb cardinality is 1, do something.
             if (selectedVerb.nr === 1) {
-                return _decideAction();
+                return decision.decide();
             }
             if (selectedVerb.nr === 2) {
                 selectedVerbSecond = selectedVerb.second;
@@ -80,7 +66,12 @@ define([
             _pushText(t);
         },
 
-        _undisplayObject = function () {
+        _displayExit = function (exit) {
+            var t = defaultText + ' ' + exit.label;
+            _pushText(t);
+        },
+
+        _undisplay = function () {
             _pushText(_getDefaultText());
         },
 
@@ -93,12 +84,13 @@ define([
             _pushText(verb.text);
         },
 
-        _displayVerb = function (verb) {
-            _pushText(verb.text);
+        _setExit = function (verb) {
+            selectedVerb = false;
+            _displayExit(verb);
         },
 
-        _undisplayVerb = function () {
-            _pushText(_getDefaultText());
+        _displayVerb = function (verb) {
+            _pushText(verb.text);
         },
 
         _clearVerb = function () {
@@ -110,7 +102,7 @@ define([
         },
 
         mouseOutPlayableCharacter = function (e) {
-            _undisplayObject(e.target);
+            _undisplay(e.target);
         },
 
         clickPlayableCharacter = function (e) {
@@ -122,7 +114,7 @@ define([
         },
 
         mouseOutObject = function (e) {
-            _undisplayObject(e.target);
+            _undisplay(e.target);
         },
 
         clickObject = function (e) {
@@ -134,22 +126,40 @@ define([
         },
 
         mouseOutVerb = function (e) {
-            _undisplayVerb(e.target);
+            _undisplay(e.target);
         },
 
         clickVerb = function (e) {
             return _setVerb(e.target);
+        },
+
+        mouseOverExit = function (e) {
+            _displayExit(e.target);
+        },
+
+        mouseOutExit = function (e) {
+            _undisplay(e.target);
+        },
+
+        clickExit = function (e) {
+            return _setExit(e.target);
         };
 
     return {
         'mouseOverPlayableCharacter' : mouseOverPlayableCharacter,
         'mouseOutPlayableCharacter'  : mouseOutPlayableCharacter,
         'clickPlayableCharacter'     : clickPlayableCharacter,
+
         'mouseOverObject' : mouseOverObject,
         'mouseOutObject'  : mouseOutObject,
         'clickObject'     : clickObject,
+
         'mouseOverVerb'   : mouseOverVerb,
         'mouseOutVerb'    : mouseOutVerb,
-        'clickVerb'        : clickVerb
+        'clickVerb'       : clickVerb,
+
+        'mouseOverExit'   : mouseOverExit,
+        'mouseOutExit'    : mouseOutExit,
+        'clickExit'       : clickExit
     };
 });

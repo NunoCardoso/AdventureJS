@@ -8,13 +8,15 @@ define([
     'engine/lib/assets',
     'engine/object/main',
     'engine/pcharacter/main',
-    'engine/stage/main'
+    'engine/interaction/action',
+    'require'
 ], function (
     config,
     assets,
     gameobject,
     playablecharacter,
-    gamestage
+    action,
+    require
 ) {
     var Exit = function (options, from) {
         this.initialize(options, from);
@@ -25,6 +27,7 @@ define([
     Exit.prototype.initialize = function (exit, from) {
         // if it is 0, it is invisible, and won't trigger cursor changes
         this.alpha = 0.01;
+        this.label = 'exit';
         this.graphics
             .beginFill("black")
             .drawRect(
@@ -36,13 +39,16 @@ define([
         this.arrow = exit.arrow;
         this.from  = from;
         this.to    = exit.to;
+        this.characterPosition = exit.characterPosition;
 
         this.addEventListener("mouseover", $.proxy(function (e) {
             $("#canvas").attr('class', 'exit' + this.arrow);
+            action.mouseOverExit(e);
         }, this));
 
         this.addEventListener("mouseout", $.proxy(function (e) {
             $("#canvas").attr('class', 'crosshair');
+            action.mouseOutExit(e);
         }, this));
 
         /**
@@ -51,14 +57,15 @@ define([
          */
         this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {
-                playablecharacter.get()
-                    .setClickedXY({x : e.stageX, y : e.stageY})
-                    .setWhenFinished($.proxy(function () {
-                        gamestage.switchScene(
-                            'scene.' + this.from,
-                            'scene.' + this.to
-                        );
-                    }, this));
+                action.clickExit(e);
+                playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
+                playableCharacter.setWhenFinished($.proxy(function () {
+                    require('engine/stage/main').getInstance().switchScene(
+                        'scene.' + this.from,
+                        'scene.' + this.to,
+                        this.characterPosition
+                    );
+                }, this));
             }, this));
         };
     };
