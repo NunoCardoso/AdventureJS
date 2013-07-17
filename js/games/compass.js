@@ -106,10 +106,10 @@ define([
                     'width'  : 104
                 },
                 'animations' : {
-                    'standleft'  : 1,
-                    'standright' : 2,
-                    'talkleft'   : [5, 8, 'talkleft', 6],
-                    'talkright'  : [9, 12, 'talkright', 6]
+                    'standleft'  : 0,
+                    'standright' : 1,
+                    'talkleft'   : [4, 7, 'talkleft', 6],
+                    'talkright'  : [8, 11, 'talkright', 6]
                 }
             }
         ],
@@ -232,7 +232,8 @@ define([
                         'characterPosition' : {
                             'x' : 0,
                             'y' : 230
-                        }
+                        },
+                        'condition' : 'condition01'
                     }
                 ]
             },
@@ -271,6 +272,16 @@ define([
                         }
                     }
                 ]
+            }
+        ],
+        'conditions' : [
+            {
+                'id' : 'condition01',
+                'isInInventory': 'winebottle01',
+                'onFail': {
+                    'action' : 'dialogMessage',
+                    'line'   : 'I can\'t leave without the wine bottle'
+                }
             }
         ],
         'dialogs' : [

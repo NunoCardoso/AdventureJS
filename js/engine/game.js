@@ -5,6 +5,7 @@
  */
 define([
     'engine/character/main',
+    'engine/condition/main',
     'engine/config',
     'engine/dialog/main',
     'engine/interaction/main',
@@ -17,6 +18,7 @@ define([
     'engine/start/main'
 ], function (
     gamecharacter,
+    gamecondition,
     config,
     gamedialog,
     gameinteraction,
@@ -50,6 +52,7 @@ define([
                 gameobject.preload(game.objects);
                 gameinteraction.preload(game.interactions);
                 gamedialog.preload(game.dialogs);
+                gamecondition.preload(game.conditions);
                 gamecharacter.preload(game.playableCharacter, game.nonPlayableCharacters);
                 gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);

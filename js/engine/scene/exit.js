@@ -4,12 +4,14 @@
  * This module handles exit areas from game scenes
  */
 define([
+    'engine/condition/main',
     'engine/config',
     'engine/lib/assets',
     'engine/object/main',
     'engine/interaction/action',
     'require'
 ], function (
+    gamecondition,
     config,
     assets,
     gameobject,
@@ -38,6 +40,15 @@ define([
         this.from  = exit.from;
         this.to    = exit.to;
         this.characterPosition = exit.characterPosition;
+        this.condition = undefined;
+
+        if (exit.condition) {
+            this.condition = gamecondition.get(exit.condition);
+        }
+
+        this.hasCondition = function () {
+            return typeof this.condition !== 'undefined';
+        };
 
         this.addEventListener("mouseover", $.proxy(function (e) {
             $("#canvas").attr('class', 'exit' + this.arrow);

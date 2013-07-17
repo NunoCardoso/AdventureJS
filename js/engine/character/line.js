@@ -41,14 +41,12 @@ define([
 
         this.say = function (text) {
             this.text = text;
-            // move text a little above so it can fit
-            var calculatedX =  this.getMeasuredWidth();
             // check if it is out of bounds
-            if (this.x - (calculatedX / 2) < 0) {
-                this.x = calculatedX / 2 + 1;
+            if (this.x - (this.lineWidth / 2) < 0) {
+                this.x = this.lineWidth / 2 + 1;
             }
-            if (this.x + (calculatedX / 2) > config.get('game.w')) {
-                this.x = config.get('game.w') - calculatedX / 2 - 1;
+            if (this.x + (this.lineWidth / 2) > config.get('game.w')) {
+                this.x = config.get('game.w') - this.lineWidth / 2 - 1;
             }
             this.y = this.referenceY - this.getMeasuredHeight();
         };

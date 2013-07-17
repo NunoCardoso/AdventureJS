@@ -201,6 +201,12 @@ define([
             action.clickExit(event);
             this.calculateTargetXY({x : event.stageX, y : event.stageY});
             this.setWhenFinished($.proxy(function () {
+                if (exit.hasCondition()) {
+                    // TODO: check properly the condition, once inventory is ready.
+                    this.say(exit.condition.onFail.line);
+                    return;
+                }
+
                 // I have to require this, as the game stage requires the playable character
                 // to update its position. This is a lazy load.
                 require('engine/stage/main').getInstance().switchScene(
