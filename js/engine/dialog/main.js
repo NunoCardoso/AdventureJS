@@ -57,6 +57,9 @@ define([
 
         perform = function (options) {
             _addPanel();
+            // make both characters do eye contact
+            options.pc.faceTo(options.npc);
+            options.npc.faceTo(options.pc);
             options.onDialogComplete = function () {
                 _removePanel();
             };

@@ -36,8 +36,9 @@ define([
             // toscene is a name of a scene to render.
             var toscene   = gamescene.get(_toscene);
 
+            fromscene.alpha = 1;
             createjs.Tween.get(fromscene)
-                .to({alpha: 0}, 500)
+                .to({alpha: 0, visible:false}, 500)
                 .call($.proxy(function () {
 
                     this.removeChild(fromscene);
@@ -56,7 +57,7 @@ define([
 
                     this.addChild(toscene);
 
-                    createjs.Tween.get(toscene).to({alpha: 1}, 500).call(function () {
+                    createjs.Tween.get(toscene).to({alpha: 1, visible:true}, 500).call(function () {
                         console.log('Scene loaded');
                     });
                 }, this));

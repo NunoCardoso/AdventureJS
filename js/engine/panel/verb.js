@@ -37,21 +37,18 @@ define([
 
 
         this.onVerbMouseOver = function (e) {
-            console.log("verb mouse over");
             // e.target is the verb
             e.target.alpha = 1;
             action.mouseOverVerb(e);
         };
 
         this.onVerbMouseOut = function (e) {
-            console.log("verb mouse out");
             // e.target is the verb
             e.target.alpha = 0.7;
             action.mouseOutVerb(e);
         };
 
         this.onVerbClick = function (e) {
-            console.log("verb click");
             createjs.Sound.play('sound.fall');
             action.clickVerb(e);
         };

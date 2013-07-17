@@ -175,6 +175,16 @@ define([
             this.gotoAndPlay(this.attitude);
         };
 
+        this.faceTo = function (other) {
+            if (this.x < other.x) {
+                this.attitude = 'standright';
+                this.gotoAndPlay(this.attitude);
+            } else {
+                this.attitude = 'standleft';
+                this.gotoAndPlay(this.attitude);
+            }
+        };
+
         this.actForNonPlayableCharacterClick = function (event, npc) {
             this.calculateTargetXY({x : event.stageX, y : event.stageY}, npc);
             this.setWhenFinished($.proxy(function () {
