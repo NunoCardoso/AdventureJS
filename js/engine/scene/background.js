@@ -28,7 +28,7 @@ define([
          */
         this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
+                playableCharacter.setTargetXY({x : e.stageX, y : e.stageY});
             }, this));
         };
     };

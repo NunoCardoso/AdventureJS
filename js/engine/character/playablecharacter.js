@@ -6,11 +6,13 @@
 define([
     'engine/interaction/action',
     'engine/lib/assets',
-    'engine/character/line'
+    'engine/character/line',
+    'engine/dialog/main'
 ], function (
     action,
     assets,
-    TextLine
+    TextLine,
+    gamedialog
 ) {
     var PlayableCharacter = function (options) {
         this.initialize(options);
@@ -30,8 +32,13 @@ define([
 
         this.x = 0;
         this.y = 0;
-        this.clickedXY = undefined;
-        this.label = options.name;
+        this.frames = options.frames;
+        this.w = this.frames.width;
+        this.h = this.frames.height;
+
+        this.name = 'character.' + options.id;
+        this.targetXY = undefined;
+        this.label = options.label;
         this.speed = options.speed;
         this.attitude = 'standright';
         this.gotoAndPlay(this.attitude);
@@ -50,36 +57,63 @@ define([
             this.line.setY(y);
         };
 
-        this.setClickedXY = function (xy) {
-            this.clickedXY = xy;
+        this.setTargetXY = function (xy) {
+            this.targetXY = xy;
             // abort any callback to perform, as the current itinerary was changed
             this.callback = undefined;
         };
 
-        this.resetClickedXY = function () {
-            this.clickedXY = undefined;
+        // mouse position click can be the target click on most ocations,
+        // but if we clicked on items/characters, we don't want to land
+        // on top of them, so let's compute a margin distance.
+        this.calculateTargetXY = function (xy, item) {
+            if (typeof item === 'undefined') {
+                return this.setTargetXY(xy);
+            }
+            var dim = item.getDimensions(),
+                itemX = (dim.x1 + dim.x2) / 2;
+            // playable character is on the left of the object;
+            if (this.x < itemX) {
+                this.setTargetXY({
+                    x : dim.x1 - (this.w / 2),
+                    y : xy.y
+                });
+            } else {
+            // playable character is on the right of the object;
+                this.setTargetXY({
+                    x : dim.x2 + (this.w / 2),
+                    y : xy.y
+                });
+            }
+        };
+
+        this.resetTargetXY = function () {
+            this.targetXY = undefined;
         };
 
         this.getLine = function () {
             return this.line;
         };
 
-        this.say = function (text) {
+        this.say = function (text, callback) {
             // 0.1 sec per letter;
             var interv = text.length * 100;
             this.talk();
             this.line.say(text);
             setTimeout(
                 $.proxy(function () {
-                    this.unsay();
+                    this.shutUp();
+                    if (typeof callback === 'function') {
+                        callback.call();
+                    }
                 }, this),
                 interv
             );
         };
 
-        this.unsay = function () {
+        this.shutUp = function () {
             this.stand();
-            this.line.unsay();
+            this.line.shutUp();
         };
 
         // this is a callback function to perform when the playable character
@@ -90,10 +124,10 @@ define([
 
         this.updatePosition = function () {
             // attitudes
-            if (this.clickedXY) {
-                if (this.x > this.clickedXY.x && (this.x - this.clickedXY.x > this.speed)) {
+            if (this.targetXY) {
+                if (this.x > this.targetXY.x && (this.x - this.targetXY.x > this.speed)) {
                     this.attitude = "walkleft";
-                } else if (this.x < this.clickedXY.x  && (this.clickedXY.x - this.x > this.speed)) {
+                } else if (this.x < this.targetXY.x  && (this.targetXY.x - this.x > this.speed)) {
                     this.attitude = "walkright";
                 } else {
                     if (this.attitude === "walkleft") {
@@ -129,6 +163,7 @@ define([
             } else if (this.attitude === "walkright" || this.attitude === "standright") {
                 this.attitude = 'talkright';
             }
+            this.gotoAndPlay(this.attitude);
         };
 
         this.stand = function () {
@@ -137,6 +172,53 @@ define([
             } else if (this.attitude === "walkright" || this.attitude === "talkright") {
                 this.attitude = 'standright';
             }
+            this.gotoAndPlay(this.attitude);
+        };
+
+        this.actForNonPlayableCharacterClick = function (event, npc) {
+            this.calculateTargetXY({x : event.stageX, y : event.stageY}, npc);
+            this.setWhenFinished($.proxy(function () {
+                var result = action.clickNonPlayableCharacter(event);
+                if (result) {
+                    switch (result.action) {
+                    case 'dialogMessage':
+                        this.say(result.text);
+                        break;
+                    case 'playDialog':
+                        gamedialog.perform({
+                            // slice(0) clones it, because gamedialog will destroy it
+                            lines: result.dialog.lines.slice(0),
+                            pc: this,
+                            npc: npc
+                        });
+                        break;
+                    }
+                }
+            }, this));
+        };
+
+        this.actForExitClick = function (event, exit) {
+            action.clickExit(event);
+            this.calculateTargetXY({x : event.stageX, y : event.stageY});
+            this.setWhenFinished($.proxy(function () {
+                // I have to require this, as the game stage requires the playable character
+                // to update its position. This is a lazy load.
+                require('engine/stage/main').getInstance().switchScene(
+                    'scene.' + exit.from,
+                    'scene.' + exit.to,
+                    exit.characterPosition
+                );
+            }, this));
+        };
+
+        this.actForObjectClick = function (event, object) {
+            this.calculateTargetXY({x : event.stageX, y : event.stageY}, object);
+            this.setWhenFinished($.proxy(function () {
+                var result = action.clickObject(event);
+                if (result) {
+                    this.say(result.text);
+                }
+            }, this));
         };
     };
     return PlayableCharacter;

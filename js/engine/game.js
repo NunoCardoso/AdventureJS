@@ -6,6 +6,7 @@
 define([
     'engine/character/main',
     'engine/config',
+    'engine/dialog/main',
     'engine/interaction/main',
     'engine/lib/keyboard',
     'engine/menu/main',
@@ -17,6 +18,7 @@ define([
 ], function (
     gamecharacter,
     config,
+    gamedialog,
     gameinteraction,
     keyboard,
     gamemenu,
@@ -47,6 +49,7 @@ define([
             onAssetsLoaded = function () {
                 gameobject.preload(game.objects);
                 gameinteraction.preload(game.interactions);
+                gamedialog.preload(game.dialogs);
                 gamecharacter.preload(game.playableCharacter, game.nonPlayableCharacters);
                 gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);

@@ -31,11 +31,27 @@ define([
             this.x = dimensions.x;
             this.y = dimensions.y;
             if (dimensions.w) {
+                this.w = dimensions.w;
                 this.scaleX = dimensions.w / this.image.width;
+            } else {
+                this.w = this.image.width;
             }
+
             if (dimensions.h) {
+                this.h = dimensions.h;
                 this.scaleY = dimensions.h / this.image.height;
+            } else {
+                this.h = this.image.height;
             }
+        };
+
+        this.getDimensions = function () {
+            return {
+                'x1' : this.x,
+                'x2' : this.x + this.w,
+                'y1' : this.y,
+                'y2' : this.y + this.h
+            };
         };
 
         this.renderAs = function (how) {
@@ -59,13 +75,7 @@ define([
 
         this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
-                playableCharacter.setWhenFinished(function () {
-                    var result = action.clickObject(e);
-                    if (result) {
-                        playableCharacter.say(result.text);
-                    }
-                });
+                playableCharacter.actForObjectClick(e, this);
             }, this));
         };
     };

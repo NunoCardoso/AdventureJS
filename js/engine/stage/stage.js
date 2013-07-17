@@ -46,11 +46,11 @@ define([
                     if (toscene.isInteractable()) {
 
                         toscene.render({
-                            'panel'             : gamepanel.get(),
-                            'sentence'          : sentence.get(),
-                            'playableCharacter' : gamecharacter.getPlayableCharacter(),
+                            'panel'                 : gamepanel.get(),
+                            'sentence'              : sentence.get(),
+                            'playableCharacter'     : gamecharacter.getPlayableCharacter(),
                             'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
-                            'characterPosition' : characterPosition
+                            'characterPosition'     : characterPosition
                         });
                     }
 

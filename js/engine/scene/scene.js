@@ -71,7 +71,8 @@ define([
             }
 
             for (i = 0; i < this.exits.length; i++) {
-                e = new Exit(this.exits[i], scene.id);
+                this.exits[i].from = scene.id;
+                e = new Exit(this.exits[i]);
                 if (options.playableCharacter) {
                     e.activateClickListener(options.playableCharacter);
                 }
@@ -104,7 +105,7 @@ define([
             if (options.playableCharacter) {
 
                 // playableCharacter in new scene - reset clickedXY.
-                options.playableCharacter.resetClickedXY();
+                options.playableCharacter.resetTargetXY();
 
                 // make it stand
                 options.playableCharacter.stand();

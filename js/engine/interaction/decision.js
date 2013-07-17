@@ -4,9 +4,11 @@
  * This module handles interactions
  */
 define([
-    'engine/interaction/main'
+    'engine/interaction/main',
+    'engine/dialog/main'
 ], function (
-    gameinteraction
+    gameinteraction,
+    gamedialog
 ) {
 
     var decide = function (verb, first, second) {
@@ -24,8 +26,10 @@ define([
                     action = a.actions[j];
                     switch (action.action) {
                     case 'playDialog':
-                        //TODO
-                        break;
+                        return {
+                            'action' : action.action,
+                            'dialog' : gamedialog.get(action.target)
+                        };
                     case 'dialogMessage':
                         return {
                             'action' : action.action,

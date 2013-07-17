@@ -21,7 +21,8 @@ define([
     NonPlayableCharacter.prototype.initialize = function (options) {
 
         this.name = 'character.' + options.id;
-        this.label = options.name;
+        this.label = options.label;
+        this.frames = options.frames;
 
         this.spriteSheet = new createjs.SpriteSheet({
             images     : [
@@ -38,7 +39,16 @@ define([
         this.gotoAndPlay(this.attitude);
 
         /** speech line */
-        this.line = new TextLine({});
+        this.line = new TextLine({color: '#FF0000'});
+
+        this.getDimensions = function () {
+            return {
+                'x1' : this.x - this.frames.regX,
+                'x2' : this.x + this.frames.width - this.regX,
+                'y1' : this.y - this.frames.regY,
+                'y2' : this.y + this.frames.height - this.regY
+            };
+        };
 
         this.setX = function (x) {
             this.x = x;
@@ -54,22 +64,25 @@ define([
             return this.line;
         };
 
-        this.say = function (text) {
+        this.say = function (text, callback) {
             // 0.1 sec per letter;
             var interv = text.length * 100;
             this.talk();
             this.line.say(text);
             setTimeout(
                 $.proxy(function () {
-                    this.unsay();
+                    this.shutUp();
+                    if (typeof callback === 'function') {
+                        callback.call();
+                    }
                 }, this),
                 interv
             );
         };
 
-        this.unsay = function () {
+        this.shutUp = function () {
             this.stand();
-            this.line.unsay();
+            this.line.shutUp();
         };
 
         this.talk = function () {
@@ -78,6 +91,8 @@ define([
             } else if (this.attitude === "walkright" || this.attitude === "standright") {
                 this.attitude = 'talkright';
             }
+            this.gotoAndPlay(this.attitude);
+
         };
 
         this.stand = function () {
@@ -86,6 +101,7 @@ define([
             } else if (this.attitude === "walkright" || this.attitude === "talkright") {
                 this.attitude = 'standright';
             }
+            this.gotoAndPlay(this.attitude);
         };
 
         this.onCharacterMouseOver = function (e) {
@@ -98,13 +114,7 @@ define([
 
         this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
-                playableCharacter.setWhenFinished(function () {
-                    var result = action.clickNonPlayableCharacter(e);
-                    if (result) {
-                        playableCharacter.say(result.text);
-                    }
-                });
+                playableCharacter.actForNonPlayableCharacterClick(e, this);
             }, this));
         };
 

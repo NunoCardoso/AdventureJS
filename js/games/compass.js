@@ -74,7 +74,7 @@ define([
         },
         'playableCharacter': {
             'id'     : 'you01',
-            'name'   : 'you',
+            'label'  : 'you',
             'images' : 'playableCharacter01',
             'speed'  : 2,
             'frames' : {
@@ -96,7 +96,7 @@ define([
         'nonPlayableCharacters' : [
             {
                 'id'     : 'pirate01',
-                'name'   : 'pirate',
+                'label'  : 'pirate',
                 'images' : 'nonPlayableCharacter01',
                 'frames' : {
                     'regX'   : 52,
@@ -108,8 +108,8 @@ define([
                 'animations' : {
                     'standleft'  : 1,
                     'standright' : 2,
-                    'talkleft'   : [5, 8, 'talkleft', 4],
-                    'talkright'  : [9, 12, 'talkright', 4]
+                    'talkleft'   : [5, 8, 'talkleft', 6],
+                    'talkright'  : [9, 12, 'talkright', 6]
                 }
             }
         ],
@@ -222,6 +222,7 @@ define([
                 ],
                 'exits' : [
                     {
+                        'name' : 'jungle',
                         'x' : 750,
                         'y' : 200,
                         'w' : 50,

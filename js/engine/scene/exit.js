@@ -22,10 +22,10 @@ define([
 
     Exit.prototype = new createjs.Shape();
     Exit.prototype.Exit_initialize = Exit.prototype.initialize;
-    Exit.prototype.initialize = function (exit, from) {
+    Exit.prototype.initialize = function (exit) {
         // if it is 0, it is invisible, and won't trigger cursor changes
         this.alpha = 0.01;
-        this.label = 'exit';
+        this.label = exit.name || 'exit';
         this.graphics
             .beginFill("black")
             .drawRect(
@@ -35,7 +35,7 @@ define([
                 exit.h
             );
         this.arrow = exit.arrow;
-        this.from  = from;
+        this.from  = exit.from;
         this.to    = exit.to;
         this.characterPosition = exit.characterPosition;
 
@@ -55,15 +55,7 @@ define([
          */
         this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {
-                action.clickExit(e);
-                playableCharacter.setClickedXY({x : e.stageX, y : e.stageY});
-                playableCharacter.setWhenFinished($.proxy(function () {
-                    require('engine/stage/main').getInstance().switchScene(
-                        'scene.' + this.from,
-                        'scene.' + this.to,
-                        this.characterPosition
-                    );
-                }, this));
+                playableCharacter.actForExitClick(e, this);
             }, this));
         };
     };
