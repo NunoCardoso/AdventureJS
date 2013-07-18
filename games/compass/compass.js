@@ -17,14 +17,6 @@ define([
                 'src' : 'games/compass/img/background/jungle2.jpg'
             },
             {
-                'id'  : 'playableCharacter01',
-                'src' : 'games/compass/img/character/guybrush2.png'
-            },
-            {
-                'id'  : 'nonPlayableCharacter01',
-                'src' : 'games/compass/img/character/pirate.png'
-            },
-            {
                 'id'  : 'winebottleinventory01',
                 'src' : 'games/compass/img/inventory/wine-bottle.jpg'
             },
@@ -33,18 +25,15 @@ define([
                 'src' : 'games/compass/img/object/wine-bottle.png'
             }
         ],
-        'sounds': [
+        'sounds': [],
+        'pc' : {
+            'id'    : 'guybrush01',
+            'label' : 'you'
+        },
+        'npcs' : [
             {
-                'id'  : 'sound.fall',
-                'src' : 'engine/snd/fall.wav'
-            },
-            {
-                'id'  : 'sound.laser',
-                'src' : 'engine/snd/laser.aiff'
-            },
-            {
-                'id'  : 'sound.fight',
-                'src' : 'engine/snd/fight.wav'
+                'id'    : 'pirate01',
+                'label' : 'pirate'
             }
         ],
         'main': {
@@ -72,47 +61,6 @@ define([
                 {'first': 'Talk to', 'nr' : 1}
             ]
         },
-        'playableCharacter': {
-            'id'     : 'you01',
-            'label'  : 'you',
-            'images' : 'playableCharacter01',
-            'speed'  : 2,
-            'frames' : {
-                'regX'   : 52,
-                'height' : 150,
-                'count'  : 30,
-                'regY'   : 0,
-                'width'  : 104
-            },
-            'animations' : {
-                'walkright'  : [0, 5, 'walkright', 6],
-                'walkleft'   : [6, 11, 'walkleft', 6],
-                'standright' : 12,
-                'standleft'  : 13,
-                'talkright'  : [18, 22, 'talkright', 6],
-                'talkleft'   : [24, 27, 'talkleft', 6],
-            }
-        },
-        'nonPlayableCharacters' : [
-            {
-                'id'     : 'pirate01',
-                'label'  : 'pirate',
-                'images' : 'nonPlayableCharacter01',
-                'frames' : {
-                    'regX'   : 52,
-                    'height' : 150,
-                    'count'  : 12,
-                    'regY'   : 0,
-                    'width'  : 104
-                },
-                'animations' : {
-                    'standleft'  : 0,
-                    'standright' : 1,
-                    'talkleft'   : [4, 7, 'talkleft', 6],
-                    'talkright'  : [8, 11, 'talkright', 6]
-                }
-            }
-        ],
         'objects': [
             {
                 'id': 'winebottle01',
@@ -153,7 +101,7 @@ define([
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'you01',
+                        'target': 'guybrush01',
                         'param' : 'I stuck the needle into the cork'
                     }
                 ]
@@ -183,7 +131,7 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'you01',
+                        'target': 'guybrush01',
                         'param' : 'I can\'t push a wine bottle!'
                     }
                 ]
@@ -289,7 +237,7 @@ define([
                 'id' : 'dialog01',
                 'lines' : [
                     {
-                        'character' : 'you01',
+                        'character' : 'guybrush01',
                         'line' : 'Hello.'
                     },
                     {
@@ -297,7 +245,7 @@ define([
                         'line' : 'Hello back.'
                     },
                     {
-                        'character' : 'you01',
+                        'character' : 'guybrush01',
                         'line' : 'Do you have a compass?'
                     },
                     {
@@ -305,7 +253,7 @@ define([
                         'line' : 'No. Why would I have a compass?'
                     },
                     {
-                        'character' : 'you01',
+                        'character' : 'guybrush01',
                         'line' : 'Because you are in the jungle!'
                     },
                     {

@@ -13,7 +13,9 @@ define([
 ) {
     (function ($) {
         $(function () {
-            var game = new Game(compass);
+            var game = new Game();
+            game.init();
+            game.load(compass);
             game.start();
         });
     }(jQuery));

@@ -14,6 +14,7 @@ define([
     'engine/object/main',
     'engine/panel/main',
     'engine/scene/main',
+    'engine/settings',
     'engine/stage/main',
     'engine/start/main'
 ], function (
@@ -27,15 +28,29 @@ define([
     gameobject,
     gamepanel,
     gamescene,
+    settings,
     gamestage,
     gamestart
 ) {
-    var game = function (game) {
+    var Game = function () {
 
         /**
          * asks gamemenu to render and display
          */
-        var renderGameMenu = function (queue) {
+
+        var game,
+            assetList,
+
+            load = function (_game) {
+                game = _game;
+            },
+
+            init = function () {
+                assetList = settings.images.concat(settings.sounds);
+                gamecharacter.initCharacters(settings.characters);
+            },
+
+            renderGameMenu = function (queue) {
 
                 var scene = gamescene.newScene({id: 'menu'}); // scene name wil be scene.menu
                 scene = gamemenu.render(game.main, scene);
@@ -53,7 +68,7 @@ define([
                 gameinteraction.preload(game.interactions);
                 gamedialog.preload(game.dialogs);
                 gamecondition.preload(game.conditions);
-                gamecharacter.preload(game.playableCharacter, game.nonPlayableCharacters);
+                gamecharacter.preload(game.pc, game.npcs);
                 gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);
                 renderGameMenu();
@@ -65,21 +80,24 @@ define([
              * rendering the main menu
              */
             start = function () {
-                var assetList = game.images.concat(game.sounds);
+                var gameAssetList = game.images.concat(game.sounds);
+
                 gamestage.preload();
                 config.setCanvasXY({
                     x : $("#canvas").width(),
                     y : $("#canvas").height()
                 });
                 gamestart.init({
-                    'assetList'      : assetList,
+                    'assetList'      : assetList.concat(gameAssetList),
                     'onAssetsLoaded' : onAssetsLoaded
                 });
             };
 
         return {
+            'init'  : init,
+            'load'  : load,
             'start' : start
         };
     };
-    return game;
+    return Game;
 });

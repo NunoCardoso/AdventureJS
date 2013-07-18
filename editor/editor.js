@@ -4,9 +4,9 @@
  * This module bootstraps the game editor
  */
 define([
-    'text!editor/tpl/parent.template',
-    'text!editor/tpl/main.template',
-    'text!editor/tpl/images.template',
+    'text!editor/tpl/editor.template',
+    'text!editor/tpl/game.template',
+    'text!editor/tpl/assets.template',
     'text!editor/tpl/scenes.template',
     'text!editor/tpl/scene.template',
     'text!editor/tpl/objects.template',
@@ -15,12 +15,11 @@ define([
     'text!editor/tpl/dialog.template',
     'text!editor/tpl/interactions.template',
     'text!editor/tpl/interaction.template',
-    'text!editor/tpl/characters.template',
-    'text!editor/tpl/character.template',
+    'text!editor/tpl/characters.template'
 ], function (
-    parent,
-    tabmain,
-    tabimages,
+    editor,
+    tabgame,
+    tabassets,
     tabscenes,
     tabscene,
     tabobjects,
@@ -29,15 +28,14 @@ define([
     tabdialog,
     tabinteractions,
     tabinteraction,
-    tabcharacters,
-    tabcharacter
+    tabcharacters
 ) {
-    var editor = function (game) {
+    var _ = function (game) {
 
         var start = function () {
-            var template = Handlebars.compile(parent);
-            Handlebars.registerPartial('tab-main', tabmain);
-            Handlebars.registerPartial('tab-images', tabimages);
+            var template = Handlebars.compile(editor);
+            Handlebars.registerPartial('tab-game', tabgame);
+            Handlebars.registerPartial('tab-assets', tabassets);
             Handlebars.registerPartial('tab-scenes', tabscenes);
             Handlebars.registerPartial('tab-scene', tabscene);
             Handlebars.registerPartial('tab-objects', tabobjects);
@@ -47,7 +45,6 @@ define([
             Handlebars.registerPartial('tab-interactions', tabinteractions);
             Handlebars.registerPartial('tab-interaction', tabinteraction);
             Handlebars.registerPartial('tab-characters', tabcharacters);
-            Handlebars.registerPartial('tab-character', tabcharacter);
 
             /**
              * This is an Handlebar extension for a fancy if comparison
@@ -95,5 +92,5 @@ define([
             'start' : start
         };
     };
-    return editor;
+    return _;
 });

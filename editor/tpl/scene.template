@@ -1,5 +1,6 @@
-<div style="float:right;">
+<div style="float:right;text-align:center;">
     <label>Preview</label>
+    <br>
     <img class="dynamic-image" data-src-id="{{background}}" width="200" height="150">
     <br>
     <button id="scene.{{id}}.preview">Preview scene</button>
@@ -7,6 +8,10 @@
 
 <label for="scene.{{id}}.background">Background</label>
 <select id="scene.{{id}}.background" size="1"></select>
+<BR>
+
+<label for="scene.{{id}}.description">Description</label>
+<textarea id="scene.{{id}}.description">{{description}}</textarea>
 <BR>
 
 <input id="scene.{{id}}.interactable"{{#interactable}} CHECKED{{/interactable}} type="checkbox">
@@ -17,12 +22,14 @@
 <label for="scene.{{id}}.ending">Ending scene</label>
 <BR>
 
-<label for="scene.{{id}}.description">Description</label>
-<textarea id="scene.{{id}}.description">{{description}}</textarea>
+<label for="scene.{{id}}.playableCharacterPosition">Playable Character initial position (if initial scene)</label>
 <BR>
-
-<label for="scene.{{id}}.characters">Character setup:</label>
-<table id="scene.{{id}}.characters" class="tablesorter">
+x <input type="text" value="{{playableCharacter.position.x}}" size=5>
+y <input type="text" value="{{playableCharacter.position.y}}" size=5>
+<br>
+<br>
+<label for="scene.{{id}}.nonPlayableCharacters">Non playable characters setup:</label>
+<table id="scene.{{id}}.nonPlayableCharacters" class="tablesorter">
     <thead>
         <tr>
             <th>Character</th>
@@ -32,14 +39,14 @@
         </tr>
     </thead>
     <tbody>
-        {{#characters}}
+        {{#nonPlayableCharacters}}
         <tr>
             <td>{{id}}</td>
             <td>{{position.x}}</td>
             <td>{{position.y}}</td>
             <td><a href="#">[delete]</td>
         </tr>
-        {{/characters}}
+        {{/nonPlayableCharacters}}
     </tbody>
 </table>
 
@@ -61,8 +68,8 @@
             <td>{{id}}</td>
             <td>{{x}}</td>
             <td>{{y}}</td>
-            <td>{{width}}</td>
-            <td>{{height}}</td>
+            <td>{{w}}</td>
+            <td>{{h}}</td>
             <td><a href="#">[delete]</td>
         </tr>
         {{/objects}}
@@ -73,22 +80,28 @@
 <table id="scene.{{id}}.exits" class="tablesorter">
     <thead>
         <tr>
-            <th>Exit</th>
+            <th>Label</th>
             <th>x</th>
             <th>y</th>
             <th>w</th>
             <th>h</th>
+            <th>arrow</th>
+            <th>to</th>
+            <th>condition</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         {{#exits}}
         <tr>
-            <td>{{id}}</td>
+            <td>{{name}}</td>
             <td>{{x}}</td>
             <td>{{y}}</td>
-            <td>{{width}}</td>
-            <td>{{height}}</td>
+            <td>{{w}}</td>
+            <td>{{h}}</td>
+            <td>{{arrow}}</td>
+            <td>{{to}}</td>
+            <td>{{condition}}</td>
             <td><a href="#">[delete]</td>
         </tr>
         {{/exits}}

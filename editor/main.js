@@ -1,7 +1,7 @@
 /*global define, jQuery */
 
 /**
- * This module will initialize the editor for a certain game 
+ * This module will initialize the editor for a certain game
  */
 
 define([

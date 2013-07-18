@@ -1,7 +1,7 @@
 /*global define */
 
 /**
- * this module stores configs
+ * this module stores configs for default texts, dimensions, etc
 */
 define([
 ], function (

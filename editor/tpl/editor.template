@@ -1,0 +1,18 @@
+ <div class="tabs">
+  <ul>
+    <li><a href="#tab-game">Game</a></li>
+    <li><a href="#tab-assets">Assets</a></li>
+    <li><a href="#tab-characters">Characters</a></li>
+    <li><a href="#tab-objects">Objects</a></li>
+    <li><a href="#tab-dialogs">Dialogs</a></li>
+    <li><a href="#tab-interactions">Interactions</a></li>
+    <li><a href="#tab-scenes">Scenes</a></li>
+  </ul>
+  <div id="tab-game">{{>tab-game}}</div>
+  <div id="tab-assets">{{>tab-assets}}</div>
+  <div id="tab-characters">{{>tab-characters}}</div>
+  <div id="tab-objects">{{>tab-objects}}</div>
+  <div id="tab-dialogs">{{>tab-dialogs}}</div>
+  <div id="tab-interactions">{{>tab-interactions}}</div>
+  <div id="tab-scenes">{{>tab-scenes}}</div>
+</div>

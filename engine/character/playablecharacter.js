@@ -38,7 +38,7 @@ define([
 
         this.name = 'character.' + options.id;
         this.targetXY = undefined;
-        this.label = options.label;
+        this.label = undefined;
         this.speed = options.speed;
         this.attitude = 'standright';
         this.gotoAndPlay(this.attitude);
@@ -46,6 +46,10 @@ define([
 
         /** speech line */
         this.line = new TextLine({});
+
+        this.setLabel = function (label) {
+            this.label = label;
+        };
 
         this.setX = function (x) {
             this.x = x;

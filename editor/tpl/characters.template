@@ -1,13 +1,26 @@
-<div class="verticaltabs">
- <ul>
-    {{#characters}}
-    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
-    {{/characters}}
-    <li><button id="character.new">NEW character...</button></li>
-  </ul>
-  {{#characters}}
-  <div id="{{id}}">
-    {{>tab-character}}
-  </div>
-  {{/characters}}
-</div>
+<label for="pc.table">Playable character</label>
+<select size=1></select>
+<BR>
+<label for="pc.label">Label</label>
+<input type="text" size="8" value="{{pc.label}}"/>
+<BR>
+<BR>
+
+<label for="npcs.table">Non playable characters</label>
+<BR>
+<table class="tablesorter" id="npcs.table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>label</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#npcs}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{label}}</td>
+            </tr>
+        {{/npcs}}
+    </tbody>
+</table>

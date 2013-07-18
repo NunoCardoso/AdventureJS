@@ -1,3 +1,6 @@
+<fieldset>
+<legend>Game</legend>
+
 <div style="float:right;">
     <button id="button.playas">Play as...</button>
     <br>
@@ -24,30 +27,26 @@
     <option>800x400</option>
 </select>
 <BR>
-<input id="main.useinventory" type="checkbox">
-<label for="main.useinventory">Use inventory</label>
-<BR>
-<input id="main.useverbs" type="checkbox">
-<label for="main.useverbs">Use verbs</label>
-<BR>
-<input id="main.trackstudents" type="checkbox">
-<label for="main.trackstudents">Track student progress through stages</label>
-<BR>
 <label for="main.startingScene">Starting scene</label>
 <select id="main.startingScene" size=1></select>
 <BR>
-<label for="console.startingInventory">Starting inventory</label>
-<select id="console.startingInventory" size=5 multiple>
-{{#each console.startingInventory}}
+</fieldset>
+<BR>
+<fieldset>
+<legend>Control panel</legend>
+<label for="panel.startingInventory">Starting inventory</label>
+<BR>
+<select id="panel.startingInventory" size=5 multiple>
+{{#each panel.startingInventory}}
 <option>{{this}}</option>
 {{/each}}
 </select>
-<select id="console.notOnStartingInventory" size=5 multiple></select>
+<select id="panel.notOnStartingInventory" size=5 multiple></select>
 <BR>
 
-<label for="console.verbs">Verbs</label>
+<label for="panel.verbs">Verbs</label>
 <BR>
-<table id="console.verbs" class="tablesorter">
+<table id="panel.verbs" class="tablesorter">
     <thead>
         <tr>
             <th>Main verb</th>
@@ -56,7 +55,7 @@
         </tr>
     </thead>
     <tbody>
-    {{#each console.verbs}}
+    {{#each panel.verbs}}
         <tr>
             <td>{{this.first}}</td>
             <td>{{this.nr}}</td>
@@ -65,3 +64,4 @@
     {{/each}}
     </tbody>
 </table>
+</fieldset>

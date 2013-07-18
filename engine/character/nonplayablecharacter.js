@@ -21,7 +21,12 @@ define([
     NonPlayableCharacter.prototype.initialize = function (options) {
 
         this.name = 'character.' + options.id;
-        this.label = options.label;
+        this.label = undefined;
+
+        this.setLabel = function (label) {
+            this.label = label;
+        };
+
         this.frames = options.frames;
 
         this.spriteSheet = new createjs.SpriteSheet({
