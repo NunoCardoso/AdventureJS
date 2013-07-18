@@ -4,7 +4,9 @@
  * This is the main button on the corner of the scenes
  */
 define([
+    'engine/menu/settingspanel'
 ], function (
+    SettingsPanel
 ) {
     var SettingsButton = function (options) {
         this.initialize(options);
@@ -13,6 +15,7 @@ define([
     SettingsButton.prototype = new createjs.Shape();
     SettingsButton.prototype.SettingsButton_initialize = SettingsButton.prototype.initialize;
     SettingsButton.prototype.initialize = function (options) {
+        this.panel = undefined;
         this.alpha = 0.7;
         this.graphics
             .beginStroke("#FFFFFF")
@@ -25,9 +28,23 @@ define([
                 10
             );
 
-        this.addEventListener("click", $.proxy(function (e) {
-            
-        }, this));
+        this.openPanel = function (e) {
+            var stage = require('engine/stage/main').getInstance();
+            if (!stage.getChildByName('settings')) {
+                this.panel = new SettingsPanel();
+                this.panel.show();
+                stage.addChild(this.panel);
+            }
+        };
+
+        this.closePanel = function () {
+            var stage = require('engine/stage/main').getInstance();
+            this.panel.hide();
+            stage.removeChild(this.panel);
+            this.panel = undefined;
+        };
+
+        this.addEventListener("click", $.proxy(this.openPanel, this));
 
         this.addEventListener("mouseover", $.proxy(function (e) {
             this.alpha = 1;

@@ -232,6 +232,16 @@ define([
         };
 
         this.actForObjectClick = function (event, object) {
+            // I don't have to walk to an inventory
+            if (object.renderedAs === 'inventory') {
+                var result = action.clickObject(event);
+                if (result) {
+                    this.say(result.text);
+                }
+                return;
+            }
+
+            // else, walk there, then perform the action.
             this.calculateTargetXY({x : event.stageX, y : event.stageY}, object);
             this.setWhenFinished($.proxy(function () {
                 var result = action.clickObject(event);

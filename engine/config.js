@@ -20,7 +20,7 @@ define([
         progressbarHeight = 20,
 
         buttonWidth = 200,
-        buttonY = 150,
+        buttonY = 300,
         buttonHeight = 60,
         buttonRounds = 10,
 

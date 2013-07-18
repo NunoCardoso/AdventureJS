@@ -23,6 +23,14 @@ define([
             {
                 'id'  : 'winebottle01',
                 'src' : 'games/compass/img/object/wine-bottle.png'
+            },
+            {
+                'id'  : 'needleinventory01',
+                'src' : 'games/compass/img/inventory/needle.png'
+            },
+            {
+                'id'  : 'magnetinventory01',
+                'src' : 'games/compass/img/inventory/magnet.png'
             }
         ],
         'sounds': [],
@@ -46,7 +54,6 @@ define([
         'panel' : {
             'startingInventory' : [
                 'magnet01',
-                'winebottle01',
                 'needle01'
             ],
             'verbs' : [
@@ -70,6 +77,22 @@ define([
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : true
+            },
+            {
+                'id': 'magnet01',
+                'label': 'magnet',
+                'imageInInventory': 'magnetinventory01',
+                'canBeOnStage' : false,
+                'canBeOnInventory' : true,
+                'canBePickedUp' : false
+            },
+            {
+                'id': 'needle01',
+                'label': 'needle',
+                'imageInInventory': 'needleinventory01',
+                'canBeOnStage' : false,
+                'canBeOnInventory' : true,
+                'canBePickedUp' : false
             }
         ],
         'interactions': [
@@ -133,6 +156,54 @@ define([
                         'action': 'dialogMessage',
                         'target': 'guybrush01',
                         'param' : 'I can\'t push a wine bottle!'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction04',
+                'verb' : 'Look at',
+                'first': {
+                    'type' : 'object',
+                    'item' : 'magnet01',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'target': 'guybrush01',
+                        'param' : 'That is on e fine magnet I have!'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction05',
+                'verb' : 'Look at',
+                'first': {
+                    'type' : 'object',
+                    'item' : 'needle01',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'target': 'guybrush01',
+                        'param' : 'Ouch! It\'s sharp!'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction06',
+                'verb' : 'Look at',
+                'first': {
+                    'type' : 'object',
+                    'item' : 'winebottle01',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'target': 'guybrush01',
+                        'param' : 'Mmmm.... wine... tasty!'
                     }
                 ]
             }

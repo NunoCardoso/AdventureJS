@@ -24,6 +24,15 @@ define([
             sentence.setText(text);
         },
 
+
+        reset = function (e) {
+            selectedVerb = false;
+            selectedVerbSecond = false;
+            selectedObject = false;
+            selectedObjectSecond = false;
+            _pushText(defaultText);
+        },
+
         _getDefaultText = function () {
             var t = '';
             if (!selectedVerb) {
@@ -65,10 +74,18 @@ define([
             }
         },
 
-        _displayObject = function (verb) {
-            var t = (selectedVerb ? selectedVerb.text : defaultText)
-                + ' ' + verb.label;
-            _pushText(t);
+        _displayObject = function (object) {
+            var t = (selectedVerb ? selectedVerb.text : defaultText);
+            if (!selectedObject) {
+                t += ' ' + object.label;
+                _pushText(t);
+            } else {
+                t += ' ' + selectedObject.label;
+                if (selectedVerbSecond) {
+                    t += ' ' + selectedVerbSecond + ' ' + object.label;
+                }
+                _pushText(t);
+            }
         },
 
         _displayExit = function (exit) {
@@ -165,6 +182,8 @@ define([
 
         'mouseOverExit'   : mouseOverExit,
         'mouseOutExit'    : mouseOutExit,
-        'clickExit'       : clickExit
+        'clickExit'       : clickExit,
+
+        'reset'           : reset
     };
 });

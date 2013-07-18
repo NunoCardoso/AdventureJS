@@ -64,11 +64,11 @@ define([
             },
 
             onAssetsLoaded = function () {
+                gamecharacter.preload(game.pc, game.npcs);
                 gameobject.preload(game.objects);
                 gameinteraction.preload(game.interactions);
                 gamedialog.preload(game.dialogs);
                 gamecondition.preload(game.conditions);
-                gamecharacter.preload(game.pc, game.npcs);
                 gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);
                 renderGameMenu();

@@ -21,25 +21,28 @@ define([
         _prepare = function (options) {
 
             // Title
-            main.title = new createjs.Text(options.title, "20px the8bit", "#FFFFFF");
+            main.title = new createjs.Text(options.title, "36px the8bit", "#FFFFFF");
             main.title.textAlign = "center";
             main.title.textBaseline = "middle";
             main.title.x = config.getCanvasXY().x / 2;
-            main.title.y = 20;
+            main.title.y = 50;
+            main.title.shadow = new createjs.Shadow("#000000", 0, 0, 10);
 
             // Author
-            main.author = new createjs.Text(options.author, "17px the8bit", "#CCCCCC");
+            main.author = new createjs.Text(options.author, "24px the8bit", "#CCCCCC");
             main.author.textAlign = "center";
             main.author.textBaseline = "middle";
             main.author.x = config.getCanvasXY().x / 2;
-            main.author.y = 50;
+            main.author.y = 100;
+            main.author.shadow = new createjs.Shadow("#000000", 0, 0, 10);
 
             // Description
-            main.description = new createjs.Text(options.description, "14px the8bit", "#FFFFFF");
+            main.description = new createjs.Text(options.description, "18px the8bit", "#FFFFFF");
             main.description.textAlign = "center";
             main.description.textBaseline = "middle";
             main.description.x = config.getCanvasXY().x / 2;
-            main.description.y = 100;
+            main.description.y = 200;
+            main.description.shadow = new createjs.Shadow("#000000", 0, 0, 10);
 
             // Main Background
             main.background = new createjs.Bitmap(assets.getQueueLoaded().getResult(options.background));
@@ -80,6 +83,10 @@ define([
             main.settingsButton = new SettingsButton();
         },
 
+        closeSettings = function () {
+            main.settingsButton.closePanel();
+        },
+
         render = function (options, scene) {
 
             _prepare(options);
@@ -100,6 +107,7 @@ define([
         };
 
     return {
-        'render' : render
+        'render' : render,
+        'closeSettings' : closeSettings
     };
 });

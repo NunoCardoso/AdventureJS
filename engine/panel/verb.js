@@ -35,7 +35,6 @@ define([
             .drawRect(-10, -30, options.w, options.h);
         this.hitArea = hitArea;
 
-
         this.onVerbMouseOver = function (e) {
             // e.target is the verb
             e.target.alpha = 1;

@@ -5,9 +5,11 @@
  */
 define([
     'engine/config',
+    'engine/interaction/action',
     'engine/lib/assets'
 ], function (
     config,
+    action,
     assets
 ) {
     var Background = function (options) {
@@ -29,6 +31,7 @@ define([
         this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {
                 playableCharacter.setTargetXY({x : e.stageX, y : e.stageY});
+                action.reset(e);
             }, this));
         };
     };
