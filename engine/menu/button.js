@@ -23,11 +23,11 @@ define([
             .beginStroke("#880000")
             .beginFill("red")
             .drawRoundRect(
-                config.get('startbutton.x'),
-                config.get('startbutton.y'),
-                config.get('startbutton.w'),
-                config.get('startbutton.h'),
-                config.get('startbutton.r')
+                options.x,
+                options.y,
+                options.w,
+                options.h,
+                options.r
             );
 
         this.addEventListener("click", $.proxy(function (e) {
@@ -38,7 +38,7 @@ define([
         }, this));
 
         this.addEventListener("mouseover", $.proxy(function (e) {
-            this.alpha = 1;
+            e.target.alpha = 1;
         }, this));
 
         this.addEventListener("mouseout", $.proxy(function (e) {

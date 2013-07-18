@@ -8,13 +8,15 @@ define([
     'engine/lib/assets',
     'engine/object/main',
     'engine/scene/background',
-    'engine/scene/exit'
+    'engine/scene/exit',
+    'engine/scene/menubutton'
 ], function (
     assets,
     config,
     gameobject,
     Background,
-    Exit
+    Exit,
+    MenuButton
 ) {
     var GameScene = function (options) {
         this.initialize(options);
@@ -122,6 +124,13 @@ define([
                 this.addChild(options.playableCharacter);
                 this.addChild(options.playableCharacter.getLine());
             }
+
+
+            if (this.name !== 'scene.menu' && this.name !== 'scene.start') {
+                var Xxx = require('engine/scene/menubutton')
+                this.addChild(new Xxx({from: this.name}));
+            }
+
         };
     };
     return GameScene;

@@ -12,13 +12,14 @@ define([
         this.initialize(options);
     };
 
-    StartButtonLabel.prototype = new createjs.Text(config.get('startgame'), "bold 24px the8bit", "#FFFFFF");
+    StartButtonLabel.prototype = new createjs.Text('', "bold 24px the8bit", "#FFFFFF");
     StartButtonLabel.prototype.StartButtonLabel_initialize = StartButtonLabel.prototype.initialize;
     StartButtonLabel.prototype.initialize = function (options) {
         this.textAlign = "center";
         this.textBaseline = "middle";
-        this.x = config.get('game.w') / 2;
-        this.y = config.get('startbutton.y') + config.get('startbutton.h') / 2;
+        this.text = options.text;
+        this.x = options.x;
+        this.y = options.y;
     };
     return StartButtonLabel;
 });

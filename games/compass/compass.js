@@ -6,45 +6,45 @@ define([
         'images': [
             {
                 'id'  : 'background01',
-                'src' : 'img/background/jungle.jpg'
+                'src' : 'games/compass/img/background/jungle.jpg'
             },
             {
                 'id'  : 'background02',
-                'src' : 'img/background/legend-of-kyrandia.jpg'
+                'src' : 'games/compass/img/background/legend-of-kyrandia.jpg'
             },
             {
                 'id'  : 'background03',
-                'src' : 'img/background/jungle2.jpg'
+                'src' : 'games/compass/img/background/jungle2.jpg'
             },
             {
                 'id'  : 'playableCharacter01',
-                'src' : 'img/character/guybrush2.png'
+                'src' : 'games/compass/img/character/guybrush2.png'
             },
             {
                 'id'  : 'nonPlayableCharacter01',
-                'src' : 'img/character/pirate.png'
+                'src' : 'games/compass/img/character/pirate.png'
             },
             {
                 'id'  : 'winebottleinventory01',
-                'src' : 'img/inventory/wine-bottle.jpg'
+                'src' : 'games/compass/img/inventory/wine-bottle.jpg'
             },
             {
                 'id'  : 'winebottle01',
-                'src' : 'img/object/wine-bottle.png'
+                'src' : 'games/compass/img/object/wine-bottle.png'
             }
         ],
         'sounds': [
             {
                 'id'  : 'sound.fall',
-                'src' : 'snd/fall.wav'
+                'src' : 'engine/snd/fall.wav'
             },
             {
                 'id'  : 'sound.laser',
-                'src' : 'snd/laser.aiff'
+                'src' : 'engine/snd/laser.aiff'
             },
             {
                 'id'  : 'sound.fight',
-                'src' : 'snd/fight.wav'
+                'src' : 'engine/snd/fight.wav'
             }
         ],
         'main': {

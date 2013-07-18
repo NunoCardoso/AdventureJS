@@ -1,8 +1,8 @@
 requirejs.config({
-    "baseUrl": "/AdvGame/js/",
+    "baseUrl": "/AdvGame/",
     "paths": {
-        "engine" : "/AdvGame/js/engine",
-        "games"  : "/AdvGame/js/games",
+        "engine" : "/AdvGame/engine",
+        "games"  : "/AdvGame/games",
 	}
 });
 

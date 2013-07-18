@@ -6,7 +6,7 @@
 
 define([
 	'engine/game',
-	'games/compass'
+	'games/compass/compass'
 ], function (
     Game,
     compass

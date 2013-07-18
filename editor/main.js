@@ -6,7 +6,7 @@
 
 define([
 	'editor/editor',
-	'games/compass'
+	'games/compass/compass'
 ], function (GameEditor, compass) {
 
     (function ($) {
