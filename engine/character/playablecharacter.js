@@ -44,7 +44,18 @@ define([
         this.speed = options.speed;
         this.attitude = 'standright';
         this.gotoAndPlay(this.attitude);
-        this.callback = undefined;
+
+        // callback after reaching a place
+        this.whenFinished = undefined;
+
+        // callback after saying a line:
+        this.afterSay = undefined;
+
+        // setTimeout for saying something
+        this.saying = undefined;
+
+        // boolean for when this character is speaking
+        this.isSpeaking = false;
 
         /** speech line */
         this.line = new TextLine({});
@@ -66,7 +77,7 @@ define([
         this.setTargetXY = function (xy) {
             this.targetXY = xy;
             // abort any callback to perform, as the current itinerary was changed
-            this.callback = undefined;
+            this.whenFinished = undefined;
         };
 
         // mouse position click can be the target click on most ocations,
@@ -103,18 +114,29 @@ define([
 
         this.say = function (text, callback) {
             // 0.1 sec per letter;
+            this.afterSay = callback;
             var interv = text.length * 100;
             this.talk();
             this.line.say(text);
-            setTimeout(
+            this.saying = setTimeout(
                 $.proxy(function () {
                     this.shutUp();
-                    if (typeof callback === 'function') {
-                        callback.call();
+                    if (typeof this.afterSay === 'function') {
+                        this.afterSay.call();
                     }
                 }, this),
                 interv
             );
+        };
+
+        // triggered when dot key is press
+        // it shutups, but continues the conversation, if on the middle of one
+        this.stopSay = function () {
+            clearTimeout(this.saying);
+            this.shutUp();
+            if (typeof this.afterSay === 'function') {
+                this.afterSay.call();
+            }
         };
 
         this.shutUp = function () {
@@ -125,7 +147,7 @@ define([
         // this is a callback function to perform when the playable character
         // reaches the targeted place
         this.setWhenFinished = function (callback) {
-            this.callback = callback;
+            this.whenFinished = callback;
         };
 
         // for scenes that stretch, maybe the scene has to scroll, not the character.
@@ -140,14 +162,14 @@ define([
                     if (this.attitude === "walkleft") {
                         this.attitude = "standleft";
                         // perform the callback action, since the character reached his destination;
-                        if (this.callback) {
-                            this.callback.call();
+                        if (this.whenFinished) {
+                            this.whenFinished.call();
                         }
                     } else if (this.attitude === "walkright") {
                         this.attitude = "standright";
                         // perform the callback action, since the character reached his destination;
-                        if (this.callback) {
-                            this.callback.call();
+                        if (this.whenFinished) {
+                            this.whenFinished.call();
                         }
                     }
                 }
@@ -200,6 +222,7 @@ define([
         };
 
         this.talk = function () {
+            this.isSpeaking = true;
             if (this.attitude === "walkleft" || this.attitude === "standleft") {
                 this.attitude = 'talkleft';
             } else if (this.attitude === "walkright" || this.attitude === "standright") {
@@ -209,6 +232,7 @@ define([
         };
 
         this.stand = function () {
+            this.isSpeaking = false;
             if (this.attitude === "walkleft" || this.attitude === "talkleft") {
                 this.attitude = 'standleft';
             } else if (this.attitude === "walkright" || this.attitude === "talkright") {

@@ -4,7 +4,9 @@
  * This module dispatches key events
  */
 define([
+    'engine/character/main'
 ], function (
+    gamecharacter
 ) {
 
     var keyPressed = false,
@@ -122,10 +124,30 @@ define([
             return (window.event ? window.event.shiftKey : e.shiftKey);
         },
 
+        _handleDot = function () {
+            var id,
+                npc,
+                pc = gamecharacter.getPlayableCharacter();
+            if (pc.isSpeaking) {
+                pc.stopSay();
+                return;
+            }
+            npc = gamecharacter.getNonPlayableCharacters();
+            for (id in npc) {
+                if (npc[id].isSpeaking) {
+                    npc[id].stopSay();
+                    return;
+                }
+            }
+        },
+
         onKeyDown = function (e) {
             keyPressed = true;
             keyCode = _getKeyCode(e);
             keyShift = _getShiftKey(e);
+            if (keyCode === 190) {
+                _handleDot();
+            }
             console.log('key down kc=' + keyCode + ' ks=' + keyShift);
         },
 
