@@ -80,8 +80,8 @@ define([
                 }
 
             });
-
-            $('body').html(template(game));
+            // prepend to body
+            $('body').html(template(game) + $('body').html());
             $(".tabs").tabs();
             $(".verticaltabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
             $(".verticaltabs li").removeClass("ui-corner-top").addClass("ui-corner-left");

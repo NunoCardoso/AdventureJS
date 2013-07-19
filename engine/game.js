@@ -14,6 +14,7 @@ define([
     'engine/object/main',
     'engine/panel/main',
     'engine/scene/main',
+    'engine/sentence/main',
     'engine/settings',
     'engine/stage/main',
     'engine/start/main'
@@ -28,6 +29,7 @@ define([
     gameobject,
     gamepanel,
     gamescene,
+    gamesentence,
     settings,
     gamestage,
     gamestart
@@ -50,10 +52,20 @@ define([
                 gamecharacter.initCharacters(settings.characters);
             },
 
-            renderGameMenu = function (queue) {
-
-                var scene = gamescene.newScene({id: 'menu'}); // scene name wil be scene.menu
-                scene = gamemenu.render(game.main, scene);
+            render = function (_scene) {
+                if (_scene === 'menu') {
+                    var scene = gamescene.newScene({id: _scene}); // scene name wil be 'scene.' + scene
+                    scene = gamemenu.render(game.main, scene);
+                } else {
+                    var scene = gamescene.get('scene.' + _scene);
+                    scene.render({
+                        'panel'                 : gamepanel.get(),
+                        'sentence'              : gamesentence.get(),
+                        'playableCharacter'     : gamecharacter.getPlayableCharacter(),
+                        'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
+                        'characterPosition'     : {x : 200, y : 230}
+                    });
+                }
                 gamescene.add(scene);
                 gamestage.getInstance().switchScene(
                     'scene.start',
@@ -63,7 +75,7 @@ define([
                 gamestage.activate();
             },
 
-            onAssetsLoaded = function () {
+            onAssetsLoaded = function (options) {
                 gamecharacter.preload(game.pc, game.npcs);
                 gameobject.preload(game.objects);
                 gameinteraction.preload(game.interactions);
@@ -71,7 +83,10 @@ define([
                 gamecondition.preload(game.conditions);
                 gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);
-                renderGameMenu();
+                if (!options.scene) {
+                    options.scene = 'menu';
+                }
+                render(options.scene);
             },
 
             /**
@@ -79,7 +94,7 @@ define([
              * Game is started by preloading images, then when done,
              * rendering the main menu
              */
-            start = function () {
+            start = function (options) {
                 var gameAssetList = game.images.concat(game.sounds);
 
                 gamestage.preload();
@@ -89,7 +104,8 @@ define([
                 });
                 gamestart.init({
                     'assetList'      : assetList.concat(gameAssetList),
-                    'onAssetsLoaded' : onAssetsLoaded
+                    'onAssetsLoaded' : onAssetsLoaded,
+                    'onAssetsLoadedOptions' : options
                 });
             };
 

@@ -49,7 +49,7 @@ define([
             onComplete : function (queue) {
                 console.log('Assets loaded');
                 assets.setQueueLoaded(queue.target);
-                options.onAssetsLoaded.call();
+                options.onAssetsLoaded.call(this, options.onAssetsLoadedOptions || {});
             },
             loadedFile : loadedFile,
             progressBar: progressBar

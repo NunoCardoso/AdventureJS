@@ -1,8 +1,7 @@
 <fieldset>
 <legend>Game</legend>
-
 <div style="float:right;">
-    <button id="button.playas">Play as...</button>
+    <button id="button.play" onClick="require(['editor/preview/main'], function (main) {main.start();})">Play as student</button>
     <br>
     <br>
     <button id="button.save">Save...</button>

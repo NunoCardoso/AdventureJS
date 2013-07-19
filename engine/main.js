@@ -5,8 +5,8 @@
  */
 
 define([
-	'engine/game',
-	'games/compass/compass'
+    'engine/game',
+    'games/compass/compass'
 ], function (
     Game,
     compass
@@ -16,7 +16,9 @@ define([
             var game = new Game();
             game.init();
             game.load(compass);
-            game.start();
+            game.start({
+                scene: 'menu'
+            });
         });
     }(jQuery));
 });

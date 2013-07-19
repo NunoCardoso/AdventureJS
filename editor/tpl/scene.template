@@ -3,7 +3,7 @@
     <br>
     <img class="dynamic-image" data-src-id="{{background}}" width="200" height="150">
     <br>
-    <button id="scene.{{id}}.preview">Preview scene</button>
+    <button id="scene.{{id}}.preview" onClick="require(['editor/preview/main'], function (main) {main.start('{{id}}');})">Preview scene</button>
 </div>
 
 <label for="scene.{{id}}.background">Background</label>
