@@ -315,7 +315,25 @@ define([
                     {
                         'character' : 'pirate01',
                         'line' : 'Hello back.'
-                    },
+                    }
+                ],
+                'onEnd' : {
+                    'action' : 'displayDialogOptions',
+                    'dialogOptions' : [
+                        {
+                            'line' : 'Do you have a compass?',
+                            'dialog' : 'dialog02'
+                        },
+                        {
+                            'line' : 'Bye',
+                            'dialog' : 'dialog03'
+                        }
+                    ]
+                }
+            },
+            {
+                'id' : 'dialog02',
+                'lines' : [
                     {
                         'character' : 'guybrush01',
                         'line' : 'Do you have a compass?'
@@ -331,6 +349,19 @@ define([
                     {
                         'character' : 'pirate01',
                         'line' : 'I have a GPS, moron. And no, I will not let you use it!'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog03',
+                'lines' : [
+                    {
+                        'character' : 'guybrush01',
+                        'line' : 'Bye'
+                    },
+                    {
+                        'character' : 'pirate01',
+                        'line' : 'Not much of a talker, eh?'
                     }
                 ]
             }

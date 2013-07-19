@@ -9,6 +9,7 @@ define([
     var GameDialog = function (options) {
         this.name = 'dialog.' + options.id;
         this.lines = options.lines;
+        this.onEnd = options.onEnd;
     };
 
     return GameDialog;

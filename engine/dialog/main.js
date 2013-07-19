@@ -1,18 +1,22 @@
-/*global define, $ */
+/*global define, createjs, $ */
 
 /**
  * This module handles dialogs
  */
 define([
     'engine/dialog/dialog',
+    'engine/dialog/options',
     'engine/dialog/background'
 ], function (
     GameDialog,
+    gamedialogoptions,
     Background
 ) {
 
     var _ = {},
+        container,
         background,
+        _dialogOptions, // store temporarily, easier to remove
 
         preload = function (dialogs) {
             var i;
@@ -20,26 +24,62 @@ define([
                 _[dialogs[i].id] = new GameDialog(dialogs[i]);
             }
             background = new Background();
+            container = new createjs.Container();
+            container.name = 'container.dialog';
+            container.addChild(background);
         },
 
         get = function (key) {
             return _[key];
         },
 
-        _addPanel = function () {
+        _addDialogPanel = function () {
             var stage = require('engine/stage/main').getInstance();
-            stage.addChild(background);
+            stage.addChild(container);
         },
 
-        _removePanel = function () {
+        _removeDialogPanel = function () {
             var stage = require('engine/stage/main').getInstance();
-            stage.removeChild(background);
+            stage.removeChild(container);
+        },
+
+        _addDialogOptionsToDialogPanel = function (options) {
+            var i,
+                _do = gamedialogoptions.init(options),
+                _dialogOptionsContainer = new createjs.Container();
+
+            for (i = 0; i < _do.length; i++) {
+                _dialogOptionsContainer.addChild(_do[i]);
+            }
+
+            _dialogOptions = _do;
+            container.addChild(_dialogOptionsContainer);
+        },
+
+        _initContainer = function () {
+            // easier to clean everything, then just add the black background
+            container.removeAllChildren();
+            container.addChild(background);
+        },
+
+        _onEnd = function (options) {
+            switch (options.onEnd.action) {
+            case 'displayDialogOptions':
+                _addDialogOptionsToDialogPanel({
+                    'dialogOptions' : options.onEnd.dialogOptions,
+                    'pc'  : options.pc,
+                    'npc' : options.npc
+                });
+                break;
+            }
         },
 
         _do = function (options) {
             if (options.lines.length === 0) {
-                if (typeof options.onDialogComplete === 'function') {
-                    options.onDialogComplete();
+                if (typeof options.onEnd !== 'undefined') {
+                    _onEnd(options);
+                } else {
+                    _removeDialogPanel();
                 }
                 return;
             }
@@ -56,13 +96,11 @@ define([
         },
 
         perform = function (options) {
-            _addPanel();
+            _initContainer();
+            _addDialogPanel();
             // make both characters do eye contact
             options.pc.faceTo(options.npc);
             options.npc.faceTo(options.pc);
-            options.onDialogComplete = function () {
-                _removePanel();
-            };
             _do(options);
         };
 

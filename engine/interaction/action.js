@@ -57,8 +57,7 @@ define([
             // if verb cardinality is 1, do something.
             if (selectedVerb.nr === 1) {
                 selectedObject = object;
-                dec = decision.decide(selectedVerb, selectedObject);
-                return dec;
+                return decision.decide(selectedVerb, selectedObject);
             }
             if (selectedVerb.nr === 2) {
                 if (!selectedObject) {
@@ -68,8 +67,7 @@ define([
                 } else {
                     selectedObjectSecond = object;
                     _pushText(text + ' ' + selectedObjectSecond);
-                    dec = decision.decide(selectedVerb, selectedObject, selectedObjectSecond);
-                    return dec;
+                    return decision.decide(selectedVerb, selectedObject, selectedObjectSecond);
                 }
             }
         },

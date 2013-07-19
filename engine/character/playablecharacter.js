@@ -239,9 +239,10 @@ define([
                     case 'playDialog':
                         gamedialog.perform({
                             // slice(0) clones it, because gamedialog will destroy it
-                            lines: result.dialog.lines.slice(0),
-                            pc: this,
-                            npc: npc
+                            lines : result.dialog.lines.slice(0),
+                            pc    : this,
+                            npc   : npc,
+                            onEnd : result.dialog.onEnd
                         });
                         break;
                     }
