@@ -8,7 +8,9 @@
 <link href="css/engine.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<canvas class="crosshair" id="canvas" width="800" height="600"></canvas>
+<div id="canvasdiv">
+    <canvas class="crosshair" id="canvas" width="800" height="600"></canvas>
+</div>
 <div id="settings">
     <form>
         <label>Sound: </label>
@@ -17,7 +19,36 @@
         <input name="sound.volume" type="range" min="0" max="100" step="5" style="width:200px;">
         </br>
         <button onClick="require('engine/menu/main').closeSettings(this);return false;">OK</button>
-    </form>
+     </form>
 </div>
+<br>
+<button onclick="full()">Go Fullscreen</button>
+<script>
+function full() {
+    var el = document.getElementById('canvasdiv');
+    if (el.webkitRequestFullScreen) {
+        el.webkitRequestFullScreen();
+    } else {
+        el.mozRequestFullScreen();
+    }
+}
+</script>
+<style>
+:-webkit-full-screen {
+   width: 100% !important;
+   height: 100% !important;
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+
+:-webkit-full-screen canvas {
+   width: 100% !important;
+   height: 100% !important;
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+</style>
 </body>
 </html>

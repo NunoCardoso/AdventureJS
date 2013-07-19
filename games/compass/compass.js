@@ -251,8 +251,7 @@ define([
                         'characterPosition' : {
                             'x' : 0,
                             'y' : 230
-                        },
-                        'condition' : 'condition01'
+                        }
                     }
                 ]
             },
