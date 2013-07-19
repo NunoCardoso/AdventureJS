@@ -29,6 +29,11 @@ define([
             x : $("#canvas").width(),
             y : $("#canvas").height()
         });
+        this.currentScene = undefined;
+
+        this.getCurrentScene = function () {
+            return this.currentScene;
+        };
 
         this.switchScene = function (_fromscene, _toscene, characterPosition) {
             // _fromscene is a name of a scene already on stage
@@ -46,17 +51,21 @@ define([
 
                     if (toscene.isInteractable()) {
 
-                        toscene.render({
+                        toscene.renderDynamic({
+                            'playableCharacter'     : gamecharacter.getPlayableCharacter(),
+                            'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters()
+                        });
+
+                        toscene.renderStatic({
                             'panel'                 : gamepanel.get(),
                             'sentence'              : sentence.get(),
                             'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                            'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
                             'characterPosition'     : characterPosition
                         });
                     }
 
                     this.addChild(toscene);
-
+                    this.currentScene = toscene;
                     createjs.Tween.get(toscene).to({alpha: 1, visible: true}, 500).call(function () {
                         console.log('Scene loaded');
                     });

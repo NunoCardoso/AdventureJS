@@ -4,11 +4,13 @@
  * This is the
  */
 define([
+    'engine/config',
     'engine/interaction/action',
     'engine/lib/assets',
     'engine/character/line',
     'engine/dialog/main'
 ], function (
+    config,
     action,
     assets,
     TextLine,
@@ -126,8 +128,9 @@ define([
             this.callback = callback;
         };
 
-        this.updatePosition = function () {
-            // attitudes
+        // for scenes that stretch, maybe the scene has to scroll, not the character.
+        this.updatePosition = function (scene) {
+
             if (this.targetXY) {
                 if (this.x > this.targetXY.x && (this.x - this.targetXY.x > this.speed)) {
                     this.attitude = "walkleft";
@@ -155,6 +158,41 @@ define([
                 this.setX(this.x + this.speed);
             }
 
+            if (scene && scene.background) {
+                // now, let's see if scene should scroll
+                var sceneHasHiddenBackgroundOnRight = (
+                    scene.background.mode !== 'fit' &&
+                    (scene.dynamic.x + scene.dynamic.w > config.get('game.w'))
+                );
+
+                var sceneHasHiddenBackgroundOnLeft = (
+                    scene.background.mode !== 'fit' &&
+                    (scene.dynamic.x < 0)
+                );
+
+                var isCharacterOnLeftHalf = (this.x < (config.get('game.w') / 2));
+                var isCharacterOnRightHalf = (this.x >= (config.get('game.w') / 2));
+
+                if (sceneHasHiddenBackgroundOnLeft && isCharacterOnLeftHalf && this.attitude === 'walkleft') {
+                    scene.dynamic.x += this.speed;
+                    // restore character into that position
+                    this.setX(this.x + this.speed);
+                    if (this.targetXY) {
+                        // nonetheless, your targetXY comes closer
+                        this.targetXY.x += this.speed;
+                    }
+                }
+
+                if (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && this.attitude === 'walkright') {
+                    scene.dynamic.x -= this.speed;
+                    // restore character into that position
+                    this.setX(this.x - this.speed);
+                    if (this.targetXY) {
+                        // nonetheless, your targetXY comes closer
+                        this.targetXY.x -= this.speed;
+                    }
+                }
+            }
             // change attitude only if it is different
             if (this.currentAnimation !== this.attitude) {
                 this.gotoAndPlay(this.attitude);

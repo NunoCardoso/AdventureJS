@@ -38,6 +38,9 @@ define([
         this.objects      = scene.objects || [];
         this.exits        = scene.exits || [];
 
+        this.dynamic = new createjs.Container();
+        this.static  = new createjs.Container();
+
         if (scene.background) {
             this.background = new Background({
                 'background' : scene.background
@@ -48,16 +51,21 @@ define([
             return this.interactable;
         };
 
-        this.render = function (options) {
+        this.renderDynamic = function (options) {
 
             // clean previous renderings
             this.removeAllChildren();
+            this.dynamic.removeAllChildren();
 
             if (this.background) {
                 if (options.playableCharacter) {
                     this.background.activateClickListener(options.playableCharacter);
+
+                    // let background dictate the w and h. Needed to scroll the dynamic container
+                    this.dynamic.w = this.background.w;
+                    this.dynamic.h = this.background.h;
                 }
-                this.addChild(this.background);
+                this.dynamic.addChild(this.background);
             }
 
             var i, o, e;
@@ -69,7 +77,7 @@ define([
                 if (options.playableCharacter) {
                     o.activateClickListener(options.playableCharacter);
                 }
-                this.addChild(o);
+                this.dynamic.addChild(o);
             }
 
             for (i = 0; i < this.exits.length; i++) {
@@ -78,15 +86,7 @@ define([
                 if (options.playableCharacter) {
                     e.activateClickListener(options.playableCharacter);
                 }
-                this.addChild(e);
-            }
-
-            if (options.panel) {
-                this.addChild(options.panel);
-            }
-
-            if (options.sentence) {
-                this.addChild(options.sentence);
+                this.dynamic.addChild(e);
             }
 
             if (scene.nonPlayableCharacters) {
@@ -99,9 +99,25 @@ define([
                     options.nonPlayableCharacters[_id].activateClickListener(
                         options.playableCharacter
                     );
-                    this.addChild(options.nonPlayableCharacters[_id]);
-                    this.addChild(options.nonPlayableCharacters[_id].getLine());
+                    this.dynamic.addChild(options.nonPlayableCharacters[_id]);
+                    this.dynamic.addChild(options.nonPlayableCharacters[_id].getLine());
                 }
+            }
+
+            this.addChild(this.dynamic);
+        };
+
+        this.renderStatic = function (options) {
+
+            var i;
+            this.static.removeAllChildren();
+
+            if (options.panel) {
+                this.static.addChild(options.panel);
+            }
+
+            if (options.sentence) {
+                this.static.addChild(options.sentence);
             }
 
             if (options.playableCharacter) {
@@ -121,16 +137,16 @@ define([
                     options.playableCharacter.setX(this.playableCharacter.position.x);
                     options.playableCharacter.setY(this.playableCharacter.position.y);
                 }
-                this.addChild(options.playableCharacter);
-                this.addChild(options.playableCharacter.getLine());
+                this.static.addChild(options.playableCharacter);
+                this.static.addChild(options.playableCharacter.getLine());
             }
 
 
             if (this.name !== 'scene.menu' && this.name !== 'scene.start') {
-                var Xxx = require('engine/scene/menubutton')
-                this.addChild(new Xxx({from: this.name}));
+                var MenuButton = require('engine/scene/menubutton');
+                this.static.addChild(new MenuButton({from: this.name}));
             }
-
+            this.addChild(this.static);
         };
     };
     return GameScene;

@@ -212,6 +212,7 @@ define([
             {
                 'id'                 : 'scene01',
                 'background'         : 'background01',
+                'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
                 'ending'             : false,
@@ -258,6 +259,7 @@ define([
             {
                 'id'                 : 'scene02',
                 'background'         : 'background03',
+                'backgroundmode'     : 'fit',
                 'description'        : 'This is the second scene.',
                 'interactable'       : true,
                 'ending'             : false,

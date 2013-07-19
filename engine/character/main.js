@@ -51,9 +51,9 @@ define([
             return npc;
         },
 
-        updatePosition = function () {
+        updatePosition = function (scene) {
             if (pc) {
-                pc.updatePosition();
+                pc.updatePosition(scene);
             }
         };
 

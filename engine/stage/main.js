@@ -22,7 +22,7 @@ define([
         },
 
         _onTick = function (event) {
-            gamecharacter.updatePosition();
+            gamecharacter.updatePosition(stage.getCurrentScene());
             stage.update(event);
         },
 
@@ -31,6 +31,8 @@ define([
             stage.autoClear = false;
             // allow mouseOver with a pool of 25 times per second
             stage.enableMouseOver(25);
+            // enable touch interactions if supported on the current device:
+            createjs.Touch.enable(stage);
             // ticker
             createjs.Ticker.setFPS(40);
             createjs.Ticker.addEventListener("tick", _onTick);

@@ -53,16 +53,21 @@ define([
             },
 
             render = function (_scene) {
+                var scene;
                 if (_scene === 'menu') {
-                    var scene = gamescene.newScene({id: _scene}); // scene name wil be 'scene.' + scene
+                    scene = gamescene.newScene({id: _scene}); // scene name wil be 'scene.' + scene
                     scene = gamemenu.render(game.main, scene);
                 } else {
-                    var scene = gamescene.get('scene.' + _scene);
-                    scene.render({
+                    scene = gamescene.get('scene.' + _scene);
+                    scene.renderDynamic({
+                        'playableCharacter'     : gamecharacter.getPlayableCharacter(),
+                        'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters()
+                    });
+
+                    scene.renderStatic({
                         'panel'                 : gamepanel.get(),
                         'sentence'              : gamesentence.get(),
                         'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                        'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
                         'characterPosition'     : {x : 200, y : 230}
                     });
                 }
