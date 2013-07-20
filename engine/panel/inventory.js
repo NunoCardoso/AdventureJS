@@ -59,6 +59,10 @@ define([
             this.total++;
         };
 
+        this.has = function (object) {
+            return (this.getChildByName('object.' + object) !== null);
+        };
+
         var i;
         for (i = 0; i < options.length; i++) {
             this.add(options[i]);

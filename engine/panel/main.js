@@ -47,11 +47,16 @@ define([
 
         addToInventory = function (object) {
             inventory.add(object);
+        },
+
+        isInInventory = function (object) {
+            return inventory.has(object);
         };
 
     return {
         'preload'     : preload,
         'get'         : get,
-        'addToInventory' : addToInventory
+        'addToInventory' : addToInventory,
+        'isInInventory'  : isInInventory
     };
 });

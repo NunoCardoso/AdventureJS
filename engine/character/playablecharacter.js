@@ -276,8 +276,12 @@ define([
             this.setWhenFinished($.proxy(function () {
                 if (exit.hasCondition()) {
                     // TODO: check properly the condition, once inventory is ready.
-                    this.say(exit.condition.onFail.line);
-                    return;
+                    var result = exit.testCondition();
+                    switch (result.action) {
+                    case 'dialogMessage':
+                        this.say(result.line);
+                        return;
+                    }
                 }
 
                 // I have to require this, as the game stage requires the playable character

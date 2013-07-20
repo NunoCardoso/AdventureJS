@@ -50,6 +50,16 @@ define([
             return typeof this.condition !== 'undefined';
         };
 
+        this.testCondition = function () {
+            if (this.condition.isInInventory !== 'undefined') {
+                if (require('engine/panel/main').isInInventory(this.condition.isInInventory)) {
+                    return this.condition.onSuccess || true;
+                } else {
+                    return this.condition.onFail || false;
+                }
+            }
+        };
+
         this.addEventListener("mouseover", $.proxy(function (e) {
             $("#canvas").attr('class', 'exit' + this.arrow);
             action.mouseOverExit(e);
