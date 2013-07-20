@@ -112,31 +112,26 @@ define([
             return this.line;
         };
 
+        this.finishedSay = function () {
+            this.shutUp();
+            if (typeof this.afterSay === 'function') {
+                this.afterSay.call();
+            }
+        };
+
         this.say = function (text, callback) {
             // 0.1 sec per letter;
             this.afterSay = callback;
             var interv = text.length * 100;
-            this.talk();
-            this.line.say(text);
-            this.saying = setTimeout(
-                $.proxy(function () {
-                    this.shutUp();
-                    if (typeof this.afterSay === 'function') {
-                        this.afterSay.call();
-                    }
-                }, this),
-                interv
-            );
+            this.talk(text);
+            this.saying = setTimeout($.proxy(this.finishedSay, this), interv);
         };
 
         // triggered when dot key is press
         // it shutups, but continues the conversation, if on the middle of one
         this.stopSay = function () {
             clearTimeout(this.saying);
-            this.shutUp();
-            if (typeof this.afterSay === 'function') {
-                this.afterSay.call();
-            }
+            this.finishedSay();
         };
 
         this.shutUp = function () {
@@ -221,8 +216,9 @@ define([
             }
         };
 
-        this.talk = function () {
+        this.talk = function (text) {
             this.isSpeaking = true;
+            this.line.say(text);
             if (this.attitude === "walkleft" || this.attitude === "standleft") {
                 this.attitude = 'talkleft';
             } else if (this.attitude === "walkright" || this.attitude === "standright") {
@@ -299,7 +295,11 @@ define([
             if (object.renderedAs === 'inventory') {
                 var result = action.clickObject(event);
                 if (result) {
-                    this.say(result.text);
+                    switch (result.action) {
+                    case 'dialogMessage':
+                        this.say(result.text);
+                        break;
+                    }
                 }
                 return;
             }
@@ -309,7 +309,12 @@ define([
             this.setWhenFinished($.proxy(function () {
                 var result = action.clickObject(event);
                 if (result) {
-                    this.say(result.text);
+                    switch (result.action) {
+                    // when pc picks up something
+                    case 'dialogMessage':
+                        this.say(result.text);
+                        break;
+                    }
                 }
             }, this));
         };

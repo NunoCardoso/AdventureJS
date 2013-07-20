@@ -43,10 +43,15 @@ define([
                 container.addChild(verbs[i]);
             }
             return container;
-		};
+		},
+
+        addToInventory = function (object) {
+            inventory.add(object);
+        };
 
     return {
         'preload'     : preload,
-        'get'         : get
+        'get'         : get,
+        'addToInventory' : addToInventory
     };
 });

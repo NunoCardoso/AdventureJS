@@ -35,9 +35,16 @@ define([
                             'action' : action.action,
                             'text'   : action.param
                         };
+                    case 'fromSceneToInventory':
+                        require('engine/stage/main').getInstance()
+                            .getCurrentScene().removeObject(action.target);
+                        require('engine/panel/main').addToInventory(action.target);
+                        break;
                     case 'removeFromInventory':
+                        require('engine/panel/main').removeFromInventory(action.target);
                         break;
                     case 'addToInventory':
+                        require('engine/panel/main').addToInventory(action.target);
                         break;
                     }
                 }

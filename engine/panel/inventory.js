@@ -31,6 +31,8 @@ define([
             marginOtherCol : 10
         };
 
+        this.total = 0;
+
         this.calculateObjectPosition = function (i) {
 
             var rowNumber = parseInt(i / this.inventoryParams.maxColumns, 10),
@@ -46,15 +48,20 @@ define([
             };
         };
 
-        var i;
-        for (i = 0; i < options.length; i++) {
-            var position = this.calculateObjectPosition(i);
-            var obj = gameobject.get(options[i]);
+        this.add = function (option) {
+            var position = this.calculateObjectPosition(this.total);
+            var obj = gameobject.get(option);
             obj.renderAs('inventory');
             obj.x = position.x;
             obj.y = position.y;
             obj.activateClickListener(gamecharacter.getPlayableCharacter());
             this.addChild(obj);
+            this.total++;
+        };
+
+        var i;
+        for (i = 0; i < options.length; i++) {
+            this.add(options[i]);
         }
     };
     return Inventory;

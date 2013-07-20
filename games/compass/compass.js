@@ -145,7 +145,7 @@ define([
             },
             {
                 'id' : 'interaction03',
-                'verb' : 'Push',
+                'verb' : 'Pick up',
                 'first': {
                     'type' : 'object',
                     'item' : 'winebottle01',
@@ -153,9 +153,13 @@ define([
                 },
                 'actions' : [
                     {
+                        'action': 'fromSceneToInventory',
+                        'target': 'winebottle01'
+                    },
+                    {
                         'action': 'dialogMessage',
                         'target': 'guybrush01',
-                        'param' : 'I can\'t push a wine bottle!'
+                        'param' : 'I always wanted a wine bottle.'
                     }
                 ]
             },
@@ -252,7 +256,8 @@ define([
                         'characterPosition' : {
                             'x' : 0,
                             'y' : 230
-                        }
+                        },
+                        'condition' : 'condition01'
                     }
                 ]
             },
@@ -325,7 +330,7 @@ define([
                             'dialog' : 'dialog02'
                         },
                         {
-                            'line' : 'Bye',
+                            'line' : 'Bye.',
                             'dialog' : 'dialog03'
                         }
                     ]

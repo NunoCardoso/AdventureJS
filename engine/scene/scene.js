@@ -51,6 +51,22 @@ define([
             return this.interactable;
         };
 
+        this.removeObject = function (object) {
+            var i, index;
+            for (i = 0;  i < this.objects.length; i++) {
+                if (this.objects[i].id === object) {
+                    index = i;
+                }
+            }
+            if (index >= 0) {
+                this.objects.splice(index, 1);
+                var o = this.dynamic.getChildByName('object.' + object);
+                if (o) {
+                    this.dynamic.removeChild(o);
+                }
+            }
+        };
+
         this.renderDynamic = function (options) {
 
             // clean previous renderings

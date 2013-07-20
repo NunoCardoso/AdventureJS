@@ -78,21 +78,19 @@ define([
             return this.line;
         };
 
+        this.finishedSay = function () {
+            this.shutUp();
+            if (typeof this.afterSay === 'function') {
+                this.afterSay.call();
+            }
+        };
+
         this.say = function (text, callback) {
             // 0.1 sec per letter;
             this.afterSay = callback;
             var interv = text.length * 100;
-            this.talk();
-            this.line.say(text);
-            this.saying = setTimeout(
-                $.proxy(function () {
-                    this.shutUp();
-                    if (typeof this.afterSay === 'function') {
-                        this.afterSay.call();
-                    }
-                }, this),
-                interv
-            );
+            this.talk(text);
+            this.saying = setTimeout($.proxy(this.finishedSay, this), interv);
         };
 
         // triggered when dot key is press
@@ -110,8 +108,9 @@ define([
             this.line.shutUp();
         };
 
-        this.talk = function () {
+        this.talk = function (text) {
             this.isSpeaking = true;
+            this.line.say(text);
             if (this.attitude === "walkleft" || this.attitude === "standleft") {
                 this.attitude = 'talkleft';
             } else if (this.attitude === "walkright" || this.attitude === "standright") {
