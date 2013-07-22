@@ -36,10 +36,12 @@ define([
             );
         this.button.addEventListener("mouseover", $.proxy(function (e) {
             e.target.alpha = 1;
+            gamestage.update();
         }, this));
 
         this.button.addEventListener("mouseout", $.proxy(function (e) {
             e.target.alpha = 0.5;
+            gamestage.update();
         }, this));
 
         this.button.addEventListener("click", $.proxy(function (e) {

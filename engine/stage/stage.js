@@ -35,41 +35,42 @@ define([
             return this.currentScene;
         };
 
+        // used to add a scene over a scene (temporary menu)
+        this.addScene = function (_toscene) {
+            var toscene   = gamescene.get(_toscene);
+            this.addChild(toscene);
+            this.currentScene = toscene;
+            this.update();
+        };
+
+        // used to remove top scene (temporary menu)
+        this.removeScene = function (_toscene) {
+            var toscene   = gamescene.get(_toscene);
+            this.removeChild(toscene);
+            this.currentScene = this.children(this.children.length - 1);
+        };
+
         this.switchScene = function (_fromscene, _toscene, characterPosition) {
             // _fromscene is a name of a scene already on stage
             var fromscene = this.getChildByName(_fromscene);
             // toscene is a name of a scene to render.
             var toscene   = gamescene.get(_toscene);
 
-            fromscene.alpha = 1;
-            createjs.Tween.get(fromscene)
-                .to({alpha: 0, visible: false}, 1)
-                .call($.proxy(function () {
+            this.removeChild(fromscene);
 
-                    this.removeChild(fromscene);
-                    toscene.alpha = 0;
+            if (toscene.isInteractable()) {
 
-                    if (toscene.isInteractable()) {
+                toscene.render({
+                    'playableCharacter'     : gamecharacter.getPlayableCharacter(),
+                    'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
+                    'panel'                 : gamepanel.get(),
+                    'sentence'              : sentence.get(),
+                    'characterPosition'     : characterPosition
+                });
+            }
 
-                        toscene.renderDynamic({
-                            'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                            'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters()
-                        });
-
-                        toscene.renderStatic({
-                            'panel'                 : gamepanel.get(),
-                            'sentence'              : sentence.get(),
-                            'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                            'characterPosition'     : characterPosition
-                        });
-                    }
-
-                    this.addChild(toscene);
-                    this.currentScene = toscene;
-                    createjs.Tween.get(toscene).to({alpha: 1, visible: true}, 1).call(function () {
-                        console.log('Scene loaded');
-                    });
-                }, this));
+            this.addChild(toscene);
+            this.currentScene = toscene;
         };
     };
     return GameStage;

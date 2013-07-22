@@ -22,17 +22,34 @@ define([
         },
 
         _onTick = function (event) {
-            gamecharacter.updatePosition(stage.getCurrentScene());
-            stage.update(event);
+            if (!event.paused) {
+                gamecharacter.updatePosition(stage.getCurrentScene());
+                stage.update(event);
+            }
         },
 
-        activate = function () {
+        pause = function () {
+            createjs.Ticker.setPaused(true);
+        },
+
+        play = function () {
+            createjs.Ticker.setPaused(false);
+        },
+
+        update = function () {
+            stage.update();
+        },
+
+        activateMouseAndTouch = function () {
             // make it faster.
             stage.autoClear = false;
             // allow mouseOver with a pool of 25 times per second
             stage.enableMouseOver(25);
             // enable touch interactions if supported on the current device:
             createjs.Touch.enable(stage);
+        },
+
+        activateTick = function () {
             // ticker
             createjs.Ticker.setFPS(40);
             createjs.Ticker.addEventListener("tick", _onTick);
@@ -41,6 +58,10 @@ define([
     return {
         'preload'      : preload,
         'getInstance'  : getInstance,
-        'activate'     : activate
+        'activateMouseAndTouch'     : activateMouseAndTouch,
+        'activateTick' : activateTick,
+        'pause' : pause,
+        'play' : play,
+        'update' : update
     };
 });

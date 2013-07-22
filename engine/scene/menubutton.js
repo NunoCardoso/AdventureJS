@@ -35,9 +35,9 @@ define([
         this.button.addEventListener("click", $.proxy(function (e) {
             var menu = require('engine/menu/main').get();
             menu.renderForSaveGame();
-
-            require('engine/stage/main').getInstance().switchScene(
-                this.from,
+            var gamestage = require('engine/stage/main');
+            gamestage.pause();
+            gamestage.getInstance().addScene(
                 'scene.menu'
             );
         }, this));

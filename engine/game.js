@@ -68,7 +68,8 @@ define([
                     scene.name
                 );
                 keyboard.attachEvents();
-                gamestage.activate();
+                gamestage.activateMouseAndTouch();
+                gamestage.update();
             },
 
             onAssetsLoaded = function (options) {
