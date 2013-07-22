@@ -46,6 +46,9 @@ define([
                     case 'addToInventory':
                         require('engine/panel/main').addToInventory(action.target);
                         break;
+                    default:
+                        console.log(action.action + ' not implemented!');
+                        break;
                     }
                 }
             }

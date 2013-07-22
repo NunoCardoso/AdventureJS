@@ -17,19 +17,35 @@ define([
                 'src' : 'games/compass/img/background/jungle2.jpg'
             },
             {
-                'id'  : 'winebottleinventory01',
-                'src' : 'games/compass/img/inventory/wine-bottle.jpg'
-            },
-            {
                 'id'  : 'winebottle01',
                 'src' : 'games/compass/img/object/wine-bottle.png'
             },
             {
-                'id'  : 'needleinventory01',
+                'id'  : 'winebottle_inventory01',
+                'src' : 'games/compass/img/inventory/wine-bottle.png'
+            },
+            {
+                'id'  : 'winebottlewithoutcork_inventory01',
+                'src' : 'games/compass/img/inventory/wine-bottle-without-cork.png'
+            },
+            {
+                'id'  : 'corkscrew_inventory01',
+                'src' : 'games/compass/img/inventory/corkscrew.png'
+            },
+            {
+                'id'  : 'cork_inventory01',
+                'src' : 'games/compass/img/inventory/cork.png'
+            },
+            {
+                'id'  : 'needlewithcork_inventory01',
+                'src' : 'games/compass/img/inventory/needle-with-cork.png'
+            },
+            {
+                'id'  : 'needle_inventory01',
                 'src' : 'games/compass/img/inventory/needle.png'
             },
             {
-                'id'  : 'magnetinventory01',
+                'id'  : 'magnet_inventory01',
                 'src' : 'games/compass/img/inventory/magnet.png'
             }
         ],
@@ -72,7 +88,7 @@ define([
             {
                 'id': 'winebottle01',
                 'label': 'wine bottle',
-                'imageInInventory': 'winebottleinventory01',
+                'imageInInventory': 'winebottle_inventory01',
                 'imageInStage' : 'winebottle01',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
@@ -81,7 +97,7 @@ define([
             {
                 'id': 'magnet01',
                 'label': 'magnet',
-                'imageInInventory': 'magnetinventory01',
+                'imageInInventory': 'magnet_inventory01',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
@@ -89,7 +105,39 @@ define([
             {
                 'id': 'needle01',
                 'label': 'needle',
-                'imageInInventory': 'needleinventory01',
+                'imageInInventory': 'needle_inventory01',
+                'canBeOnStage' : false,
+                'canBeOnInventory' : true,
+                'canBePickedUp' : false
+            },
+            {
+                'id': 'corkscrew01',
+                'label': 'corkscrew',
+                'imageInInventory': 'corkscrew_inventory01',
+                'canBeOnStage' : false,
+                'canBeOnInventory' : true,
+                'canBePickedUp' : false
+            },
+            {
+                'id': 'cork01',
+                'label': 'cork',
+                'imageInInventory': 'cork_inventory01',
+                'canBeOnStage' : false,
+                'canBeOnInventory' : true,
+                'canBePickedUp' : false
+            },
+            {
+                'id': 'winebottlewithoutcork01',
+                'label': 'uncorked wine bottle',
+                'imageInInventory': 'winebottlewithoutcork_inventory01',
+                'canBeOnStage' : false,
+                'canBeOnInventory' : true,
+                'canBePickedUp' : false
+            },
+            {
+                'id': 'needlewithcork01',
+                'label': 'uncorked wine bottle',
+                'imageInInventory': 'needlewithcork_inventory01',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
@@ -120,7 +168,7 @@ define([
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'corkwithneedle01'
+                        'target': 'needlewithcork01'
                     },
                     {
                         'action': 'dialogMessage',
@@ -210,6 +258,39 @@ define([
                         'param' : 'Mmmm.... wine... tasty!'
                     }
                 ]
+            },
+            {
+                'id' : 'interaction07',
+                'verb' : 'Use',
+                'first': {
+                    'type' : 'object',
+                    'item' : 'corkscrew01',
+                    'inInventory' : true
+                },
+                'second' : {
+                    'type' : 'object',
+                    'item' : 'winebottle01',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action': 'removeFromInventory',
+                        'target': 'winebottle01'
+                    },
+                    {
+                        'action': 'addToInventory',
+                        'target': 'winebottlewithoutcork01'
+                    },
+                    {
+                        'action': 'addToInventory',
+                        'target': 'cork01'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'target': 'guybrush01',
+                        'param' : 'There, I took the cork out.'
+                    }
+                ]
             }
         ],
         'scenes': [
@@ -230,7 +311,7 @@ define([
                     {
                         'id' : 'pirate01',
                         'position' : {
-                            'x'    : 400,
+                            'x'    : 200,
                             'y'    : 230
                         }
                     }
@@ -322,8 +403,12 @@ define([
                             'dialog' : 'dialog02'
                         },
                         {
-                            'line' : 'Bye.',
+                            'line' : 'You wouldn\'t have a corkscrew I can borrow?',
                             'dialog' : 'dialog03'
+                        },
+                        {
+                            'line' : 'Bye.',
+                            'dialog' : 'dialog04'
                         }
                     ]
                 }
@@ -351,6 +436,23 @@ define([
             },
             {
                 'id' : 'dialog03',
+                'lines' : [
+                    {
+                        'character' : 'guybrush01',
+                        'line' : 'You wouldn\'t have a corkscrew I can borrow?'
+                    },
+                    {
+                        'character' : 'pirate01',
+                        'line' : 'Yeah. Here, you can have it.'
+                    }
+                ],
+                'onEnd' : {
+                    'action' : 'addToInventory',
+                    'object' : 'corkscrew01'
+                }
+            },
+            {
+                'id' : 'dialog04',
                 'lines' : [
                     {
                         'character' : 'guybrush01',

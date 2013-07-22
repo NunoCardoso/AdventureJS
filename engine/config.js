@@ -46,15 +46,17 @@ define([
             'progressbar.y' : (gameHeight / 2),
             'progressbar.w' : progressbarWidth,
             'progressbar.h' : progressbarHeight,
-            'newgamebutton.x' : (gameWidth / 2) - buttonWidth - 5,
-            'newgamebutton.y' : buttonY,
-            'loadgamebutton.x' : (gameWidth / 2) + 5,
-            'loadgamebutton.y' : buttonY,
+            'button1.x' : (gameWidth / 2) - buttonWidth - 5,
+            'button1.y' : buttonY,
+            'button2.x' : (gameWidth / 2) + 5,
+            'button2.y' : buttonY,
             'button.w' : buttonWidth,
             'button.h' : buttonHeight,
             'button.r' : buttonRounds,
-            'newgame'  : "new game!",
-            'loadgame' : "load game"
+            'newgame'  : "New game",
+            'loadgame' : "Load game",
+            'savegame' : "Save game",
+            'resumegame' : "Resume game"
         },
 
         getCanvasXY = function () {

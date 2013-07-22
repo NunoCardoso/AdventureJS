@@ -4,42 +4,61 @@
  * This is the main button on the corner of the scenes
  */
 define([
+    'engine/lib/assets'
 ], function (
+    assets
 ) {
     var MenuButton = function (options) {
         this.initialize(options);
     };
 
-    MenuButton.prototype = new createjs.Shape();
+    MenuButton.prototype = new createjs.Container();
     MenuButton.prototype.MenuButton_initialize = MenuButton.prototype.initialize;
     MenuButton.prototype.initialize = function (options) {
-        this.alpha = 0.5;
         this.from = options.from;
-        this.graphics
+
+        this.button = new createjs.Shape();
+        this.button.alpha = 0.5;
+        this.button.x = 3;
+        this.button.y = 3;
+        this.button.graphics
             .beginStroke("#FFFFFF")
             .beginFill("#DDDDDD")
             .drawRoundRect(
-                10,
-                10,
-                30,
-                30,
+                2,
+                2,
+                34,
+                34,
                 10
             );
 
-        this.addEventListener("click", $.proxy(function (e) {
+        this.button.addEventListener("click", $.proxy(function (e) {
+            var menu = require('engine/menu/main').get();
+            menu.renderForSaveGame();
+
             require('engine/stage/main').getInstance().switchScene(
                 this.from,
                 'scene.menu'
             );
         }, this));
 
-        this.addEventListener("mouseover", $.proxy(function (e) {
-            this.alpha = 1;
+        this.button.addEventListener("mouseover", $.proxy(function (e) {
+            this.button.alpha = 1;
         }, this));
 
-        this.addEventListener("mouseout", $.proxy(function (e) {
-            this.alpha = 0.5;
+        this.button.addEventListener("mouseout", $.proxy(function (e) {
+            this.button.alpha = 0.5;
         }, this));
+
+        this.cogwheel = new createjs.Bitmap();
+        this.cogwheel.image  = assets.getQueueLoaded().getResult('menuCogwheel01');
+        this.cogwheel.x = 7;
+        this.cogwheel.y = 7;
+        this.cogwheel.scaleX = 30 / this.cogwheel.image.width;
+        this.cogwheel.scaleY = 30 / this.cogwheel.image.height;
+
+        this.addChild(this.button);
+        this.addChild(this.cogwheel);
     };
     return MenuButton;
 });

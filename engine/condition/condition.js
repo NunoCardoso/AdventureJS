@@ -9,6 +9,7 @@ define([
     var GameCondition = function (options) {
         this.name = 'condition.' + options.id;
         this.isInInventory = options.isInInventory;
+        this.onSuccess = options.onSuccess;
         this.onFail = options.onFail;
     };
 

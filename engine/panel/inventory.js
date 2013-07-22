@@ -33,30 +33,40 @@ define([
 
         this.total = 0;
 
-        this.calculateObjectPosition = function (i) {
+        this.calculateObjectPosition = function (obj, order) {
 
-            var rowNumber = parseInt(i / this.inventoryParams.maxColumns, 10),
-                colNumber = i % this.inventoryParams.maxColumns,
+            var rowNumber = parseInt(order / this.inventoryParams.maxColumns, 10),
+                colNumber = order % this.inventoryParams.maxColumns,
                 positionX = this.inventoryParams.initialX + colNumber * this.inventoryParams.incrementX,
                 positionXwithMargin = positionX + (colNumber === 0 ? this.inventoryParams.marginFirstCol : this.inventoryParams.marginOtherCol),
                 positionY = this.inventoryParams.initialY + rowNumber * this.inventoryParams.incrementY,
                 positionYonMiddle = positionY + (rowNumber === 0 ? this.inventoryParams.marginFirstCol : this.inventoryParams.marginOtherCol);
 
-            return {
-                'x' : positionXwithMargin,
-                'y' : positionYonMiddle
-            };
+            obj.x = positionXwithMargin;
+            obj.y = positionYonMiddle;
         };
 
-        this.add = function (option) {
-            var position = this.calculateObjectPosition(this.total);
+        this.add = function (option, position) {
             var obj = gameobject.get(option);
+            position = position || this.total;
             obj.renderAs('inventory');
-            obj.x = position.x;
-            obj.y = position.y;
-            obj.activateClickListener(gamecharacter.getPlayableCharacter());
+            this.calculateObjectPosition(obj, position);
             this.addChild(obj);
+            obj.activateClickListener(gamecharacter.getPlayableCharacter());
             this.total++;
+        };
+
+        this.remove = function (object) {
+            var i,
+                o = this.getChildByName('object.' + object);
+            var index = this.getChildIndex(o);
+            this.removeChild(o);
+            this.total--;
+            // recalculate other positions;
+            for (i = index; i < this.total; i++) {
+                o = this.getChildAt(i);
+                this.calculateObjectPosition(o, i);
+            }
         };
 
         this.has = function (object) {
@@ -65,7 +75,7 @@ define([
 
         var i;
         for (i = 0; i < options.length; i++) {
-            this.add(options[i]);
+            this.add(options[i], i);
         }
     };
     return Inventory;

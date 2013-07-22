@@ -6,11 +6,11 @@
 define([
     'engine/interaction/action',
     'engine/lib/assets',
-    'engine/character/line'
+    'engine/character/balloon'
 ], function (
     action,
     assets,
-    TextLine
+    Balloon
 ) {
     var NonPlayableCharacter = function (options) {
         this.initialize(options);
@@ -40,7 +40,7 @@ define([
         this.x = 0;
         this.y = 0;
 
-        // callback after saying a line:
+        // callback after saying a balloon:
         this.afterSay = undefined;
 
         // setTimeout for saying something
@@ -52,8 +52,7 @@ define([
         this.attitude = 'standleft';
         this.gotoAndPlay(this.attitude);
 
-        /** speech line */
-        this.line = new TextLine({color: '#FF0000'});
+        this.balloon = new Balloon({color: '#FF0000'});
 
         this.getDimensions = function () {
             return {
@@ -66,16 +65,16 @@ define([
 
         this.setX = function (x) {
             this.x = x;
-            this.line.setX(x);
+            this.balloon.setX(x);
         };
 
         this.setY = function (y) {
             this.y = y;
-            this.line.setY(y);
+            this.balloon.setY(y);
         };
 
-        this.getLine = function () {
-            return this.line;
+        this.getBalloon = function () {
+            return this.balloon;
         };
 
         this.finishedSay = function () {
@@ -105,12 +104,12 @@ define([
 
         this.shutUp = function () {
             this.stand();
-            this.line.shutUp();
+            this.balloon.shutUp();
         };
 
         this.talk = function (text) {
             this.isSpeaking = true;
-            this.line.say(text);
+            this.balloon.say(text);
             if (this.attitude === "walkleft" || this.attitude === "standleft") {
                 this.attitude = 'talkleft';
             } else if (this.attitude === "walkright" || this.attitude === "standright") {

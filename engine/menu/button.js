@@ -10,41 +10,14 @@ define([
     config,
     gamestage
 ) {
-    var StartButton = function (options) {
+    var Button = function (options) {
         this.initialize(options);
     };
 
-    StartButton.prototype = new createjs.Shape();
-    StartButton.prototype.StartButton_initialize = StartButton.prototype.initialize;
-    StartButton.prototype.initialize = function (options) {
-        this.alpha = 0.5;
-        this.nextScene = options.to;
-        this.graphics
-            .beginStroke("#880000")
-            .beginFill("red")
-            .drawRoundRect(
-                options.x,
-                options.y,
-                options.w,
-                options.h,
-                options.r
-            );
-
-        this.addEventListener("click", $.proxy(function (e) {
-            gamestage.getInstance().switchScene(
-                'scene.menu',
-                'scene.' + this.nextScene
-            );
-        }, this));
-
-        this.addEventListener("mouseover", $.proxy(function (e) {
-            e.target.alpha = 1;
-        }, this));
-
-        this.addEventListener("mouseout", $.proxy(function (e) {
-            this.alpha = 0.5;
-        }, this));
-
+    Button.prototype = new createjs.Shape();
+    Button.prototype.Button_initialize = Button.prototype.initialize;
+    Button.prototype.initialize = function (options) {
+        
     };
-    return StartButton;
+    return Button;
 });

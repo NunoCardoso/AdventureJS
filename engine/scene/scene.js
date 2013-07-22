@@ -30,6 +30,9 @@ define([
 
         this.description  = scene.description;
         this.interactable = scene.interactable;
+        // this is not a menu scene, it is a scene with playable character
+        this.playable     = true;
+
         this.ending       = scene.ending;
         this.playableCharacter = scene.playableCharacter;
         this.nonPlayableCharacters = scene.nonPlayableCharacters;
@@ -49,6 +52,10 @@ define([
 
         this.isInteractable = function () {
             return this.interactable;
+        };
+
+        this.isPlayable = function () {
+            return this.playable;
         };
 
         this.removeObject = function (object) {
@@ -116,7 +123,7 @@ define([
                         options.playableCharacter
                     );
                     this.dynamic.addChild(options.nonPlayableCharacters[_id]);
-                    this.dynamic.addChild(options.nonPlayableCharacters[_id].getLine());
+                    this.dynamic.addChild(options.nonPlayableCharacters[_id].getBalloon());
                 }
             }
 
@@ -154,7 +161,7 @@ define([
                     options.playableCharacter.setY(this.playableCharacter.position.y);
                 }
                 this.static.addChild(options.playableCharacter);
-                this.static.addChild(options.playableCharacter.getLine());
+                this.static.addChild(options.playableCharacter.getBalloon());
             }
 
 
@@ -163,6 +170,20 @@ define([
                 this.static.addChild(new MenuButton({from: this.name}));
             }
             this.addChild(this.static);
+        };
+
+        this.render = function (options) {
+            this.renderDynamic({
+                'playableCharacter'     : options.playableCharacter,
+                'nonPlayableCharacters' : options.nonPlayableCharacters
+            });
+
+            this.renderStatic({
+                'panel'                 : options.panel,
+                'sentence'              : options.sentence,
+                'playableCharacter'     : options.playableCharacter,
+                'characterPosition'     : options.characterPosition
+            });
         };
     };
     return GameScene;

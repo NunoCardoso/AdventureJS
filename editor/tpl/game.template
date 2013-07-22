@@ -7,6 +7,10 @@
     <button id="button.save">Save...</button>
     <br>
     <button id="button.load">Load...</button>
+    <br>
+    <button id="button.save">Import JSON...</button>
+    <br>
+    <button id="button.load">Export JSON...</button>
 </div>
 
 <label for="main.title">Title</label>

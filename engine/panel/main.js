@@ -49,6 +49,10 @@ define([
             inventory.add(object);
         },
 
+        removeFromInventory = function (object) {
+            inventory.remove(object);
+        },
+
         isInInventory = function (object) {
             return inventory.has(object);
         };
@@ -57,6 +61,7 @@ define([
         'preload'     : preload,
         'get'         : get,
         'addToInventory' : addToInventory,
+        'removeFromInventory' : removeFromInventory,
         'isInInventory'  : isInInventory
     };
 });

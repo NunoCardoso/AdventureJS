@@ -15,6 +15,10 @@ define([
             {
                 'id'  : 'nonPlayableCharacter01',
                 'src' : 'games/compass/img/character/pirate.png'
+            },
+            {
+                'id'  : 'menuCogwheel01',
+                'src' : 'engine/img/menu/cogwheel.png'
             }
         ],
         'sounds' : [

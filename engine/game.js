@@ -53,24 +53,15 @@ define([
             },
 
             render = function (_scene) {
-                var scene;
-                if (_scene === 'menu') {
-                    scene = gamescene.newScene({id: _scene}); // scene name wil be 'scene.' + scene
-                    scene = gamemenu.render(game.main, scene);
-                } else {
-                    scene = gamescene.get('scene.' + _scene);
-                    scene.renderDynamic({
-                        'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                        'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters()
-                    });
+                var scene = gamescene.get('scene.' + _scene);
+                scene.render({
+                    'playableCharacter'     : gamecharacter.getPlayableCharacter(),
+                    'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
+                    'panel'                 : gamepanel.get(),
+                    'sentence'              : gamesentence.get(),
+                    'characterPosition'     : {x : 200, y : 230}
+                });
 
-                    scene.renderStatic({
-                        'panel'                 : gamepanel.get(),
-                        'sentence'              : gamesentence.get(),
-                        'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                        'characterPosition'     : {x : 200, y : 230}
-                    });
-                }
                 gamescene.add(scene);
                 gamestage.getInstance().switchScene(
                     'scene.start',
@@ -81,6 +72,7 @@ define([
             },
 
             onAssetsLoaded = function (options) {
+                gamemenu.preload(game.main);
                 gamecharacter.preload(game.pc, game.npcs);
                 gameobject.preload(game.objects);
                 gameinteraction.preload(game.interactions);

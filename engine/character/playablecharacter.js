@@ -7,13 +7,13 @@ define([
     'engine/config',
     'engine/interaction/action',
     'engine/lib/assets',
-    'engine/character/line',
+    'engine/character/balloon',
     'engine/dialog/main'
 ], function (
     config,
     action,
     assets,
-    TextLine,
+    Balloon,
     gamedialog
 ) {
     var PlayableCharacter = function (options) {
@@ -48,7 +48,7 @@ define([
         // callback after reaching a place
         this.whenFinished = undefined;
 
-        // callback after saying a line:
+        // callback after saying a balloon:
         this.afterSay = undefined;
 
         // setTimeout for saying something
@@ -57,8 +57,7 @@ define([
         // boolean for when this character is speaking
         this.isSpeaking = false;
 
-        /** speech line */
-        this.line = new TextLine({});
+        this.balloon = new Balloon({});
 
         this.setLabel = function (label) {
             this.label = label;
@@ -66,12 +65,12 @@ define([
 
         this.setX = function (x) {
             this.x = x;
-            this.line.setX(x);
+            this.balloon.setX(x);
         };
 
         this.setY = function (y) {
             this.y = y;
-            this.line.setY(y);
+            this.balloon.setY(y);
         };
 
         this.setTargetXY = function (xy) {
@@ -108,8 +107,8 @@ define([
             this.targetXY = undefined;
         };
 
-        this.getLine = function () {
-            return this.line;
+        this.getBalloon = function () {
+            return this.balloon;
         };
 
         this.finishedSay = function () {
@@ -136,7 +135,7 @@ define([
 
         this.shutUp = function () {
             this.stand();
-            this.line.shutUp();
+            this.balloon.shutUp();
         };
 
         // this is a callback function to perform when the playable character
@@ -175,7 +174,7 @@ define([
                 this.setX(this.x + this.speed);
             }
 
-            if (scene && scene.background) {
+            if (scene && scene.isPlayable()) {
                 // now, let's see if scene should scroll
                 var sceneHasHiddenBackgroundOnRight = (
                     scene.background.mode !== 'fit' &&
@@ -218,7 +217,7 @@ define([
 
         this.talk = function (text) {
             this.isSpeaking = true;
-            this.line.say(text);
+            this.balloon.say(text);
             if (this.attitude === "walkleft" || this.attitude === "standleft") {
                 this.attitude = 'talkleft';
             } else if (this.attitude === "walkright" || this.attitude === "standright") {
@@ -265,6 +264,9 @@ define([
                             onEnd : result.dialog.onEnd
                         });
                         break;
+                    default:
+                        console.log(action.action + ' not implemented!');
+                        break;
                     }
                 }
             }, this));
@@ -281,6 +283,9 @@ define([
                     case 'dialogMessage':
                         this.say(result.line);
                         return;
+                    default:
+                        console.log(action.action + ' not implemented!');
+                        break;
                     }
                 }
 
@@ -303,6 +308,9 @@ define([
                     case 'dialogMessage':
                         this.say(result.text);
                         break;
+                    default:
+                        console.log(action.action + ' not implemented!');
+                        break;
                     }
                 }
                 return;
@@ -317,6 +325,9 @@ define([
                     // when pc picks up something
                     case 'dialogMessage':
                         this.say(result.text);
+                        break;
+                    default:
+                        console.log(action.action + ' not implemented!');
                         break;
                     }
                 }

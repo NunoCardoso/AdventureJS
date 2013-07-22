@@ -126,7 +126,12 @@ define([
         },
 
         clickNonPlayableCharacter = function (e) {
-            return _setObject(e.target);
+            var result = _setObject(e.target);
+            // there is an action to perform, so reset the sentence
+            if (result) {
+                reset();
+            }
+            return result;
         },
 
         mouseOverObject = function (e) {
@@ -138,7 +143,12 @@ define([
         },
 
         clickObject = function (e) {
-            return _setObject(e.target);
+            var result = _setObject(e.target);
+            // there is an action to perform, so reset the sentence
+            if (result) {
+                reset();
+            }
+            return result;
         },
 
         mouseOverVerb = function (e) {

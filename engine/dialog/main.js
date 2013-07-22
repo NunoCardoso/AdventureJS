@@ -71,6 +71,14 @@ define([
                     'npc' : options.npc
                 });
                 break;
+            case 'addToInventory':
+                require('engine/panel/main').addToInventory(options.onEnd.object);
+                _removeDialogPanel();
+                require('engine/interaction/action').reset();
+                break;
+            default:
+                console.log(options.onEnd.action + ' not implemented!');
+                break;
             }
         },
 
