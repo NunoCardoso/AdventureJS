@@ -6,11 +6,15 @@
 define([
     'engine/config',
     'engine/menu/label',
-    'engine/stage/main'
+    'engine/stage/main',
+    'engine/state/main',
+    'engine/savegame/main'
 ], function (
     config,
     Label,
-    gamestage
+    gamestage,
+    gamestate,
+    savegame
 ) {
     var SaveGameButton = function (options) {
         this.initialize(options);
@@ -44,12 +48,13 @@ define([
             gamestage.update();
         }, this));
 
-        this.button.addEventListener("click", $.proxy(function (e) {
-            gamestage.getInstance().switchScene(
-                'scene.menu',
-                'scene.' + this.nextScene
-            );
-        }, this));
+        this.button.addEventListener("click", function (e) {
+            var slot,
+                json = gamestate.getToJSON();
+            console.log(json);
+            slot = savegame.save(json);
+            console.log('saved game on slot ' + slot);
+        });
 
         this.label = new Label({
             x : options.x + config.get('button.w') / 2,

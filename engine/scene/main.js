@@ -33,6 +33,10 @@ define([
             return _[key];
         },
 
+        getAll = function () {
+            return _;
+        },
+
         add = function (scene) {
             _[scene.name] = scene;
         };
@@ -40,6 +44,7 @@ define([
     return {
         'preload' : preload,
         'get'     : get,
+        'getAll'  : getAll,
         'newScene': newScene,
         'add'     : add
     };

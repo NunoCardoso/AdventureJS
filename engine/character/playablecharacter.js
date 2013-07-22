@@ -63,6 +63,20 @@ define([
             this.label = label;
         };
 
+        this.setState = function (json) {
+            this.x = json.x;
+            this.y = json.y;
+            this.attitude = json.attitude;
+        };
+
+        this.getState = function () {
+            return {
+                'x' : this.x,
+                'y' : this.x,
+                'attitude' : this.attitude
+            };
+        };
+
         this.setX = function (x) {
             this.x = x;
             this.balloon.setX(x);

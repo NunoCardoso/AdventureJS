@@ -35,19 +35,29 @@ define([
             return this.currentScene;
         };
 
+        this.getState = function () {
+            return this.currentScene.name;
+        };
+
         // used to add a scene over a scene (temporary menu)
-        this.addScene = function (_toscene) {
+        this.addMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.addChild(toscene);
-            this.currentScene = toscene;
+            // adding the menu pauses the ticker, so we need to manualy update
             this.update();
         };
 
         // used to remove top scene (temporary menu)
-        this.removeScene = function (_toscene) {
+        this.removeMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.removeChild(toscene);
-            this.currentScene = this.children(this.children.length - 1);
+        };
+
+        this.setState = function (_currentScene) {
+            this.removeAllChildren();
+            var toscene = gamescene.get(_currentScene);
+            this.addChild(toscene);
+            this.currentScene = toscene;
         };
 
         this.switchScene = function (_fromscene, _toscene, characterPosition) {

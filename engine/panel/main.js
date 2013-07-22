@@ -55,6 +55,10 @@ define([
 
         isInInventory = function (object) {
             return inventory.has(object);
+        },
+
+        getInventory = function () {
+            return inventory;
         };
 
     return {
@@ -62,6 +66,7 @@ define([
         'get'         : get,
         'addToInventory' : addToInventory,
         'removeFromInventory' : removeFromInventory,
-        'isInInventory'  : isInInventory
+        'isInInventory'  : isInInventory,
+        'getInventory' : getInventory
     };
 });

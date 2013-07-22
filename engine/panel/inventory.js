@@ -69,13 +69,32 @@ define([
             }
         };
 
+        this.setState = function (json) {
+            var i;
+            this.removeAllChildren();
+            for (i = 0; i < json.length; i++) {
+                this.add(json[i].name, i);
+            }
+        };
+
+        this.getState = function () {
+            var i,
+                inventoryState = [];
+            for (i = 0; i < this.children.length; i++) {
+                inventoryState.push({
+                    'name' : this.children[i].name
+                });
+            }
+            return inventoryState;
+        };
+
         this.has = function (object) {
             return (this.getChildByName('object.' + object) !== null);
         };
 
         var i;
         for (i = 0; i < options.length; i++) {
-            this.add(options[i], i);
+            this.add('object.' + options[i], i);
         }
     };
     return Inventory;

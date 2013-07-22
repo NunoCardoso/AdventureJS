@@ -27,20 +27,36 @@ define([
         this.canBeOnInventory = options.canBeOnInventory;
         this.canBePickedUp = options.canBePickedUp;
         this.renderedAs = undefined;
+        this.x = options.x;
+        this.y = options.y;
+        this.w = options.w;
+        this.h = options.h;
 
-        this.setDimensions = function (dimensions) {
-            this.x = dimensions.x;
-            this.y = dimensions.y;
-            if (dimensions.w) {
-                this.w = dimensions.w;
-                this.scaleX = dimensions.w / this.image.width;
+        this.getState = function () {
+            return {
+                'x' : this.x,
+                'y' : this.y,
+                'w' : this.w,
+                'h' : this.h
+            };
+        };
+
+        this.setState = function (json) {
+            this.x = json.x;
+            this.y = json.y;
+            this.scaleX = json.scaleX;
+            this.scaleY = json.scaleY;
+        };
+
+        this.setDimensions = function () {
+            if (this.w) {
+                this.scaleX = this.w / this.image.width;
             } else {
                 this.w = this.image.width;
             }
 
-            if (dimensions.h) {
-                this.h = dimensions.h;
-                this.scaleY = dimensions.h / this.image.height;
+            if (this.h) {
+                this.scaleY = this.h / this.image.height;
             } else {
                 this.h = this.image.height;
             }
@@ -59,20 +75,19 @@ define([
             this.renderedAs = how;
             if (how === "stage") {
                 this.image = this.imageInStage;
-                this.scaleX = 1;
-                this.scaleY = 1;
                 this.hitArea = undefined;
             } else if (how === "inventory") {
                 this.image = this.imageInInventory;
                 // fit inventory images into a 80x80 square
-                this.scaleX = 80 / this.image.width;
-                this.scaleY = 80 / this.image.height;
+                this.w = 80;
+                this.h = 80;
 
                 // hovering on text sucks. Let's add a flat hit area!
 /*                var hitArea = new createjs.Shape();
                 hitArea.graphics.beginFill("red").drawRect(0, 0, 80, 80);
                 this.hitArea = hitArea;
-*/            }
+*/          }
+            this.setDimensions();
         };
 
         this.onObjectMouseOver = function (e) {

@@ -46,7 +46,7 @@ define([
 
         this.button.addEventListener("click", $.proxy(function (e) {
             createjs.Ticker.setPaused(false);
-            gamestage.getInstance().removeScene(
+            gamestage.getInstance().removeMenuScene(
                 'scene.menu'
             );
         }, this));

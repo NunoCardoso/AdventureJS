@@ -1,7 +1,7 @@
 /*global define */
 
 /**
- * This is the
+ * This is the start main
  */
 define([
     'engine/lib/assets',

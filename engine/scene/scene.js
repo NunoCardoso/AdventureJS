@@ -38,7 +38,13 @@ define([
         this.nonPlayableCharacters = scene.nonPlayableCharacters;
         this.background   = null;
 
-        this.objects      = scene.objects || [];
+        this.objects      = {};
+
+        var i;
+        for (i in scene.objects) {
+            this.objects['object.' + scene.objects[i].id] = scene.objects[i];
+        }
+
         this.exits        = scene.exits || [];
 
         this.dynamic = new createjs.Container();
@@ -80,6 +86,9 @@ define([
             this.removeAllChildren();
             this.dynamic.removeAllChildren();
 
+            var objectContainer = new createjs.Container();
+            objectContainer.name = 'container.objects';
+
             if (this.background) {
                 if (options.playableCharacter) {
                     this.background.activateClickListener(options.playableCharacter);
@@ -91,17 +100,18 @@ define([
                 this.dynamic.addChild(this.background);
             }
 
-            var i, o, e;
+            var key, o, e;
 
-            for (i = 0; i < this.objects.length; i++) {
-                o = gameobject.get(this.objects[i].id);
+            for (key in this.objects) {
+                o = gameobject.get('object.' + this.objects[key].id);
                 o.renderAs('stage');
-                o.setDimensions(this.objects[i]);
                 if (options.playableCharacter) {
                     o.activateClickListener(options.playableCharacter);
                 }
-                this.dynamic.addChild(o);
+                objectContainer.addChild(o);
             }
+
+            this.dynamic.addChild(objectContainer);
 
             for (i = 0; i < this.exits.length; i++) {
                 this.exits[i].from = scene.id;
@@ -184,6 +194,26 @@ define([
                 'playableCharacter'     : options.playableCharacter,
                 'characterPosition'     : options.characterPosition
             });
+        };
+
+        this.getState = function () {
+            var i, o,
+                objectStates = {},
+                objects = this.dynamic.getChildByName('container.objects');
+
+            if (objects && objects.children) {
+                for (i in objects.children) {
+                    o = objects.children[i];
+                    objectStates[o.name] = o.getState();
+                }
+            }
+            return {
+                'objects' : objectStates
+            };
+        };
+
+        this.setState = function (json) {
+            this.objects = json.objects;
         };
     };
     return GameScene;

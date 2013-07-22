@@ -69,8 +69,8 @@ define([
         this.background.scaleY = config.getCanvasXY().y / this.background.image.height;
 
         this.newGameButton = new NewGameButton({
-            x: config.get('button1.x'),
-            y: config.get('button1.y'),
+            x: config.get('button1of2.x'),
+            y: config.get('button1of2.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
@@ -78,8 +78,8 @@ define([
         });
 
         this.loadGameButton = new LoadGameButton({
-            x: config.get('button2.x'),
-            y: config.get('button2.y'),
+            x: config.get('button2of2.x'),
+            y: config.get('button2of2.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
@@ -87,8 +87,16 @@ define([
         });
 
         this.saveGameButton = new SaveGameButton({
-            x: config.get('button1.x'),
-            y: config.get('button1.y'),
+            x: config.get('button1of3.x'),
+            y: config.get('button1of3.y'),
+            w: config.get('button.w'),
+            h: config.get('button.h'),
+            r: config.get('button.r'),
+            to: options.startingScene
+        });
+
+
+        this.loadGameButton = new LoadGameButton({
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
@@ -96,8 +104,8 @@ define([
         });
 
         this.resumeGameButton = new ResumeGameButton({
-            x: config.get('button2.x'),
-            y: config.get('button2.y'),
+            x: config.get('button3of3.x'),
+            y: config.get('button3of3.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
@@ -107,6 +115,11 @@ define([
         this.settingsButton = new SettingsButton();
 
         this.renderForNewGame = function () {
+
+            this.loadGameButton.setX(config.get('button2of2.x'));
+            this.loadGameButton.setY(config.get('button2of2.y'));
+            this.loadGameButton.render();
+
             this.removeAllChildren();
             this.addChild(
                 this.background,
@@ -121,12 +134,18 @@ define([
 
         this.renderForSaveGame = function () {
             this.removeAllChildren();
+
+            this.loadGameButton.setX(config.get('button2of3.x'));
+            this.loadGameButton.setY(config.get('button2of3.y'));
+            this.loadGameButton.render();
+
             this.addChild(
                 this.background,
                 this.title,
                 this.author,
                 this.description,
                 this.saveGameButton,
+                this.loadGameButton,
                 this.resumeGameButton,
                 this.settingsButton
             );

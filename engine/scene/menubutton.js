@@ -37,7 +37,7 @@ define([
             menu.renderForSaveGame();
             var gamestage = require('engine/stage/main');
             gamestage.pause();
-            gamestage.getInstance().addScene(
+            gamestage.getInstance().addMenuScene(
                 'scene.menu'
             );
         }, this));
