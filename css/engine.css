@@ -42,8 +42,10 @@ body, input, textarea, button {
 }
 
 #loadgame, #savegame {
-    width:400px;
-    height:500px;
+    min-width:400px;
+    width:50%;
+    min-height:500px;
+    height:80%;
 }
 
 #loadgame-items, #savegame-items {
