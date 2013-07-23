@@ -104,7 +104,7 @@ define([
 
             for (key in this.objects) {
                 o = gameobject.get('object.' + this.objects[key].id);
-                o.renderAs('stage');
+                o.renderAs('stage', this.objects[key]);
                 if (options.playableCharacter) {
                     o.activateClickListener(options.playableCharacter);
                 }
@@ -208,12 +208,14 @@ define([
                 }
             }
             return {
-                'objects' : objectStates
+                'objects' : objectStates,
+                'dynamic' : this.dynamic.x
             };
         };
 
         this.setState = function (json) {
             this.objects = json.objects;
+            this.dynamic.x = json.dynamic;
         };
     };
     return GameScene;

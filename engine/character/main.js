@@ -58,10 +58,10 @@ define([
         };
 
     return {
-        'initCharacters'            : initCharacters,
-        'preload'                   : preload,
-        'getPlayableCharacter'      : getPlayableCharacter,
-        'getNonPlayableCharacters'  : getNonPlayableCharacters,
-        'updatePosition'            : updatePosition
+        'initCharacters'           : initCharacters,
+        'preload'                  : preload,
+        'getPlayableCharacter'     : getPlayableCharacter,
+        'getNonPlayableCharacters' : getNonPlayableCharacters,
+        'updatePosition'           : updatePosition
     };
 });

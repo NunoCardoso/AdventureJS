@@ -17,6 +17,9 @@ define([
     Balloon.prototype.initialize = function (options) {
 
         this.line = new createjs.Text();
+        this.balloon = new createjs.Shape();
+        this.tooltip = new createjs.Shape();
+
         this.line.text = options.text || "";
         this.line.font = options.font || "bold 24px the8bit";
         this.line.color = options.color || "#000000";
@@ -28,11 +31,7 @@ define([
         this.line.y = options.y;
         this.line.lineWidth = 250;
 
-
-        this.balloon = new createjs.Shape();
         this.balloon.alpha = 1;
-
-        this.tooltip = new createjs.Shape();
 
         this.drawTooltip = function () {
             var x = this.line.x,
@@ -78,11 +77,12 @@ define([
             this.line.text = text;
 
             // check if it is out of bounds
+            // if it is, give a 5 px margin
             if (this.line.x - (this.line.lineWidth / 2) < 0) {
-                this.line.x = this.line.lineWidth / 2 + 1;
+                this.line.x = this.line.lineWidth / 2 + 5;
             }
             if (this.line.x + (this.line.lineWidth / 2) > config.get('game.w')) {
-                this.line.x = config.get('game.w') - this.line.lineWidth / 2 - 1;
+                this.line.x = config.get('game.w') - this.line.lineWidth / 2 - 5;
             }
             // give 30px margin for balloon padding and tooltip
             this.line.y = this.line.referenceY - this.line.getMeasuredHeight() - 30;

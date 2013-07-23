@@ -46,7 +46,7 @@ define([
 		},
 
         addToInventory = function (object) {
-            inventory.add(object);
+            inventory.add('object.' + object);
         },
 
         removeFromInventory = function (object) {

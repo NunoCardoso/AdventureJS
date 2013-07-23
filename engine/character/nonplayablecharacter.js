@@ -119,13 +119,18 @@ define([
 
         };
 
+        this.getStandAttitude = function () {
+            if (this.attitude === "walkleft" || this.attitude === "talkleft") {
+                return 'standleft';
+            }
+            if (this.attitude === "walkright" || this.attitude === "talkright") {
+                return 'standright';
+            }
+        };
+
         this.stand = function () {
             this.isSpeaking = false;
-            if (this.attitude === "walkleft" || this.attitude === "talkleft") {
-                this.attitude = 'standleft';
-            } else if (this.attitude === "walkright" || this.attitude === "talkright") {
-                this.attitude = 'standright';
-            }
+            this.attitude = this.getStandAttitude();
             this.gotoAndPlay(this.attitude);
         };
 

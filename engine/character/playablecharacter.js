@@ -66,14 +66,16 @@ define([
         this.setState = function (json) {
             this.x = json.x;
             this.y = json.y;
+            this.resetTargetXY();
             this.attitude = json.attitude;
+            this.gotoAndPlay(this.attitude);
         };
 
         this.getState = function () {
             return {
-                'x' : this.x,
-                'y' : this.x,
-                'attitude' : this.attitude
+                'x'        : this.x,
+                'y'        : this.y,
+                'attitude' : this.getStandAttitude()
             };
         };
 
@@ -240,13 +242,18 @@ define([
             this.gotoAndPlay(this.attitude);
         };
 
+        this.getStandAttitude = function () {
+            if (this.attitude === "walkleft" || this.attitude === "talkleft") {
+                return 'standleft';
+            }
+            if (this.attitude === "walkright" || this.attitude === "talkright") {
+                return 'standright';
+            }
+        };
+
         this.stand = function () {
             this.isSpeaking = false;
-            if (this.attitude === "walkleft" || this.attitude === "talkleft") {
-                this.attitude = 'standleft';
-            } else if (this.attitude === "walkright" || this.attitude === "talkright") {
-                this.attitude = 'standright';
-            }
+            this.attitude = this.getStandAttitude();
             this.gotoAndPlay(this.attitude);
         };
 

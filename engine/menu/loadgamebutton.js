@@ -50,6 +50,7 @@ define([
                 json = savegame.load(slot);
             console.log('load game from slot ' + slot);
             console.log(json);
+            createjs.Ticker.setPaused(false);
             gamestate.setFromJSON(json);
         });
 

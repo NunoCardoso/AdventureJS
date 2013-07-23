@@ -27,10 +27,6 @@ define([
         this.canBeOnInventory = options.canBeOnInventory;
         this.canBePickedUp = options.canBePickedUp;
         this.renderedAs = undefined;
-        this.x = options.x;
-        this.y = options.y;
-        this.w = options.w;
-        this.h = options.h;
 
         this.getState = function () {
             return {
@@ -71,16 +67,18 @@ define([
             };
         };
 
-        this.renderAs = function (how) {
+        this.renderAs = function (how, dimensions) {
             this.renderedAs = how;
+            this.x = dimensions.x;
+            this.y = dimensions.y;
+            this.w = dimensions.w;
+            this.h = dimensions.h;
             if (how === "stage") {
                 this.image = this.imageInStage;
                 this.hitArea = undefined;
             } else if (how === "inventory") {
                 this.image = this.imageInInventory;
                 // fit inventory images into a 80x80 square
-                this.w = 80;
-                this.h = 80;
 
                 // hovering on text sucks. Let's add a flat hit area!
 /*                var hitArea = new createjs.Shape();

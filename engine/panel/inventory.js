@@ -31,9 +31,7 @@ define([
             marginOtherCol : 10
         };
 
-        this.total = 0;
-
-        this.calculateObjectPosition = function (obj, order) {
+        this.calculateObjectDimensions = function (obj, order) {
 
             var rowNumber = parseInt(order / this.inventoryParams.maxColumns, 10),
                 colNumber = order % this.inventoryParams.maxColumns,
@@ -42,28 +40,36 @@ define([
                 positionY = this.inventoryParams.initialY + rowNumber * this.inventoryParams.incrementY,
                 positionYonMiddle = positionY + (rowNumber === 0 ? this.inventoryParams.marginFirstCol : this.inventoryParams.marginOtherCol);
 
-            obj.x = positionXwithMargin;
-            obj.y = positionYonMiddle;
+            return {
+                'x' : positionXwithMargin,
+                'y' : positionYonMiddle,
+                'w' : 80,
+                'h' : 80
+            };
         };
 
-        this.add = function (option, position) {
-            var obj = gameobject.get(option);
-            position = position || this.total;
-            obj.renderAs('inventory');
-            this.calculateObjectPosition(obj, position);
+        this.add = function (option, order) {
+            var obj = gameobject.get(option),
+                dimensions = this.calculateObjectDimensions(obj,
+                    (typeof order !== 'undefined' ? order :
+                            (this.children ? this.children.length : 0)
+                    )
+                    );
+            obj.renderAs('inventory', dimensions);
             this.addChild(obj);
             obj.activateClickListener(gamecharacter.getPlayableCharacter());
-            this.total++;
         };
 
         this.remove = function (object) {
             var i,
-                o = this.getChildByName('object.' + object);
-            var index = this.getChildIndex(o);
+                total,
+                o = this.getChildByName('object.' + object),
+                index = this.getChildIndex(o);
             this.removeChild(o);
-            this.total--;
+
+            total = (this.children ? this.children.length : 0);
             // recalculate other positions;
-            for (i = index; i < this.total; i++) {
+            for (i = index; i < total; i++) {
                 o = this.getChildAt(i);
                 this.calculateObjectPosition(o, i);
             }
