@@ -1,4 +1,4 @@
-/*global define, Handlebars, $ */
+/*global define, Handlebars, createjs, $ */
 
 /**
  * This is the start button label
@@ -10,7 +10,8 @@ define([
     'engine/tpl/loadgamepanel',
     'engine/tpl/savegamepanel',
     'engine/tpl/settingspanel',
-    'engine/stage/main'
+    'engine/stage/main',
+    'engine/savegame/main'
 ], function (
     loadgameTpl,
     savegameTpl,
@@ -18,7 +19,8 @@ define([
     LoadGamePanel,
     SaveGamePanel,
     SettingsPanel,
-    gamestage
+    gamestage,
+    savegame
 ) {
 
     var item,
@@ -34,18 +36,61 @@ define([
             }
         },
 
-        closeSettings = function () {
+        close = function () {
             gamestage.getInstance().removeChild(item);
             item.hide();
             item = undefined;
             $('#forms').html('');
+        },
 
+        openSavegame = function () {
+            if (!item) {
+                var template = Handlebars.compile(savegameTpl),
+                    savegames = savegame.getAll();
+                $('#forms').html(template({'savegames': savegames}));
+                item = new SaveGamePanel();
+                item.show();
+                gamestage.getInstance().addChild(item);
+                gamestage.update();
+            }
+        },
+
+        closeSavegame = function () {
+            if (dosave) {
+                savegame.save(json, slot);
+            }
+            close();
+        },
+
+        openLoadgame = function () {
+            if (!item) {
+                var template = Handlebars.compile(loadgameTpl),
+                    savegames = savegame.getAll();
+                $('#forms').html(template({savegames: savegames}));
+                item = new LoadGamePanel();
+                item.show();
+                gamestage.getInstance().addChild(item);
+                gamestage.update();
+            }
+        },
+
+        closeLoadgame = function () {
+            var json;
+            if (doload) {
+                json = savegame.load(slot);
+            }
+            close();
+
+            createjs.Ticker.setPaused(false);
+            gamestate.setFromJSON(json);
         };
 
     return {
-        'openSettings' : openSettings,
-        'closeSettings' : closeSettings
+        'openSettings'  : openSettings,
+        'close'         : close,
+        'openSavegame'  : openSavegame,
+        'closeSavegame' : closeSavegame,
+        'openLoadgame'  : openLoadgame,
+        'closeLoadgame' : closeLoadgame
     };
 });
-
-

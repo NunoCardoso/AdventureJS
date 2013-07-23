@@ -1,4 +1,4 @@
-/*global define, createjs, $ */
+/*global define, createjs, $, document */
 
 /**
  * This is the main button on the corner of the scenes
@@ -33,13 +33,23 @@ define([
             );
 
         this.button.addEventListener("click", $.proxy(function (e) {
+            // create a snapshot. Useful when saving game
+            // resize it to 200x150
+            var gamestage = require('engine/stage/main');
+            var tmpcanvas = document.createElement("canvas");
+            tmpcanvas.width = 200;
+            tmpcanvas.height = 150;
+            var ctx = tmpcanvas.getContext('2d');
+            ctx.drawImage($("canvas")[0], 0, 0, $("canvas").width(), $("canvas").height(),
+                0, 0, tmpcanvas.width, tmpcanvas.height);
+            gamestage.setSnapshot(tmpcanvas.toDataURL('image/jpg'));
+
+            // now, prepare menu for save/load/resume
             var menu = require('engine/menu/main').get();
             menu.renderForSaveGame();
-            var gamestage = require('engine/stage/main');
+
             gamestage.pause();
-            gamestage.getInstance().addMenuScene(
-                'scene.menu'
-            );
+            gamestage.getInstance().addMenuScene('scene.menu');
         }, this));
 
         this.button.addEventListener("mouseover", $.proxy(function (e) {

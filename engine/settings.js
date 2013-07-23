@@ -19,6 +19,10 @@ define([
             {
                 'id'  : 'menuCogwheel01',
                 'src' : 'engine/img/menu/cogwheel.png'
+            },
+            {
+                'id'  : 'savegameNoImage01',
+                'src' : 'engine/img/savegame/noimage.jpg'
             }
         ],
         'sounds' : [

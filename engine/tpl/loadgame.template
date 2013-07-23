@@ -10,4 +10,5 @@
             {{/each}}
         </table>
      </form>
+     <button onClick="require('engine/tpl/main').close();return false;">OK</button>
 </div>

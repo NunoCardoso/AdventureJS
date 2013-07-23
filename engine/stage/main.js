@@ -13,6 +13,9 @@ define([
 
     var stage,
 
+        snapshot, // an image snapshot of this stage
+        savegame, // a JSON snapshot of this stage
+
         preload = function (character) {
             stage = new GameStage("canvas");
         },
@@ -53,12 +56,34 @@ define([
             // ticker
             createjs.Ticker.setFPS(40);
             createjs.Ticker.addEventListener("tick", _onTick);
-        };
+        },
+
+        setSnapshot = function (_snaphsot) {
+            snapshot = _snaphsot;
+        },
+
+        getSnapshot = function () {
+            return snapshot;
+        },
+
+        setSavegame = function (_savegame) {
+            savegame = _savegame;
+        },
+
+        getSavegame = function () {
+            return savegame;
+        },
+
+        gamestage
 
     return {
         'preload'      : preload,
         'getInstance'  : getInstance,
         'activateMouseAndTouch'     : activateMouseAndTouch,
+        'setSnapshot' : setSnapshot,
+        'getSnapshot' : getSnapshot,
+        'setSavegame' : setSavegame,
+        'getSavegame' : getSavegame,
         'activateTick' : activateTick,
         'pause' : pause,
         'play' : play,

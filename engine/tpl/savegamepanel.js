@@ -18,16 +18,15 @@ define([
      //   SaveGamePanel.prototype.SaveGamePanel_initialize();
 
         this.name = 'SaveGame';
-        this.x = config.get('game.w') / 2 - 100; // width = 200
-        this.y = config.get('game.h') / 2 - 30; // height = 60
+        this.x = config.get('game.w') / 2 - 200; // width = 400
+        this.y = config.get('game.h') / 2 - 150; // height = 400
 
         this.show = function () {
-            $('#SaveGame').css('display', 'block');
-
+            $('#savegame').css('display', 'block');
         };
 
         this.hide = function () {
-            $('#SaveGame').css('display', 'none');
+            $('#savegame').css('display', 'none');
         };
     };
     return SaveGamePanel;

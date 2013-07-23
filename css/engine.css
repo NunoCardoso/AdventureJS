@@ -41,6 +41,21 @@ body, input, textarea, button {
     height:60px;
 }
 
+#loadgame, #savegame {
+    width:400px;
+    height:500px;
+}
+
+#loadgame-items, #savegame-items {
+    height:400px;
+    overflow:scroll;
+}
+
+#loadgame img, #savegame img {
+    width:200px;
+    height:150px;
+}
+
 .panel {
     display:none;
     position:absolute;

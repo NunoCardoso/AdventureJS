@@ -7,14 +7,14 @@ define([
     'engine/config',
     'engine/menu/label',
     'engine/stage/main',
-    'engine/savegame/main',
-    'engine/state/main'
+    'engine/state/main',
+    'engine/tpl/main'
 ], function (
     config,
     Label,
     gamestage,
-    savegame,
-    gamestate
+    gamestate,
+    gametemplate
 ) {
     var LoadGameButton = function (options) {
         this.initialize(options);
@@ -46,12 +46,7 @@ define([
         }, this));
 
         this.button.addEventListener("click", function (e) {
-            var slot = 0,
-                json = savegame.load(slot);
-            console.log('load game from slot ' + slot);
-            console.log(json);
-            createjs.Ticker.setPaused(false);
-            gamestate.setFromJSON(json);
+            gametemplate.openLoadgame();
         });
 
         this.label = new Label({

@@ -37,10 +37,6 @@ define([
         this.label.x = 15;
         this.label.y = 16;
 
-        this.closePanel = function () {
-            gametemplate.closeSettings();
-        };
-
         this.addEventListener("click", function (e) {
             gametemplate.openSettings();
         });

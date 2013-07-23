@@ -15,17 +15,12 @@ define([
             menu = new GameMenu(options);
         },
 
-        closeSettings = function () {
-            menu.settingsButton.closePanel();
-        },
-
         get = function () {
             return menu;
         };
 
     return {
         'preload' : preload,
-        'closeSettings' : closeSettings,
         'get' : get,
     };
 });

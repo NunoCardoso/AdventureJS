@@ -22,12 +22,11 @@ define([
         this.y = config.get('game.h') / 2 - 30; // height = 60
 
         this.show = function () {
-            $('#LoadGame').css('display', 'block');
-
+            $('#loadgame').css('display', 'block');
         };
 
         this.hide = function () {
-            $('#LoadGame').css('display', 'none');
+            $('#loadgame').css('display', 'none');
         };
     };
     return LoadGamePanel;

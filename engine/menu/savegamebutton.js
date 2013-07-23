@@ -8,13 +8,13 @@ define([
     'engine/menu/label',
     'engine/stage/main',
     'engine/state/main',
-    'engine/savegame/main'
+    'engine/tpl/main'
 ], function (
     config,
     Label,
     gamestage,
     gamestate,
-    savegame
+    gametemplate
 ) {
     var SaveGameButton = function (options) {
         this.initialize(options);
@@ -38,22 +38,20 @@ define([
                 options.h,
                 options.r
             );
-        this.button.addEventListener("mouseover", $.proxy(function (e) {
+        this.button.addEventListener("mouseover", function (e) {
             e.target.alpha = 1;
             gamestage.update();
-        }, this));
+        });
 
-        this.button.addEventListener("mouseout", $.proxy(function (e) {
+        this.button.addEventListener("mouseout", function (e) {
             e.target.alpha = 0.5;
             gamestage.update();
-        }, this));
+        });
 
         this.button.addEventListener("click", function (e) {
-            var slot,
-                json = gamestate.getToJSON();
-            console.log(json);
-            slot = savegame.save(json);
-            console.log('saved game on slot ' + slot);
+            // generate savegame JSON, save it temporarily to stage
+            gamestage.setSavegame(gamestate.getToJSON());
+            gametemplate.openSavegame();
         });
 
         this.label = new Label({
