@@ -1,14 +1,21 @@
 <div id="loadgame" class="panel">
     <h3>Load game</h3>
-    <form>
+    <div id="loadgame-items">
         <table>
-            {{#each savegame}}
+            {{#each savegames}}
             <tr>
-                <td>
+                <td class="slot">{{this.slot}}</td>
+                <td class="image">
+                <a href="#" onClick="require('engine/savegame/load').onImageClick(this);return false;">
+                <img src='{{this.image}}'/>
+                </a>
                 </td>
+                <td class="date">{{this.date}}</td>
             </tr>
             {{/each}}
         </table>
-     </form>
-     <button onClick="require('engine/tpl/main').close();return false;">OK</button>
+    </div>
+    <div>
+        <button onClick="require('engine/tpl/main').close();return false;">Cancel</button>
+     </div>
 </div>

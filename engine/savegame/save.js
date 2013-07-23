@@ -59,7 +59,7 @@ define([
             _restoreSlot(img[0]);
         },
 
-        getImage = function (link) {
+        onImageClick = function (link) {
 
             var newSnapshot = gamestage.getSnapshot();
             var trgImage = $(link).find("img");
@@ -85,8 +85,8 @@ define([
             gamestage.update();
         };
     return {
-        'getImage'   : getImage,
-        'saveOk'     : saveOk,
-        'saveCancel' : saveCancel
+        'onImageClick' : onImageClick,
+        'saveOk'       : saveOk,
+        'saveCancel'   : saveCancel
     };
 });

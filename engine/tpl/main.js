@@ -55,42 +55,22 @@ define([
             }
         },
 
-        closeSavegame = function () {
-            if (dosave) {
-                savegame.save(json, slot);
-            }
-            close();
-        },
-
         openLoadgame = function () {
             if (!item) {
                 var template = Handlebars.compile(loadgameTpl),
                     savegames = savegame.getAll();
-                $('#forms').html(template({savegames: savegames}));
+                $('#forms').html(template({'savegames': savegames}));
                 item = new LoadGamePanel();
                 item.show();
                 gamestage.getInstance().addChild(item);
                 gamestage.update();
             }
-        },
-
-        closeLoadgame = function () {
-            var json;
-            if (doload) {
-                json = savegame.load(slot);
-            }
-            close();
-
-            createjs.Ticker.setPaused(false);
-            gamestate.setFromJSON(json);
         };
 
     return {
         'openSettings'  : openSettings,
         'close'         : close,
         'openSavegame'  : openSavegame,
-        'closeSavegame' : closeSavegame,
         'openLoadgame'  : openLoadgame,
-        'closeLoadgame' : closeLoadgame
     };
 });

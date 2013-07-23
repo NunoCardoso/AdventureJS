@@ -4,11 +4,13 @@ define([
     'engine/tpl/main',
     'engine/state/main',
     'engine/lib/assets',
+    'engine/savegame/load', // preloaded it, as it is triggered by a template
     'engine/savegame/save', // preloaded it, as it is triggered by a template
 ], function (
     gametemplate,
     gamestate,
     assets,
+    loadgame,
     savegame
 ) {
 

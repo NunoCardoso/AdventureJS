@@ -6,7 +6,7 @@
             <tr>
                 <td class="slot">{{this.slot}}</td>
                 <td class="image">
-                <a href="#" onClick="require('engine/savegame/save').getImage(this);return false;">
+                <a href="#" onClick="require('engine/savegame/save').onImageClick(this);return false;">
                 <img src='{{this.image}}'/>
                 </a>
                 </td>

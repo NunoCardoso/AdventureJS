@@ -18,8 +18,8 @@ define([
      //   LoadGamePanel.prototype.LoadGamePanel_initialize();
 
         this.name = 'LoadGame';
-        this.x = config.get('game.w') / 2 - 100; // width = 200
-        this.y = config.get('game.h') / 2 - 30; // height = 60
+        this.x = config.get('game.w') / 2 - 200; // width = 400
+        this.y = config.get('game.h') / 2 - 150; // height = 400
 
         this.show = function () {
             $('#loadgame').css('display', 'block');
