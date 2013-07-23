@@ -62,7 +62,9 @@ define([
             'newgame'  : "New game",
             'loadgame' : "Load game",
             'savegame' : "Save game",
-            'resumegame' : "Resume game"
+            'resumegame' : "Resume game",
+            'settings' : "Settings"
+
         },
 
         getCanvasXY = function () {

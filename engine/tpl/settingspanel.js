@@ -1,4 +1,4 @@
-/*global define, createjs, $ */
+/*global document, define, createjs, $ */
 
 /**
  * This is the start button label
@@ -12,15 +12,18 @@ define([
         this.initialize(options);
     };
 
-    SettingsPanel.prototype = new createjs.DOMElement('settings');
+    SettingsPanel.prototype = new createjs.DOMElement(document.getElementById("forms"));
     SettingsPanel.prototype.SettingsPanel_initialize = SettingsPanel.prototype.initialize;
     SettingsPanel.prototype.initialize = function (options) {
+     //   SettingsPanel.prototype.SettingsPanel_initialize();
+
         this.name = 'settings';
-        this.x = config.getCanvasXY().x / 2 - 100; // width = 200
-        this.y = config.getCanvasXY().y / 2 - 30; // height = 60
+        this.x = config.get('game.w') / 2 - 100; // width = 200
+        this.y = config.get('game.h') / 2 - 30; // height = 60
 
         this.show = function () {
             $('#settings').css('display', 'block');
+
         };
 
         this.hide = function () {

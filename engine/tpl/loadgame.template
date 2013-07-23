@@ -1,0 +1,13 @@
+<div id="loadgame" class="panel">
+    <h3>Load game</h3>
+    <form>
+        <table>
+            {{#each savegame}}
+            <tr>
+                <td>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+     </form>
+</div>
