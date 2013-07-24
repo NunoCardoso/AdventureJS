@@ -34,6 +34,7 @@ define([
 
             // playableCharacter has the id reference to a character
             pc = new PlayableCharacter(_find(playableCharacter.id));
+            pc.isPlayable = true;
             pc.setLabel(playableCharacter.label);
 
             for (i = 0; i < nonPlayableCharacters.length; i++) {
