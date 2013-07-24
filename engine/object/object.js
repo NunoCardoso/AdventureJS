@@ -82,9 +82,10 @@ define([
 
                 // hovering on text sucks. Let's add a flat hit area!
 /*                var hitArea = new createjs.Shape();
-                hitArea.graphics.beginFill("red").drawRect(0, 0, 80, 80);
+                hitArea.graphics.beginFill("red").drawRect(this.x, this.y, 80, 80);
                 this.hitArea = hitArea;
-*/          }
+*/
+            }
             this.setDimensions();
         };
 

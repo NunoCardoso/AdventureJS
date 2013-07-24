@@ -57,6 +57,7 @@ define([
             // if verb cardinality is 1, do something.
             if (selectedVerb.nr === 1) {
                 selectedObject = object;
+                _pushText(text + ' ' + selectedObject.label);
                 return decision.decide(selectedVerb, selectedObject);
             }
             if (selectedVerb.nr === 2) {
@@ -127,10 +128,6 @@ define([
 
         clickNonPlayableCharacter = function (e) {
             var result = _setObject(e.target);
-            // there is an action to perform, so reset the sentence
-            if (result) {
-                reset();
-            }
             return result;
         },
 
@@ -144,10 +141,6 @@ define([
 
         clickObject = function (e) {
             var result = _setObject(e.target);
-            // there is an action to perform, so reset the sentence
-            if (result) {
-                reset();
-            }
             return result;
         },
 

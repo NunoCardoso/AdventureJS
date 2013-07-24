@@ -42,10 +42,8 @@ body, input, textarea, button {
 }
 
 #loadgame, #savegame {
-    min-width:400px;
-    width:50%;
-    min-height:500px;
-    height:80%;
+    width:400px;
+    height:500px;
 }
 
 #loadgame-items, #savegame-items {
@@ -71,6 +69,10 @@ body, input, textarea, button {
 
 #canvas.crosshair {
     cursor: url(../engine/img/cursor/crosshair.gif) 15 15;
+}
+
+#canvas.crosshair.game {
+    cursor: none;
 }
 
 #canvas.exitright {

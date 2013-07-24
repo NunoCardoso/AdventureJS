@@ -52,7 +52,7 @@ define([
             'button2of2.y' : buttonY,
             'button1of3.x' : (gameWidth / 2) - buttonWidth -  buttonWidth / 2 - 10,
             'button1of3.y' : buttonY,
-            'button2of3.x' : (gameWidth / 2) - buttonWidth / 2,
+            'button2of3.x' : (gameWidth / 2) - buttonWidth / 2 + 2,
             'button2of3.y' : buttonY,
             'button3of3.x' : (gameWidth / 2) +  buttonWidth / 2 + 20,
             'button3of3.y' : buttonY,

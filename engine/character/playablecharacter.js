@@ -300,13 +300,17 @@ define([
                 if (exit.hasCondition()) {
                     // TODO: check properly the condition, once inventory is ready.
                     var result = exit.testCondition();
-                    switch (result.action) {
-                    case 'dialogMessage':
-                        this.say(result.line);
-                        return;
-                    default:
-                        console.log(action.action + ' not implemented!');
-                        break;
+                    if (result) {
+                        // clean up sentence.
+                        action.reset();
+                        switch (result.action) {
+                        case 'dialogMessage':
+                            this.say(result.line);
+                            return;
+                        default:
+                            console.log(action.action + ' not implemented!');
+                            break;
+                        }
                     }
                 }
 
@@ -325,6 +329,9 @@ define([
             if (object.renderedAs === 'inventory') {
                 var result = action.clickObject(event);
                 if (result) {
+                    // clean up sentence.
+                    action.reset();
+
                     switch (result.action) {
                     case 'dialogMessage':
                         this.say(result.text);
@@ -342,6 +349,9 @@ define([
             this.setWhenFinished($.proxy(function () {
                 var result = action.clickObject(event);
                 if (result) {
+                    // clean up sentence.
+                    action.reset();
+
                     switch (result.action) {
                     // when pc picks up something
                     case 'dialogMessage':
