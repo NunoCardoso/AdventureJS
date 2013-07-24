@@ -12,9 +12,10 @@ define([
         this.initialize(options);
     };
 
-    Balloon.prototype = new createjs.Container();
-    Balloon.prototype.Balloon_initialize = Balloon.prototype.initialize;
-    Balloon.prototype.initialize = function (options) {
+    var p = Balloon.prototype = new createjs.Container();
+    p.Balloon_initialize = p.initialize;
+    p.initialize = function (options) {
+        this.Balloon_initialize();
 
         this.line = new createjs.Text();
         this.x = 0;

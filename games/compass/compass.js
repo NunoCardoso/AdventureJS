@@ -312,7 +312,7 @@ define([
                         'id' : 'pirate01',
                         'position' : {
                             'x'    : 200,
-                            'y'    : 230
+                            'y'    : 380
                         }
                     }
                 ],

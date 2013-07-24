@@ -9,7 +9,7 @@ define([
     Character
 ) {
     var pc,
-        npc,
+        npcs,
         characters,
 
         initCharacters = function (_characters) {
@@ -26,19 +26,21 @@ define([
         },
 
         preload = function (playableCharacter, nonPlayableCharacters) {
-            var i, _npc;
-
-            npc = {};
+            var i, npc;
+            npcs = {};
 
             // playableCharacter has the id reference to a character
-            pc = new Character(_find(playableCharacter.id));
+            var charactersetup = _find(playableCharacter.id);
+            pc = new Character(charactersetup);
             pc.isPlayable = true;
             pc.setLabel(playableCharacter.label);
 
             for (i = 0; i < nonPlayableCharacters.length; i++) {
-                _npc = new Character(_find(nonPlayableCharacters[i].id));
-                _npc.setLabel(nonPlayableCharacters[i].label);
-                npc[nonPlayableCharacters[i].id] = _npc;
+                charactersetup = _find(nonPlayableCharacters[i].id);
+                npc = new Character(charactersetup);
+                npc.isPlayable = false;
+                npc.setLabel(nonPlayableCharacters[i].label);
+                npcs[nonPlayableCharacters[i].id] = npc;
             }
         },
 
@@ -47,7 +49,7 @@ define([
         },
 
         getNonPlayableCharacters = function () {
-            return npc;
+            return npcs;
         },
 
         updatePosition = function (scene) {

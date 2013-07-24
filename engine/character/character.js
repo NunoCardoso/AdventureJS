@@ -20,12 +20,12 @@ define([
         this.initialize(options);
     };
 
-    Character.prototype = new createjs.Container();
-    Character.prototype.Character_initialize = Character.prototype.initialize;
-    Character.prototype.initialize = function (options) {
+    var p = Character.prototype = new createjs.Container();
+    p.Character_initialize = p.initialize;
+    p.initialize = function (options) {
+        this.Character_initialize();
 
         this.name = 'character.' + options.id;
-
         this.character = new createjs.BitmapAnimation();
         this.character.spriteSheet = new createjs.SpriteSheet({
             images     : [
@@ -53,6 +53,8 @@ define([
         this.label = undefined;
         this.speed = options.speed;
 
+        // important, so we can know if this is playable character, ommit some events
+        this.isPlayable = false;
 
         // callback after reaching a place
         this.whenFinished = undefined;
@@ -72,6 +74,15 @@ define([
             this.character,
             this.balloon
         );
+
+        this.getDimensions = function () {
+            return {
+                'x1' : this.x - this.regX / 2,
+                'y1' : this.y - this.regY,
+                'x2' : this.x + this.regX / 2,
+                'y2' : this.y
+            };
+        };
 
         this.setLabel = function (label) {
             this.label = label;
@@ -276,23 +287,25 @@ define([
         };
 
         this.testHit = function (x, y) {
-            var coords = this.globalToLocal(x, y);
-            var mouseOver = this.hitTest(coords.x, coords.y);
-            if (mouseOver && !this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                return this.onObjectMouseOver({target: this});
-            }
+            if (!this.isPlayable) {
+                var coords = this.globalToLocal(x, y);
+                var mouseOver = this.hitTest(coords.x, coords.y);
+                if (mouseOver && !this.isMouseOver) {
+                    this.isMouseOver = mouseOver;
+                    return action.mouseOverNonPlayableCharacter({target: this});
+                }
 
-            if (!mouseOver && this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                return this.onObjectMouseOut({target: this});
+                if (!mouseOver && this.isMouseOver) {
+                    this.isMouseOver = mouseOver;
+                    return action.mouseOverNonPlayableCharacter({target: this});
+                }
             }
         };
 
-        this.actForNonCharacterClick = function (event, npc) {
+        this.actForNonPlayableCharacterClick = function (event, npc) {
             this.calculateTargetXY({x : event.stageX, y : event.stageY}, npc);
             this.setWhenFinished($.proxy(function () {
-                var result = action.clickNonCharacter(event);
+                var result = action.clickNonPlayableCharacter(event);
                 if (result) {
                     switch (result.action) {
                     case 'dialogMessage':
@@ -312,6 +325,12 @@ define([
                         break;
                     }
                 }
+            }, this));
+        };
+
+        this.activateClickListener = function (playableCharacter) {
+            this.addEventListener("click", $.proxy(function (e) {
+                playableCharacter.actForNonPlayableCharacterClick(e, this);
             }, this));
         };
 
