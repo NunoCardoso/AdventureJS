@@ -12,10 +12,11 @@ define([
         this.initialize();
     };
 
-    Background.prototype = new createjs.Shape();
-    Background.prototype.Background_initialize = Background.prototype.initialize;
-    Background.prototype.initialize = function () {
+    var p = Background.prototype = new createjs.Shape();
+    p.Background_initialize = p.initialize;
+    p.initialize = function () {
         this.Background_initialize();
+
         this.name = "dialog.panel.background";
         this.graphics.beginFill("black")
             .drawRect(

@@ -18,13 +18,13 @@ define([
             return _;
         },
 
-        updatePosition = function (stage, xy) {
-            _.updatePosition(stage, xy);
+        update = function (stage, xy) {
+            _.update(stage, xy);
         };
 
     return {
         'preload' : preload,
-        'get' : get,
-        'updatePosition' : updatePosition
+        'get'     : get,
+        'update'  : update
     };
 });

@@ -28,7 +28,7 @@ define([
 
         _onTick = function (event) {
             if (!event.paused) {
-                gamecharacter.updatePosition(stage.getCurrentScene());
+                gamecharacter.update(stage.getCurrentScene());
                 stage.update(event);
             }
         },
@@ -54,7 +54,7 @@ define([
             createjs.Touch.enable(stage);
 
             stage.onMouseMove = function (e) {
-                gamecursor.updatePosition(this, {x: e.stageX, y: e.stageY});
+                gamecursor.update(this, {x: e.stageX, y: e.stageY});
             };
 
         },

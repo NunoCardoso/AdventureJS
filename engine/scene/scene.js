@@ -146,6 +146,7 @@ define([
             var i;
             this.static.removeAllChildren();
 
+            // first to be rendered. Watch out, getPanel() depends on it.
             if (options.panel) {
                 this.static.addChild(options.panel);
             }
@@ -198,9 +199,15 @@ define([
             this.addChild(gamecursor.get());
         };
 
-        this.getObjectsOnScene = function () {
-            var objects = this.dynamic.getChildByName('container.objects');
-            return objects.children;
+        this.getDynamicSceneChildrens = function () {
+            return this.dynamic.children;
+        };
+
+        this.getPanel = function () {
+            if (this.static.children) {
+                return this.static.children[0];
+            }
+            return undefined;
         };
 
         this.getState = function () {

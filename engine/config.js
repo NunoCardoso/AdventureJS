@@ -23,8 +23,14 @@ define([
         buttonY = 300,
         buttonHeight = 60,
         buttonRounds = 10,
+        dialogOptionParams = {
+            initialX   : 10,
+            initialY   : 410,
+            incrementY : 30
+        },
 
         _ = {
+            'dialogoption.params' : dialogOptionParams,
             'panel.x' : 0,
             'panel.y' : gameHeight,
             'panel.w' : gameWidth,

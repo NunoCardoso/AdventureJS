@@ -48,6 +48,7 @@ define([
                 'id'     : 'guybrush01',
                 'images' : 'playableCharacter01',
                 'speed'  : 2,
+                'textColor' : 'black',
                 'frames' : {
                     'regX'   : 52,
                     'height' : 150,
@@ -67,6 +68,7 @@ define([
             {
                 'id'     : 'pirate01',
                 'images' : 'nonPlayableCharacter01',
+                'textColor' : 'red',
                 'frames' : {
                     'regX'   : 52,
                     'height' : 150,

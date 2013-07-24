@@ -1,7 +1,7 @@
 /*global define, $ */
 
 /**
- * This module handles conditions
+ * This module handles conditions from the game
  */
 define([
     'engine/condition/condition'
@@ -9,11 +9,10 @@ define([
     Condition
 ) {
     var _ = {},
-        background,
 
         preload = function (conditions) {
             var i;
-            for (i = 0; i < conditions.length; i++) {
+            for (i in conditions) {
                 _[conditions[i].id] = new Condition(conditions[i]);
             }
         },

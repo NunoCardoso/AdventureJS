@@ -10,10 +10,11 @@ define([
         this.initialize(options);
     };
 
-    Interaction.prototype = new createjs.Bitmap();
-    Interaction.prototype.Interaction_initialize = Interaction.prototype.initialize;
-    Interaction.prototype.initialize = function (options) {
+    var p = Interaction.prototype = new createjs.Bitmap();
+    p.Interaction_initialize = p.initialize;
+    p.initialize = function (options) {
         this.Interaction_initialize();
+
         this.name = options.id;
         this.verb = options.verb;
         this.first = options.first;

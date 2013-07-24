@@ -51,14 +51,14 @@ define([
 
             init = function () {
                 assetList = settings.images.concat(settings.sounds);
-                gamecharacter.initCharacters(settings.characters);
+                gamecharacter.init(settings.characters);
             },
 
             render = function (_scene) {
                 var scene = gamescene.get('scene.' + _scene);
                 scene.render({
-                    'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                    'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
+                    'playableCharacter'     : gamecharacter.getPc(),
+                    'nonPlayableCharacters' : gamecharacter.getNpcs(),
                     'panel'                 : gamepanel.get(),
                     'sentence'              : gamesentence.get(),
                     'characterPosition'     : {x : 200, y : 230}

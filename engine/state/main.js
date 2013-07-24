@@ -33,7 +33,7 @@ define([
             }
 
             currentSceneName = gamestage.getInstance().getState();
-            pcState = gamecharacter.getPlayableCharacter().getState();
+            pcState = gamecharacter.getPc().getState();
             inventoryState = gamepanel.getInventory().getState();
 
             return JSON.stringify({
@@ -52,7 +52,7 @@ define([
                 gamescene.get(key).setState(savegame.scenes[key]);
             }
 
-            gamecharacter.getPlayableCharacter().setState(savegame.pc);
+            gamecharacter.getPc().setState(savegame.pc);
             gamepanel.getInventory().setState(savegame.inventory);
             gamestage.getInstance().setState(savegame.currentScene);
         };

@@ -14,8 +14,8 @@ define([
 ) {
 
     var _ = {},
-        container,
-        background,
+        _container,
+        _background,
         _dialogOptions, // store temporarily, easier to remove
 
         preload = function (dialogs) {
@@ -23,10 +23,10 @@ define([
             for (i = 0; i < dialogs.length; i++) {
                 _[dialogs[i].id] = new GameDialog(dialogs[i]);
             }
-            background = new Background();
-            container = new createjs.Container();
-            container.name = 'container.dialog';
-            container.addChild(background);
+            _background = new Background();
+            _container = new createjs.Container();
+            _container.name = 'container.dialog';
+            _container.addChild(_background);
         },
 
         get = function (key) {
@@ -35,31 +35,31 @@ define([
 
         _addDialogPanel = function () {
             var stage = require('engine/stage/main').getInstance();
-            stage.addChild(container);
+            stage.getCurrentScene().static.addChild(_container);
         },
 
         _removeDialogPanel = function () {
             var stage = require('engine/stage/main').getInstance();
-            stage.removeChild(container);
+            stage.getCurrentScene().static.removeChild(_container);
         },
 
         _addDialogOptionsToDialogPanel = function (options) {
             var i,
                 _do = gamedialogoptions.init(options),
-                _dialogOptionsContainer = new createjs.Container();
+                _doc = new createjs.Container();
 
-            for (i = 0; i < _do.length; i++) {
-                _dialogOptionsContainer.addChild(_do[i]);
+            for (i in _do) {
+                _doc.addChild(_do[i]);
             }
 
-            _dialogOptions = _do;
-            container.addChild(_dialogOptionsContainer);
+            _dialogOptions = _do; // save it temporarily
+            _container.addChild(_doc);
         },
 
         _initContainer = function () {
             // easier to clean everything, then just add the black background
-            container.removeAllChildren();
-            container.addChild(background);
+            _container.removeAllChildren();
+            _container.addChild(_background);
         },
 
         _onEnd = function (options) {
@@ -67,8 +67,8 @@ define([
             case 'displayDialogOptions':
                 _addDialogOptionsToDialogPanel({
                     'dialogOptions' : options.onEnd.dialogOptions,
-                    'pc'  : options.pc,
-                    'npc' : options.npc
+                    'pc'            : options.pc,
+                    'npc'           : options.npc
                 });
                 break;
             case 'addToInventory':

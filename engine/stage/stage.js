@@ -83,8 +83,8 @@ define([
             if (toscene.isInteractable()) {
 
                 toscene.render({
-                    'playableCharacter'     : gamecharacter.getPlayableCharacter(),
-                    'nonPlayableCharacters' : gamecharacter.getNonPlayableCharacters(),
+                    'playableCharacter'     : gamecharacter.getPc(),
+                    'nonPlayableCharacters' : gamecharacter.getNpcs(),
                     'panel'                 : gamepanel.get(),
                     'sentence'              : sentence.get(),
                     'characterPosition'     : characterPosition

@@ -57,7 +57,7 @@ define([
                     );
             obj.renderAs('inventory', dimensions);
             this.addChild(obj);
-            obj.activateClickListener(gamecharacter.getPlayableCharacter());
+            obj.activateClickListener(gamecharacter.getPc());
         };
 
         this.remove = function (object) {

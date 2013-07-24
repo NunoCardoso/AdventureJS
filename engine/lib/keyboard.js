@@ -127,12 +127,12 @@ define([
         _handleDot = function () {
             var id,
                 npc,
-                pc = gamecharacter.getPlayableCharacter();
+                pc = gamecharacter.getPc();
             if (pc.isSpeaking) {
                 pc.stopSay();
                 return;
             }
-            npc = gamecharacter.getNonPlayableCharacters();
+            npc = gamecharacter.getNpcs();
             for (id in npc) {
                 if (npc[id].isSpeaking) {
                     npc[id].stopSay();

@@ -12,22 +12,21 @@ define([
         this.initialize(options);
     };
 
-    GameDialogOption.prototype = new createjs.Text();
-    GameDialogOption.prototype.GameDialogOption_initialize = GameDialogOption.prototype.initialize;
-    GameDialogOption.prototype.initialize = function (options) {
-
+    var p = GameDialogOption.prototype = new createjs.Text();
+    p.GameDialogOption_initialize = p.initialize;
+    p.initialize = function (options) {
         this.GameDialogOption_initialize();
-        this.text = options.text;
-        this.font = "24px the8bit";
+
+        this.text  = options.text;
+        this.font  = "24px the8bit";
         this.color = "#FFFFFF";
-        this.textAlign = "left";
+        this.textAlign    = "left";
         this.textBaseline = "top";
         this.alpha = 0.7;
-        this.x = options.x;
-        this.y = options.y;
-        this.pc = options.pc;
-        this.npc = options.npc;
-
+        this.x     = options.x;
+        this.y     = options.y;
+        this.pc    = options.pc;
+        this.npc   = options.npc;
         // the dialog to trigger on click;
         this.dialog = options.dialog;
 
@@ -46,13 +45,13 @@ define([
         }, this));
 
         this.addEventListener('click', $.proxy(function (e) {
-            var gamedialog = require('engine/dialog/main');
-            var dia = gamedialog.get(this.dialog);
+            var gamedialog = require('engine/dialog/main'),
+                dialog = gamedialog.get(this.dialog);
             gamedialog.perform({
-                lines : dia.lines.slice(0),
+                lines : dialog.lines.slice(0),
                 pc    : this.pc,
                 npc   : this.npc,
-                onEnd : dia.onEnd
+                onEnd : dialog.onEnd
             });
         }, this));
     };

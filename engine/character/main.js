@@ -1,68 +1,62 @@
 /*global define */
 
 /**
- * This module handles the playable character
+ * This module handles characters of the game
  */
 define([
     'engine/character/character'
 ], function (
     Character
 ) {
-    var pc,
-        npcs,
-        characters,
+    var _pc,
+        _npcs,
+        _characters = {},
 
-        initCharacters = function (_characters) {
-            characters = _characters;
-        },
-
-        _find = function (id) {
+        init = function (characters) {
             var i;
-            for (i = 0; i < characters.length; i++) {
-                if (characters[i].id === id) {
-                    return characters[i];
-                }
+            for (i in characters) {
+                _characters[characters[i].id] = characters[i];
             }
         },
 
         preload = function (playableCharacter, nonPlayableCharacters) {
             var i, npc;
-            npcs = {};
+            _npcs = {};
 
             // playableCharacter has the id reference to a character
-            var charactersetup = _find(playableCharacter.id);
-            pc = new Character(charactersetup);
-            pc.isPlayable = true;
-            pc.setLabel(playableCharacter.label);
+            var charactersetup = _characters[playableCharacter.id];
+            _pc = new Character(charactersetup);
+            _pc.isPlayable = true;
+            _pc.setLabel(playableCharacter.label);
 
-            for (i = 0; i < nonPlayableCharacters.length; i++) {
-                charactersetup = _find(nonPlayableCharacters[i].id);
+            for (i in nonPlayableCharacters) {
+                charactersetup = _characters[nonPlayableCharacters[i].id];
                 npc = new Character(charactersetup);
                 npc.isPlayable = false;
                 npc.setLabel(nonPlayableCharacters[i].label);
-                npcs[nonPlayableCharacters[i].id] = npc;
+                _npcs[nonPlayableCharacters[i].id] = npc;
             }
         },
 
-        getPlayableCharacter = function () {
-            return pc;
+        getPc = function () {
+            return _pc;
         },
 
-        getNonPlayableCharacters = function () {
-            return npcs;
+        getNpcs = function () {
+            return _npcs;
         },
 
-        updatePosition = function (scene) {
-            if (pc) {
-                pc.updatePosition(scene);
+        update = function (scene) {
+            if (_pc) {
+                _pc.update(scene);
             }
         };
 
     return {
-        'initCharacters'           : initCharacters,
-        'preload'                  : preload,
-        'getPlayableCharacter'     : getPlayableCharacter,
-        'getNonPlayableCharacters' : getNonPlayableCharacters,
-        'updatePosition'           : updatePosition
+        'init'    : init,
+        'preload' : preload,
+        'getPc'   : getPc,
+        'getNpcs' : getNpcs,
+        'update'  : update
     };
 });

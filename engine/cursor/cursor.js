@@ -14,37 +14,47 @@ define([
         this.initialize(options);
     };
 
-    Cursor.prototype = new createjs.Bitmap();
-    Cursor.prototype.Cursor_initialize = Cursor.prototype.initialize;
-    Cursor.prototype.initialize = function (options) {
+    var p = Cursor.prototype = new createjs.Bitmap();
+    p.Cursor_initialize = p.initialize;
+    p.initialize = function (options) {
         this.Cursor_initialize();
+
         this.image  = assets.getQueueLoaded().getResult('cursor01');
-        this.regX = this.image.width / 2;
-        this.regY = this.image.height / 2;
+        this.regX   = this.image.width / 2;
+        this.regY   = this.image.height / 2;
 
-        this.updatePosition = function (stage, xy) {
-            this.x = xy.x;
-            this.y = xy.y;
-            var npcs, i, key;
+        this.doTestHit = function (items) {
+            var i;
 
-            npcs = gamecharacter.getNonPlayableCharacters();
-
-            for (key in npcs) {
-                npcs[key].testHit(this.x, this.y);
-            }
-            var objects,
-                scene = stage.getCurrentScene();
-            if (typeof scene.getObjectsOnScene === 'function') {
-                objects = scene.getObjectsOnScene();
-                for (i in objects) {
-                    objects[i].testHit(this.x, this.y);
+            for (i in items) {
+                if (typeof items[i].testHit === 'function') {
+                    items[i].testHit(this.x, this.y);
+                }
+                if (items[i].children) {
+                    this.doTestHit(items[i].children);
                 }
             }
+        };
 
-            //exits,
+        this.update = function (stage, xy) {
+            this.x = xy.x;
+            this.y = xy.y;
 
-            //verbs,
-            //invbentories
+            var i,
+                interactables,
+                panel,
+                scene = stage.getCurrentScene();
+
+            if (scene.isPlayable()) {
+                // interactables should include
+                // stage objects, exits and npcs.
+                interactables = scene.getDynamicSceneChildrens();
+                this.doTestHit(interactables);
+
+                // panel can be accessed like this.
+                panel = scene.getPanel();
+                this.doTestHit(panel.children);
+            }
         };
     };
     return Cursor;

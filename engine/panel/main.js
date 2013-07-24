@@ -19,7 +19,6 @@ define([
         verbs,
         container,
 
-
         preload = function (options) {
 
             background = new Background();
@@ -57,6 +56,10 @@ define([
             return inventory.has(object);
         },
 
+        getVerbs = function () {
+            return verbs;
+        },
+
         getInventory = function () {
             return inventory;
         };
@@ -67,6 +70,7 @@ define([
         'addToInventory' : addToInventory,
         'removeFromInventory' : removeFromInventory,
         'isInInventory'  : isInInventory,
-        'getInventory' : getInventory
+        'getInventory' : getInventory,
+        'getVerbs'     : getVerbs
     };
 });

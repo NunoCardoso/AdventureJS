@@ -1,7 +1,7 @@
 /*global define, createjs, $ */
 
 /**
- * This is the
+ * This is the main character (playable or not) class
  */
 define([
     'engine/config',
@@ -26,6 +26,8 @@ define([
         this.Character_initialize();
 
         this.name = 'character.' + options.id;
+        this.label = undefined;
+
         this.character = new createjs.BitmapAnimation();
         this.character.spriteSheet = new createjs.SpriteSheet({
             images     : [
@@ -34,13 +36,11 @@ define([
             frames     : options.frames,
             animations : options.animations
         });
-        this.character.frames = options.frames;
+        this.character.frames   = options.frames;
         this.character.attitude = 'standright';
-        this.currentAnimation = undefined;
+        this.currentAnimation   = undefined;
         this.character.gotoAndPlay(this.character.attitude);
-
-        this.x = 0;
-        this.y = 0;
+        this.textColor = options.textColor;
 
         this.w = this.character.frames.width;
         this.h = this.character.frames.height;
@@ -50,7 +50,7 @@ define([
         this.regY = this.h;
 
         this.targetXY = undefined;
-        this.label = undefined;
+
         this.speed = options.speed;
 
         // important, so we can know if this is playable character, ommit some events
@@ -68,7 +68,7 @@ define([
         // boolean for when this character is speaking
         this.isSpeaking = false;
 
-        this.balloon = new Balloon({});
+        this.balloon = new Balloon({textColor : this.textColor});
 
         this.addChild(
             this.character,
@@ -88,6 +88,7 @@ define([
             this.label = label;
         };
 
+        // called to restore this character from a state
         this.setState = function (json) {
             this.setX(json.x);
             this.setY(json.y);
@@ -96,6 +97,7 @@ define([
             this.character.gotoAndPlay(this.character.attitude);
         };
 
+        // called to convert this character state into json
         this.getState = function () {
             return {
                 'x'        : this.x,
@@ -116,6 +118,10 @@ define([
             this.targetXY = xy;
             // abort any callback to perform, as the current itinerary was changed
             this.whenFinished = undefined;
+        };
+
+        this.resetTargetXY = function () {
+            this.targetXY = undefined;
         };
 
         // mouse position click can be the target click on most ocations,
@@ -140,10 +146,6 @@ define([
                     y : xy.y
                 });
             }
-        };
-
-        this.resetTargetXY = function () {
-            this.targetXY = undefined;
         };
 
         this.finishedSay = function () {
@@ -180,7 +182,7 @@ define([
         };
 
         // for scenes that stretch, maybe the scene has to scroll, not the character.
-        this.updatePosition = function (scene) {
+        this.update = function (scene) {
 
             if (this.targetXY) {
                 if (this.x > this.targetXY.x && (this.x - this.targetXY.x > this.speed)) {
@@ -294,11 +296,30 @@ define([
                     this.isMouseOver = mouseOver;
                     return action.mouseOverNonPlayableCharacter({target: this});
                 }
-
                 if (!mouseOver && this.isMouseOver) {
                     this.isMouseOver = mouseOver;
-                    return action.mouseOverNonPlayableCharacter({target: this});
+                    return action.mouseOutNonPlayableCharacter({target: this});
                 }
+            }
+        };
+
+        this._performResult = function (result, npc) {
+            switch (result.action) {
+            case 'dialogMessage':
+                this.say(result.line);
+                return;
+            case 'playDialog':
+                gamedialog.perform({
+                    // slice(0) clones it, because gamedialog will destroy it
+                    lines : result.dialog.lines.slice(0),
+                    pc    : this,
+                    npc   : npc,
+                    onEnd : result.dialog.onEnd
+                });
+                break;
+            default:
+                console.log(action.action + ' not implemented!');
+                break;
             }
         };
 
@@ -307,23 +328,8 @@ define([
             this.setWhenFinished($.proxy(function () {
                 var result = action.clickNonPlayableCharacter(event);
                 if (result) {
-                    switch (result.action) {
-                    case 'dialogMessage':
-                        this.say(result.text);
-                        break;
-                    case 'playDialog':
-                        gamedialog.perform({
-                            // slice(0) clones it, because gamedialog will destroy it
-                            lines : result.dialog.lines.slice(0),
-                            pc    : this,
-                            npc   : npc,
-                            onEnd : result.dialog.onEnd
-                        });
-                        break;
-                    default:
-                        console.log(action.action + ' not implemented!');
-                        break;
-                    }
+                    action.reset();
+                    this._performResult(result, npc);
                 }
             }, this));
         };
@@ -342,16 +348,8 @@ define([
                     // TODO: check properly the condition, once inventory is ready.
                     var result = exit.testCondition();
                     if (result) {
-                        // clean up sentence.
                         action.reset();
-                        switch (result.action) {
-                        case 'dialogMessage':
-                            this.say(result.line);
-                            return;
-                        default:
-                            console.log(action.action + ' not implemented!');
-                            break;
-                        }
+                        this._performResult(result);
                     }
                 }
 
@@ -372,15 +370,7 @@ define([
                 if (result) {
                     // clean up sentence.
                     action.reset();
-
-                    switch (result.action) {
-                    case 'dialogMessage':
-                        this.say(result.text);
-                        break;
-                    default:
-                        console.log(action.action + ' not implemented!');
-                        break;
-                    }
+                    this._performResult(result);
                 }
                 return;
             }
@@ -392,16 +382,7 @@ define([
                 if (result) {
                     // clean up sentence.
                     action.reset();
-
-                    switch (result.action) {
-                    // when pc picks up something
-                    case 'dialogMessage':
-                        this.say(result.text);
-                        break;
-                    default:
-                        console.log(action.action + ' not implemented!');
-                        break;
-                    }
+                    this._performResult(result);
                 }
             }, this));
         };

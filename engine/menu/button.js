@@ -14,7 +14,7 @@ define([
         this.initialize(options);
     };
 
-    Button.prototype = new createjs.Shape();
+    var p = Button.prototype = new createjs.Shape();
     Button.prototype.Button_initialize = Button.prototype.initialize;
     Button.prototype.initialize = function (options) {
         
