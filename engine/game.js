@@ -7,6 +7,7 @@ define([
     'engine/character/main',
     'engine/condition/main',
     'engine/config',
+    'engine/cursor/main',
     'engine/dialog/main',
     'engine/interaction/main',
     'engine/lib/keyboard',
@@ -22,6 +23,7 @@ define([
     gamecharacter,
     gamecondition,
     config,
+    gamecursor,
     gamedialog,
     gameinteraction,
     keyboard,
@@ -73,6 +75,7 @@ define([
             },
 
             onAssetsLoaded = function (options) {
+                gamecursor.preload();
                 gamemenu.preload(game.main);
                 gamecharacter.preload(game.pc, game.npcs);
                 gameobject.preload(game.objects);

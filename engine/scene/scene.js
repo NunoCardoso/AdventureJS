@@ -9,14 +9,16 @@ define([
     'engine/object/main',
     'engine/scene/background',
     'engine/scene/exit',
-    'engine/scene/menubutton'
+    'engine/scene/menubutton',
+    'engine/cursor/main'
 ], function (
     assets,
     config,
     gameobject,
     Background,
     Exit,
-    MenuButton
+    MenuButton,
+    gamecursor
 ) {
     var GameScene = function (options) {
         this.initialize(options);
@@ -133,7 +135,6 @@ define([
                         options.playableCharacter
                     );
                     this.dynamic.addChild(options.nonPlayableCharacters[_id]);
-                    this.dynamic.addChild(options.nonPlayableCharacters[_id].getBalloon());
                 }
             }
 
@@ -171,9 +172,7 @@ define([
                     options.playableCharacter.setY(this.playableCharacter.position.y);
                 }
                 this.static.addChild(options.playableCharacter);
-                this.static.addChild(options.playableCharacter.getBalloon());
             }
-
 
             if (this.name !== 'scene.menu' && this.name !== 'scene.start') {
                 var MenuButton = require('engine/scene/menubutton');
@@ -194,6 +193,14 @@ define([
                 'playableCharacter'     : options.playableCharacter,
                 'characterPosition'     : options.characterPosition
             });
+
+            // add the custom cursor
+            this.addChild(gamecursor.get());
+        };
+
+        this.getObjectsOnScene = function () {
+            var objects = this.dynamic.getChildByName('container.objects');
+            return objects.children;
         };
 
         this.getState = function () {

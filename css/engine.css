@@ -67,11 +67,7 @@ body, input, textarea, button {
     box-shadow: 0px 0px 5px black;
 }
 
-#canvas.crosshair {
-    cursor: url(../engine/img/cursor/crosshair.gif) 15 15;
-}
-
-#canvas.crosshair.game {
+#canvas.game {
     cursor: none;
 }
 

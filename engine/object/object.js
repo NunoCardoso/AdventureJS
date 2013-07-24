@@ -27,6 +27,7 @@ define([
         this.canBeOnInventory = options.canBeOnInventory;
         this.canBePickedUp = options.canBePickedUp;
         this.renderedAs = undefined;
+        this.isMouseOver = false;
 
         this.getState = function () {
             return {
@@ -97,8 +98,22 @@ define([
             action.mouseOutObject(e);
         };
 
-        this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
-        this.addEventListener("mouseout",  $.proxy(this.onObjectMouseOut, this));
+        this.testHit = function (x, y) {
+            var coords = this.globalToLocal(x, y);
+            var mouseOver = this.hitTest(coords.x, coords.y);
+            if (mouseOver && !this.isMouseOver) {
+                this.isMouseOver = mouseOver;
+                return this.onObjectMouseOver({target: this});
+            }
+
+            if (!mouseOver && this.isMouseOver) {
+                this.isMouseOver = mouseOver;
+                return this.onObjectMouseOut({target: this});
+            }
+        };
+
+ //       this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
+ //       this.addEventListener("mouseout",  $.proxy(this.onObjectMouseOut, this));
 
         this.activateClickListener = function (playableCharacter) {
             this.addEventListener("click", $.proxy(function (e) {

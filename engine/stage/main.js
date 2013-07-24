@@ -5,9 +5,11 @@
  */
 define([
     'engine/stage/stage',
+    'engine/cursor/main',
     'engine/character/main'
 ], function (
     GameStage,
+    gamecursor,
     gamecharacter
 ) {
 
@@ -50,6 +52,11 @@ define([
             stage.enableMouseOver(25);
             // enable touch interactions if supported on the current device:
             createjs.Touch.enable(stage);
+
+            stage.onMouseMove = function (e) {
+                gamecursor.updatePosition(this, {x: e.stageX, y: e.stageY});
+            };
+
         },
 
         activateTick = function () {
@@ -72,9 +79,7 @@ define([
 
         getSavegame = function () {
             return savegame;
-        },
-
-        gamestage
+        };
 
     return {
         'preload'      : preload,

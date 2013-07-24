@@ -31,6 +31,16 @@ define([
         });
         this.currentScene = undefined;
 
+        this.onGame = function () {
+            // that hides the cursor;
+            $('#canvas').addClass('game');
+        };
+
+        this.notOnGame = function () {
+            // that hides the cursor;
+            $('#canvas').removeClass('game');
+        };
+
         this.getCurrentScene = function () {
             return this.currentScene;
         };
@@ -42,6 +52,7 @@ define([
         // used to add a scene over a scene (temporary menu)
         this.addMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
+            this.notOnGame();
             this.addChild(toscene);
             // adding the menu pauses the ticker, so we need to manualy update
             this.update();
@@ -50,6 +61,7 @@ define([
         // used to remove top scene (temporary menu)
         this.removeMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
+            this.onGame();
             this.removeChild(toscene);
         };
 
@@ -77,6 +89,9 @@ define([
                     'sentence'              : sentence.get(),
                     'characterPosition'     : characterPosition
                 });
+            }
+            if (toscene.isPlayable()) {
+                this.onGame();
             }
 
             this.addChild(toscene);

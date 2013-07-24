@@ -23,6 +23,10 @@ define([
             {
                 'id'  : 'savegameNoImage01',
                 'src' : 'engine/img/savegame/noimage.jpg'
+            },
+            {
+                'id'  : 'cursor01',
+                'src' : 'engine/img/cursor/crosshair.gif'
             }
         ],
         'sounds' : [

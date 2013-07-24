@@ -4,11 +4,9 @@
  * This module handles the playable character
  */
 define([
-    'engine/character/nonplayablecharacter',
-    'engine/character/playablecharacter'
+    'engine/character/character'
 ], function (
-    NonPlayableCharacter,
-    PlayableCharacter
+    Character
 ) {
     var pc,
         npc,
@@ -33,12 +31,12 @@ define([
             npc = {};
 
             // playableCharacter has the id reference to a character
-            pc = new PlayableCharacter(_find(playableCharacter.id));
+            pc = new Character(_find(playableCharacter.id));
             pc.isPlayable = true;
             pc.setLabel(playableCharacter.label);
 
             for (i = 0; i < nonPlayableCharacters.length; i++) {
-                _npc = new NonPlayableCharacter(_find(nonPlayableCharacters[i].id));
+                _npc = new Character(_find(nonPlayableCharacters[i].id));
                 _npc.setLabel(nonPlayableCharacters[i].label);
                 npc[nonPlayableCharacters[i].id] = _npc;
             }

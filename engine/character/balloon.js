@@ -17,6 +17,9 @@ define([
     Balloon.prototype.initialize = function (options) {
 
         this.line = new createjs.Text();
+        this.x = 0;
+        this.y = 0;
+
         this.balloon = new createjs.Shape();
         this.tooltip = new createjs.Shape();
 
@@ -25,10 +28,10 @@ define([
         this.line.color = options.color || "#000000";
         this.line.textAlign = "center";
         this.line.textBaseline = "top";
-        this.line.referenceX = options.x;
-        this.line.referenceY = options.y;
-        this.line.x = options.x;
-        this.line.y = options.y;
+
+        this.line.x = 0;
+        this.line.y = 0;
+        this.line.regX = 125; //(lineWidth / 2)
         this.line.lineWidth = 250;
 
         this.balloon.alpha = 1;
@@ -48,17 +51,25 @@ define([
         };
 
         this.drawBalloon = function () {
-            this.balloon.x = this.line.x - this.line.lineWidth / 2 - 5; // 5px is padding
-            this.balloon.y = this.line.y - 5;
+            // make sure it points to the bottom of the line text
+            this.line.regY = this.line.getMeasuredHeight();
+
+            this.balloon.x = this.line.x;
+            this.balloon.y = this.line.y + 5; // 5 is padding bottom
+            this.balloon.w = this.line.lineWidth + 10; // 10 is padding left + padding right
+            this.balloon.h = this.line.getMeasuredHeight() + 10; // 10 is padding left + padding right
+
+            this.regX = this.balloon.w / 2;
+            this.regY = this.balloon.h;
 
             this.balloon.graphics
                 .s("#DDDDDD")
                 .f("#FFFFFF")
                 .rr(
                     0,
-                    0,
-                    this.line.lineWidth + 10,
-                    this.line.getMeasuredHeight() + 10,
+                    -this.regY,
+                    this.balloon.w,
+                    this.balloon.h,
                     10
                 );
         };

@@ -303,8 +303,8 @@ define([
                 'ending'             : false,
                 'playableCharacter'  : {
                     'position' : {
-                        'x'    : 0,
-                        'y'    : 230
+                        'x'    : 70,
+                        'y'    : 380
                     }
                 },
                 'nonPlayableCharacters' : [

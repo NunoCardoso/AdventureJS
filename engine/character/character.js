@@ -53,8 +53,6 @@ define([
         this.label = undefined;
         this.speed = options.speed;
 
-        // important to hide it from hittest and other events
-        this.isPlayable = false;
 
         // callback after reaching a place
         this.whenFinished = undefined;
@@ -388,23 +386,6 @@ define([
                 }
             }, this));
         };
-
-        this.onCharacterMouseOver = function (e) {
-            action.mouseOverNonPlayableCharacter(e);
-        };
-
-        this.onCharacterMouseOut = function (e) {
-            action.mouseOutNonPlayableCharacter(e);
-        };
-
-        this.activateClickListener = function (playableCharacter) {
-            this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.actForNonPlayableCharacterClick(e, this);
-            }, this));
-        };
-
-    //    this.addEventListener("mouseover", $.proxy(this.onCharacterMouseOver, this));
-    //    this.addEventListener("mouseout",  $.proxy(this.onCharacterMouseOut, this));
     };
     return Character;
 });
