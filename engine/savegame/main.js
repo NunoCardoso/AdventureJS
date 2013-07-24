@@ -15,7 +15,8 @@ define([
 
         _init = function () {
             var i;
-            for (i in _games) {
+            // it has to be a for loop without the in.
+            for (i = 0; i < _games.length; i++) {
                 _games[i] = {
                     'slot'  : i,
                     'image' : assets.getQueueLoaded().getResult('savegameNoImage01').src,

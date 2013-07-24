@@ -33,25 +33,14 @@ define([
         this.button.alpha = 0.5;
         this.onClick = options.onClick;
 
-        this.button.addEventListener("mouseover", function (e) {
-            e.target.button.alpha = 1;
-            gamestage.update();
-        });
-
-        this.button.addEventListener("mouseout", function (e) {
-            e.target.button.alpha = 0.5;
-            gamestage.update();
-        });
-
-        this.button.addEventListener("click", $.proxy(function (e) {
-            this.onClick();
-        }, this));
-
         this.label = new Label({
             x : config.get('button.w') / 2,
             y : config.get('button.h') / 2,
             text: config.get(options.label)
         });
+
+        this.addChild(this.button);
+        this.addChild(this.label);
 
         this.setX = function (x) {
             this.x = x;
@@ -79,8 +68,17 @@ define([
         };
 
         this.render();
-        this.addChild(this.button);
-        this.addChild(this.label);
+
+
+        this.onMouseOver = function (e) {
+            e.target.button.alpha = 1;
+            gamestage.update();
+        };
+
+        this.onMouseOut = function (e) {
+            e.target.button.alpha = 0.5;
+            gamestage.update();
+        };
     };
     return Button;
 });

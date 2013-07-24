@@ -13,7 +13,7 @@ define([
             var loadgame = require('engine/savegame/main').load(slot);
             require('engine/tpl/main').close();
 
-            createjs.Ticker.setPaused(false);
+            gamestage.play();
             gamestate.setFromJSON(loadgame.json);
         },
 

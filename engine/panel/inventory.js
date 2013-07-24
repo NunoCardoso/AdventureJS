@@ -59,11 +59,11 @@ define([
                 index = this.getChildIndex(o);
             this.removeChild(o);
 
-            total = (this.children ? this.children.length : 0);
+            total = (typeof this.children !== 'undefined' ? this.children.length : 0);
             // recalculate other positions;
             for (i = index; i < total; i++) {
                 o = this.getChildAt(i);
-                this.calculateObjectPosition(o, i);
+                this.calculateObjectDimensions(o, i);
             }
         };
 

@@ -8,22 +8,21 @@ define([
 ], function (
     Sentence
 ) {
-
-    var s,
+    var _,
 
         get = function () {
-            if (!s) {
-                s = new Sentence();
+            if (!_) {
+                _ = new Sentence();
             }
-            return s;
+            return _;
         },
 
         setText = function (text) {
-            s.setText(text);
+            _.text = text;
         },
 
         getText = function () {
-            return s.getText();
+            return _.text;
         };
 
     return {

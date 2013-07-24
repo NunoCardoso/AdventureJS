@@ -14,7 +14,6 @@ define([
     gamecursor,
     gamecharacter
 ) {
-
     var stage,
 
         snapshot, // an image snapshot of this stage
@@ -92,14 +91,17 @@ define([
     return {
         'preload'      : preload,
         'getInstance'  : getInstance,
-        'activateMouseAndTouch'     : activateMouseAndTouch,
         'takeSnapshot' : takeSnapshot,
         'getSnapshot'  : getSnapshot,
         'setSavegame'  : setSavegame,
         'getSavegame'  : getSavegame,
         'activateTick' : activateTick,
+
         'pause' : pause,
         'play' : play,
-        'update' : update
+        'update' : update,
+
+        'activateMouseAndTouch' : activateMouseAndTouch,
+
     };
 });

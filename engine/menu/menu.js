@@ -114,10 +114,9 @@ define([
             h: config.get('button.h'),
             r: config.get('button.r'),
             onClick: function () {
-                createjs.Ticker.setPaused(false);
-                require('engine/stage/main').getInstance().removeMenuScene(
-                    'scene.menu'
-                );
+                var stage = require('engine/stage/main');
+                stage.play();
+                stage.getInstance().removeMenuScene('scene.menu');
             }
         });
 

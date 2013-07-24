@@ -55,6 +55,8 @@ define([
             gamecharacter.getPc().setState(savegame.pc);
             gamepanel.getInventory().setState(savegame.inventory);
             gamestage.getInstance().setState(savegame.currentScene);
+            // erase actions.
+            require('engine/interaction/action').reset();
         };
 
     return {

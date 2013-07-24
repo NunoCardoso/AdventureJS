@@ -33,7 +33,8 @@ define([
 
         this.description  = scene.description;
         this.interactable = scene.interactable;
-        // this is not a menu scene, it is a scene with playable character
+
+        // signaling a scene with playable character, not a menu scene
         this.playable     = true;
 
         this.ending       = scene.ending;
@@ -69,7 +70,7 @@ define([
 
         this.removeObject = function (object) {
             var i, index;
-            for (i = 0;  i < this.objects.length; i++) {
+            for (i in this.objects) {
                 if (this.objects[i].id === object) {
                     index = i;
                 }
@@ -176,7 +177,7 @@ define([
                 this.static.addChild(options.pc);
             }
 
-            if (this.name !== 'scene.menu' && this.name !== 'scene.start') {
+            if (this.isPlayable()) {
                 var MenuButton = require('engine/scene/menubutton');
                 this.static.addChild(new MenuButton({from: this.name}));
             }
@@ -229,7 +230,7 @@ define([
         };
 
         this.setState = function (json) {
-            this.objects = json.objects;
+            this.objects   = json.objects;
             this.dynamic.x = json.dynamic;
         };
     };
