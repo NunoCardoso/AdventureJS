@@ -9,11 +9,11 @@ define([
     return {
         'images': [
             {
-                'id'  : 'playableCharacter01',
+                'id'  : 'pc01',
                 'src' : 'games/compass/img/character/guybrush2.png'
             },
             {
-                'id'  : 'nonPlayableCharacter01',
+                'id'  : 'npc01',
                 'src' : 'games/compass/img/character/pirate.png'
             },
             {
@@ -46,7 +46,7 @@ define([
         'characters': [
             {
                 'id'     : 'guybrush01',
-                'images' : 'playableCharacter01',
+                'images' : 'pc01',
                 'speed'  : 2,
                 'textColor' : 'black',
                 'frames' : {
@@ -67,7 +67,7 @@ define([
             },
             {
                 'id'     : 'pirate01',
-                'images' : 'nonPlayableCharacter01',
+                'images' : 'npc01',
                 'textColor' : 'red',
                 'frames' : {
                     'regX'   : 52,

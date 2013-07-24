@@ -7,7 +7,6 @@ define([
     gamestage,
     gamestate
 ) {
-
     var loadOk = function (button) {
             var tr = $(button).closest("tr");
             var slot = parseInt(tr.find("td.slot").html(), 10);
@@ -36,6 +35,7 @@ define([
             date.html(date.html() + button_html);
             gamestage.update();
         };
+
     return {
         'onImageClick' : onImageClick,
         'loadOk'       : loadOk,

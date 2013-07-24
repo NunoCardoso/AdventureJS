@@ -301,13 +301,13 @@ define([
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
                 'ending'             : false,
-                'playableCharacter'  : {
+                'pc'  : {
                     'position' : {
                         'x'    : 70,
                         'y'    : 380
                     }
                 },
-                'nonPlayableCharacters' : [
+                'npcs' : [
                     {
                         'id' : 'pirate01',
                         'position' : {
@@ -349,7 +349,7 @@ define([
                 'description'        : 'This is the second scene.',
                 'interactable'       : true,
                 'ending'             : false,
-                'playableCharacter'  : {
+                'pc'  : {
                     'position' : {
                         'x'    : 51,
                         'y'    : 230
@@ -378,7 +378,7 @@ define([
                 'isInInventory': 'winebottle01',
                 'onFail': {
                     'action' : 'dialogMessage',
-                    'line'   : 'I can\'t leave without the wine bottle'
+                    'text'   : 'I can\'t leave without the wine bottle'
                 }
             }
         ],
@@ -388,26 +388,26 @@ define([
                 'lines' : [
                     {
                         'character' : 'guybrush01',
-                        'line' : 'Hello.'
+                        'text' : 'Hello.'
                     },
                     {
                         'character' : 'pirate01',
-                        'line' : 'Hello back.'
+                        'text' : 'Hello back.'
                     }
                 ],
                 'onEnd' : {
                     'action' : 'displayDialogOptions',
                     'dialogOptions' : [
                         {
-                            'line' : 'Do you have a compass?',
+                            'text' : 'Do you have a compass?',
                             'dialog' : 'dialog02'
                         },
                         {
-                            'line' : 'You wouldn\'t have a corkscrew I can borrow?',
+                            'text' : 'You wouldn\'t have a corkscrew I can borrow?',
                             'dialog' : 'dialog03'
                         },
                         {
-                            'line' : 'Bye.',
+                            'text' : 'Bye.',
                             'dialog' : 'dialog04'
                         }
                     ]
@@ -418,19 +418,19 @@ define([
                 'lines' : [
                     {
                         'character' : 'guybrush01',
-                        'line' : 'Do you have a compass?'
+                        'text' : 'Do you have a compass?'
                     },
                     {
                         'character' : 'pirate01',
-                        'line' : 'No. Why would I have a compass?'
+                        'text' : 'No. Why would I have a compass?'
                     },
                     {
                         'character' : 'guybrush01',
-                        'line' : 'Because you are in the jungle!'
+                        'text' : 'Because you are in the jungle!'
                     },
                     {
                         'character' : 'pirate01',
-                        'line' : 'I have a GPS, moron. And no, I will not let you use it!'
+                        'text' : 'I have a GPS, moron. And no, I will not let you use it!'
                     }
                 ]
             },
@@ -439,11 +439,11 @@ define([
                 'lines' : [
                     {
                         'character' : 'guybrush01',
-                        'line' : 'You wouldn\'t have a corkscrew I can borrow?'
+                        'text' : 'You wouldn\'t have a corkscrew I can borrow?'
                     },
                     {
                         'character' : 'pirate01',
-                        'line' : 'Yeah. Here, you can have it.'
+                        'text' : 'Yeah. Here, you can have it.'
                     }
                 ],
                 'onEnd' : {
@@ -456,11 +456,11 @@ define([
                 'lines' : [
                     {
                         'character' : 'guybrush01',
-                        'line' : 'Bye'
+                        'text' : 'Bye'
                     },
                     {
                         'character' : 'pirate01',
-                        'line' : 'Not much of a talker, eh?'
+                        'text' : 'Not much of a talker, eh?'
                     }
                 ]
             }

@@ -294,11 +294,11 @@ define([
                 var mouseOver = this.hitTest(coords.x, coords.y);
                 if (mouseOver && !this.isMouseOver) {
                     this.isMouseOver = mouseOver;
-                    return action.mouseOverNonPlayableCharacter({target: this});
+                    return action.mouseOverNpc({target: this});
                 }
                 if (!mouseOver && this.isMouseOver) {
                     this.isMouseOver = mouseOver;
-                    return action.mouseOutNonPlayableCharacter({target: this});
+                    return action.mouseOutNpc({target: this});
                 }
             }
         };
@@ -306,7 +306,7 @@ define([
         this._performResult = function (result, npc) {
             switch (result.action) {
             case 'dialogMessage':
-                this.say(result.line);
+                this.say(result.text);
                 return;
             case 'playDialog':
                 gamedialog.perform({
@@ -323,10 +323,10 @@ define([
             }
         };
 
-        this.actForNonPlayableCharacterClick = function (event, npc) {
+        this.actForNpcClick = function (event, npc) {
             this.calculateTargetXY({x : event.stageX, y : event.stageY}, npc);
             this.setWhenFinished($.proxy(function () {
-                var result = action.clickNonPlayableCharacter(event);
+                var result = action.clickNpc(event);
                 if (result) {
                     action.reset();
                     this._performResult(result, npc);
@@ -334,9 +334,9 @@ define([
             }, this));
         };
 
-        this.activateClickListener = function (playableCharacter) {
+        this.activateClickListener = function (pc) {
             this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.actForNonPlayableCharacterClick(e, this);
+                pc.actForNpcClick(e, this);
             }, this));
         };
 

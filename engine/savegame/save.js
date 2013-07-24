@@ -1,11 +1,12 @@
 /*global define, $, document */
 
 define([
+    'engine/config',
     'engine/stage/main',
 ], function (
+    config,
     gamestage
 ) {
-
     var _getDateHtml = function () {
             var currentdate = new Date();
             return "<span>" + currentdate.getDate() + "/"
@@ -27,9 +28,9 @@ define([
         },
 
         _getSnapshotFromImage = function (img) {
-            var tmpcanvas = document.createElement("canvas");
-            tmpcanvas.width = 200;
-            tmpcanvas.height = 150;
+            var tmpcanvas    = document.createElement("canvas");
+            tmpcanvas.width  = config.get('screenshot.x');
+            tmpcanvas.height = config.get('screenshot.y');
             var ctx = tmpcanvas.getContext('2d');
             ctx.drawImage(img, 0, 0, img.width, img.height,
                 0, 0, tmpcanvas.width, tmpcanvas.height);
@@ -84,6 +85,7 @@ define([
             date.html(_getDateHtml() + button_html);
             gamestage.update();
         };
+
     return {
         'onImageClick' : onImageClick,
         'saveOk'       : saveOk,

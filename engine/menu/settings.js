@@ -16,9 +16,10 @@ define([
         this.initialize(options);
     };
 
-    SettingsButton.prototype = new createjs.Container();
-    SettingsButton.prototype.SettingsButton_initialize = SettingsButton.prototype.initialize;
-    SettingsButton.prototype.initialize = function (options) {
+    var p = SettingsButton.prototype = new createjs.Container();
+    p.SettingsButton_initialize = p.initialize;
+    p.initialize = function (options) {
+        this.SettingsButton_initialize();
 
         this.button = new createjs.Shape();
         this.button.alpha = 0.7;

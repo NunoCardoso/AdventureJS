@@ -1,20 +1,24 @@
-/*global define, createjs, $, document */
+/*global define, createjs, $ */
 
 /**
  * This is the main button on the corner of the scenes
  */
 define([
+    'engine/config',
     'engine/lib/assets'
 ], function (
+    config,
     assets
 ) {
     var MenuButton = function (options) {
         this.initialize(options);
     };
 
-    MenuButton.prototype = new createjs.Container();
-    MenuButton.prototype.MenuButton_initialize = MenuButton.prototype.initialize;
-    MenuButton.prototype.initialize = function (options) {
+    var p = MenuButton.prototype = new createjs.Container();
+    p.MenuButton_initialize = p.initialize;
+    p.initialize = function (options) {
+        this.MenuButton_initialize();
+
         this.from = options.from;
 
         this.button = new createjs.Shape();
@@ -32,22 +36,22 @@ define([
                 10
             );
 
-        this.button.addEventListener("click", $.proxy(function (e) {
-            // create a snapshot. Useful when saving game
-            // resize it to 200x150
-            var gamestage = require('engine/stage/main');
-            var tmpcanvas = document.createElement("canvas");
-            tmpcanvas.width = 200;
-            tmpcanvas.height = 150;
-            var ctx = tmpcanvas.getContext('2d');
-            ctx.drawImage($("canvas")[0], 0, 0, $("canvas").width(), $("canvas").height(),
-                0, 0, tmpcanvas.width, tmpcanvas.height);
-            gamestage.setSnapshot(tmpcanvas.toDataURL('image/jpg'));
+        this.cogwheel = new createjs.Bitmap();
+        this.cogwheel.image  = assets.getQueueLoaded().getResult('menuCogwheel01');
+        this.cogwheel.x = 7;
+        this.cogwheel.y = 7;
+        this.cogwheel.scaleX = 30 / this.cogwheel.image.width;
+        this.cogwheel.scaleY = 30 / this.cogwheel.image.height;
 
+        this.addChild(this.button);
+        this.addChild(this.cogwheel);
+
+        this.button.addEventListener("click", $.proxy(function (e) {
+            var gamestage = require('engine/stage/main');
+            gamestage.takeSnapshot();
             // now, prepare menu for save/load/resume
             var menu = require('engine/menu/main').get();
             menu.renderForSaveGame();
-
             gamestage.pause();
             gamestage.getInstance().addMenuScene('scene.menu');
         }, this));
@@ -59,16 +63,6 @@ define([
         this.button.addEventListener("mouseout", $.proxy(function (e) {
             this.button.alpha = 0.5;
         }, this));
-
-        this.cogwheel = new createjs.Bitmap();
-        this.cogwheel.image  = assets.getQueueLoaded().getResult('menuCogwheel01');
-        this.cogwheel.x = 7;
-        this.cogwheel.y = 7;
-        this.cogwheel.scaleX = 30 / this.cogwheel.image.width;
-        this.cogwheel.scaleY = 30 / this.cogwheel.image.height;
-
-        this.addChild(this.button);
-        this.addChild(this.cogwheel);
     };
     return MenuButton;
 });

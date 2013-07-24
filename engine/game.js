@@ -57,9 +57,9 @@ define([
             render = function (_scene) {
                 var scene = gamescene.get('scene.' + _scene);
                 scene.render({
-                    'playableCharacter'     : gamecharacter.getPc(),
-                    'nonPlayableCharacters' : gamecharacter.getNpcs(),
-                    'panel'                 : gamepanel.get(),
+                    'pc'       : gamecharacter.getPc(),
+                    'npcs'     : gamecharacter.getNpcs(),
+                    'panel'    : gamepanel.get(),
                     'sentence'              : gamesentence.get(),
                     'characterPosition'     : {x : 200, y : 230}
                 });

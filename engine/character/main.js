@@ -19,22 +19,21 @@ define([
             }
         },
 
-        preload = function (playableCharacter, nonPlayableCharacters) {
+        preload = function (pc, npcs) {
             var i, npc;
             _npcs = {};
 
-            // playableCharacter has the id reference to a character
-            var charactersetup = _characters[playableCharacter.id];
+            var charactersetup = _characters[pc.id];
             _pc = new Character(charactersetup);
             _pc.isPlayable = true;
-            _pc.setLabel(playableCharacter.label);
+            _pc.setLabel(pc.label);
 
-            for (i in nonPlayableCharacters) {
-                charactersetup = _characters[nonPlayableCharacters[i].id];
+            for (i in npcs) {
+                charactersetup = _characters[npcs[i].id];
                 npc = new Character(charactersetup);
                 npc.isPlayable = false;
-                npc.setLabel(nonPlayableCharacters[i].label);
-                _npcs[nonPlayableCharacters[i].id] = npc;
+                npc.setLabel(npcs[i].label);
+                _npcs[npcs[i].id] = npc;
             }
         },
 

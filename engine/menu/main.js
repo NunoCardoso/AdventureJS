@@ -9,18 +9,18 @@ define([
     GameMenu
 ) {
 
-    var menu,
+    var _menu,
 
         preload = function (options) {
-            menu = new GameMenu(options);
+            _menu = new GameMenu(options);
         },
 
         get = function () {
-            return menu;
+            return _menu;
         };
 
     return {
         'preload' : preload,
-        'get' : get,
+        'get'     : get
     };
 });

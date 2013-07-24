@@ -7,29 +7,18 @@ define([
 ], function (
 ) {
 
-    var progress = 0,
-        total,
+    var _progress = 0,
 
         get = function () {
-            return progress;
+            return _progress;
         },
 
-        getAsPerc = function () {
-            return (progress / total) * 100;
-        },
-
-        setTotal = function (_total) {
-            total = _total;
-        },
-
-        increment = function () {
-            progress++;
+        add = function () {
+            _progress++;
         };
 
     return {
         'get' : get,
-        'getAsPerc' : getAsPerc,
-        'setTotal'  : setTotal,
-        'increment' : increment
+        'add' : add
     };
 });

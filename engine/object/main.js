@@ -8,7 +8,6 @@ define([
 ], function (
     GameObject
 ) {
-
     var _ = {},
 
         preload = function (objects) {

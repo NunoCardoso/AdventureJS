@@ -6,7 +6,7 @@
 define([
     'engine/dialog/dialog',
     'engine/dialog/options',
-    'engine/dialog/background'
+    'engine/panel/background'
 ], function (
     GameDialog,
     gamedialogoptions,
@@ -93,11 +93,11 @@ define([
             }
             var line = options.lines.shift();
             if (options.pc.name === 'character.' + line.character) {
-                options.pc.say(line.line, $.proxy(function () {
+                options.pc.say(line.text, $.proxy(function () {
                     _do(options);
                 }, this));
             } else if (options.npc.name === 'character.' + line.character) {
-                options.npc.say(line.line, $.proxy(function () {
+                options.npc.say(line.text, $.proxy(function () {
                     _do(options);
                 }, this));
             }

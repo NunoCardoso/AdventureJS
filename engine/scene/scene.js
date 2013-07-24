@@ -24,10 +24,11 @@ define([
         this.initialize(options);
     };
 
-    GameScene.prototype = new createjs.Container();
-    GameScene.prototype.GameScene_initialize = GameScene.prototype.initialize;
-    GameScene.prototype.initialize = function (scene) {
+    var p = GameScene.prototype = new createjs.Container();
+    p.GameScene_initialize = p.initialize;
+    p.initialize = function (scene) {
         this.GameScene_initialize();
+
         this.name = 'scene.' + scene.id;
 
         this.description  = scene.description;
@@ -36,8 +37,8 @@ define([
         this.playable     = true;
 
         this.ending       = scene.ending;
-        this.playableCharacter = scene.playableCharacter;
-        this.nonPlayableCharacters = scene.nonPlayableCharacters;
+        this.pc           = scene.pc;
+        this.npcs         = scene.npcs;
         this.background   = null;
 
         this.objects      = {};
@@ -92,8 +93,8 @@ define([
             objectContainer.name = 'container.objects';
 
             if (this.background) {
-                if (options.playableCharacter) {
-                    this.background.activateClickListener(options.playableCharacter);
+                if (options.pc) {
+                    this.background.activateClickListener(options.pc);
 
                     // let background dictate the w and h. Needed to scroll the dynamic container
                     this.dynamic.w = this.background.w;
@@ -107,8 +108,8 @@ define([
             for (key in this.objects) {
                 o = gameobject.get('object.' + this.objects[key].id);
                 o.renderAs('stage', this.objects[key]);
-                if (options.playableCharacter) {
-                    o.activateClickListener(options.playableCharacter);
+                if (options.pc) {
+                    o.activateClickListener(options.pc);
                 }
                 objectContainer.addChild(o);
             }
@@ -118,23 +119,23 @@ define([
             for (i = 0; i < this.exits.length; i++) {
                 this.exits[i].from = scene.id;
                 e = new Exit(this.exits[i]);
-                if (options.playableCharacter) {
-                    e.activateClickListener(options.playableCharacter);
+                if (options.pc) {
+                    e.activateClickListener(options.pc);
                 }
                 this.dynamic.addChild(e);
             }
 
-            if (scene.nonPlayableCharacters) {
-                for (i = 0; i < scene.nonPlayableCharacters.length; i++) {
-                    var _id = scene.nonPlayableCharacters[i].id;
+            if (scene.npcs) {
+                for (i = 0; i < scene.npcs.length; i++) {
+                    var _id = scene.npcs[i].id;
                     // set the npc position according to what the scene says
-                    options.nonPlayableCharacters[_id].setX(scene.nonPlayableCharacters[i].position.x);
-                    options.nonPlayableCharacters[_id].setY(scene.nonPlayableCharacters[i].position.y);
+                    options.npcs[_id].setX(scene.npcs[i].position.x);
+                    options.npcs[_id].setY(scene.npcs[i].position.y);
                     // register the playable character, so they can talk.
-                    options.nonPlayableCharacters[_id].activateClickListener(
-                        options.playableCharacter
+                    options.npcs[_id].activateClickListener(
+                        options.pc
                     );
-                    this.dynamic.addChild(options.nonPlayableCharacters[_id]);
+                    this.dynamic.addChild(options.npcs[_id]);
                 }
             }
 
@@ -155,24 +156,24 @@ define([
                 this.static.addChild(options.sentence);
             }
 
-            if (options.playableCharacter) {
+            if (options.pc) {
 
-                // playableCharacter in new scene - reset clickedXY.
-                options.playableCharacter.resetTargetXY();
+                // playable character in new scene - reset clickedXY.
+                options.pc.resetTargetXY();
 
                 // make it stand
-                options.playableCharacter.stand();
+                options.pc.stand();
 
                 // character is exiting from a scene, add custom x and y
                 if (options.characterPosition) {
-                    options.playableCharacter.setX(options.characterPosition.x);
-                    options.playableCharacter.setY(options.characterPosition.y);
+                    options.pc.setX(options.characterPosition.x);
+                    options.pc.setY(options.characterPosition.y);
                 } else {
                 // character is starting on a scene, get default x and y
-                    options.playableCharacter.setX(this.playableCharacter.position.x);
-                    options.playableCharacter.setY(this.playableCharacter.position.y);
+                    options.pc.setX(this.pc.position.x);
+                    options.pc.setY(this.pc.position.y);
                 }
-                this.static.addChild(options.playableCharacter);
+                this.static.addChild(options.pc);
             }
 
             if (this.name !== 'scene.menu' && this.name !== 'scene.start') {
@@ -184,14 +185,14 @@ define([
 
         this.render = function (options) {
             this.renderDynamic({
-                'playableCharacter'     : options.playableCharacter,
-                'nonPlayableCharacters' : options.nonPlayableCharacters
+                'pc'   : options.pc,
+                'npcs' : options.npcs
             });
 
             this.renderStatic({
-                'panel'                 : options.panel,
-                'sentence'              : options.sentence,
-                'playableCharacter'     : options.playableCharacter,
+                'panel'    : options.panel,
+                'sentence' : options.sentence,
+                'pc'       : options.pc,
                 'characterPosition'     : options.characterPosition
             });
 

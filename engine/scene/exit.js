@@ -8,42 +8,42 @@ define([
     'engine/config',
     'engine/lib/assets',
     'engine/object/main',
-    'engine/interaction/action',
-    'require'
+    'engine/interaction/action'
 ], function (
     gamecondition,
     config,
     assets,
     gameobject,
-    action,
-    require
+    action
 ) {
-    var Exit = function (options, from) {
-        this.initialize(options, from);
+    var Exit = function (options) {
+        this.initialize(options);
     };
 
-    Exit.prototype = new createjs.Shape();
-    Exit.prototype.Exit_initialize = Exit.prototype.initialize;
-    Exit.prototype.initialize = function (exit) {
+    var p = Exit.prototype = new createjs.Shape();
+    p.Exit_initialize = p.initialize;
+    p.initialize = function (options) {
+        this.Exit_initialize();
+
         // if it is 0, it is invisible, and won't trigger cursor changes
         this.alpha = 0.01;
-        this.label = exit.name || 'exit';
+        this.label = options.name || 'exit';
         this.graphics
             .beginFill("black")
             .drawRect(
-                exit.x,
-                exit.y,
-                exit.w,
-                exit.h
+                options.x,
+                options.y,
+                options.w,
+                options.h
             );
-        this.arrow = exit.arrow;
-        this.from  = exit.from;
-        this.to    = exit.to;
-        this.characterPosition = exit.characterPosition;
+        this.arrow = options.arrow;
+        this.from  = options.from;
+        this.to    = options.to;
+        this.characterPosition = options.characterPosition;
         this.condition = undefined;
 
-        if (exit.condition) {
-            this.condition = gamecondition.get(exit.condition);
+        if (options.condition) {
+            this.condition = gamecondition.get(options.condition);
         }
 
         this.hasCondition = function () {
@@ -54,9 +54,8 @@ define([
             if (this.condition.isInInventory !== 'undefined') {
                 if (require('engine/panel/main').isInInventory(this.condition.isInInventory)) {
                     return this.condition.onSuccess || true;
-                } else {
-                    return this.condition.onFail || false;
                 }
+                return this.condition.onFail || false;
             }
         };
 
@@ -70,13 +69,9 @@ define([
             action.mouseOutExit(e);
         }, this));
 
-        /**
-         * call this function so that this background
-         * dispatches click events to the playable character
-         */
-        this.activateClickListener = function (playableCharacter) {
+        this.activateClickListener = function (pc) {
             this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.actForExitClick(e, this);
+                pc.actForExitClick(e, this);
             }, this));
         };
     };

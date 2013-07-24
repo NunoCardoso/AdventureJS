@@ -1,13 +1,15 @@
-/*global define, createjs */
+/*global define, createjs, document, $ */
 
 /**
  * This module instantiates the stage singleton
  */
 define([
+    'engine/config',
     'engine/stage/stage',
     'engine/cursor/main',
     'engine/character/main'
 ], function (
+    config,
     GameStage,
     gamecursor,
     gamecharacter
@@ -65,8 +67,14 @@ define([
             createjs.Ticker.addEventListener("tick", _onTick);
         },
 
-        setSnapshot = function (_snaphsot) {
-            snapshot = _snaphsot;
+        takeSnapshot = function () {
+            var tmpcanvas    = document.createElement("canvas");
+            tmpcanvas.width  = config.get('screenshot.x');
+            tmpcanvas.height = config.get('screenshot.y');
+            var ctx = tmpcanvas.getContext('2d');
+            ctx.drawImage($("canvas")[0], 0, 0, $("canvas").width(), $("canvas").height(),
+                0, 0, tmpcanvas.width, tmpcanvas.height);
+            snapshot = tmpcanvas.toDataURL('image/jpg');
         },
 
         getSnapshot = function () {
@@ -85,10 +93,10 @@ define([
         'preload'      : preload,
         'getInstance'  : getInstance,
         'activateMouseAndTouch'     : activateMouseAndTouch,
-        'setSnapshot' : setSnapshot,
-        'getSnapshot' : getSnapshot,
-        'setSavegame' : setSavegame,
-        'getSavegame' : getSavegame,
+        'takeSnapshot' : takeSnapshot,
+        'getSnapshot'  : getSnapshot,
+        'setSavegame'  : setSavegame,
+        'getSavegame'  : getSavegame,
         'activateTick' : activateTick,
         'pause' : pause,
         'play' : play,

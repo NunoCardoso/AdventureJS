@@ -23,7 +23,6 @@ define([
     p.initialize = function (options) {
         this.Button_initialize();
 
-        this.nextScene = options.to;
         this.button = new createjs.Shape();
         this.x = options.x || 0;
         this.y = options.y || 0;
@@ -35,12 +34,12 @@ define([
         this.onClick = options.onClick;
 
         this.button.addEventListener("mouseover", function (e) {
-            this.button.alpha = 1;
+            e.target.button.alpha = 1;
             gamestage.update();
         });
 
         this.button.addEventListener("mouseout", function (e) {
-            this.button.alpha = 0.5;
+            e.target.button.alpha = 0.5;
             gamestage.update();
         });
 

@@ -12,11 +12,11 @@ define([
         this.initialize(options);
     };
 
-    Verb.prototype = new createjs.Text();
-    Verb.prototype.Text_initialize = Verb.prototype.initialize;
-    Verb.prototype.initialize = function (options) {
-
+    var p = Verb.prototype = new createjs.Text();
+    p.Text_initialize = p.initialize;
+    p.initialize = function (options) {
         this.Text_initialize();
+
         this.name = 'panel.verb.' + options.text;
         this.text = options.text;
         this.font = "28px the8bit";

@@ -118,15 +118,15 @@ define([
             selectedVerb = false;
         },
 
-        mouseOverNonPlayableCharacter = function (e) {
+        mouseOverNpc = function (e) {
             _displayObject(e.target);
         },
 
-        mouseOutNonPlayableCharacter = function (e) {
+        mouseOutNpc = function (e) {
             _undisplay(e.target);
         },
 
-        clickNonPlayableCharacter = function (e) {
+        clickNpc = function (e) {
             var result = _setObject(e.target);
             return result;
         },
@@ -169,9 +169,9 @@ define([
         };
 
     return {
-        'mouseOverNonPlayableCharacter' : mouseOverNonPlayableCharacter,
-        'mouseOutNonPlayableCharacter'  : mouseOutNonPlayableCharacter,
-        'clickNonPlayableCharacter'     : clickNonPlayableCharacter,
+        'mouseOverNpc'    : mouseOverNpc,
+        'mouseOutNpc'     : mouseOutNpc,
+        'clickNpc'        : clickNpc,
 
         'mouseOverObject' : mouseOverObject,
         'mouseOutObject'  : mouseOutObject,

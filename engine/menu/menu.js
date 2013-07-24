@@ -7,7 +7,7 @@ define([
     'engine/config',
     'engine/lib/assets',
     'engine/menu/button',
-    'engine/menu/settingsbutton'
+    'engine/menu/settings'
 ], function (
     config,
     assets,
@@ -70,7 +70,6 @@ define([
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene,
             onClick: function () {
                 var gamestage = require('engine/stage/main');
                 gamestage.activateTick();
@@ -86,7 +85,6 @@ define([
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene,
             onClick: function () {
                 require('engine/tpl/main').openLoadgame();
             }
@@ -99,7 +97,6 @@ define([
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene,
             onClick: function () {
                 // generate savegame JSON, save it temporarily to stage
                 require('engine/stage/main').setSavegame(
@@ -116,7 +113,6 @@ define([
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene,
             onClick: function () {
                 createjs.Ticker.setPaused(false);
                 require('engine/stage/main').getInstance().removeMenuScene(

@@ -22,8 +22,8 @@ define([
         preload = function (options) {
 
             background = new Background();
-            verbs = Verbs.init(options.verbs);
-            inventory = new Inventory(options.startingInventory);
+            verbs      = Verbs.init(options.verbs);
+            inventory  = new Inventory(options.startingInventory);
         },
 
         get = function () {
@@ -38,7 +38,7 @@ define([
                 background,
                 inventory
             );
-            for (i = 0; i < verbs.length; i++) {
+            for (i in verbs) {
                 container.addChild(verbs[i]);
             }
             return container;

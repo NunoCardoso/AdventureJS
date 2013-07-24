@@ -14,9 +14,9 @@ define([
         this.initialize(options);
     };
 
-    GameObject.prototype = new createjs.Bitmap();
-    GameObject.prototype.GameObject_initialize = GameObject.prototype.initialize;
-    GameObject.prototype.initialize = function (options) {
+    var p = GameObject.prototype = new createjs.Bitmap();
+    p.GameObject_initialize = p.initialize;
+    p.initialize = function (options) {
         this.GameObject_initialize();
 
         this.name = 'object.' + options.id;
@@ -112,12 +112,9 @@ define([
             }
         };
 
- //       this.addEventListener("mouseover", $.proxy(this.onObjectMouseOver, this));
- //       this.addEventListener("mouseout",  $.proxy(this.onObjectMouseOut, this));
-
-        this.activateClickListener = function (playableCharacter) {
+        this.activateClickListener = function (pc) {
             this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.actForObjectClick(e, this);
+                pc.actForObjectClick(e, this);
             }, this));
         };
     };

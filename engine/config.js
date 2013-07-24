@@ -28,23 +28,43 @@ define([
             initialY   : 410,
             incrementY : 30
         },
+        inventoryParams = {
+            initialX   : 440,
+            initialY   : 420,
+            incrementX : 90,
+            incrementY : 90,
+            maxColumns : 4,
+            marginFirstCol : 5,
+            marginOtherCol : 10
+        },
+        inventoryX = 80,
+        inventoryY = 80,
 
         _ = {
             'dialogoption.params' : dialogOptionParams,
+            'inventory.params' : inventoryParams,
+
             'panel.x' : 0,
             'panel.y' : gameHeight,
             'panel.w' : gameWidth,
             'panel.h' : panelHeight,
+
+            'inventory.x' : inventoryX,
+            'inventory.y' : inventoryY,
+
             'sentence.y' : gameHeight,
             'sentence.defaultText' : 'Walk to',
+
             'panel.verbs.x' : 0,
             'panel.verbs.y' : gameHeight + sentenceHeight,
             'panel.verbs.columns' : verbColumns,
             'panel.verbs.rows' : verbRows,
             'panel.verbs.incrementX' : parseInt(verbWidth / verbColumns, 10),
             'panel.verbs.incrementY' : parseInt(verbHeight / verbRows, 10),
+
             'game.w'    : gameWidth,
             'game.h'    : gameHeight,
+
             'loadedfile.y' : (gameHeight / 2) + 30,
             'loading' : 'Loading...',
             'loading.y' : (gameHeight / 2) - 30,
@@ -52,6 +72,7 @@ define([
             'progressbar.y' : (gameHeight / 2),
             'progressbar.w' : progressbarWidth,
             'progressbar.h' : progressbarHeight,
+
             'button1of2.x' : (gameWidth / 2) - buttonWidth - 5,
             'button1of2.y' : buttonY,
             'button2of2.x' : (gameWidth / 2) + 5,
@@ -65,6 +86,10 @@ define([
             'button.w' : buttonWidth,
             'button.h' : buttonHeight,
             'button.r' : buttonRounds,
+
+            'screenshot.x' : 200,
+            'screenshot.y' : 150,
+
             'newgame'  : "New game",
             'loadgame' : "Load game",
             'savegame' : "Save game",

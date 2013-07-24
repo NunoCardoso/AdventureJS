@@ -56,6 +56,6 @@ define([
         };
 
     return {
-        'init' : init,
+        'init' : init
     };
 });

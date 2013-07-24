@@ -27,7 +27,7 @@ define([
                 var position = _calculateDialogOptionPosition(i);
 
                 dialogOptions[i] = new GameDialogOption({
-                    text   : options.dialogOptions[i].line,
+                    text   : options.dialogOptions[i].text,
                     dialog : options.dialogOptions[i].dialog,
                     x      : position.x,
                     y      : position.y,

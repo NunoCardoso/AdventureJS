@@ -17,13 +17,13 @@ define([
     p.initialize = function (options) {
         this.StartButtonLabel_initialize();
 
-        this.text = options.text;
-        this.font = "bold 24px the8bit";
+        this.text  = options.text;
+        this.font  = "bold 24px the8bit";
         this.color = "#FFFFFF";
-        this.textAlign = "center";
+        this.textAlign    = "center";
         this.textBaseline = "middle";
-        this.x    = options.x;
-        this.y    = options.y;
+        this.x     = options.x;
+        this.y     = options.y;
     };
     return StartButtonLabel;
 });

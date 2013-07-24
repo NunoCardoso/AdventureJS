@@ -16,16 +16,18 @@ define([
         this.initialize(options);
     };
 
-    Background.prototype = new createjs.Bitmap();
-    Background.prototype.Background_initialize = Background.prototype.initialize;
-    Background.prototype.initialize = function (options) {
+    var p = Background.prototype = new createjs.Bitmap();
+    p.Background_initialize = p.initialize;
+    p.initialize = function (options) {
         this.Background_initialize();
+
         this.image  = assets.getQueueLoaded().getResult(options.background);
         this.mode = options.backgroundmode;
         this.x = 0;
         this.y = 0;
         this.w = 0;
         this.h = 0;
+
         if (this.mode === 'fit') {
             this.scaleX = config.get('game.w') / this.image.width;
             this.scaleY = config.get('game.h') / this.image.height;
@@ -38,13 +40,9 @@ define([
             this.h = this.image.height;
         }
 
-        /**
-         * call this function so that this background
-         * dispatches click events to the playable character
-         */
-        this.activateClickListener = function (playableCharacter) {
+        this.activateClickListener = function (pc) {
             this.addEventListener("click", $.proxy(function (e) {
-                playableCharacter.setTargetXY({x : e.stageX, y : e.stageY});
+                pc.setTargetXY({x : e.stageX, y : e.stageY});
                 action.reset(e);
             }, this));
         };

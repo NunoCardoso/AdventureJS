@@ -8,7 +8,6 @@ define([
 ], function (
     GameScene
 ) {
-
     var _ = {},
 
         newScene = function (options) {
@@ -17,8 +16,8 @@ define([
 
         _preloadMenu = function () {
             var menuscene = newScene({id: 'menu'});
-            var menu = require('engine/menu/main').get();
-            _[menu.name] = menu;
+            var menu      = require('engine/menu/main').get();
+            _[menu.name]  = menu;
         },
 
         preload = function (scenes) {

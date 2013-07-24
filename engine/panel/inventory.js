@@ -16,35 +16,27 @@ define([
         this.initialize(options);
     };
 
-    Inventory.prototype = new createjs.Container();
-    Inventory.prototype.Inventory_initialize = Inventory.prototype.initialize;
-    Inventory.prototype.initialize = function (options) {
+    var p = Inventory.prototype = new createjs.Container();
+    p.Inventory_initialize = p.initialize;
+    p.initialize = function (options) {
         this.Inventory_initialize();
 
-        this.inventoryParams = {
-            initialX   : 440,
-            initialY   : 420,
-            incrementX : 90,
-            incrementY : 90,
-            maxColumns : 4,
-            marginFirstCol : 5,
-            marginOtherCol : 10
-        };
+        this.params = config.get('inventory.params');
 
         this.calculateObjectDimensions = function (obj, order) {
 
-            var rowNumber = parseInt(order / this.inventoryParams.maxColumns, 10),
-                colNumber = order % this.inventoryParams.maxColumns,
-                positionX = this.inventoryParams.initialX + colNumber * this.inventoryParams.incrementX,
-                positionXwithMargin = positionX + (colNumber === 0 ? this.inventoryParams.marginFirstCol : this.inventoryParams.marginOtherCol),
-                positionY = this.inventoryParams.initialY + rowNumber * this.inventoryParams.incrementY,
-                positionYonMiddle = positionY + (rowNumber === 0 ? this.inventoryParams.marginFirstCol : this.inventoryParams.marginOtherCol);
+            var rowNumber = parseInt(order / this.params.maxColumns, 10),
+                colNumber = order % this.params.maxColumns,
+                positionX = this.params.initialX + colNumber * this.params.incrementX,
+                positionXwithMargin = positionX + (colNumber === 0 ? this.params.marginFirstCol : this.params.marginOtherCol),
+                positionY = this.params.initialY + rowNumber * this.params.incrementY,
+                positionYonMiddle = positionY + (rowNumber === 0 ? this.params.marginFirstCol : this.params.marginOtherCol);
 
             return {
                 'x' : positionXwithMargin,
                 'y' : positionYonMiddle,
-                'w' : 80,
-                'h' : 80
+                'w' : config.get('inventory.x'),
+                'h' : config.get('inventory.y')
             };
         };
 
@@ -78,7 +70,7 @@ define([
         this.setState = function (json) {
             var i;
             this.removeAllChildren();
-            for (i = 0; i < json.length; i++) {
+            for (i in json) {
                 this.add(json[i].name, i);
             }
         };
@@ -86,7 +78,7 @@ define([
         this.getState = function () {
             var i,
                 inventoryState = [];
-            for (i = 0; i < this.children.length; i++) {
+            for (i in this.children) {
                 inventoryState.push({
                     'name' : this.children[i].name
                 });
@@ -99,7 +91,7 @@ define([
         };
 
         var i;
-        for (i = 0; i < options.length; i++) {
+        for (i in options) {
             this.add('object.' + options[i], i);
         }
     };
