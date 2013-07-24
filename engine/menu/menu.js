@@ -6,18 +6,12 @@
 define([
     'engine/config',
     'engine/lib/assets',
-    'engine/menu/newgamebutton',
-    'engine/menu/savegamebutton',
-    'engine/menu/loadgamebutton',
-    'engine/menu/resumegamebutton',
+    'engine/menu/button',
     'engine/menu/settingsbutton'
 ], function (
     config,
     assets,
-    NewGameButton,
-    SaveGameButton,
-    LoadGameButton,
-    ResumeGameButton,
+    Button,
     SettingsButton
 ) {
 
@@ -25,9 +19,10 @@ define([
         this.initialize(options);
     };
 
-    GameMenu.prototype = new createjs.Container();
-    GameMenu.prototype.GameMenu_initialize = GameMenu.prototype.initialize;
-    GameMenu.prototype.initialize = function (options) {
+    var p = GameMenu.prototype = new createjs.Container();
+    p.GameMenu_initialize = p.initialize;
+    p.initialize = function (options) {
+        this.GameMenu_initialize();
 
         this.name = 'scene.menu';
 
@@ -68,48 +63,66 @@ define([
         this.background.scaleX = config.getCanvasXY().x / this.background.image.width;
         this.background.scaleY = config.getCanvasXY().y / this.background.image.height;
 
-        this.newGameButton = new NewGameButton({
+        this.newGameButton = new Button({
+            label: 'newgame',
             x: config.get('button1of2.x'),
             y: config.get('button1of2.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene
+            to: options.startingScene,
+            onClick: function () {
+                var gamestage = require('engine/stage/main');
+                gamestage.activateTick();
+                gamestage.getInstance().switchScene(
+                    'scene.menu',
+                    'scene.' + options.startingScene
+                );
+            }
         });
 
-        this.loadGameButton = new LoadGameButton({
-            x: config.get('button2of2.x'),
-            y: config.get('button2of2.y'),
+        this.loadGameButton = new Button({
+            label: 'loadgame',
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene
+            to: options.startingScene,
+            onClick: function () {
+                require('engine/tpl/main').openLoadgame();
+            }
         });
 
-        this.saveGameButton = new SaveGameButton({
+        this.saveGameButton = new Button({
+            label: 'savegame',
             x: config.get('button1of3.x'),
             y: config.get('button1of3.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene
+            to: options.startingScene,
+            onClick: function () {
+                // generate savegame JSON, save it temporarily to stage
+                require('engine/stage/main').setSavegame(
+                    require('engine/state/main').getToJSON()
+                );
+                require('engine/tpl/main').openSavegame();
+            }
         });
 
-
-        this.loadGameButton = new LoadGameButton({
-            w: config.get('button.w'),
-            h: config.get('button.h'),
-            r: config.get('button.r'),
-            to: options.startingScene
-        });
-
-        this.resumeGameButton = new ResumeGameButton({
+        this.resumeGameButton = new Button({
+            label: 'resumegame',
             x: config.get('button3of3.x'),
             y: config.get('button3of3.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
             r: config.get('button.r'),
-            to: options.startingScene
+            to: options.startingScene,
+            onClick: function () {
+                createjs.Ticker.setPaused(false);
+                require('engine/stage/main').getInstance().removeMenuScene(
+                    'scene.menu'
+                );
+            }
         });
 
         this.settingsButton = new SettingsButton();

@@ -12,14 +12,18 @@ define([
         this.initialize(options);
     };
 
-    StartButtonLabel.prototype = new createjs.Text('', "bold 24px the8bit", "#FFFFFF");
-    StartButtonLabel.prototype.StartButtonLabel_initialize = StartButtonLabel.prototype.initialize;
-    StartButtonLabel.prototype.initialize = function (options) {
+    var p = StartButtonLabel.prototype = new createjs.Text();
+    p.StartButtonLabel_initialize = p.initialize;
+    p.initialize = function (options) {
+        this.StartButtonLabel_initialize();
+
+        this.text = options.text;
+        this.font = "bold 24px the8bit";
+        this.color = "#FFFFFF";
         this.textAlign = "center";
         this.textBaseline = "middle";
-        this.text = options.text;
-        this.x = options.x;
-        this.y = options.y;
+        this.x    = options.x;
+        this.y    = options.y;
     };
     return StartButtonLabel;
 });
