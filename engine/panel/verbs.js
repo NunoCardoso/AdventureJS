@@ -25,13 +25,11 @@ define([
             var rowNumber = parseInt(i / verbParams.maxColumns, 10),
                 colNumber = i % verbParams.maxColumns,
                 positionX = verbParams.initialX + colNumber * verbParams.incrementX,
-                positionXwithMargin = positionX + 10,
-                positionY = verbParams.initialY + rowNumber * verbParams.incrementY,
-                positionYonMiddle = positionY + (verbParams.incrementY / 2); // align middle
+                positionY = verbParams.initialY + rowNumber * verbParams.incrementY;
 
             return {
-                'x' : positionXwithMargin,
-                'y' : positionYonMiddle
+                'x' : positionX,
+                'y' : positionY
             };
         },
 

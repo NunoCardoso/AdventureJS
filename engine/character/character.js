@@ -309,8 +309,11 @@ define([
                 var mouseClick = this.hitTest(coords.x, coords.y);
                 if (mouseClick) {
                     scene.getPc().actForNpcClick({x: x, y: y}, this);
+                    // important, to stop bubbling
+                    return true;
                 }
             }
+            return false;
         };
 
         this._performResult = function (result, npc) {
@@ -336,7 +339,7 @@ define([
         this.actForNpcClick = function (xy, npc) {
             this.calculateTargetXY(xy, npc);
             this.setWhenFinished($.proxy(function () {
-                var result = action.clickNpc(event);
+                var result = action.clickNpc(npc);
                 if (result) {
                     action.reset();
                     this._performResult(result, npc);
@@ -345,8 +348,8 @@ define([
         };
 
         this.actForExitClick = function (event, exit) {
-            action.clickExit(event);
-            this.calculateTargetXY({x : event.stageX, y : event.stageY});
+            action.clickExit(exit);
+            this.calculateTargetXY(event);
             this.setWhenFinished($.proxy(function () {
                 if (exit.hasCondition()) {
                     // TODO: check properly the condition, once inventory is ready.
@@ -370,7 +373,7 @@ define([
         this.actForObjectClick = function (event, object) {
             // I don't have to walk to an inventory
             if (object.renderedAs === 'inventory') {
-                var result = action.clickObject(event);
+                var result = action.clickObject(object);
                 if (result) {
                     // clean up sentence.
                     action.reset();
@@ -380,9 +383,9 @@ define([
             }
 
             // else, walk there, then perform the action.
-            this.calculateTargetXY({x : event.stageX, y : event.stageY}, object);
+            this.calculateTargetXY(event, object);
             this.setWhenFinished($.proxy(function () {
-                var result = action.clickObject(event);
+                var result = action.clickObject(object);
                 if (result) {
                     // clean up sentence.
                     action.reset();

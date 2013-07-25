@@ -64,7 +64,9 @@ define([
             var mouseClick = this.hitTest(coords.x, coords.y);
             if (mouseClick) {
                 scene.getPc().actForExitClick({x : x, y : y}, this);
+                return true;
             }
+            return false;
         };
 
         this.testHit = function (x, y, scene) {
@@ -73,13 +75,13 @@ define([
             if (mouseOver && !this.isMouseOver) {
                 this.isMouseOver = mouseOver;
                 $("#canvas").attr('class', 'exit' + this.arrow);
-                return action.mouseOverExit({target: this});
+                return action.mouseOverExit(this);
             }
 
             if (!mouseOver && this.isMouseOver) {
                 this.isMouseOver = mouseOver;
                 $("#canvas").attr('class', '');
-                return action.mouseOutExit({target: this});
+                return action.mouseOutExit(this);
             }
         };
     };

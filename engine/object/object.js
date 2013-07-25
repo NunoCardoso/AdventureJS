@@ -14,20 +14,36 @@ define([
         this.initialize(options);
     };
 
-    var p = GameObject.prototype = new createjs.Bitmap();
+    var p = GameObject.prototype = new createjs.Container();
     p.GameObject_initialize = p.initialize;
     p.initialize = function (options) {
         this.GameObject_initialize();
 
         this.name = 'object.' + options.id;
         this.label = options.label;
+
+        this.x = options.x;
+        this.y = options.y;
+        this.w = options.w;
+        this.h = options.h;
+
         this.imageInInventory = assets.getQueueLoaded().getResult(options.imageInInventory);
-        this.imageInStage = assets.getQueueLoaded().getResult(options.imageInStage);
-        this.canBeOnStage = options.canBeOnStage;
+        this.imageInStage     = assets.getQueueLoaded().getResult(options.imageInStage);
+        this.canBeOnStage     = options.canBeOnStage;
         this.canBeOnInventory = options.canBeOnInventory;
-        this.canBePickedUp = options.canBePickedUp;
-        this.renderedAs = undefined;
+        this.canBePickedUp    = options.canBePickedUp;
+        this.renderedAs  = undefined;
         this.isMouseOver = false;
+
+        this.image = new createjs.Bitmap();
+        this.background = new createjs.Shape();
+        this.background.x = 0;
+        this.background.y = 0;
+
+        this.addChild(
+            this.background,
+            this.image
+        );
 
         this.getState = function () {
             return {
@@ -39,23 +55,24 @@ define([
         };
 
         this.setState = function (json) {
-            this.x = json.x;
-            this.y = json.y;
+            this.x      = json.x;
+            this.y      = json.y;
             this.scaleX = json.scaleX;
             this.scaleY = json.scaleY;
         };
 
         this.setDimensions = function () {
             if (this.w) {
-                this.scaleX = this.w / this.image.width;
+                this.image.scaleX = this.w / this.image.image.width;
             } else {
-                this.w = this.image.width;
+                this.image.scaleX = 1;
+                this.w = this.image.image.width;
             }
-
             if (this.h) {
-                this.scaleY = this.h / this.image.height;
+                this.image.scaleY = this.h / this.image.image.height;
             } else {
-                this.h = this.image.height;
+                this.image.scaleY = 1;
+                this.h = this.image.image.height;
             }
         };
 
@@ -75,27 +92,20 @@ define([
             this.w = dimensions.w;
             this.h = dimensions.h;
             if (how === "stage") {
-                this.image = this.imageInStage;
+                this.image.image = this.imageInStage;
+                this.background.graphics.clear();
                 this.hitArea = undefined;
             } else if (how === "inventory") {
-                this.image = this.imageInInventory;
-                // fit inventory images into a 80x80 square
-
-                // hovering on text sucks. Let's add a flat hit area!
-/*                var hitArea = new createjs.Shape();
-                hitArea.graphics.beginFill("red").drawRect(this.x, this.y, 80, 80);
-                this.hitArea = hitArea;
-*/
+                this.image.image = this.imageInInventory;
+                this.image.x = 5;
+                this.image.y = 5;
+                this.background.graphics
+                    .beginStroke("#880000")
+                    .beginFill("blue")
+                    .drawRect(0, 0, this.w + 10, this.h + 10);
+                this.background.alpha = 0.15;
             }
             this.setDimensions();
-        };
-
-        this.onObjectMouseOver = function (e) {
-            action.mouseOverObject(e);
-        };
-
-        this.onObjectMouseOut = function (e) {
-            action.mouseOutObject(e);
         };
 
         this.testClick = function (x, y, scene) {
@@ -103,7 +113,9 @@ define([
             var mouseClick = this.hitTest(coords.x, coords.y);
             if (mouseClick) {
                 scene.getPc().actForObjectClick({x: x, y: y}, this);
+                return true;
             }
+            return false;
         };
 
         this.testHit = function (x, y) {
@@ -111,12 +123,13 @@ define([
             var mouseOver = this.hitTest(coords.x, coords.y);
             if (mouseOver && !this.isMouseOver) {
                 this.isMouseOver = mouseOver;
-                return this.onObjectMouseOver({target: this});
+                this.background.alpha = 0.3;
+                return action.mouseOverObject(this);
             }
-
             if (!mouseOver && this.isMouseOver) {
                 this.isMouseOver = mouseOver;
-                return this.onObjectMouseOut({target: this});
+                this.background.alpha = 0.15;
+                return action.mouseOutObject(this);
             }
         };
     };

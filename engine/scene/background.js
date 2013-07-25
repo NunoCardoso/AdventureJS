@@ -46,7 +46,9 @@ define([
             if (mouseClick) {
                 scene.getPc().setTargetXY({x : x, y : y});
                 action.reset();
+                return true;
             }
+            return false;
         };
     };
     return Background;

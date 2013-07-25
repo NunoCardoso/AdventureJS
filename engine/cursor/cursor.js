@@ -5,9 +5,11 @@
  */
 define([
     'engine/lib/assets',
+    'engine/config',
     'engine/character/main'
 ], function (
     assets,
+    config,
     gamecharacter
 ) {
     var Cursor = function (options) {
@@ -20,20 +22,53 @@ define([
         this.Cursor_initialize();
 
         this.image  = assets.getQueueLoaded().getResult('cursor01');
-        this.regX   = this.image.width / 2;
+        this.regX   = this.image.width  / 2;
         this.regY   = this.image.height / 2;
 
-        this.doTestHit = function (items) {
-            var i;
+        this.gameBoundsY = config.get('game.h');
 
-            for (i in items) {
+        this.doTestHit = function (items) {
+            var i, isHandled;
+
+            for (i = items.length - 1; i >= 0; i--) {
                 if (typeof items[i].testHit === 'function') {
-                    items[i].testHit(this.x, this.y);
+                    isHandled = items[i].testHit(this.x, this.y);
+                    if (isHandled) {
+                        return true;
+                    }
                 }
                 if (items[i].children) {
-                    this.doTestHit(items[i].children);
+                    isHandled = this.doTestHit(items[i].children);
+                    if (isHandled) {
+                        return true;
+                    }
                 }
             }
+            return false;
+        };
+
+        this.doTestClick = function (scene, items) {
+            var i, isHandled;
+
+            // from the foreground to the background
+            // This only triggers the click on the item on top.
+            // this is why it is important to leave the background as
+            // the first thing on the container
+            for (i = items.length - 1; i >= 0; i--) {
+                if (typeof items[i].testClick === 'function') {
+                    isHandled = items[i].testClick(this.x, this.y, scene);
+                    if (isHandled) {
+                        return true;
+                    }
+                }
+                if (items[i].children) {
+                    isHandled = this.doTestClick(scene, items[i].children);
+                    if (isHandled) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         };
 
         this.update = function (stage, xy) {
@@ -48,26 +83,19 @@ define([
             if (scene.isPlayable()) {
                 // interactables should include
                 // stage objects, exits and npcs.
-                interactables = scene.getDynamicSceneChildrens();
-                this.doTestHit(interactables);
+                if (this.clickedOnGame(xy)) {
+                    interactables = scene.getDynamicSceneChildrens();
+                    return this.doTestHit(interactables);
+                }
 
                 // panel can be accessed like this.
                 panel = scene.getPanel();
-                this.doTestHit(panel.children);
+                return this.doTestHit(panel.children);
             }
         };
 
-        this.doTestClick = function (scene, items) {
-            var i;
-
-            for (i in items) {
-                if (typeof items[i].testClick === 'function') {
-                    items[i].testClick(this.x, this.y, scene);
-                }
-                if (items[i].children) {
-                    this.doTestClick(scene, items[i].children);
-                }
-            }
+        this.clickedOnGame = function (xy) {
+            return xy.y <= this.gameBoundsY;
         };
 
         this.click = function (stage, xy) {
@@ -80,14 +108,17 @@ define([
                 scene = stage.getCurrentScene();
 
             if (scene.isPlayable()) {
-                // interactables should include
-                // stage objects, exits and npcs.
-                interactables = scene.getDynamicSceneChildrens();
-                this.doTestClick(scene, interactables);
+                if (this.clickedOnGame(xy)) {
+                    // interactables should include
+                    // stage objects, exits and npcs.
+                    interactables = scene.getDynamicSceneChildrens();
+                    return this.doTestClick(scene, interactables);
+                }
 
+                // else, clicked on panel
                 // panel can be accessed like this.
                 panel = scene.getPanel();
-                this.doTestClick(scene, panel.children);
+                return this.doTestClick(scene, panel.children);
             }
         };
     };

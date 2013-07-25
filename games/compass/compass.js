@@ -61,7 +61,7 @@ define([
             }
         ],
         'main': {
-            'title'         : 'The compass',
+            'title'         : 'The compass 2',
             'author'        : 'teacher@school.com',
             'description'   : 'Can you build a compass?',
             'background'    : 'background02',

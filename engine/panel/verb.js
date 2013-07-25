@@ -12,30 +12,49 @@ define([
         this.initialize(options);
     };
 
-    var p = Verb.prototype = new createjs.Text();
-    p.Text_initialize = p.initialize;
+    var p = Verb.prototype = new createjs.Container();
+    p.Container_initialize = p.initialize;
     p.initialize = function (options) {
-        this.Text_initialize();
+        this.Container_initialize();
 
-        this.name = 'panel.verb.' + options.text;
-        this.text = options.text;
-        this.font = "28px the8bit";
-        this.color = "#FFFFFF";
-        this.textAlign = "left";
-        this.textBaseline = "middle";
-        this.alpha = 0.7;
+        this.name = 'verb.' + options.text;
+
         this.x = options.x;
         this.y = options.y;
+        this.w = options.w;
+        this.h = options.h;
+
+        this.text = new createjs.Text();
+        this.background = new createjs.Shape();
+        this.background.x = 0;
+        this.background.y = 0;
+        this.background.graphics
+            .beginStroke("#880000")
+            .beginFill("blue")
+            .drawRect(0, 0, this.w, this.h);
+        this.background.alpha = 0.15;
+
+        this.addChild(
+            this.background,
+            this.text
+        );
+
+        this.text.text = options.text;
+        this.text.font = "28px the8bit";
+        this.text.color = "#FFFFFF";
+        this.text.textAlign = "left";
+        this.text.textBaseline = "middle";
+        this.text.alpha = 0.7;
+
+        // set text to middle of tile, and with left margin of 10;
+        this.text.y = this.h / 2;
+        this.text.x = 10;
+
+        // verb logic
         this.nr = options.nr;
         this.second = options.second;
 
         this.isMouseOver = false;
-
-        // hovering on text sucks. Let's add a flat hit area!
-        var hitArea = new createjs.Shape();
-        hitArea.graphics.beginFill("red")
-            .drawRect(-10, -30, options.w, options.h);
-        this.hitArea = hitArea;
 
         this.testClick = function (x, y, scene) {
             var coords = this.globalToLocal(x, y);
@@ -43,8 +62,9 @@ define([
             if (mouseClick) {
                 createjs.Sound.play('sound.fall');
                 action.clickVerb(this);
-
+                return true;
             }
+            return false;
         };
 
         this.testHit = function (x, y) {
@@ -52,14 +72,16 @@ define([
             var mouseOver = this.hitTest(coords.x, coords.y);
             if (mouseOver && !this.isMouseOver) {
                 this.isMouseOver = mouseOver;
-                this.alpha = 1;
-                return action.mouseOverVerb({target: this});
+                this.text.alpha = 1;
+                this.background.alpha = 0.3;
+                return action.mouseOverVerb(this);
             }
 
             if (!mouseOver && this.isMouseOver) {
                 this.isMouseOver = mouseOver;
-                this.alpha = 0.7;
-                return action.mouseOutVerb({target: this});
+                this.text.alpha = 0.7;
+                this.background.alpha = 0.15;
+                return action.mouseOutVerb(this);
             }
         };
     };

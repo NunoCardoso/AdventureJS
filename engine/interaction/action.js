@@ -111,7 +111,7 @@ define([
         },
 
         _displayVerb = function (verb) {
-            _pushText(verb.text);
+            _pushText(verb.text.text);
         },
 
         _clearVerb = function () {
@@ -119,53 +119,53 @@ define([
         },
 
         mouseOverNpc = function (e) {
-            _displayObject(e.target);
+            _displayObject(e);
         },
 
         mouseOutNpc = function (e) {
-            _undisplay(e.target);
+            _undisplay(e);
         },
 
         clickNpc = function (e) {
-            var result = _setObject(e.target);
+            var result = _setObject(e);
             return result;
         },
 
         mouseOverObject = function (e) {
-            _displayObject(e.target);
+            _displayObject(e);
         },
 
         mouseOutObject = function (e) {
-            _undisplay(e.target);
+            _undisplay(e);
         },
 
         clickObject = function (e) {
-            var result = _setObject(e.target);
+            var result = _setObject(e);
             return result;
         },
 
         mouseOverVerb = function (e) {
-            _displayVerb(e.target);
+            _displayVerb(e);
         },
 
         mouseOutVerb = function (e) {
-            _undisplay(e.target);
+            _undisplay(e);
         },
 
         clickVerb = function (e) {
-            return _setVerb(e.target);
+            return _setVerb(e);
         },
 
         mouseOverExit = function (e) {
-            _displayExit(e.target);
+            _displayExit(e);
         },
 
         mouseOutExit = function (e) {
-            _undisplay(e.target);
+            _undisplay(e);
         },
 
         clickExit = function (e) {
-            return _setExit(e.target);
+            return _setExit(e);
         };
 
     return {
