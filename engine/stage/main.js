@@ -6,13 +6,13 @@
 define([
     'engine/config',
     'engine/stage/stage',
-    'engine/cursor/main',
-    'engine/character/main'
+    'engine/character/main',
+    'engine/cursor/main'
 ], function (
     config,
     GameStage,
-    gamecursor,
-    gamecharacter
+    gamecharacter,
+    gamecursor
 ) {
     var stage,
 
@@ -46,18 +46,28 @@ define([
             stage.update();
         },
 
-        activateMouseAndTouch = function () {
+        activate = function () {
             // make it faster.
             stage.autoClear = false;
             // allow mouseOver with a pool of 25 times per second
             stage.enableMouseOver(25);
             // enable touch interactions if supported on the current device:
             createjs.Touch.enable(stage);
+        },
 
+        activateCursor = function () {
+            gamecursor.setStage(stage);
             stage.onMouseMove = function (e) {
-                gamecursor.update(this, {x: e.stageX, y: e.stageY});
+                gamecursor.update({x: e.stageX, y: e.stageY});
             };
+            stage.onClick = function (e) {
+                gamecursor.click({x: e.stageX, y: e.stageY});
+            };
+        },
 
+        deactivateCursor = function () {
+            stage.onMouseMove = undefined;
+            stage.onClick = undefined;
         },
 
         activateTick = function () {
@@ -101,7 +111,8 @@ define([
         'play' : play,
         'update' : update,
 
-        'activateMouseAndTouch' : activateMouseAndTouch,
-
+        'activate' : activate,
+        'activateCursor' : activateCursor,
+        'deactivateCursor' : deactivateCursor
     };
 });

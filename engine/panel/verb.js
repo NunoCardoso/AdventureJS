@@ -29,32 +29,39 @@ define([
         this.nr = options.nr;
         this.second = options.second;
 
+        this.isMouseOver = false;
+
         // hovering on text sucks. Let's add a flat hit area!
         var hitArea = new createjs.Shape();
         hitArea.graphics.beginFill("red")
             .drawRect(-10, -30, options.w, options.h);
         this.hitArea = hitArea;
 
-        this.onVerbMouseOver = function (e) {
-            // e.target is the verb
-            e.target.alpha = 1;
-            action.mouseOverVerb(e);
+        this.testClick = function (x, y, scene) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                createjs.Sound.play('sound.fall');
+                action.clickVerb(this);
+
+            }
         };
 
-        this.onVerbMouseOut = function (e) {
-            // e.target is the verb
-            e.target.alpha = 0.7;
-            action.mouseOutVerb(e);
-        };
+        this.testHit = function (x, y) {
+            var coords = this.globalToLocal(x, y);
+            var mouseOver = this.hitTest(coords.x, coords.y);
+            if (mouseOver && !this.isMouseOver) {
+                this.isMouseOver = mouseOver;
+                this.alpha = 1;
+                return action.mouseOverVerb({target: this});
+            }
 
-        this.onVerbClick = function (e) {
-            createjs.Sound.play('sound.fall');
-            action.clickVerb(e);
+            if (!mouseOver && this.isMouseOver) {
+                this.isMouseOver = mouseOver;
+                this.alpha = 0.7;
+                return action.mouseOutVerb({target: this});
+            }
         };
-
-        this.addEventListener('mouseover', $.proxy(this.onVerbMouseOver, this));
-        this.addEventListener('mouseout',  $.proxy(this.onVerbMouseOut, this));
-        this.addEventListener('click',     $.proxy(this.onVerbClick, this));
     };
     return Verb;
 });

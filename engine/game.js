@@ -70,7 +70,7 @@ define([
                     scene.name
                 );
                 keyboard.attachEvents();
-                gamestage.activateMouseAndTouch();
+                gamestage.activate();
                 gamestage.update();
             },
 

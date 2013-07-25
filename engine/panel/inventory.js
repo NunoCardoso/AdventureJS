@@ -49,21 +49,18 @@ define([
                     );
             obj.renderAs('inventory', dimensions);
             this.addChild(obj);
-            obj.activateClickListener(gamecharacter.getPc());
         };
 
         this.remove = function (object) {
             var i,
-                total,
-                o = this.getChildByName('object.' + object),
-                index = this.getChildIndex(o);
+                o = this.getChildByName('object.' + object);
             this.removeChild(o);
 
-            total = (typeof this.children !== 'undefined' ? this.children.length : 0);
             // recalculate other positions;
-            for (i = index; i < total; i++) {
+            for (i in this.children) {
                 o = this.getChildAt(i);
-                this.calculateObjectDimensions(o, i);
+                var dimensions = this.calculateObjectDimensions(o, i);
+                o.renderAs('inventory', dimensions);
             }
         };
 

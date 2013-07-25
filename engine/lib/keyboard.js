@@ -4,14 +4,19 @@
  * This module dispatches key events
  */
 define([
-    'engine/character/main'
+    'engine/character/main',
+    'engine/cursor/main'
 ], function (
-    gamecharacter
+    gamecharacter,
+    gamecursor
 ) {
 
     var keyPressed = false,
         keyCode,
         keyShift,
+        lastKeyPressed,
+        cursorSpeed,
+        defaultCursorSpeed = 2,
 
         keysCodes = {
             8: 'backspace',
@@ -141,12 +146,55 @@ define([
             }
         },
 
+        _handleLeftArrow = function (again) {
+            cursorSpeed = (again ? cursorSpeed + 1 : defaultCursorSpeed);
+            gamecursor.goLeft(cursorSpeed);
+        },
+
+        _handleUpArrow = function (again) {
+            cursorSpeed = (again ? cursorSpeed + 1 : defaultCursorSpeed);
+            gamecursor.goUp(cursorSpeed);
+        },
+
+        _handleRightArrow = function (again) {
+            cursorSpeed = (again ? cursorSpeed + 1 : defaultCursorSpeed);
+            gamecursor.goRight(cursorSpeed);
+        },
+
+        _handleDownArrow = function (again) {
+            cursorSpeed = (again ? cursorSpeed + 1 : defaultCursorSpeed);
+            gamecursor.goDown(cursorSpeed);
+        },
+
+        _handleEnterSpace = function (again) {
+            cursorSpeed = (again ? cursorSpeed + 1 : defaultCursorSpeed);
+            gamecursor.click();
+        },
+
         onKeyDown = function (e) {
             keyPressed = true;
             keyCode = _getKeyCode(e);
             keyShift = _getShiftKey(e);
+            var again = (lastKeyPressed === keyCode);
+            lastKeyPressed = keyCode;
+
             if (keyCode === 190) {
-                _handleDot();
+                return _handleDot(again);
+            }
+            if (keyCode === 37) {
+                return _handleLeftArrow(again);
+            }
+            if (keyCode === 38) {
+                return _handleUpArrow(again);
+            }
+            if (keyCode === 39) {
+                return _handleRightArrow(again);
+            }
+            if (keyCode === 40) {
+                return _handleDownArrow(again);
+            }
+            if (keyCode === 13 || keyCode === 32) {
+                return _handleEnterSpace(again);
             }
             console.log('key down kc=' + keyCode + ' ks=' + keyShift);
         },
@@ -156,6 +204,7 @@ define([
             keyCode = undefined;
             keyShift = _getShiftKey(e);
             console.log('key up');
+            cursorSpeed = defaultCursorSpeed;
         },
 
         attachEvents = function () {

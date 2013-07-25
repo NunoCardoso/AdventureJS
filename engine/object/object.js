@@ -98,6 +98,14 @@ define([
             action.mouseOutObject(e);
         };
 
+        this.testClick = function (x, y, scene) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                scene.getPc().actForObjectClick({x: x, y: y}, this);
+            }
+        };
+
         this.testHit = function (x, y) {
             var coords = this.globalToLocal(x, y);
             var mouseOver = this.hitTest(coords.x, coords.y);
@@ -110,12 +118,6 @@ define([
                 this.isMouseOver = mouseOver;
                 return this.onObjectMouseOut({target: this});
             }
-        };
-
-        this.activateClickListener = function (pc) {
-            this.addEventListener("click", $.proxy(function (e) {
-                pc.actForObjectClick(e, this);
-            }, this));
         };
     };
 

@@ -59,20 +59,28 @@ define([
             }
         };
 
-        this.addEventListener("mouseover", $.proxy(function (e) {
-            $("#canvas").attr('class', 'exit' + this.arrow);
-            action.mouseOverExit(e);
-        }, this));
+        this.testClick = function (x, y, scene) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                scene.getPc().actForExitClick({x : x, y : y}, this);
+            }
+        };
 
-        this.addEventListener("mouseout", $.proxy(function (e) {
-            $("#canvas").attr('class', 'crosshair');
-            action.mouseOutExit(e);
-        }, this));
+        this.testHit = function (x, y, scene) {
+            var coords = this.globalToLocal(x, y);
+            var mouseOver = this.hitTest(coords.x, coords.y);
+            if (mouseOver && !this.isMouseOver) {
+                this.isMouseOver = mouseOver;
+                $("#canvas").attr('class', 'exit' + this.arrow);
+                return action.mouseOverExit({target: this});
+            }
 
-        this.activateClickListener = function (pc) {
-            this.addEventListener("click", $.proxy(function (e) {
-                pc.actForExitClick(e, this);
-            }, this));
+            if (!mouseOver && this.isMouseOver) {
+                this.isMouseOver = mouseOver;
+                $("#canvas").attr('class', '');
+                return action.mouseOutExit({target: this});
+            }
         };
     };
     return Exit;

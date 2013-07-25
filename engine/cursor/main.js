@@ -9,6 +9,8 @@ define([
     Cursor
 ) {
     var _,
+        _stage,
+        _xy,
 
         preload = function () {
             _ = new Cursor();
@@ -18,13 +20,51 @@ define([
             return _;
         },
 
-        update = function (stage, xy) {
-            _.update(stage, xy);
+        setStage = function (stage) {
+            _stage = stage;
+        },
+
+        goLeft = function (speed) {
+            _xy.x -= speed;
+            _.update(_stage, _xy);
+        },
+
+        goUp = function (speed) {
+            _xy.y -= speed;
+            _.update(_stage, _xy);
+        },
+
+        goRight = function (speed) {
+            _xy.x += speed;
+            _.update(_stage, _xy);
+        },
+
+        goDown = function (speed) {
+            _xy.y += speed;
+            _.update(_stage, _xy);
+        },
+
+        update = function (xy) {
+            _xy = xy;
+            _.update(_stage, _xy);
+        },
+
+        // if it is from keyboard, xy is undefined, use latest.
+        // if from the mouse, xy is defined;
+        click = function (xy) {
+            _xy = xy || _xy;
+            _.click(_stage, _xy);
         };
 
     return {
         'preload' : preload,
         'get'     : get,
-        'update'  : update
+        'update'  : update,
+        'click'   : click,
+        'setStage': setStage,
+        'goLeft'  : goLeft,
+        'goUp'    : goUp,
+        'goRight' : goRight,
+        'goDown'  : goDown
     };
 });

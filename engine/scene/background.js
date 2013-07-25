@@ -40,11 +40,13 @@ define([
             this.h = this.image.height;
         }
 
-        this.activateClickListener = function (pc) {
-            this.addEventListener("click", $.proxy(function (e) {
-                pc.setTargetXY({x : e.stageX, y : e.stageY});
-                action.reset(e);
-            }, this));
+        this.testClick = function (x, y, scene) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                scene.getPc().setTargetXY({x : x, y : y});
+                action.reset();
+            }
         };
     };
     return Background;

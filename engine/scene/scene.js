@@ -29,6 +29,7 @@ define([
     p.initialize = function (scene) {
         this.GameScene_initialize();
 
+
         this.name = 'scene.' + scene.id;
 
         this.description  = scene.description;
@@ -95,7 +96,6 @@ define([
 
             if (this.background) {
                 if (options.pc) {
-                    this.background.activateClickListener(options.pc);
 
                     // let background dictate the w and h. Needed to scroll the dynamic container
                     this.dynamic.w = this.background.w;
@@ -109,9 +109,6 @@ define([
             for (key in this.objects) {
                 o = gameobject.get('object.' + this.objects[key].id);
                 o.renderAs('stage', this.objects[key]);
-                if (options.pc) {
-                    o.activateClickListener(options.pc);
-                }
                 objectContainer.addChild(o);
             }
 
@@ -120,9 +117,6 @@ define([
             for (i = 0; i < this.exits.length; i++) {
                 this.exits[i].from = scene.id;
                 e = new Exit(this.exits[i]);
-                if (options.pc) {
-                    e.activateClickListener(options.pc);
-                }
                 this.dynamic.addChild(e);
             }
 
@@ -132,10 +126,6 @@ define([
                     // set the npc position according to what the scene says
                     options.npcs[_id].setX(scene.npcs[i].position.x);
                     options.npcs[_id].setY(scene.npcs[i].position.y);
-                    // register the playable character, so they can talk.
-                    options.npcs[_id].activateClickListener(
-                        options.pc
-                    );
                     this.dynamic.addChild(options.npcs[_id]);
                 }
             }
@@ -208,6 +198,14 @@ define([
         this.getPanel = function () {
             if (this.static.children) {
                 return this.static.children[0];
+            }
+            return undefined;
+        };
+
+        // really ugly
+        this.getPc = function () {
+            if (this.static.children) {
+                return this.static.children[2];
             }
             return undefined;
         };

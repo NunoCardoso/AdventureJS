@@ -9,13 +9,15 @@ define([
     'engine/config',
     'engine/panel/main',
     'engine/scene/main',
-    'engine/sentence/main'
+    'engine/sentence/main',
+    'engine/cursor/main'
 ], function (
     gamecharacter,
     config,
     gamepanel,
     gamescene,
-    sentence
+    sentence,
+    gamecursor
 ) {
     var GameStage = function (el) {
         this.initialize(el);
@@ -53,6 +55,7 @@ define([
         this.addMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.notOnGame();
+            require('engine/stage/main').deactivateCursor();
             this.addChild(toscene);
             // adding the menu pauses the ticker, so we need to manualy update
             this.update();
@@ -62,6 +65,7 @@ define([
         this.removeMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.onGame();
+            require('engine/stage/main').activateCursor();
             this.removeChild(toscene);
         };
 
@@ -92,6 +96,10 @@ define([
             }
             if (toscene.isPlayable()) {
                 this.onGame();
+                require('engine/stage/main').activateCursor();
+            } else {
+                this.notOnGame();
+                require('engine/stage/main').deactivateCursor();
             }
 
             this.addChild(toscene);

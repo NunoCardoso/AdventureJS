@@ -303,6 +303,16 @@ define([
             }
         };
 
+        this.testClick = function (scene, x, y) {
+            if (!this.isPlayable) {
+                var coords = this.globalToLocal(x, y);
+                var mouseClick = this.hitTest(coords.x, coords.y);
+                if (mouseClick) {
+                    scene.getPc().actForNpcClick({x: x, y: y}, this);
+                }
+            }
+        };
+
         this._performResult = function (result, npc) {
             switch (result.action) {
             case 'dialogMessage':
@@ -323,20 +333,14 @@ define([
             }
         };
 
-        this.actForNpcClick = function (event, npc) {
-            this.calculateTargetXY({x : event.stageX, y : event.stageY}, npc);
+        this.actForNpcClick = function (xy, npc) {
+            this.calculateTargetXY(xy, npc);
             this.setWhenFinished($.proxy(function () {
                 var result = action.clickNpc(event);
                 if (result) {
                     action.reset();
                     this._performResult(result, npc);
                 }
-            }, this));
-        };
-
-        this.activateClickListener = function (pc) {
-            this.addEventListener("click", $.proxy(function (e) {
-                pc.actForNpcClick(e, this);
             }, this));
         };
 
