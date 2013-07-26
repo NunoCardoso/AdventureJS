@@ -4,6 +4,7 @@
  * This module bootstraps the game, preloads assets, then lands on the main menu
  */
 define([
+    'engine/achievement/main',
     'engine/character/main',
     'engine/condition/main',
     'engine/config',
@@ -20,6 +21,7 @@ define([
     'engine/stage/main',
     'engine/start/main'
 ], function (
+    gameachievement,
     gamecharacter,
     gamecondition,
     config,
@@ -79,6 +81,7 @@ define([
                 gamedialog.preload(game.dialogs);
                 gamecondition.preload(game.conditions);
                 gamepanel.preload(game.panel);
+                gameachievement.preload(game.achievements);
                 gamescene.preload(game.scenes);
                 if (!options.scene) {
                     options.scene = 'scene.menu';

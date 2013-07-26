@@ -4,11 +4,13 @@
  * This module handles dialogs
  */
 define([
+    'engine/achievement/main',
     'engine/dialog/dialog',
     'engine/dialog/options',
     'engine/panel/main',
     'engine/sentence/main'
 ], function (
+    gameachievement,
     GameDialog,
     gamedialogoptions,
     gamepanel,
@@ -53,22 +55,29 @@ define([
 
 
         _onTalkEnded = function (options) {
-            switch (options.onEnd.action) {
-            case 'displayDialogOptions':
-                _addDialogOptionsToPanel({
-                    'dialogOptions' : options.onEnd.dialogOptions,
-                    'pc'            : options.pc,
-                    'npc'           : options.npc
-                });
-                break;
-            case 'addToInventory':
-                gamepanel.addToInventory(options.onEnd.object);
-                _setPanelToDefault();
-                require('engine/interaction/action').reset();
-                break;
-            default:
-                console.log(options.onEnd.action + ' not implemented!');
-                break;
+            var i, act;
+            for (i in options.onEnd) {
+                act = options.onEnd[i];
+                switch (act.action) {
+                case 'displayDialogOptions':
+                    _addDialogOptionsToPanel({
+                        'dialogOptions' : act.dialogOptions,
+                        'pc'            : options.pc,
+                        'npc'           : options.npc
+                    });
+                    break;
+                case 'addToInventory':
+                    gamepanel.addToInventory(act.object);
+                    _setPanelToDefault();
+                    require('engine/interaction/action').reset();
+                    break;
+                case 'publishAchievement':
+                    gameachievement.publish(act.achievement);
+                    break;
+                default:
+                    console.log(act.action + ' not implemented!');
+                    break;
+                }
             }
         },
 

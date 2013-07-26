@@ -41,6 +41,7 @@ define([
         inventoryY = 80,
 
         _ = {
+            'achievement.unlocked' : "Achievement unlocked",
             'dialogoption.params' : dialogOptionParams,
             'inventory.params' : inventoryParams,
 

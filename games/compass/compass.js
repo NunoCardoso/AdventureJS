@@ -172,6 +172,10 @@ define([
                         'action': 'dialogMessage',
                         'target': 'pc.guybrush',
                         'param' : 'I stuck the needle into the cork'
+                    },
+                    {
+                        'action': 'publishAchievement',
+                        'achievement' : 'achievement.02'
                     }
                 ]
             },
@@ -386,23 +390,25 @@ define([
                         'text' : 'Hello back.'
                     }
                 ],
-                'onEnd' : {
-                    'action' : 'displayDialogOptions',
-                    'dialogOptions' : [
-                        {
-                            'text' : 'Do you have a compass?',
-                            'dialog' : 'dialog.02'
-                        },
-                        {
-                            'text' : 'You wouldn\'t have a corkscrew I can borrow?',
-                            'dialog' : 'dialog.03'
-                        },
-                        {
-                            'text' : 'Bye.',
-                            'dialog' : 'dialog.04'
-                        }
-                    ]
-                }
+                'onEnd' : [
+                    {
+                        'action' : 'displayDialogOptions',
+                        'dialogOptions' : [
+                            {
+                                'text' : 'Do you have a compass?',
+                                'dialog' : 'dialog.02'
+                            },
+                            {
+                                'text' : 'You wouldn\'t have a corkscrew I can borrow?',
+                                'dialog' : 'dialog.03'
+                            },
+                            {
+                                'text' : 'Bye.',
+                                'dialog' : 'dialog.04'
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 'id' : 'dialog.02',
@@ -437,10 +443,16 @@ define([
                         'text' : 'Yeah. Here, you can have it.'
                     }
                 ],
-                'onEnd' : {
-                    'action' : 'addToInventory',
-                    'object' : 'object.corkscrew'
-                }
+                'onEnd' : [
+                    {
+                        'action' : 'addToInventory',
+                        'object' : 'object.corkscrew'
+                    },
+                    {
+                        'action' : 'publishAchievement',
+                        'achievement' : 'achievement.01'
+                    }
+                ]
             },
             {
                 'id' : 'dialog.04',
@@ -454,6 +466,16 @@ define([
                         'text' : 'Not much of a talker, eh?'
                     }
                 ]
+            }
+        ],
+        'achievements': [
+            {
+                'id' : 'achievement.01',
+                'title' : 'Managed to get a corkscrew'
+            },
+            {
+                'id' : 'achievement.02',
+                'title' : 'Managed to stuck the needle in the cork'
             }
         ]
     };
