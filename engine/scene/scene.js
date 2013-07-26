@@ -177,7 +177,8 @@ define([
                 this.menu.addChild(new MenuButton({from: this.name}));
             }
             // add the custom cursor
-            this.menu.addChild(gamecursor.reset().get());
+            gamecursor.reset();
+            this.menu.addChild(gamecursor.get());
             this.addChild(this.menu);
         };
 
