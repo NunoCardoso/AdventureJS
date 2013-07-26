@@ -22,14 +22,14 @@
 <label for="scene.{{id}}.ending">Ending scene</label>
 <BR>
 
-<label for="scene.{{id}}.playableCharacterPosition">Playable Character initial position (if initial scene)</label>
+<label for="scene.{{id}}.pc_xy">Playable Character initial position (if initial scene)</label>
 <BR>
-x <input type="text" value="{{playableCharacter.position.x}}" size=5>
-y <input type="text" value="{{playableCharacter.position.y}}" size=5>
+x <input type="text" value="{{pc_xy.position.x}}" size=5>
+y <input type="text" value="{{pc_xy.position.y}}" size=5>
 <br>
 <br>
-<label for="scene.{{id}}.nonPlayableCharacters">Non playable characters setup:</label>
-<table id="scene.{{id}}.nonPlayableCharacters" class="tablesorter">
+<label for="scene.{{id}}.npcs">Non playable characters setup:</label>
+<table id="scene.{{id}}.npcs" class="tablesorter">
     <thead>
         <tr>
             <th>Character</th>
@@ -39,14 +39,14 @@ y <input type="text" value="{{playableCharacter.position.y}}" size=5>
         </tr>
     </thead>
     <tbody>
-        {{#nonPlayableCharacters}}
+        {{#npcs}}
         <tr>
             <td>{{id}}</td>
             <td>{{position.x}}</td>
             <td>{{position.y}}</td>
             <td><a href="#">[delete]</td>
         </tr>
-        {{/nonPlayableCharacters}}
+        {{/npcs}}
     </tbody>
 </table>
 

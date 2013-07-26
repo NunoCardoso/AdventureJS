@@ -22,7 +22,7 @@ define([
         this.color = "#FFFFFF";
         this.textAlign    = "center";
         this.textBaseline = "top";
-        this.x = config.get('panel.w') / 2;
+        this.x = config.get('panel.w') / 2 + 2;
         this.y = config.get('panel.y');
     };
     return Sentence;

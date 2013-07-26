@@ -23,11 +23,16 @@ define([
 
         getText = function () {
             return _.text;
+        },
+
+        hide = function () {
+            _.text = "";
         };
 
     return {
         'get' : get,
         'setText' : setText,
-        'getText' : getText
+        'getText' : getText,
+        'hide' : hide
     };
 });

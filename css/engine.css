@@ -70,11 +70,3 @@ body, input, textarea, button {
 #canvas.game {
     cursor: none;
 }
-
-#canvas.exitright {
-    cursor: url(../engine/img/cursor/right.png) 15 15;
-}
-
-#canvas.exitleft {
-    cursor: url(../engine/img/cursor/left.png) 15 15;
-}

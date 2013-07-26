@@ -15,7 +15,7 @@ define([
         },
 
         _preloadMenu = function () {
-            var menuscene = newScene({id: 'menu'});
+            var menuscene = newScene({id: 'scene.menu'});
             var menu      = require('engine/menu/main').get();
             _[menu.name]  = menu;
         },
@@ -23,7 +23,7 @@ define([
         preload = function (scenes) {
             var i;
             for (i = 0; i < scenes.length; i++) {
-                _['scene.' + scenes[i].id] = new GameScene(scenes[i]);
+                _[scenes[i].id] = new GameScene(scenes[i]);
             }
             _preloadMenu();
         },

@@ -13,7 +13,7 @@ define([
         preload = function (objects) {
             var i;
             for (i = 0; i < objects.length; i++) {
-                _['object.' + objects[i].id] = new GameObject(objects[i]);
+                _[objects[i].id] = new GameObject(objects[i]);
             }
         },
 

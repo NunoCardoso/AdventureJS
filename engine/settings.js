@@ -9,24 +9,32 @@ define([
     return {
         'images': [
             {
-                'id'  : 'pc01',
+                'id'  : 'image.guybrush',
                 'src' : 'games/compass/img/character/guybrush2.png'
             },
             {
-                'id'  : 'npc01',
+                'id'  : 'image.pirate',
                 'src' : 'games/compass/img/character/pirate.png'
             },
             {
-                'id'  : 'menuCogwheel01',
+                'id'  : 'image.menu.cogwheel',
                 'src' : 'engine/img/menu/cogwheel.png'
             },
             {
-                'id'  : 'savegameNoImage01',
+                'id'  : 'image.savegame.noimage',
                 'src' : 'engine/img/savegame/noimage.jpg'
             },
             {
-                'id'  : 'cursor01',
+                'id'  : 'image.cursor.default',
                 'src' : 'engine/img/cursor/crosshair.gif'
+            },
+            {
+                'id'  : 'image.cursor.left',
+                'src' : 'engine/img/cursor/left.png'
+            },
+            {
+                'id'  : 'image.cursor.right',
+                'src' : 'engine/img/cursor/right.png'
             }
         ],
         'sounds' : [
@@ -45,8 +53,8 @@ define([
         ],
         'characters': [
             {
-                'id'     : 'guybrush01',
-                'images' : 'pc01',
+                'id'     : 'pc.guybrush',
+                'images' : 'image.guybrush',
                 'speed'  : 2,
                 'textColor' : 'black',
                 'frames' : {
@@ -66,8 +74,8 @@ define([
                 }
             },
             {
-                'id'     : 'pirate01',
-                'images' : 'npc01',
+                'id'     : 'npc.pirate01',
+                'images' : 'image.pirate',
                 'textColor' : 'red',
                 'frames' : {
                     'regX'   : 52,

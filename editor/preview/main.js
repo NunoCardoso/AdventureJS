@@ -25,7 +25,7 @@ define([
             _createDialog();
             _initGame();
             game.start({
-                scene: scene || 'menu'
+                scene: scene || 'scene.menu'
             });
         },
 

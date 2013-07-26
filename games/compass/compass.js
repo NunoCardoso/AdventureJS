@@ -5,58 +5,58 @@ define([
     return {
         'images': [
             {
-                'id'  : 'background01',
+                'id'  : 'image.jungle',
                 'src' : 'games/compass/img/background/jungle.jpg'
             },
             {
-                'id'  : 'background02',
+                'id'  : 'image.kyrandia',
                 'src' : 'games/compass/img/background/legend-of-kyrandia.jpg'
             },
             {
-                'id'  : 'background03',
+                'id'  : 'image.jungle2',
                 'src' : 'games/compass/img/background/jungle2.jpg'
             },
             {
-                'id'  : 'winebottle01',
+                'id'  : 'image.stage.winebottle',
                 'src' : 'games/compass/img/object/wine-bottle.png'
             },
             {
-                'id'  : 'winebottle_inventory01',
+                'id'  : 'image.inventory.winebottle',
                 'src' : 'games/compass/img/inventory/wine-bottle.png'
             },
             {
-                'id'  : 'winebottlewithoutcork_inventory01',
+                'id'  : 'image.inventory.winebottlewithoutcork',
                 'src' : 'games/compass/img/inventory/wine-bottle-without-cork.png'
             },
             {
-                'id'  : 'corkscrew_inventory01',
+                'id'  : 'image.inventory.corkscrew',
                 'src' : 'games/compass/img/inventory/corkscrew.png'
             },
             {
-                'id'  : 'cork_inventory01',
+                'id'  : 'image.inventory.cork',
                 'src' : 'games/compass/img/inventory/cork.png'
             },
             {
-                'id'  : 'needlewithcork_inventory01',
+                'id'  : 'image.inventory.needlewithcork',
                 'src' : 'games/compass/img/inventory/needle-with-cork.png'
             },
             {
-                'id'  : 'needle_inventory01',
+                'id'  : 'image.inventory.needle',
                 'src' : 'games/compass/img/inventory/needle.png'
             },
             {
-                'id'  : 'magnet_inventory01',
+                'id'  : 'image.inventory.magnet',
                 'src' : 'games/compass/img/inventory/magnet.png'
             }
         ],
         'sounds': [],
         'pc' : {
-            'id'    : 'guybrush01',
+            'id'    : 'pc.guybrush',
             'label' : 'you'
         },
         'npcs' : [
             {
-                'id'    : 'pirate01',
+                'id'    : 'npc.pirate01',
                 'label' : 'pirate'
             }
         ],
@@ -64,13 +64,13 @@ define([
             'title'         : 'The compass 2',
             'author'        : 'teacher@school.com',
             'description'   : 'Can you build a compass?',
-            'background'    : 'background02',
-            'startingScene' : 'scene01'
+            'background'    : 'image.kyrandia',
+            'startingScene' : 'scene.01'
         },
         'panel' : {
             'startingInventory' : [
-                'magnet01',
-                'needle01'
+                'object.magnet',
+                'object.needle'
             ],
             'verbs' : [
                 {'first': 'Give',    'nr' : 2, 'second': 'to'},
@@ -86,50 +86,50 @@ define([
         },
         'objects': [
             {
-                'id': 'winebottle01',
+                'id': 'object.winebottle',
                 'label': 'wine bottle',
-                'imageInInventory': 'winebottle_inventory01',
-                'imageInStage' : 'winebottle01',
+                'imageInInventory': 'image.inventory.winebottle',
+                'imageInStage' : 'image.stage.winebottle',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : true
             },
             {
-                'id': 'magnet01',
+                'id': 'object.magnet',
                 'label': 'magnet',
-                'imageInInventory': 'magnet_inventory01',
+                'imageInInventory': 'image.inventory.magnet',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
             },
             {
-                'id': 'needle01',
+                'id': 'object.needle',
                 'label': 'needle',
-                'imageInInventory': 'needle_inventory01',
+                'imageInInventory': 'image.inventory.needle',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
             },
             {
-                'id': 'corkscrew01',
+                'id': 'object.corkscrew',
                 'label': 'corkscrew',
-                'imageInInventory': 'corkscrew_inventory01',
+                'imageInInventory': 'image.inventory.corkscrew',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
             },
             {
-                'id': 'cork01',
+                'id': 'object.cork',
                 'label': 'cork',
-                'imageInInventory': 'cork_inventory01',
+                'imageInInventory': 'image.inventory.cork',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
             },
             {
-                'id': 'winebottlewithoutcork01',
+                'id': 'object.winebottlewithoutcork',
                 'label': 'uncorked wine bottle',
-                'imageInInventory': 'winebottlewithoutcork_inventory01',
+                'imageInInventory': 'image.inventory.winebottlewithoutcork',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
@@ -137,7 +137,7 @@ define([
             {
                 'id': 'needlewithcork01',
                 'label': 'uncorked wine bottle',
-                'imageInInventory': 'needlewithcork_inventory01',
+                'imageInInventory': 'image.inventory.needlewithcork',
                 'canBeOnStage' : false,
                 'canBeOnInventory' : true,
                 'canBePickedUp' : false
@@ -145,149 +145,140 @@ define([
         ],
         'interactions': [
             {
-                'id' : 'interaction01',
+                'id' : 'interaction.01',
                 'verb' : 'Use',
                 'first': {
-                    'type' : 'object',
-                    'item' : 'needle01',
+                    'item' : 'object.needle',
                     'inInventory' : true
                 },
                 'second' : {
-                    'type' : 'object',
-                    'item' : 'cork01',
+                    'item' : 'object.cork',
                     'inInventory' : true
                 },
                 'actions' : [
                     {
                         'action': 'removeFromInventory',
-                        'target': 'needle01'
+                        'target': 'object.needle'
                     },
                     {
                         'action': 'removeFromInventory',
-                        'target': 'cork01'
+                        'target': 'object.cork'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'needlewithcork01'
+                        'target': 'object.needlewithcork'
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'guybrush01',
+                        'target': 'pc.guybrush',
                         'param' : 'I stuck the needle into the cork'
                     }
                 ]
             },
             {
-                'id' : 'interaction02',
+                'id' : 'interaction.02',
                 'verb' : 'Talk to',
                 'first' : {
-                    'type' : 'character',
-                    'item' : 'pirate01'
+                    'item' : 'npc.pirate01'
                 },
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'target': 'dialog01'
+                        'target': 'dialog.01'
                     }
                 ]
             },
             {
-                'id' : 'interaction03',
+                'id' : 'interaction.03',
                 'verb' : 'Pick up',
                 'first': {
-                    'type' : 'object',
-                    'item' : 'winebottle01',
+                    'item' : 'object.winebottle',
                     'inInventory' : false
                 },
                 'actions' : [
                     {
                         'action': 'fromSceneToInventory',
-                        'target': 'winebottle01'
+                        'target': 'object.winebottle'
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'guybrush01',
+                        'target': 'pc.guybrush',
                         'param' : 'I always wanted a wine bottle.'
                     }
                 ]
             },
             {
-                'id' : 'interaction04',
+                'id' : 'interaction.04',
                 'verb' : 'Look at',
                 'first': {
-                    'type' : 'object',
-                    'item' : 'magnet01',
+                    'item' : 'object.magnet',
                     'inInventory' : true
                 },
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'guybrush01',
+                        'target': 'pc.guybrush',
                         'param' : 'That is on e fine magnet I have!'
                     }
                 ]
             },
             {
-                'id' : 'interaction05',
+                'id' : 'interaction.05',
                 'verb' : 'Look at',
                 'first': {
-                    'type' : 'object',
-                    'item' : 'needle01',
+                    'item' : 'object.needle',
                     'inInventory' : true
                 },
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'guybrush01',
+                        'target': 'pc.guybrush',
                         'param' : 'Ouch! It\'s sharp!'
                     }
                 ]
             },
             {
-                'id' : 'interaction06',
+                'id' : 'interaction.06',
                 'verb' : 'Look at',
                 'first': {
-                    'type' : 'object',
-                    'item' : 'winebottle01',
+                    'item' : 'object.winebottle',
                     'inInventory' : false
                 },
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'guybrush01',
+                        'target': 'pc.guybrush',
                         'param' : 'Mmmm.... wine... tasty!'
                     }
                 ]
             },
             {
-                'id' : 'interaction07',
+                'id' : 'interaction.07',
                 'verb' : 'Use',
                 'first': {
-                    'type' : 'object',
-                    'item' : 'corkscrew01',
+                    'item' : 'object.corkscrew',
                     'inInventory' : true
                 },
                 'second' : {
-                    'type' : 'object',
-                    'item' : 'winebottle01',
+                    'item' : 'object.winebottle',
                     'inInventory' : true
                 },
                 'actions' : [
                     {
                         'action': 'removeFromInventory',
-                        'target': 'winebottle01'
+                        'target': 'object.winebottle'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'winebottlewithoutcork01'
+                        'target': 'object.winebottlewithoutcork'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'cork01'
+                        'target': 'object.cork'
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'guybrush01',
+                        'target': 'pc.guybrush',
                         'param' : 'There, I took the cork out.'
                     }
                 ]
@@ -295,8 +286,8 @@ define([
         ],
         'scenes': [
             {
-                'id'                 : 'scene01',
-                'background'         : 'background01',
+                'id'                 : 'scene.01',
+                'background'         : 'image.jungle',
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
@@ -309,7 +300,7 @@ define([
                 },
                 'npcs' : [
                     {
-                        'id' : 'pirate01',
+                        'id' : 'npc.pirate01',
                         'position' : {
                             'x'    : 200,
                             'y'    : 380
@@ -318,7 +309,7 @@ define([
                 ],
                 'objects' : [
                     {
-                        'id' : 'winebottle01',
+                        'id' : 'object.winebottle',
                         'x'  : 300,
                         'y'  : 330,
                         'w'  : 50,
@@ -328,23 +319,23 @@ define([
                 'exits' : [
                     {
                         'name' : 'jungle',
-                        'x' : 1250,
+                        'x' : 700,
                         'y' : 200,
                         'w' : 50,
                         'h' : 200,
                         'arrow' : 'right',
-                        'to' : 'scene02',
-                        'characterPosition' : {
-                            'x' : 0,
-                            'y' : 230
+                        'to'    : 'scene.02',
+                        'pc_xy' : {
+                            'x' : 75,
+                            'y' : 380
                         },
-                        'condition' : 'condition01'
+                        'condition' : 'condition.01'
                     }
                 ]
             },
             {
-                'id'                 : 'scene02',
-                'background'         : 'background03',
+                'id'                 : 'scene.02',
+                'background'         : 'image.jungle2',
                 'backgroundmode'     : 'fit',
                 'description'        : 'This is the second scene.',
                 'interactable'       : true,
@@ -352,7 +343,7 @@ define([
                 'pc'  : {
                     'position' : {
                         'x'    : 51,
-                        'y'    : 230
+                        'y'    : 380
                     }
                 },
                 'objects' : [],
@@ -363,10 +354,10 @@ define([
                         'w' : 50,
                         'h' : 200,
                         'arrow' : 'left',
-                        'to' : 'scene01',
-                        'characterPosition' : {
+                        'to' : 'scene.01',
+                        'pc_xy' : {
                             'x' : 700,
-                            'y' : 230
+                            'y' : 380
                         }
                     }
                 ]
@@ -374,8 +365,8 @@ define([
         ],
         'conditions' : [
             {
-                'id' : 'condition01',
-                'isInInventory': 'winebottle01',
+                'id' : 'condition.01',
+                'isInInventory': 'object.winebottle',
                 'onFail': {
                     'action' : 'dialogMessage',
                     'text'   : 'I can\'t leave without the wine bottle'
@@ -384,14 +375,14 @@ define([
         ],
         'dialogs' : [
             {
-                'id' : 'dialog01',
+                'id' : 'dialog.01',
                 'lines' : [
                     {
-                        'character' : 'guybrush01',
+                        'character' : 'pc.guybrush',
                         'text' : 'Hello.'
                     },
                     {
-                        'character' : 'pirate01',
+                        'character' : 'npc.pirate01',
                         'text' : 'Hello back.'
                     }
                 ],
@@ -400,66 +391,66 @@ define([
                     'dialogOptions' : [
                         {
                             'text' : 'Do you have a compass?',
-                            'dialog' : 'dialog02'
+                            'dialog' : 'dialog.02'
                         },
                         {
                             'text' : 'You wouldn\'t have a corkscrew I can borrow?',
-                            'dialog' : 'dialog03'
+                            'dialog' : 'dialog.03'
                         },
                         {
                             'text' : 'Bye.',
-                            'dialog' : 'dialog04'
+                            'dialog' : 'dialog.04'
                         }
                     ]
                 }
             },
             {
-                'id' : 'dialog02',
+                'id' : 'dialog.02',
                 'lines' : [
                     {
-                        'character' : 'guybrush01',
+                        'character' : 'pc.guybrush',
                         'text' : 'Do you have a compass?'
                     },
                     {
-                        'character' : 'pirate01',
+                        'character' : 'npc.pirate01',
                         'text' : 'No. Why would I have a compass?'
                     },
                     {
-                        'character' : 'guybrush01',
+                        'character' : 'pc.guybrush',
                         'text' : 'Because you are in the jungle!'
                     },
                     {
-                        'character' : 'pirate01',
+                        'character' : 'npc.pirate01',
                         'text' : 'I have a GPS, moron. And no, I will not let you use it!'
                     }
                 ]
             },
             {
-                'id' : 'dialog03',
+                'id' : 'dialog.03',
                 'lines' : [
                     {
-                        'character' : 'guybrush01',
+                        'character' : 'pc.guybrush',
                         'text' : 'You wouldn\'t have a corkscrew I can borrow?'
                     },
                     {
-                        'character' : 'pirate01',
+                        'character' : 'npc.pirate01',
                         'text' : 'Yeah. Here, you can have it.'
                     }
                 ],
                 'onEnd' : {
                     'action' : 'addToInventory',
-                    'object' : 'corkscrew01'
+                    'object' : 'object.corkscrew'
                 }
             },
             {
-                'id' : 'dialog04',
+                'id' : 'dialog.04',
                 'lines' : [
                     {
-                        'character' : 'guybrush01',
+                        'character' : 'pc.guybrush',
                         'text' : 'Bye'
                     },
                     {
-                        'character' : 'pirate01',
+                        'character' : 'npc.pirate01',
                         'text' : 'Not much of a talker, eh?'
                     }
                 ]

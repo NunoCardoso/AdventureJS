@@ -76,7 +76,7 @@ define([
             this.currentScene = toscene;
         };
 
-        this.switchScene = function (_fromscene, _toscene, characterPosition) {
+        this.switchScene = function (_fromscene, _toscene, pc_xy) {
             // _fromscene is a name of a scene already on stage
             var fromscene = this.getChildByName(_fromscene);
             // toscene is a name of a scene to render.
@@ -87,11 +87,7 @@ define([
             if (toscene.isInteractable()) {
 
                 toscene.render({
-                    'pc'       : gamecharacter.getPc(),
-                    'npcs'     : gamecharacter.getNpcs(),
-                    'panel'    : gamepanel.get(),
-                    'sentence' : sentence.get(),
-                    'characterPosition'     : characterPosition
+                    'pc_xy'    : pc_xy
                 });
             }
             if (toscene.isPlayable()) {

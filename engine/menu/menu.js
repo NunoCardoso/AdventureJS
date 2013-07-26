@@ -75,7 +75,7 @@ define([
                 gamestage.activateTick();
                 gamestage.getInstance().switchScene(
                     'scene.menu',
-                    'scene.' + options.startingScene
+                    options.startingScene
                 );
             }
         });

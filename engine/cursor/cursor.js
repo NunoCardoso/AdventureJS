@@ -21,10 +21,6 @@ define([
     p.initialize = function (options) {
         this.Cursor_initialize();
 
-        this.image  = assets.getQueueLoaded().getResult('cursor01');
-        this.regX   = this.image.width  / 2;
-        this.regY   = this.image.height / 2;
-
         this.gameBoundsY = config.get('game.h');
 
         this.doTestHit = function (items) {
@@ -71,56 +67,52 @@ define([
             return false;
         };
 
-        this.update = function (stage, xy) {
+        this.clickedOnGame = function (xy) {
+            return xy.y <= this.gameBoundsY;
+        };
+
+        this.update = function (stage, xy, event) {
             this.x = xy.x;
             this.y = xy.y;
 
             var i,
                 interactables,
                 panel,
+                menu,
+                isHandled,
                 scene = stage.getCurrentScene();
 
             if (scene.isPlayable()) {
                 // interactables should include
                 // stage objects, exits and npcs.
                 if (this.clickedOnGame(xy)) {
+                    menu = scene.getMenuButton();
+                    isHandled = (event === 'click' ? this.doTestClick(scene, menu) : this.doTestHit(menu));
+                    if (isHandled) {
+                        return;
+                    }
+
                     interactables = scene.getDynamicSceneChildrens();
-                    return this.doTestHit(interactables);
+                    return (event === 'click' ? this.doTestClick(scene, interactables) : this.doTestHit(interactables));
                 }
 
                 // panel can be accessed like this.
-                panel = scene.getPanel();
-                return this.doTestHit(panel.children);
+                panel = scene.getPanel().children;
+                return (event === 'click' ? this.doTestClick(scene, panel) : this.doTestHit(panel));
             }
         };
 
-        this.clickedOnGame = function (xy) {
-            return xy.y <= this.gameBoundsY;
+        this.changeTo = function (what) {
+            this.image  = assets.getQueueLoaded().getResult(what);
+            this.regX   = this.image.width  / 2;
+            this.regY   = this.image.height / 2;
         };
 
-        this.click = function (stage, xy) {
-            this.x = xy.x;
-            this.y = xy.y;
-
-            var i,
-                interactables,
-                panel,
-                scene = stage.getCurrentScene();
-
-            if (scene.isPlayable()) {
-                if (this.clickedOnGame(xy)) {
-                    // interactables should include
-                    // stage objects, exits and npcs.
-                    interactables = scene.getDynamicSceneChildrens();
-                    return this.doTestClick(scene, interactables);
-                }
-
-                // else, clicked on panel
-                // panel can be accessed like this.
-                panel = scene.getPanel();
-                return this.doTestClick(scene, panel.children);
-            }
+        this.reset = function () {
+            this.changeTo('image.cursor.default');
         };
+
+        this.reset();
     };
     return Cursor;
 });

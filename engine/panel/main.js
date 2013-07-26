@@ -1,76 +1,73 @@
-/*global define, createjs, $ */
+/*global define */
 
 /**
- * This module handles main menu stuff
+ * This module stores game panel
  */
 define([
-    'engine/config',
+    'engine/panel/inventory',
+    'engine/panel/panel',
     'engine/panel/verbs',
-    'engine/panel/background',
-    'engine/panel/inventory'
 ], function (
-    config,
-    Verbs,
-    Background,
-    Inventory
+    Inventory,
+    Panel,
+    Verbs
 ) {
-    var background,
-        inventory,
-        verbs,
-        container,
+    var _,
+        _verbs,
+        _inventory,
 
         preload = function (options) {
-
-            background = new Background();
-            verbs      = Verbs.init(options.verbs);
-            inventory  = new Inventory(options.startingInventory);
+            _           = new Panel(options);
+            _verbs      = Verbs.init(options.verbs);
+            _inventory  = new Inventory(options.startingInventory);
         },
 
-        get = function () {
-            if (typeof container !== 'undefined') {
-                return container;
-            }
-            var i;
-            container = new createjs.Container();
-            container.name = 'container.panel';
-
-            container.addChild(
-                background,
-                inventory
-            );
-            for (i in verbs) {
-                container.addChild(verbs[i]);
-            }
-            return container;
-		},
+        get = function (key) {
+            return _;
+        },
 
         addToInventory = function (object) {
-            inventory.add('object.' + object);
+            _inventory.add(object);
         },
 
         removeFromInventory = function (object) {
-            inventory.remove(object);
+            _inventory.remove(object);
         },
 
         isInInventory = function (object) {
-            return inventory.has(object);
+            return _inventory.has(object);
         },
 
         getVerbs = function () {
-            return verbs;
+            return _verbs;
         },
 
         getInventory = function () {
-            return inventory;
-        };
+            return _inventory;
+        },
+
+        renderForVerbsAndInventory = function () {
+            _.renderForVerbsAndInventory(_verbs, _inventory);
+        },
+
+        renderForDialog = function () {
+            _.renderForDialog();
+        },
+
+        addDialogs = function (dialogs) {
+            _.addDialogs(dialogs);
+        }
 
     return {
-        'preload'     : preload,
-        'get'         : get,
-        'addToInventory' : addToInventory,
-        'removeFromInventory' : removeFromInventory,
-        'isInInventory'  : isInInventory,
-        'getInventory' : getInventory,
-        'getVerbs'     : getVerbs
+        'preload'                    : preload,
+        'get'                        : get,
+        'addToInventory'             : addToInventory,
+        'removeFromInventory'        : removeFromInventory,
+        'isInInventory'              : isInInventory,
+        'getInventory'               : getInventory,
+        'getVerbs'                   : getVerbs,
+        'renderForVerbsAndInventory' : renderForVerbsAndInventory,
+        'renderForDialog'            : renderForDialog,
+        'addDialogs'                 : addDialogs
     };
 });

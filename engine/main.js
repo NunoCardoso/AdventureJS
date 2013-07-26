@@ -17,7 +17,7 @@ define([
             game.init();
             game.load(compass);
             game.start({
-                scene: 'menu'
+                scene: 'scene.menu'
             });
         });
     }(jQuery));

@@ -4,9 +4,7 @@
  * This is the pane's Verb class
  */
 define([
-    'engine/interaction/action',
 ], function (
-    action
 ) {
     var Verb = function (options) {
         this.initialize(options);
@@ -61,7 +59,7 @@ define([
             var mouseClick = this.hitTest(coords.x, coords.y);
             if (mouseClick) {
                 createjs.Sound.play('sound.fall');
-                action.clickVerb(this);
+                require('engine/interaction/action').clickVerb(this);
                 return true;
             }
             return false;
@@ -74,14 +72,14 @@ define([
                 this.isMouseOver = mouseOver;
                 this.text.alpha = 1;
                 this.background.alpha = 0.3;
-                return action.mouseOverVerb(this);
+                return require('engine/interaction/action').mouseOverVerb(this);
             }
 
             if (!mouseOver && this.isMouseOver) {
                 this.isMouseOver = mouseOver;
                 this.text.alpha = 0.7;
                 this.background.alpha = 0.15;
-                return action.mouseOutVerb(this);
+                return require('engine/interaction/action').mouseOutVerb(this);
             }
         };
     };

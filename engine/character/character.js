@@ -25,14 +25,12 @@ define([
     p.initialize = function (options) {
         this.Character_initialize();
 
-        this.name = 'character.' + options.id;
+        this.name  = options.id;
         this.label = undefined;
 
         this.character = new createjs.BitmapAnimation();
         this.character.spriteSheet = new createjs.SpriteSheet({
-            images     : [
-                assets.getQueueLoaded().getResult(options.images)
-            ],
+            images     : [assets.getQueueLoaded().getResult(options.images)],
             frames     : options.frames,
             animations : options.animations
         });
@@ -294,16 +292,16 @@ define([
                 var mouseOver = this.hitTest(coords.x, coords.y);
                 if (mouseOver && !this.isMouseOver) {
                     this.isMouseOver = mouseOver;
-                    return action.mouseOverNpc({target: this});
+                    return action.mouseOverNpc(this);
                 }
                 if (!mouseOver && this.isMouseOver) {
                     this.isMouseOver = mouseOver;
-                    return action.mouseOutNpc({target: this});
+                    return action.mouseOutNpc(this);
                 }
             }
         };
 
-        this.testClick = function (scene, x, y) {
+        this.testClick = function (x, y, scene) {
             if (!this.isPlayable) {
                 var coords = this.globalToLocal(x, y);
                 var mouseClick = this.hitTest(coords.x, coords.y);
@@ -351,22 +349,24 @@ define([
             action.clickExit(exit);
             this.calculateTargetXY(event);
             this.setWhenFinished($.proxy(function () {
+                var proceed = true;
                 if (exit.hasCondition()) {
                     // TODO: check properly the condition, once inventory is ready.
                     var result = exit.testCondition();
-                    if (result) {
+                    proceed = result.conditionMet; // if conditionMet is false, it will prevent us from proceed.
+                    if (result && result.nowDo) {
                         action.reset();
-                        this._performResult(result);
+                        this._performResult(result.nowDo);
                     }
                 }
 
-                // I have to require this, as the game stage requires the playable character
-                // to update its position. This is a lazy load.
-                require('engine/stage/main').getInstance().switchScene(
-                    'scene.' + exit.from,
-                    'scene.' + exit.to,
-                    exit.characterPosition
-                );
+                if (proceed) {
+                    require('engine/stage/main').getInstance().switchScene(
+                        exit.from,
+                        exit.to,
+                        exit.pc_xy
+                    );
+                }
             }, this));
         };
 

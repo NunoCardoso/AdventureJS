@@ -53,7 +53,7 @@ define([
 
         this.remove = function (object) {
             var i,
-                o = this.getChildByName('object.' + object);
+                o = this.getChildByName(object);
             this.removeChild(o);
 
             // recalculate other positions;
@@ -84,12 +84,12 @@ define([
         };
 
         this.has = function (object) {
-            return (this.getChildByName('object.' + object) !== null);
+            return (this.getChildByName(object) !== null);
         };
 
         var i;
         for (i in options) {
-            this.add('object.' + options[i], i);
+            this.add(options[i], i);
         }
     };
     return Inventory;

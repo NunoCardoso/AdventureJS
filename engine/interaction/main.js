@@ -31,11 +31,11 @@ define([
             for (i = 0; i < _.length; i++) {
 
                 // check if verbs match
-                if (_[i].verb === verb.text) {
+                if (_[i].verb === verb.text.text) {
 
                     // check if objects match.
                     // objects name are in a format like 'type'.'item', so that should be easy
-                    firstname = _[i].first.type + '.' + _[i].first.item;
+                    firstname = _[i].first.item;
                     if (first.name === firstname) {
 
                         // if there is no second name, it is a match.
@@ -45,7 +45,7 @@ define([
 
                         if (typeof second !== 'undefined') {
                             // if there is a second name, test it.
-                            secondname = _[i].second.type + '.' + _[i].second.item;
+                            secondname = _[i].second.item;
                             if (second.name === secondname) {
                                 found.push(_[i]);
                             }
@@ -54,7 +54,7 @@ define([
                         // maybe firstname matches second object, and secondname matches first object.
                         // test only if we have a valid second object
                         if (typeof second !== 'undefined') {
-                            secondname = _[i].second.type + '.' + _[i].second.item;
+                            secondname = _[i].second.item;
                             if ((first.name === secondname) && firstname === second.name) {
                                 found.push(_[i]);
                             }

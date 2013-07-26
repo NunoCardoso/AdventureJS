@@ -12,6 +12,14 @@ define([
         _stage,
         _xy,
 
+        changeTo = function (what) {
+            _.changeTo(what);
+        },
+
+        reset = function () {
+            _.reset();
+        },
+
         preload = function () {
             _ = new Cursor();
         },
@@ -46,17 +54,19 @@ define([
 
         update = function (xy) {
             _xy = xy;
-            _.update(_stage, _xy);
+            _.update(_stage, _xy, 'hover');
         },
 
         // if it is from keyboard, xy is undefined, use latest.
         // if from the mouse, xy is defined;
         click = function (xy) {
             _xy = xy || _xy;
-            _.click(_stage, _xy);
+            _.update(_stage, _xy, 'click');
         };
 
     return {
+        'changeTo': changeTo,
+        'reset'   : reset,
         'preload' : preload,
         'get'     : get,
         'update'  : update,

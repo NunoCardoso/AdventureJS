@@ -55,13 +55,9 @@ define([
             },
 
             render = function (_scene) {
-                var scene = gamescene.get('scene.' + _scene);
+                var scene = gamescene.get(_scene);
                 scene.render({
-                    'pc'       : gamecharacter.getPc(),
-                    'npcs'     : gamecharacter.getNpcs(),
-                    'panel'    : gamepanel.get(),
-                    'sentence'              : gamesentence.get(),
-                    'characterPosition'     : {x : 200, y : 230}
+                    'pc_xy'    : {x : 200, y : 380}
                 });
 
                 gamescene.add(scene);
@@ -85,7 +81,7 @@ define([
                 gamepanel.preload(game.panel);
                 gamescene.preload(game.scenes);
                 if (!options.scene) {
-                    options.scene = 'menu';
+                    options.scene = 'scene.menu';
                 }
                 render(options.scene);
             },

@@ -19,7 +19,7 @@ define([
             for (i = 0; i < _games.length; i++) {
                 _games[i] = {
                     'slot'  : i,
-                    'image' : assets.getQueueLoaded().getResult('savegameNoImage01').src,
+                    'image' : assets.getQueueLoaded().getResult('image.savegame.noimage').src,
                     'date'  : undefined,
                     'json'  : ''
                 };

@@ -38,7 +38,7 @@ define([
             if (!selectedVerb) {
                 return defaultText;
             }
-            t = selectedVerb.text;
+            t = selectedVerb.text.text;
             if (!selectedObject) {
                 return t;
             }
@@ -74,7 +74,7 @@ define([
         },
 
         _displayObject = function (object) {
-            var t = (selectedVerb ? selectedVerb.text : defaultText);
+            var t = (selectedVerb ? selectedVerb.text.text : defaultText);
             if (!selectedObject) {
                 t += ' ' + object.label;
                 _pushText(t);
@@ -102,7 +102,7 @@ define([
 
         _setVerb = function (verb) {
             selectedVerb = verb;
-            _pushText(verb.text);
+            _pushText(verb.text.text);
         },
 
         _setExit = function (verb) {
@@ -127,8 +127,7 @@ define([
         },
 
         clickNpc = function (e) {
-            var result = _setObject(e);
-            return result;
+            return _setObject(e);
         },
 
         mouseOverObject = function (e) {
@@ -140,8 +139,7 @@ define([
         },
 
         clickObject = function (e) {
-            var result = _setObject(e);
-            return result;
+            return _setObject(e);
         },
 
         mouseOverVerb = function (e) {

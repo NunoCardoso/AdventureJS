@@ -4,10 +4,8 @@
  * This module is a game object class
  */
 define([
-    'engine/interaction/action',
     'engine/lib/assets'
 ], function (
-    action,
     assets
 ) {
     var GameObject = function (options) {
@@ -19,7 +17,7 @@ define([
     p.initialize = function (options) {
         this.GameObject_initialize();
 
-        this.name = 'object.' + options.id;
+        this.name  = options.id;
         this.label = options.label;
 
         this.x = options.x;
@@ -32,6 +30,7 @@ define([
         this.canBeOnStage     = options.canBeOnStage;
         this.canBeOnInventory = options.canBeOnInventory;
         this.canBePickedUp    = options.canBePickedUp;
+
         this.renderedAs  = undefined;
         this.isMouseOver = false;
 
@@ -124,12 +123,12 @@ define([
             if (mouseOver && !this.isMouseOver) {
                 this.isMouseOver = mouseOver;
                 this.background.alpha = 0.3;
-                return action.mouseOverObject(this);
+                return require('engine/interaction/action').mouseOverObject(this);
             }
             if (!mouseOver && this.isMouseOver) {
                 this.isMouseOver = mouseOver;
                 this.background.alpha = 0.15;
-                return action.mouseOutObject(this);
+                return require('engine/interaction/action').mouseOutObject(this);
             }
         };
     };

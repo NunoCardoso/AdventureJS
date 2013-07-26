@@ -4,20 +4,26 @@
  * This module is a game Scene class
  */
 define([
+    'engine/character/main',
     'engine/config',
     'engine/lib/assets',
     'engine/object/main',
+    'engine/panel/main',
     'engine/scene/background',
     'engine/scene/exit',
     'engine/scene/menubutton',
+    'engine/sentence/main',
     'engine/cursor/main'
 ], function (
+    gamecharacter,
     assets,
     config,
     gameobject,
+    gamepanel,
     Background,
     Exit,
     MenuButton,
+    sentence,
     gamecursor
 ) {
     var GameScene = function (options) {
@@ -30,30 +36,28 @@ define([
         this.GameScene_initialize();
 
 
-        this.name = 'scene.' + scene.id;
+        this.name = scene.id;
 
         this.description  = scene.description;
         this.interactable = scene.interactable;
 
         // signaling a scene with playable character, not a menu scene
         this.playable     = true;
-
         this.ending       = scene.ending;
         this.pc           = scene.pc;
         this.npcs         = scene.npcs;
         this.background   = null;
-
         this.objects      = {};
+        this.exits        = scene.exits || [];
+
+        this.dynamic      = new createjs.Container();
+        this.static       = new createjs.Container();
+        this.menu         = new createjs.Container();
 
         var i;
         for (i in scene.objects) {
-            this.objects['object.' + scene.objects[i].id] = scene.objects[i];
+            this.objects[scene.objects[i].id] = scene.objects[i];
         }
-
-        this.exits        = scene.exits || [];
-
-        this.dynamic = new createjs.Container();
-        this.static  = new createjs.Container();
 
         if (scene.background) {
             this.background = new Background({
@@ -78,7 +82,7 @@ define([
             }
             if (index >= 0) {
                 this.objects.splice(index, 1);
-                var o = this.dynamic.getChildByName('object.' + object);
+                var o = this.dynamic.getChildByName(object);
                 if (o) {
                     this.dynamic.removeChild(o);
                 }
@@ -87,16 +91,13 @@ define([
 
         this.renderDynamic = function (options) {
 
-            // clean previous renderings
-            this.removeAllChildren();
             this.dynamic.removeAllChildren();
-
-            var objectContainer = new createjs.Container();
+            var key, o, e, objectContainer = new createjs.Container();
             objectContainer.name = 'container.objects';
 
+            // background
             if (this.background) {
                 if (options.pc) {
-
                     // let background dictate the w and h. Needed to scroll the dynamic container
                     this.dynamic.w = this.background.w;
                     this.dynamic.h = this.background.h;
@@ -104,22 +105,22 @@ define([
                 this.dynamic.addChild(this.background);
             }
 
-            var key, o, e;
-
+            // objects
             for (key in this.objects) {
-                o = gameobject.get('object.' + this.objects[key].id);
+                o = gameobject.get(this.objects[key].id);
                 o.renderAs('stage', this.objects[key]);
                 objectContainer.addChild(o);
             }
-
             this.dynamic.addChild(objectContainer);
 
+            // exits
             for (i = 0; i < this.exits.length; i++) {
                 this.exits[i].from = scene.id;
                 e = new Exit(this.exits[i]);
                 this.dynamic.addChild(e);
             }
 
+            // npcs
             if (scene.npcs) {
                 for (i = 0; i < scene.npcs.length; i++) {
                     var _id = scene.npcs[i].id;
@@ -156,9 +157,9 @@ define([
                 options.pc.stand();
 
                 // character is exiting from a scene, add custom x and y
-                if (options.characterPosition) {
-                    options.pc.setX(options.characterPosition.x);
-                    options.pc.setY(options.characterPosition.y);
+                if (options.pc_xy) {
+                    options.pc.setX(options.pc_xy.x);
+                    options.pc.setY(options.pc_xy.y);
                 } else {
                 // character is starting on a scene, get default x and y
                     options.pc.setX(this.pc.position.x);
@@ -167,28 +168,42 @@ define([
                 this.static.addChild(options.pc);
             }
 
-            if (this.isPlayable()) {
-                var MenuButton = require('engine/scene/menubutton');
-                this.static.addChild(new MenuButton({from: this.name}));
-            }
             this.addChild(this.static);
         };
 
-        this.render = function (options) {
-            this.renderDynamic({
-                'pc'   : options.pc,
-                'npcs' : options.npcs
-            });
-
-            this.renderStatic({
-                'panel'    : options.panel,
-                'sentence' : options.sentence,
-                'pc'       : options.pc,
-                'characterPosition'     : options.characterPosition
-            });
-
+        this.renderMenu = function (options) {
+            if (this.isPlayable()) {
+                var MenuButton = require('engine/scene/menubutton');
+                this.menu.addChild(new MenuButton({from: this.name}));
+            }
             // add the custom cursor
-            this.addChild(gamecursor.get());
+            this.menu.addChild(gamecursor.reset().get());
+            this.addChild(this.menu);
+        };
+
+        this.render = function (options) {
+
+            this.removeAllChildren();
+
+            this.renderDynamic({
+                'pc'   : gamecharacter.getPc(),
+                'npcs' : gamecharacter.getNpcs()
+            });
+
+            gamepanel.renderForVerbsAndInventory();
+            this.renderStatic({
+                'panel'    : gamepanel.get(),
+                'sentence' : sentence.get(),
+                'pc'       : gamecharacter.getPc(),
+                'pc_xy'    : options.pc_xy
+            });
+
+            this.renderMenu();
+        };
+
+        this.getMenuButton = function () {
+            // have to return as an array, testHit and testClick likes arrays
+            return [this.menu.children[0]];
         };
 
         this.getDynamicSceneChildrens = function () {
