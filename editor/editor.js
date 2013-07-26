@@ -15,7 +15,8 @@ define([
     'text!editor/tpl/dialog.template',
     'text!editor/tpl/interactions.template',
     'text!editor/tpl/interaction.template',
-    'text!editor/tpl/characters.template'
+    'text!editor/tpl/characters.template',
+    'text!editor/tpl/achievements.template'
 ], function (
     editor,
     tabgame,
@@ -28,7 +29,8 @@ define([
     tabdialog,
     tabinteractions,
     tabinteraction,
-    tabcharacters
+    tabcharacters,
+    tabachievements
 ) {
     var _ = function (game) {
 
@@ -45,7 +47,7 @@ define([
             Handlebars.registerPartial('tab-interactions', tabinteractions);
             Handlebars.registerPartial('tab-interaction', tabinteraction);
             Handlebars.registerPartial('tab-characters', tabcharacters);
-
+            Handlebars.registerPartial('tab-achievements', tabachievements);
             /**
              * This is an Handlebar extension for a fancy if comparison
              */

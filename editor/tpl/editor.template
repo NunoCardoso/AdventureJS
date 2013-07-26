@@ -7,6 +7,7 @@
     <li><a href="#tab-dialogs">Dialogs</a></li>
     <li><a href="#tab-interactions">Interactions</a></li>
     <li><a href="#tab-scenes">Scenes</a></li>
+    <li><a href="#tab-achievements">Achievements</a></li>
   </ul>
   <div id="tab-game">{{>tab-game}}</div>
   <div id="tab-assets">{{>tab-assets}}</div>
@@ -15,4 +16,5 @@
   <div id="tab-dialogs">{{>tab-dialogs}}</div>
   <div id="tab-interactions">{{>tab-interactions}}</div>
   <div id="tab-scenes">{{>tab-scenes}}</div>
+  <div id="tab-achievements">{{>tab-achievements}}</div>
 </div>

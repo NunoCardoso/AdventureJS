@@ -1,0 +1,17 @@
+<label for="achievements.table">Achievements table</label>
+<table class="tablesorter" id="achievements.table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>title</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#achievements}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{title}}</td>
+            </tr>
+        {{/achievements}}
+    </tbody>
+</table>
