@@ -29,7 +29,11 @@ define([
 
         _onTick = function (event) {
             if (!event.paused) {
-                gamecharacter.update(stage.getCurrentScene());
+                stage.getCurrentScene().getPc().update();
+                var i, npcs = stage.getCurrentScene().getNpcs();
+                for (i in npcs) {
+                    npcs[i].update();
+                }
                 stage.update(event);
             }
         },

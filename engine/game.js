@@ -10,6 +10,7 @@ define([
     'engine/config',
     'engine/cursor/main',
     'engine/dialog/main',
+    'engine/dialogoption/main',
     'engine/interaction/main',
     'engine/lib/keyboard',
     'engine/menu/main',
@@ -27,6 +28,7 @@ define([
     config,
     gamecursor,
     gamedialog,
+    gamedialogoption,
     gameinteraction,
     keyboard,
     gamemenu,
@@ -79,6 +81,7 @@ define([
                 gameobject.preload(game.objects);
                 gameinteraction.preload(game.interactions);
                 gamedialog.preload(game.dialogs);
+                gamedialogoption.preload(game.dialogoptions);
                 gamecondition.preload(game.conditions);
                 gamepanel.preload(game.panel);
                 gameachievement.preload(game.achievements);
@@ -115,5 +118,18 @@ define([
             'start' : start
         };
     };
+
+    // tweak String prototype
+    if (typeof String.prototype.startsWith !== 'function') {
+        String.prototype.startsWith = function (str) {
+            return this.slice(0, str.length) === str;
+        };
+    }
+    if (typeof String.prototype.endsWith !== 'function') {
+        String.prototype.endsWith = function (str) {
+            return this.slice(-str.length) === str;
+        };
+    }
+
     return Game;
 });

@@ -5,14 +5,16 @@
  */
 define([
     'engine/achievement/main',
+    'engine/config',
     'engine/dialog/dialog',
-    'engine/dialog/options',
+    'engine/dialogoption/main',
     'engine/panel/main',
     'engine/sentence/main'
 ], function (
     gameachievement,
+    config,
     GameDialog,
-    gamedialogoptions,
+    gamedialogoption,
     gamepanel,
     gamesentence
 ) {
@@ -22,7 +24,7 @@ define([
 
         preload = function (dialogs) {
             var i;
-            for (i = 0; i < dialogs.length; i++) {
+            for (i in dialogs) {
                 _[dialogs[i].id] = new GameDialog(dialogs[i]);
             }
         },
@@ -41,18 +43,44 @@ define([
             gamepanel.renderForVerbsAndInventory();
         },
 
-        _addDialogOptionsToPanel = function (options) {
+        params = config.get('dialogoption.params'),
+
+        _calculateDialogOptionPosition = function (i) {
+            return {
+                'x' : params.initialX,
+                'y' : params.initialY + i * params.incrementY
+            };
+        },
+
+        _addDialogOptionsToPanel = function (dialogOptions) {
             var i,
-                _do = gamedialogoptions.init(options),
-                _doc = new createjs.Container();
+                _do = gamedialogoption.get(dialogOptions),
+                _doc = new createjs.Container(),
+                position,
+                order = 0;
 
             for (i in _do) {
-                _doc.addChild(_do[i]);
+                // add only dialogs that are still valid to use
+                if (_do[i].timesToUse > 0) {
+                    position = _calculateDialogOptionPosition(order);
+                    _do[i].x = position.x;
+                    _do[i].y = position.y;
+                    _doc.addChild(_do[i]);
+                    order++;
+                }
             }
-            _dialogOptions = _do; // save it temporarily
             gamepanel.addDialogs(_doc);
         },
 
+        _getCharacter = function (character) {
+            var who;
+            if (character.startsWith('pc.')) {
+                who = require('engine/character/main').getPc();
+            } else if (character.startsWith('npc.')) {
+                who = require('engine/character/main').getNpc(character);
+            }
+            return who;
+        },
 
         _onTalkEnded = function (options) {
             var i, act;
@@ -60,11 +88,7 @@ define([
                 act = options.onEnd[i];
                 switch (act.action) {
                 case 'displayDialogOptions':
-                    _addDialogOptionsToPanel({
-                        'dialogOptions' : act.dialogOptions,
-                        'pc'            : options.pc,
-                        'npc'           : options.npc
-                    });
+                    _addDialogOptionsToPanel(act.dialogOptions);
                     break;
                 case 'addToInventory':
                     gamepanel.addToInventory(act.object);
@@ -73,6 +97,11 @@ define([
                     break;
                 case 'publishAchievement':
                     gameachievement.publish(act.achievement);
+                    break;
+                case 'fadeToLeft':
+                    var who = _getCharacter(act.character);
+                    who.setTargetXY({x: -100, y: who.y});
+                    _setPanelToDefault();
                     break;
                 default:
                     console.log(act.action + ' not implemented!');
@@ -91,22 +120,19 @@ define([
                 return;
             }
             var line = options.lines.shift();
-            if (options.pc.name === line.character) {
-                options.pc.say(line.text, $.proxy(function () {
-                    _talk(options);
-                }, this));
-            } else if (options.npc.name === line.character) {
-                options.npc.say(line.text, $.proxy(function () {
-                    _talk(options);
-                }, this));
-            }
+            var who = _getCharacter(line.character);
+            who.say(line.text, $.proxy(function () {
+                _talk(options);
+            }, this));
         },
 
         perform = function (options) {
             _setPanelToDialog();
+            var pc  = require('engine/character/main').getPc();
+            var npc = _getCharacter(options.to);
             // make both characters do eye contact
-            options.pc.faceTo(options.npc);
-            options.npc.faceTo(options.pc);
+            pc.faceTo(npc);
+            npc.faceTo(pc);
             _talk(options);
         };
 

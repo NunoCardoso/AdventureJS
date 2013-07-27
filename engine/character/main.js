@@ -41,6 +41,10 @@ define([
             return _pc;
         },
 
+        getNpc = function (npc) {
+            return _npcs[npc];
+        },
+
         getNpcs = function () {
             return _npcs;
         },
@@ -55,6 +59,7 @@ define([
         'init'    : init,
         'preload' : preload,
         'getPc'   : getPc,
+        'getNpc'  : getNpc,
         'getNpcs' : getNpcs,
         'update'  : update
     };

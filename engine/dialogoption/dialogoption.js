@@ -42,10 +42,10 @@ define([
             this.text
         );
 
-        this.pc    = options.pc;
-        this.npc   = options.npc;
         // the dialog to trigger on click;
         this.dialog = options.dialog;
+        this.timesToUse = options.timesToUse;
+
         this.isMouseOver = false;
 
         // hovering on text sucks. Let's add a flat hit area!
@@ -56,10 +56,12 @@ define([
                 var gamedialog = require('engine/dialog/main'),
                     dialog = gamedialog.get(this.dialog);
 
+                // mark as used once
+                this.timesToUse--;
+
                 gamedialog.perform({
-                    lines : dialog.lines.slice(0),
-                    pc    : this.pc,
-                    npc   : this.npc,
+                    lines : dialog.lines.slice(0), // clone lines, do not ruin them
+                    to    : dialog.to,
                     onEnd : dialog.onEnd
                 });
                 return true;

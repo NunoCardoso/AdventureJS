@@ -380,6 +380,7 @@ define([
         'dialogs' : [
             {
                 'id' : 'dialog.01',
+                'to' : 'npc.pirate01',
                 'lines' : [
                     {
                         'character' : 'pc.guybrush',
@@ -393,25 +394,13 @@ define([
                 'onEnd' : [
                     {
                         'action' : 'displayDialogOptions',
-                        'dialogOptions' : [
-                            {
-                                'text' : 'Do you have a compass?',
-                                'dialog' : 'dialog.02'
-                            },
-                            {
-                                'text' : 'You wouldn\'t have a corkscrew I can borrow?',
-                                'dialog' : 'dialog.03'
-                            },
-                            {
-                                'text' : 'Bye.',
-                                'dialog' : 'dialog.04'
-                            }
-                        ]
+                        'dialogOptions' : 'dialogoption.01'
                     }
                 ]
             },
             {
                 'id' : 'dialog.02',
+                'to' : 'npc.pirate01',
                 'lines' : [
                     {
                         'character' : 'pc.guybrush',
@@ -433,6 +422,7 @@ define([
             },
             {
                 'id' : 'dialog.03',
+                'to' : 'npc.pirate01',
                 'lines' : [
                     {
                         'character' : 'pc.guybrush',
@@ -456,6 +446,27 @@ define([
             },
             {
                 'id' : 'dialog.04',
+                'to' : 'npc.pirate01',
+                'lines' : [
+                    {
+                        'character' : 'pc.guybrush',
+                        'text' : 'Please go.'
+                    },
+                    {
+                        'character' : 'npc.pirate01',
+                        'text' : 'Ok. Bye.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'fadeToLeft',
+                        'character' : 'npc.pirate01'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.05',
+                'to' : 'npc.pirate01',
                 'lines' : [
                     {
                         'character' : 'pc.guybrush',
@@ -464,6 +475,33 @@ define([
                     {
                         'character' : 'npc.pirate01',
                         'text' : 'Not much of a talker, eh?'
+                    }
+                ]
+            }
+        ],
+        'dialogoptions' : [
+            {
+                'id' : 'dialogoption.01',
+                'choices' : [
+                    {
+                        'text' : 'Do you have a compass?',
+                        'dialog' : 'dialog.02',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text' : 'You wouldn\'t have a corkscrew I can borrow?',
+                        'dialog' : 'dialog.03',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text' : 'Plase go.',
+                        'dialog' : 'dialog.04',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text' : 'Bye.',
+                        'dialog' : 'dialog.05',
+                        'persistence' : 'always'
                     }
                 ]
             }

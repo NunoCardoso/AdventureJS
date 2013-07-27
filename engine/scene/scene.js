@@ -46,13 +46,16 @@ define([
         this.ending       = scene.ending;
         this.pc           = scene.pc;
         this.npcs         = scene.npcs;
-        this.background   = null;
+        this.background   = undefined;
         this.objects      = {};
         this.exits        = scene.exits || [];
 
         this.dynamic      = new createjs.Container();
         this.static       = new createjs.Container();
         this.menu         = new createjs.Container();
+
+        this.scenePc     = undefined;
+        this.sceneNpcs   = undefined;
 
         var i;
         for (i in scene.objects) {
@@ -106,6 +109,7 @@ define([
             }
 
             // objects
+            this.sceneObjects = [];
             for (key in this.objects) {
                 o = gameobject.get(this.objects[key].id);
                 o.renderAs('stage', this.objects[key]);
@@ -121,6 +125,7 @@ define([
             }
 
             // npcs
+            this.sceneNpcs = [];
             if (scene.npcs) {
                 for (i = 0; i < scene.npcs.length; i++) {
                     var _id = scene.npcs[i].id;
@@ -128,6 +133,7 @@ define([
                     options.npcs[_id].setX(scene.npcs[i].position.x);
                     options.npcs[_id].setY(scene.npcs[i].position.y);
                     this.dynamic.addChild(options.npcs[_id]);
+                    this.sceneNpcs.push(options.npcs[_id]);
                 }
             }
 
@@ -148,6 +154,7 @@ define([
                 this.static.addChild(options.sentence);
             }
 
+            this.scenePc = undefined;
             if (options.pc) {
 
                 // playable character in new scene - reset clickedXY.
@@ -166,6 +173,7 @@ define([
                     options.pc.setY(this.pc.position.y);
                 }
                 this.static.addChild(options.pc);
+                this.scenePc = options.pc;
             }
 
             this.addChild(this.static);
@@ -218,12 +226,12 @@ define([
             return undefined;
         };
 
-        // really ugly
         this.getPc = function () {
-            if (this.static.children) {
-                return this.static.children[2];
-            }
-            return undefined;
+            return this.scenePc;
+        };
+
+        this.getNpcs = function () {
+            return this.sceneNpcs;
         };
 
         this.getState = function () {

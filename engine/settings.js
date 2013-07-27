@@ -77,6 +77,7 @@ define([
                 'id'     : 'npc.pirate01',
                 'images' : 'image.pirate',
                 'textColor' : 'red',
+                'speed'  : 2,
                 'frames' : {
                     'regX'   : 52,
                     'height' : 150,
