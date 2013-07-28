@@ -46,15 +46,24 @@ define([
          * asks gamemenu to render and display
          */
 
-        var game,
-            assetList,
+        var _game,
+            _user,
+            _assetList,
 
-            load = function (_game) {
-                game = _game;
+            setUser = function (user) {
+                _user = user;
+            },
+
+            getUser = function () {
+                return _user;
+            },
+
+            load = function (game) {
+                _game = game;
             },
 
             init = function () {
-                assetList = settings.images.concat(settings.sounds);
+                _assetList = settings.images.concat(settings.sounds);
                 gamecharacter.init(settings.characters);
             },
 
@@ -76,16 +85,16 @@ define([
 
             onAssetsLoaded = function (options) {
                 gamecursor.preload();
-                gamemenu.preload(game.main);
-                gamecharacter.preload(game.pc, game.npcs);
-                gameobject.preload(game.objects);
-                gameinteraction.preload(game.interactions);
-                gamedialog.preload(game.dialogs);
-                gamedialogoption.preload(game.dialogoptions);
-                gamecondition.preload(game.conditions);
-                gamepanel.preload(game.panel);
-                gameachievement.preload(game.achievements);
-                gamescene.preload(game.scenes);
+                gamemenu.preload(_game.main);
+                gamecharacter.preload(_game.pc, _game.npcs);
+                gameobject.preload(_game.objects);
+                gameinteraction.preload(_game.interactions);
+                gamedialog.preload(_game.dialogs);
+                gamedialogoption.preload(_game.dialogoptions);
+                gamecondition.preload(_game.conditions);
+                gamepanel.preload(_game.panel);
+                gameachievement.preload(_game.achievements);
+                gamescene.preload(_game.scenes);
                 if (!options.scene) {
                     options.scene = 'scene.menu';
                 }
@@ -98,7 +107,7 @@ define([
              * rendering the main menu
              */
             start = function (options) {
-                var gameAssetList = game.images.concat(game.sounds);
+                var gameAssetList = _game.images.concat(_game.sounds);
 
                 gamestage.preload();
                 config.setCanvasXY({
@@ -106,16 +115,18 @@ define([
                     y : $("#canvas").height()
                 });
                 gamestart.init({
-                    'assetList'      : assetList.concat(gameAssetList),
+                    'assetList'      : _assetList.concat(gameAssetList),
                     'onAssetsLoaded' : onAssetsLoaded,
                     'onAssetsLoadedOptions' : options
                 });
             };
 
         return {
-            'init'  : init,
-            'load'  : load,
-            'start' : start
+            'init'    : init,
+            'load'    : load,
+            'start'   : start,
+            'setUser' : setUser,
+            'getUser' : getUser
         };
     };
 

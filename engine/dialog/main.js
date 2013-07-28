@@ -43,35 +43,6 @@ define([
             gamepanel.renderForVerbsAndInventory();
         },
 
-        params = config.get('dialogoption.params'),
-
-        _calculateDialogOptionPosition = function (i) {
-            return {
-                'x' : params.initialX,
-                'y' : params.initialY + i * params.incrementY
-            };
-        },
-
-        _addDialogOptionsToPanel = function (dialogOptions) {
-            var i,
-                _do = gamedialogoption.get(dialogOptions),
-                _doc = new createjs.Container(),
-                position,
-                order = 0;
-
-            for (i in _do) {
-                // add only dialogs that are still valid to use
-                if (_do[i].timesToUse > 0) {
-                    position = _calculateDialogOptionPosition(order);
-                    _do[i].x = position.x;
-                    _do[i].y = position.y;
-                    _doc.addChild(_do[i]);
-                    order++;
-                }
-            }
-            gamepanel.addDialogs(_doc);
-        },
-
         _getCharacter = function (character) {
             var who;
             if (character.startsWith('pc.')) {
@@ -88,7 +59,7 @@ define([
                 act = options.onEnd[i];
                 switch (act.action) {
                 case 'displayDialogOptions':
-                    _addDialogOptionsToPanel(act.dialogOptions);
+                    gamedialogoption.addToPanel(act.dialogOptions);
                     break;
                 case 'addToInventory':
                     gamepanel.addToInventory(act.object);

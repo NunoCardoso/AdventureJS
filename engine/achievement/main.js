@@ -20,7 +20,8 @@ define([
         },
 
         publish = function (achievement) {
-            _[achievement].publish();
+            var user = require('engine/game/game').getUser();
+            _[achievement].publish(user);
         };
 
     return {

@@ -15,6 +15,7 @@ define([
         $(function () {
             var game = new Game();
             game.init();
+            game.setUser(user);
             game.load(compass);
             game.start({
                 scene: 'scene.menu'
