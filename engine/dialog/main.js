@@ -56,12 +56,11 @@ define([
                 switch (act.action) {
                 case 'displayDialogOptions':
                     gamepanel.addDialogOptions(act.dialogOptions);
+                    _dialogOptions = act.dialogOptions;
                     gamepanel.renderForDialog();
                     break;
                 case 'addToInventory':
                     gamepanel.addToInventory(act.object);
-                    require('engine/interaction/action').reset();
-                    gamepanel.renderForVerbsAndInventory();
                     break;
                 case 'publishAchievement':
                     gameachievement.publish(act.achievement);
@@ -69,7 +68,10 @@ define([
                 case 'fadeToLeft':
                     var who = _getCharacter(act.character);
                     who.setTargetXY({x: -100, y: who.y});
+                    break;
+                case 'endDialog':
                     require('engine/interaction/action').reset();
+                     _dialogOptions = undefined;
                     gamepanel.renderForVerbsAndInventory();
                     break;
                 default:
@@ -84,8 +86,8 @@ define([
                 if (typeof options.onEnd !== 'undefined') {
                     _onTalkEnded(options);
                 } else {
-                    require('engine/interaction/action').reset();
-                    gamepanel.renderForVerbsAndInventory();
+                    gamepanel.addDialogOptions(_dialogOptions);
+                    gamepanel.renderForDialog();
                 }
                 return;
             }

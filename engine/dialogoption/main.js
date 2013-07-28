@@ -25,7 +25,6 @@ define([
             }
         },
 
-
         preload = function (options) {
             var i, id, choices, processedChoices;
             for (i in options) {
@@ -40,7 +39,8 @@ define([
                         id     : 'dialogoption.' + i,
                         text   : choices[i].text,
                         dialog : choices[i].dialog,
-                        timesToUse : timesToUse
+                        timesToUse : timesToUse,
+                        position : i
                     });
                 }
                 _[id] = processedChoices;

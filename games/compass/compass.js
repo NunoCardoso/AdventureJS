@@ -519,6 +519,10 @@ define([
                     {
                         'action' : 'publishAchievement',
                         'achievement' : 'achievement.01'
+                    },
+                    {
+                        'action' : 'endDialog',
+                        'character' : 'npc.pirate01'
                     }
                 ]
             },
@@ -538,6 +542,10 @@ define([
                 'onEnd' : [
                     {
                         'action' : 'fadeToLeft',
+                        'character' : 'npc.pirate01'
+                    },
+                    {
+                        'action' : 'endDialog',
                         'character' : 'npc.pirate01'
                     }
                 ]
@@ -581,6 +589,12 @@ define([
                     {
                         'character' : 'npc.pirate01',
                         'text' : 'Not much of a talker, eh?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'endDialog',
+                        'character' : 'npc.pirate01'
                     }
                 ]
             }

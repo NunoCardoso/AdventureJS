@@ -21,6 +21,8 @@ define([
         this.x     = options.x;
         this.y     = options.y;
 
+        this.position = options.position;
+
         this.text = new createjs.Text();
         this.text.text  = options.text;
         this.text.font  = "24px the8bit";
