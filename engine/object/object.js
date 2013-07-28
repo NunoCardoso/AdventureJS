@@ -27,9 +27,7 @@ define([
 
         this.imageInInventory = assets.getQueueLoaded().getResult(options.imageInInventory);
         this.imageInStage     = assets.getQueueLoaded().getResult(options.imageInStage);
-        this.canBeOnStage     = options.canBeOnStage;
-        this.canBeOnInventory = options.canBeOnInventory;
-        this.canBePickedUp    = options.canBePickedUp;
+        this.onForeground     = options.onForeground || false;
 
         this.renderedAs  = undefined;
         this.isMouseOver = false;

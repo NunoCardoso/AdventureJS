@@ -215,19 +215,20 @@ define([
                 // now, let's see if scene should scroll
                 var sceneHasHiddenBackgroundOnRight = (
                     scene.background.mode !== 'fit' &&
-                    (scene.dynamic.x + scene.dynamic.w > config.get('game.w'))
+                    (scene.dynamicBack.x + scene.dynamicBack.w > config.get('game.w'))
                 );
 
                 var sceneHasHiddenBackgroundOnLeft = (
                     scene.background.mode !== 'fit' &&
-                    (scene.dynamic.x < 0)
+                    (scene.dynamicBack.x < 0)
                 );
 
                 var isCharacterOnLeftHalf = (this.x < (config.get('game.w') / 2));
                 var isCharacterOnRightHalf = (this.x >= (config.get('game.w') / 2));
 
                 if (sceneHasHiddenBackgroundOnLeft && isCharacterOnLeftHalf && this.character.attitude === 'walkleft') {
-                    scene.dynamic.x += this.speed;
+                    scene.dynamicBack.x += this.speed;
+                    scene.dynamicFore.x += this.speed;
                     // restore character into that position
                     this.setX(this.x + this.speed);
                     if (this.targetXY) {
@@ -237,7 +238,8 @@ define([
                 }
 
                 if (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && this.character.attitude === 'walkright') {
-                    scene.dynamic.x -= this.speed;
+                    scene.dynamicBack.x -= this.speed;
+                    scene.dynamicFore.x -= this.speed;
                     // restore character into that position
                     this.setX(this.x - this.speed);
                     if (this.targetXY) {

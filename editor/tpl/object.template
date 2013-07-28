@@ -9,20 +9,12 @@
     <img class="dynamic-image" data-src-id="{{imageInInventory}}" width="100" height="100">
 </div>
 
-<input id="object.{{id}}.canBeOnStage"{{#canBeOnStage}} CHECKED{{/canBeOnStage}} type="checkbox">
-<label for="scene.{{id}}.canBeOnStage">Can be on stage</label>
+<input id="object.{{id}}.onForeground"{{#onForeground}} CHECKED{{/onForeground}} type="checkbox">
+<label for="scene.{{id}}.onForeground">If on stage, render on foreground</label>
 <BR>
 
 <select id="object.{{id}}.imageInStage" size=1></select>
 <BR>
 
-<input id="object.{{id}}.canBeOnInventory"{{#canBeOnInventory}} CHECKED{{/canBeOnInventory}} type="checkbox">
-<label for="scene.{{id}}.canBeOnInventory">Can be on inventory</label>
-<BR>
-
 <select id="object.{{id}}.imageInInventory" size=1></select>
-<BR>
-
-<input id="object.{{id}}.canBePickedUp"{{#canBePickedUp}} CHECKED{{/canBePickedUp}} type="checkbox">
-<label for="scene.{{id}}.canBePickedUp">Can be picked up</label>
 <BR>

@@ -50,8 +50,9 @@ define([
         this.objects      = {};
         this.exits        = scene.exits || [];
 
-        this.dynamic      = new createjs.Container();
+        this.dynamicBack  = new createjs.Container();
         this.static       = new createjs.Container();
+        this.dynamicFore  = new createjs.Container();
         this.menu         = new createjs.Container();
 
         this.scenePc     = undefined;
@@ -85,27 +86,42 @@ define([
             }
             if (index >= 0) {
                 this.objects.splice(index, 1);
-                var o = this.dynamic.getChildByName(object);
-                if (o) {
-                    this.dynamic.removeChild(o);
+                var o;
+                if (this.objects.onForeground) {
+                    o = this.dynamicFore.getChildByName(object);
+                    if (o) {
+                        this.dynamicFore.removeChild(o);
+                    }
+                } else {
+                    o = this.dynamicBack.getChildByName(object);
+                    if (o) {
+                        this.dynamicBack.removeChild(o);
+                    }
                 }
             }
         };
 
         this.renderDynamic = function (options) {
 
-            this.dynamic.removeAllChildren();
-            var key, o, e, objectContainer = new createjs.Container();
-            objectContainer.name = 'container.objects';
+            this.dynamicBack.removeAllChildren();
+            this.dynamicFore.removeAllChildren();
+            var key, o, e,
+                objectContainerBack = new createjs.Container(),
+                objectContainerFore = new createjs.Container();
+
+            objectContainerBack.name = 'container.objects';
+            objectContainerFore.name = 'container.objects';
 
             // background
             if (this.background) {
                 if (options.pc) {
                     // let background dictate the w and h. Needed to scroll the dynamic container
-                    this.dynamic.w = this.background.w;
-                    this.dynamic.h = this.background.h;
+                    this.dynamicBack.w = this.background.w;
+                    this.dynamicBack.h = this.background.h;
+                    this.dynamicFore.w = this.background.w;
+                    this.dynamicFore.h = this.background.h;
                 }
-                this.dynamic.addChild(this.background);
+                this.dynamicBack.addChild(this.background);
             }
 
             // objects
@@ -113,15 +129,20 @@ define([
             for (key in this.objects) {
                 o = gameobject.get(this.objects[key].id);
                 o.renderAs('stage', this.objects[key]);
-                objectContainer.addChild(o);
+                if (o.onForeground) {
+                    objectContainerFore.addChild(o);
+                } else {
+                    objectContainerBack.addChild(o);
+                }
             }
-            this.dynamic.addChild(objectContainer);
+            this.dynamicBack.addChild(objectContainerBack);
+            this.dynamicFore.addChild(objectContainerFore);
 
             // exits
             for (i = 0; i < this.exits.length; i++) {
                 this.exits[i].from = scene.id;
                 e = new Exit(this.exits[i]);
-                this.dynamic.addChild(e);
+                this.dynamicBack.addChild(e);
             }
 
             // npcs
@@ -132,12 +153,10 @@ define([
                     // set the npc position according to what the scene says
                     options.npcs[_id].setX(scene.npcs[i].position.x);
                     options.npcs[_id].setY(scene.npcs[i].position.y);
-                    this.dynamic.addChild(options.npcs[_id]);
+                    this.dynamicBack.addChild(options.npcs[_id]);
                     this.sceneNpcs.push(options.npcs[_id]);
                 }
             }
-
-            this.addChild(this.dynamic);
         };
 
         this.renderStatic = function (options) {
@@ -175,8 +194,6 @@ define([
                 this.static.addChild(options.pc);
                 this.scenePc = options.pc;
             }
-
-            this.addChild(this.static);
         };
 
         this.renderMenu = function (options) {
@@ -187,7 +204,6 @@ define([
             // add the custom cursor
             gamecursor.reset();
             this.menu.addChild(gamecursor.get());
-            this.addChild(this.menu);
         };
 
         this.render = function (options) {
@@ -208,6 +224,12 @@ define([
             });
 
             this.renderMenu();
+
+            this.addChild(this.dynamicBack);
+            this.addChild(this.static);
+            this.addChild(this.dynamicFore);
+            this.addChild(this.menu);
+
         };
 
         this.getMenuButton = function () {
@@ -215,8 +237,12 @@ define([
             return [this.menu.children[0]];
         };
 
-        this.getDynamicSceneChildrens = function () {
-            return this.dynamic.children;
+        this.getDynamicBackSceneChildrens = function () {
+            return this.dynamicBack.children;
+        };
+
+        this.getDynamicForeSceneChildrens = function () {
+            return this.dynamicFore.children;
         };
 
         this.getPanel = function () {
@@ -237,23 +263,32 @@ define([
         this.getState = function () {
             var i, o,
                 objectStates = {},
-                objects = this.dynamic.getChildByName('container.objects');
+                objectsBack = this.dynamicBack.getChildByName('container.objects'),
+                objectsFore = this.dynamicFore.getChildByName('container.objects');
 
-            if (objects && objects.children) {
-                for (i in objects.children) {
-                    o = objects.children[i];
+            if (objectsBack && objectsBack.children) {
+                for (i in objectsBack.children) {
+                    o = objectsBack.children[i];
+                    objectStates[o.name] = o.getState();
+                }
+            }
+            if (objectsFore && objectsFore.children) {
+                for (i in objectsFore.children) {
+                    o = objectsFore.children[i];
                     objectStates[o.name] = o.getState();
                 }
             }
             return {
                 'objects' : objectStates,
-                'dynamic' : this.dynamic.x
+                'dynamicBack' : this.dynamicBack.x,
+                'dynamicFore' : this.dynamicFore.x
             };
         };
 
         this.setState = function (json) {
-            this.objects   = json.objects;
-            this.dynamic.x = json.dynamic;
+            this.objects       = json.objects;
+            this.dynamicBack.x = json.dynamicBack;
+            this.dynamicFore.x = json.dynamicFore;
         };
     };
     return GameScene;

@@ -92,8 +92,17 @@ define([
                         return;
                     }
 
-                    interactables = scene.getDynamicSceneChildrens();
-                    return (event === 'click' ? this.doTestClick(scene, interactables) : this.doTestHit(interactables));
+                    interactables = scene.getDynamicBackSceneChildrens();
+                    isHandled = (event === 'click' ? this.doTestClick(scene, interactables) : this.doTestHit(interactables));
+                    if (isHandled) {
+                        return;
+                    }
+
+                    interactables = scene.getDynamicForeSceneChildrens();
+                    isHandled = (event === 'click' ? this.doTestClick(scene, interactables) : this.doTestHit(interactables));
+                    if (isHandled) {
+                        return;
+                    }
                 }
 
                 // panel can be accessed like this.

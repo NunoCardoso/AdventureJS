@@ -71,6 +71,10 @@ define([
             {
                 'id'  : 'image.inventory.shovel',
                 'src' : 'games/compass/img/inventory/shovel.png'
+            },
+            {
+                'id'  : 'image.object.tree',
+                'src' : 'games/compass/img/object/tree.png'
             }
         ],
         'sounds': [],
@@ -120,105 +124,73 @@ define([
                 'label': 'wine bottle',
                 'imageInInventory': 'image.inventory.winebottle',
                 'imageInStage' : 'image.stage.winebottle',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : true
+                'onForeground' : false
             },
             {
                 'id': 'object.magnet',
                 'label': 'magnet',
-                'imageInInventory': 'image.inventory.magnet',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.magnet'
             },
             {
                 'id': 'object.needle',
                 'label': 'needle',
-                'imageInInventory': 'image.inventory.needle',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.needle'
             },
             {
                 'id': 'object.corkscrew',
                 'label': 'corkscrew',
-                'imageInInventory': 'image.inventory.corkscrew',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.corkscrew'
             },
             {
                 'id': 'object.cork',
                 'label': 'cork',
-                'imageInInventory': 'image.inventory.cork',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.cork'
             },
             {
                 'id': 'object.winebottlewithoutcork',
                 'label': 'uncorked wine bottle',
-                'imageInInventory': 'image.inventory.winebottlewithoutcork',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.winebottlewithoutcork'
             },
             {
                 'id': 'object.needlewithcork',
                 'label': 'uncorked wine bottle',
-                'imageInInventory': 'image.inventory.needlewithcork',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.needlewithcork'
             },
             {
                 'id': 'object.rubberduck',
                 'label': 'rubber duck',
-                'imageInInventory': 'image.inventory.rubberduck',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.rubberduck'
             },
             {
                 'id': 'object.mobilephone',
                 'label': 'mobile phone',
-                'imageInInventory': 'image.inventory.mobilephone',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.mobilephone'
             },
             {
                 'id': 'object.rubberchicken',
                 'label': 'rubber chicken',
-                'imageInInventory': 'image.inventory.rubberchicken',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.rubberchicken'
             },
             {
                 'id': 'object.sword',
                 'label': 'sword',
-                'imageInInventory': 'image.inventory.sword',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.sword'
             },
             {
                 'id': 'object.map',
                 'label': 'treasure map',
-                'imageInInventory': 'image.inventory.map',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.map'
             },
             {
                 'id': 'object.shovel',
                 'label': 'shovel',
-                'imageInInventory': 'image.inventory.shovel',
-                'canBeOnStage' : false,
-                'canBeOnInventory' : true,
-                'canBePickedUp' : false
+                'imageInInventory': 'image.inventory.shovel'
+            },
+            {
+                'id': 'object.tree',
+                'label': 'tree',
+                'imageInStage' : 'image.object.tree',
+                'onForeground' : true
             }
         ],
         'interactions': [
@@ -397,6 +369,13 @@ define([
                         'w'  : 50,
                         'h'  : 50
                     },
+                    {
+                        'id' : 'object.tree',
+                        'x'  : 500,
+                        'y'  : 100,
+                        'w'  : 250,
+                        'h'  : 300
+                    }
                 ],
                 'exits' : [
                     {
