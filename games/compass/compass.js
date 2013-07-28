@@ -345,13 +345,6 @@ define([
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
-                'ending'             : false,
-                'pc'  : {
-                    'position' : {
-                        'x'    : 70,
-                        'y'    : 380
-                    }
-                },
                 'npcs' : [
                     {
                         'id' : 'npc.pirate01',
@@ -403,13 +396,6 @@ define([
                 'backgroundmode'     : 'fit',
                 'description'        : 'This is the second scene.',
                 'interactable'       : true,
-                'ending'             : false,
-                'pc'  : {
-                    'position' : {
-                        'x'    : 51,
-                        'y'    : 380
-                    }
-                },
                 'objects' : [],
                 'exits' : [
                     {

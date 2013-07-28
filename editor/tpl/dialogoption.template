@@ -1,0 +1,20 @@
+<label for="dialogoptions.table">Dialog option table</label>
+
+<table class="tablesorter" id="dialogoptions.table">
+    <thead>
+        <tr>
+            <th>text</th>
+            <th>dialog</th>
+            <th>persistence</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#choices}}
+            <tr>
+                <td>{{text}}</td>
+                <td>{{dialog}}</td>
+                <td>{{persistence}}</td>
+            </tr>
+        {{/choices}}
+    </tbody>
+</table>

@@ -1,0 +1,21 @@
+<label for="exits.table">Exits table</label>
+<table class="tablesorter" id="exits.table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>role</th>
+            <th>to</th>
+            <th>condition</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#exits}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{role}}</td>
+                <td>{{to}}</td>
+                <td>{{condition}}</td>
+            </tr>
+        {{/exits}}
+    </tbody>
+</table>

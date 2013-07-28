@@ -1,0 +1,13 @@
+<div class="verticaltabs">
+ <ul>
+    {{#conditions}}
+    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
+    {{/conditions}}
+    <li><button id="conditions.new">NEW condition...</button></li>
+  </ul>
+  {{#conditions}}
+  <div id="{{id}}">
+    {{>tab-condition}}
+  </div>
+  {{/conditions}}
+</div>

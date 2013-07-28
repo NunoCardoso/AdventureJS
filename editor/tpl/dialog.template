@@ -4,14 +4,14 @@
     <thead>
         <tr>
             <th>character</th>
-            <th>line</th>
+            <th>text</th>
         </tr>
     </thead>
     <tbody>
     {{#each lines}}
         <tr>
             <td>{{this.character}}</td>
-            <td>{{this.line}}</td>
+            <td>{{this.text}}</td>
         </tr>
     {{/each}}
     </tbody>

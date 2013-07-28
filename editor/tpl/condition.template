@@ -1,0 +1,36 @@
+<label for="conditionType">Type:</label>
+
+<select size=1 name="conditionType">
+    <option>isInInventory</option>
+</select>
+
+<br>
+
+<fieldset>
+<legend for="onFail">On Fail</legend>
+
+<label for="onfail.action">Action:</label>
+<select size="1" name="onfail.action">
+    <option>dialogMessage</option>
+</select>
+<br>
+
+<label for="onfail.text">Text:</label>
+<input type="text" size="10" name="onfail.text"></input>
+</fieldset>
+
+<br>
+<fieldset>
+<legend for="onFail">On Success</legend>
+
+<label for="onfail.action">Action:</label>
+<select size="1" name="onfail.action">
+    <option>dialogMessage</option>
+</select>
+<br>
+
+<label for="onfail.text">Text:</label>
+<input type="text" size="10" name="onfail.text"></input>
+</fieldset>
+
+

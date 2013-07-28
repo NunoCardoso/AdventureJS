@@ -5,16 +5,22 @@
     <li><a href="#tab-characters">Characters</a></li>
     <li><a href="#tab-objects">Objects</a></li>
     <li><a href="#tab-dialogs">Dialogs</a></li>
+    <li><a href="#tab-dialogoptions">Dialog Options</a></li>
     <li><a href="#tab-interactions">Interactions</a></li>
     <li><a href="#tab-scenes">Scenes</a></li>
     <li><a href="#tab-achievements">Achievements</a></li>
+    <li><a href="#tab-conditions">Conditions</a></li>
+    <li><a href="#tab-exits">Exits</a></li>
   </ul>
   <div id="tab-game">{{>tab-game}}</div>
   <div id="tab-assets">{{>tab-assets}}</div>
   <div id="tab-characters">{{>tab-characters}}</div>
   <div id="tab-objects">{{>tab-objects}}</div>
   <div id="tab-dialogs">{{>tab-dialogs}}</div>
+  <div id="tab-dialogoptions">{{>tab-dialogoptions}}</div>
   <div id="tab-interactions">{{>tab-interactions}}</div>
   <div id="tab-scenes">{{>tab-scenes}}</div>
   <div id="tab-achievements">{{>tab-achievements}}</div>
+  <div id="tab-conditions">{{>tab-conditions}}</div>
+  <div id="tab-exits">{{>tab-exits}}</div>
 </div>

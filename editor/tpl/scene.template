@@ -10,6 +10,14 @@
 <select id="scene.{{id}}.background" size="1"></select>
 <BR>
 
+
+<label for="scene.{{id}}.backgroundmode">Background mode</label>
+<select size=1>
+    <option>Fit</option>
+    <option>Overflow</option>
+</select>
+<BR>
+
 <label for="scene.{{id}}.description">Description</label>
 <textarea id="scene.{{id}}.description">{{description}}</textarea>
 <BR>
@@ -17,16 +25,6 @@
 <input id="scene.{{id}}.interactable"{{#interactable}} CHECKED{{/interactable}} type="checkbox">
 <label for="scene.{{id}}.interactable">Interactable scene (user can use mouse/keyboard)</label>
 <BR>
-
-<input id="scene.{{id}}.ending"{{#ending}} CHECKED{{/ending}} type="checkbox">
-<label for="scene.{{id}}.ending">Ending scene</label>
-<BR>
-
-<label for="scene.{{id}}.pc_xy">Playable Character initial position (if initial scene)</label>
-<BR>
-x <input type="text" value="{{pc_xy.position.x}}" size=5>
-y <input type="text" value="{{pc_xy.position.y}}" size=5>
-<br>
 <br>
 <label for="scene.{{id}}.npcs">Non playable characters setup:</label>
 <table id="scene.{{id}}.npcs" class="tablesorter">
@@ -80,28 +78,26 @@ y <input type="text" value="{{pc_xy.position.y}}" size=5>
 <table id="scene.{{id}}.exits" class="tablesorter">
     <thead>
         <tr>
-            <th>Label</th>
+            <th>Exit</th>
             <th>x</th>
             <th>y</th>
             <th>w</th>
             <th>h</th>
             <th>arrow</th>
-            <th>to</th>
-            <th>condition</th>
+            <th>label</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         {{#exits}}
         <tr>
-            <td>{{name}}</td>
+            <td>{{exit}}</td>
             <td>{{x}}</td>
             <td>{{y}}</td>
             <td>{{w}}</td>
             <td>{{h}}</td>
             <td>{{arrow}}</td>
-            <td>{{to}}</td>
-            <td>{{condition}}</td>
+            <td>{{label}}</td>
             <td><a href="#">[delete]</td>
         </tr>
         {{/exits}}

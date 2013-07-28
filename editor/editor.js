@@ -13,10 +13,15 @@ define([
     'text!editor/tpl/object.template',
     'text!editor/tpl/dialogs.template',
     'text!editor/tpl/dialog.template',
+    'text!editor/tpl/dialogoptions.template',
+    'text!editor/tpl/dialogoption.template',
+    'text!editor/tpl/conditions.template',
+    'text!editor/tpl/condition.template',
     'text!editor/tpl/interactions.template',
     'text!editor/tpl/interaction.template',
     'text!editor/tpl/characters.template',
-    'text!editor/tpl/achievements.template'
+    'text!editor/tpl/achievements.template',
+    'text!editor/tpl/exits.template'
 ], function (
     editor,
     tabgame,
@@ -27,10 +32,15 @@ define([
     tabobject,
     tabdialogs,
     tabdialog,
+    tabdialogoptions,
+    tabdialogoption,
+    tabconditions,
+    tabcondition,
     tabinteractions,
     tabinteraction,
     tabcharacters,
-    tabachievements
+    tabachievements,
+    tabexits
 ) {
     var _ = function (game) {
 
@@ -44,10 +54,15 @@ define([
             Handlebars.registerPartial('tab-object', tabobject);
             Handlebars.registerPartial('tab-dialogs', tabdialogs);
             Handlebars.registerPartial('tab-dialog', tabdialog);
+            Handlebars.registerPartial('tab-dialogoptions', tabdialogoptions);
+            Handlebars.registerPartial('tab-dialogoption', tabdialogoption);
+            Handlebars.registerPartial('tab-conditions', tabconditions);
+            Handlebars.registerPartial('tab-condition', tabcondition);
             Handlebars.registerPartial('tab-interactions', tabinteractions);
             Handlebars.registerPartial('tab-interaction', tabinteraction);
             Handlebars.registerPartial('tab-characters', tabcharacters);
             Handlebars.registerPartial('tab-achievements', tabachievements);
+            Handlebars.registerPartial('tab-exits', tabexits);
             /**
              * This is an Handlebar extension for a fancy if comparison
              */
