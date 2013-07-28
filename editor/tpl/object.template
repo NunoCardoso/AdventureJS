@@ -1,20 +1,17 @@
-<div style="float:right;">
-    <label>Stage image:</label>
-    <br>
-    <img class="dynamic-image" data-src-id="{{imageInStage}}" width="100" height="100">
-</div>
-<div style="float:right;">
-    <label>Inventory image</label>
-    <br>
-    <img class="dynamic-image" data-src-id="{{imageInInventory}}" width="100" height="100">
-</div>
-
 <input id="object.{{id}}.onForeground"{{#onForeground}} CHECKED{{/onForeground}} type="checkbox">
 <label for="scene.{{id}}.onForeground">If on stage, render on foreground</label>
 <BR>
 
+
+<label>Stage image:</label>
 <select id="object.{{id}}.imageInStage" size=1></select>
 <BR>
+<img class="dynamic-image" data-src-id="{{imageInStage}}" width="100" height="100">
+<BR>
+<BR>
 
+<label>Inventory image</label>
 <select id="object.{{id}}.imageInInventory" size=1></select>
+<br>
+<img class="dynamic-image" data-src-id="{{imageInInventory}}" width="100" height="100">
 <BR>
