@@ -101,7 +101,7 @@ define([
                 this.background.graphics
                     .beginStroke("#880000")
                     .beginFill("blue")
-                    .drawRect(0, 0, this.w + 10, this.h + 10);
+                    .drawRect(0, 0, this.w, this.h);
                 this.background.alpha = 0.15;
             }
             this.setDimensions();

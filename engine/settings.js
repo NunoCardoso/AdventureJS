@@ -35,6 +35,14 @@ define([
             {
                 'id'  : 'image.cursor.right',
                 'src' : 'engine/img/cursor/right.png'
+            },
+            {
+                'id'  : 'image.panel.uparrow',
+                'src' : 'engine/img/panel/uparrow.png'
+            },
+            {
+                'id'  : 'image.panel.downarrow',
+                'src' : 'engine/img/panel/downarrow.png'
             }
         ],
         'sounds' : [

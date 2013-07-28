@@ -34,10 +34,10 @@ define([
             incrementX : 90,
             incrementY : 90,
             maxColumns : 4,
-            marginFirstCol : 5,
-            marginOtherCol : 10
+            marginFirstCol : 0,
+            marginOtherCol : 0
         },
-        inventoryX = 80,
+        inventoryX = 80
         inventoryY = 80,
 
         _ = {

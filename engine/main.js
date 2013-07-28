@@ -11,6 +11,7 @@ define([
     Game,
     compass
 ) {
+    var user = "Me";
     (function ($) {
         $(function () {
             var game = new Game();
