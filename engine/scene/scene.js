@@ -6,22 +6,22 @@
 define([
     'engine/character/main',
     'engine/config',
+    'engine/exit/main',
     'engine/lib/assets',
     'engine/object/main',
     'engine/panel/main',
     'engine/scene/background',
-    'engine/scene/exit',
     'engine/scene/menubutton',
     'engine/sentence/main',
     'engine/cursor/main'
 ], function (
     gamecharacter,
-    assets,
     config,
+    gameexit,
+    assets,
     gameobject,
     gamepanel,
     Background,
-    Exit,
     MenuButton,
     sentence,
     gamecursor
@@ -49,6 +49,7 @@ define([
         this.background   = undefined;
         this.objects      = {};
         this.exits        = scene.exits || [];
+        this.startXY      = undefined;
 
         this.dynamicBack  = new createjs.Container();
         this.static       = new createjs.Container();
@@ -68,6 +69,16 @@ define([
                 'background' : scene.background
             });
         }
+
+        this.hasExit = function (_exit) {
+            var i;
+            for (i in this.exits) {
+                if (this.exits[i].exit === _exit) {
+                    return _exit;
+                }
+            }
+            return undefined;
+        };
 
         this.isInteractable = function () {
             return this.interactable;
@@ -139,10 +150,34 @@ define([
             this.dynamicFore.addChild(objectContainerFore);
 
             // exits
-            for (i = 0; i < this.exits.length; i++) {
-                this.exits[i].from = scene.id;
-                e = new Exit(this.exits[i]);
+            var i;
+            for (i in this.exits) {
+                // I have to load the Exit from gameexit,
+                // then render for this scene's exit params.
+                e = gameexit.get(this.exits[i].exit);
+                e.render(this.exits[i]);
+                if (!this.toExit && e.role === 'begin') {
+                    this.startXY = {
+                        x : e.xx + e.w / 2,
+                        y : e.yy + e.h
+                    };
+                }
                 this.dynamicBack.addChild(e);
+            }
+
+
+            // if this scene does not have a begin exit,
+            // then let's check the toExit.
+            if (!this.startXY) {
+                for (i in this.exits) {
+                    if (this.exits[i].exit === this.toExit) {
+                        e = this.dynamicBack.getChildByName(this.toExit);
+                        this.startXY = {
+                            x : e.xx + e.w / 2,
+                            y : e.yy + e.h
+                        };
+                    }
+                }
             }
 
             // npcs
@@ -183,13 +218,12 @@ define([
                 options.pc.stand();
 
                 // character is exiting from a scene, add custom x and y
-                if (options.pc_xy) {
-                    options.pc.setX(options.pc_xy.x);
-                    options.pc.setY(options.pc_xy.y);
+
+                if (this.startXY) {
+                    options.pc.setX(this.startXY.x);
+                    options.pc.setY(this.startXY.y);
                 } else {
-                // character is starting on a scene, get default x and y
-                    options.pc.setX(this.pc.position.x);
-                    options.pc.setY(this.pc.position.y);
+                    console.log('startXY should be defined!');
                 }
                 this.static.addChild(options.pc);
                 this.scenePc = options.pc;
@@ -208,6 +242,9 @@ define([
 
         this.render = function (options) {
 
+            this.toExit = options.toExit || undefined;
+            this.startXY = undefined;
+
             this.removeAllChildren();
 
             this.renderDynamic({
@@ -219,8 +256,7 @@ define([
             this.renderStatic({
                 'panel'    : gamepanel.get(),
                 'sentence' : sentence.get(),
-                'pc'       : gamecharacter.getPc(),
-                'pc_xy'    : options.pc_xy
+                'pc'       : gamecharacter.getPc()
             });
 
             this.renderMenu();

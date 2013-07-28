@@ -11,6 +11,7 @@ define([
     'engine/cursor/main',
     'engine/dialog/main',
     'engine/dialogoption/main',
+    'engine/exit/main',
     'engine/interaction/main',
     'engine/lib/keyboard',
     'engine/menu/main',
@@ -29,6 +30,7 @@ define([
     gamecursor,
     gamedialog,
     gamedialogoption,
+    gameexit,
     gameinteraction,
     keyboard,
     gamemenu,
@@ -69,10 +71,7 @@ define([
 
             render = function (_scene) {
                 var scene = gamescene.get(_scene);
-                scene.render({
-                    'pc_xy'    : {x : 200, y : 380}
-                });
-
+                scene.render();
                 gamescene.add(scene);
                 gamestage.getInstance().switchScene(
                     'scene.start',
@@ -92,6 +91,8 @@ define([
                 gamedialog.preload(_game.dialogs);
                 gamedialogoption.preload(_game.dialogoptions);
                 gamecondition.preload(_game.conditions);
+                gameexit.preload(_game.exits);
+                gamedialogoption.preload(_game.dialogoptions);
                 gamepanel.preload(_game.panel);
                 gameachievement.preload(_game.achievements);
                 gameachievement.setUser(getUser());

@@ -356,14 +356,14 @@ define([
             }, this));
         };
 
-        this.actForExitClick = function (event, exit) {
-            action.clickExit(exit);
+        this.actForExitClick = function (event, exits) {
+            action.clickExit(exits);
             this.calculateTargetXY(event);
             this.setWhenFinished($.proxy(function () {
                 var proceed = true;
-                if (exit.hasCondition()) {
+                if (exits.from.hasCondition()) {
                     // TODO: check properly the condition, once inventory is ready.
-                    var result = exit.testCondition();
+                    var result = exits.from.testCondition();
                     proceed = result.conditionMet; // if conditionMet is false, it will prevent us from proceed.
                     if (result && result.nowDo) {
                         action.reset();
@@ -372,11 +372,21 @@ define([
                 }
 
                 if (proceed) {
-                    require('engine/stage/main').getInstance().switchScene(
-                        exit.from,
-                        exit.to,
-                        exit.pc_xy
-                    );
+                   // game over!
+                    if (exits.from.role === 'end') {
+                        require('engine/achievement/main').publish('achievement.gameover');
+                        return;
+                    }
+                    // have to find the scene that has the exits.to scene.
+                    // since exits and scenes are not rendered, I have to iterate scenes.
+                    var toScene = require('engine/scene/main').findSceneWithExit(exits.to);
+                    if (toScene) {
+                        require('engine/stage/main').getInstance().switchScene(
+                            exits.from.parent,
+                            toScene,
+                            exits.to
+                        );
+                    }
                 }
             }, this));
         };

@@ -379,18 +379,21 @@ define([
                 ],
                 'exits' : [
                     {
-                        'name' : 'jungle',
-                        'x' : 700,
+                        'exit' : 'exit.01',
+                        'label' : 'begin',
+                        'x' : 0,
+                        'y' : 190,
+                        'w' : 100,
+                        'h' : 200
+                    },
+                    {
+                        'exit' : 'exit.02',
+                        'label' : 'jungle',
+                        'x' : 400,
                         'y' : 200,
                         'w' : 50,
                         'h' : 200,
-                        'arrow' : 'right',
-                        'to'    : 'scene.02',
-                        'pc_xy' : {
-                            'x' : 75,
-                            'y' : 380
-                        },
-                        'condition' : 'condition.01'
+                        'arrow' : 'right'
                     }
                 ]
             },
@@ -410,18 +413,45 @@ define([
                 'objects' : [],
                 'exits' : [
                     {
-                        'x' : 0,
+                        'exit' : 'exit.03',
+                        'label' : 'jungle entrance',
+                        'x' : 100,
                         'y' : 200,
                         'w' : 50,
                         'h' : 200,
-                        'arrow' : 'left',
-                        'to' : 'scene.01',
-                        'pc_xy' : {
-                            'x' : 700,
-                            'y' : 380
-                        }
+                        'arrow' : 'left'
+                    },
+                    {
+                        'exit' : 'exit.04',
+                        'label' : 'end',
+                        'x' : 600,
+                        'y' : 200,
+                        'w' : 50,
+                        'h' : 200
                     }
                 ]
+            }
+        ],
+        'exits' : [
+            {
+                'id'   : 'exit.01',
+                'role' : 'begin'
+            },
+            {
+                'id'   : 'exit.02',
+                'role' : 'channel',
+                'to'   : 'exit.03',
+                'condition' : 'condition.01'
+            },
+            {
+                'id'   : 'exit.03',
+                'role' : 'channel',
+                'to'   : 'exit.02'
+            },
+            {
+                'id'   : 'exit.04',
+                'role' : 'end',
+                'condition' : 'condition.02'
             }
         ],
         'conditions' : [
@@ -431,6 +461,14 @@ define([
                 'onFail': {
                     'action' : 'dialogMessage',
                     'text'   : 'I can\'t leave without the wine bottle'
+                }
+            },
+            {
+                'id' : 'condition.02',
+                'isInInventory': 'object.compass',
+                'onFail': {
+                    'action' : 'dialogMessage',
+                    'text'   : 'I can\'t leave without a compass!'
                 }
             }
         ],
@@ -623,6 +661,10 @@ define([
             {
                 'id' : 'achievement.02',
                 'title' : 'Managed to stuck the needle in the cork'
+            },
+            {
+                'id' : 'achievement.gameover',
+                'title' : 'You finished the game!'
             }
         ]
     };

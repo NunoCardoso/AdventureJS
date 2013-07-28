@@ -76,7 +76,7 @@ define([
             this.currentScene = toscene;
         };
 
-        this.switchScene = function (_fromscene, _toscene, pc_xy) {
+        this.switchScene = function (_fromscene, _toscene, _toExit) {
             // _fromscene is a name of a scene already on stage
             var fromscene = this.getChildByName(_fromscene);
             // toscene is a name of a scene to render.
@@ -87,7 +87,7 @@ define([
             if (toscene.isInteractable()) {
 
                 toscene.render({
-                    'pc_xy'    : pc_xy
+                    'toExit'    : _toExit
                 });
             }
             if (toscene.isPlayable()) {

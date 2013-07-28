@@ -38,6 +38,16 @@ define([
 
         add = function (scene) {
             _[scene.name] = scene;
+        },
+
+        findSceneWithExit = function (exit) {
+            var key;
+            for (key in _) {
+                if (_[key].hasExit && _[key].hasExit(exit)) {
+                    return key;
+                }
+            }
+            return undefined;
         };
 
     return {
@@ -45,6 +55,7 @@ define([
         'get'     : get,
         'getAll'  : getAll,
         'newScene': newScene,
-        'add'     : add
+        'add'     : add,
+        'findSceneWithExit' : findSceneWithExit
     };
 });

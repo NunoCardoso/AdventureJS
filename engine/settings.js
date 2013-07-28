@@ -37,6 +37,10 @@ define([
                 'src' : 'engine/img/cursor/right.png'
             },
             {
+                'id'  : 'image.cursor.end',
+                'src' : 'engine/img/cursor/end.png'
+            },
+            {
                 'id'  : 'image.panel.arrowup',
                 'src' : 'engine/img/panel/uparrow.png'
             },

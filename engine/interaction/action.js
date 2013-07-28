@@ -105,9 +105,9 @@ define([
             _pushText(verb.text.text);
         },
 
-        _setExit = function (verb) {
+        _setExit = function (exits) {
             selectedVerb = false;
-            _displayExit(verb);
+            _displayExit(exits.from);
         },
 
         _displayVerb = function (verb) {
@@ -162,8 +162,8 @@ define([
             _undisplay(e);
         },
 
-        clickExit = function (e) {
-            return _setExit(e);
+        clickExit = function (exits) {
+            return _setExit(exits);
         };
 
     return {
