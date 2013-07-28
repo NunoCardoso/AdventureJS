@@ -7,6 +7,7 @@ define([
 ) {
 
     var _  = {},
+        _user,
 
         preload = function (achievements) {
             var i;
@@ -19,14 +20,18 @@ define([
             return _[key];
         },
 
+        setUser = function (user) {
+            _user = user;
+        },
+
         publish = function (achievement) {
-            var user = require('engine/game/game').getUser();
-            _[achievement].publish(user);
+            _[achievement].publish(_user);
         };
 
     return {
         'preload' : preload,
         'get'     : get,
-        'publish' : publish
+        'publish' : publish,
+        'setUser' : setUser
     };
 });

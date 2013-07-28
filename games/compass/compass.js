@@ -548,6 +548,34 @@ define([
                 'lines' : [
                     {
                         'character' : 'pc.guybrush',
+                        'text' : 'Nice weather, huh?'
+                    },
+                    {
+                        'character' : 'npc.pirate01',
+                        'text' : 'Yup. It\'s going to rain, though.'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.06',
+                'to' : 'npc.pirate01',
+                'lines' : [
+                    {
+                        'character' : 'pc.guybrush',
+                        'text' : 'I\'m selling these fine leather jackets.'
+                    },
+                    {
+                        'character' : 'npc.pirate01',
+                        'text' : 'Already have one, thanks.'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.07',
+                'to' : 'npc.pirate01',
+                'lines' : [
+                    {
+                        'character' : 'pc.guybrush',
                         'text' : 'Bye'
                     },
                     {
@@ -577,8 +605,18 @@ define([
                         'persistence' : 'once'
                     },
                     {
-                        'text' : 'Bye.',
+                        'text' : 'Nice weather, huh?',
                         'dialog' : 'dialog.05',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text' : 'I\'m selling these fine leather jackets',
+                        'dialog' : 'dialog.06',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text' : 'Bye.',
+                        'dialog' : 'dialog.07',
                         'persistence' : 'always'
                     }
                 ]

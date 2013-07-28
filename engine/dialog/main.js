@@ -35,12 +35,8 @@ define([
 
         _setPanelToDialog = function () {
             gamesentence.hide();
-            gamepanel.renderForDialog({});
-        },
-
-        _setPanelToDefault = function () {
-            require('engine/interaction/action').reset();
-            gamepanel.renderForVerbsAndInventory();
+            gamepanel.removeDialogOptions();
+            gamepanel.renderForDialog();
         },
 
         _getCharacter = function (character) {
@@ -59,12 +55,13 @@ define([
                 act = options.onEnd[i];
                 switch (act.action) {
                 case 'displayDialogOptions':
-                    gamedialogoption.addToPanel(act.dialogOptions);
+                    gamepanel.addDialogOptions(act.dialogOptions);
+                    gamepanel.renderForDialog();
                     break;
                 case 'addToInventory':
                     gamepanel.addToInventory(act.object);
-                    _setPanelToDefault();
                     require('engine/interaction/action').reset();
+                    gamepanel.renderForVerbsAndInventory();
                     break;
                 case 'publishAchievement':
                     gameachievement.publish(act.achievement);
@@ -72,7 +69,8 @@ define([
                 case 'fadeToLeft':
                     var who = _getCharacter(act.character);
                     who.setTargetXY({x: -100, y: who.y});
-                    _setPanelToDefault();
+                    require('engine/interaction/action').reset();
+                    gamepanel.renderForVerbsAndInventory();
                     break;
                 default:
                     console.log(act.action + ' not implemented!');
@@ -86,7 +84,8 @@ define([
                 if (typeof options.onEnd !== 'undefined') {
                     _onTalkEnded(options);
                 } else {
-                    _setPanelToDefault();
+                    require('engine/interaction/action').reset();
+                    gamepanel.renderForVerbsAndInventory();
                 }
                 return;
             }

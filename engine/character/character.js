@@ -188,17 +188,19 @@ define([
                 } else if (this.x < this.targetXY.x  && (this.targetXY.x - this.x > this.speed)) {
                     this.character.attitude = "walkright";
                 } else {
-                    if (this.character.attitude === "walkleft") {
+                    if (this.isFacingLeft()) {
                         this.character.attitude = "standleft";
                         // perform the callback action, since the character reached his destination;
                         if (this.whenFinished) {
                             this.whenFinished.call();
+                            this.whenFinished = undefined;
                         }
-                    } else if (this.character.attitude === "walkright") {
+                    } else if (this.isFacingRight()) {
                         this.character.attitude = "standright";
                         // perform the callback action, since the character reached his destination;
                         if (this.whenFinished) {
                             this.whenFinished.call();
+                            this.whenFinished = undefined;
                         }
                     }
                 }
@@ -251,22 +253,30 @@ define([
             }
         };
 
+        this.isFacingLeft = function () {
+            return this.character.attitude === "walkleft" || this.character.attitude === "standleft" || this.character.attitude === 'talkleft';
+        };
+
+        this.isFacingRight = function () {
+            return this.character.attitude === "walkright" || this.character.attitude === "standright" || this.character.attitude === 'talkright';
+        };
+
         this.talk = function (text) {
             this.isSpeaking = true;
             this.balloon.say(text);
-            if (this.character.attitude === "walkleft" || this.character.attitude === "standleft") {
+            if (this.isFacingLeft()) {
                 this.character.attitude = 'talkleft';
-            } else if (this.character.attitude === "walkright" || this.character.attitude === "standright") {
+            } else if (this.isFacingRight()) {
                 this.character.attitude = 'talkright';
             }
             this.character.gotoAndPlay(this.character.attitude);
         };
 
         this.getStandAttitude = function () {
-            if (this.character.attitude === "walkleft" || this.character.attitude === "talkleft") {
+            if (this.isFacingLeft()) {
                 return 'standleft';
             }
-            if (this.character.attitude === "walkright" || this.character.attitude === "talkright") {
+            if (this.isFacingRight()) {
                 return 'standright';
             }
         };

@@ -94,6 +94,7 @@ define([
                 gamecondition.preload(_game.conditions);
                 gamepanel.preload(_game.panel);
                 gameachievement.preload(_game.achievements);
+                gameachievement.setUser(getUser());
                 gamescene.preload(_game.scenes);
                 if (!options.scene) {
                     options.scene = 'scene.menu';

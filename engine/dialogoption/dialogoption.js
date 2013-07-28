@@ -17,6 +17,7 @@ define([
     p.initialize = function (options) {
         this.GameDialogOption_initialize();
 
+        this.name  = options.id;
         this.x     = options.x;
         this.y     = options.y;
 

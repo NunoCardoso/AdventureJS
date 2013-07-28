@@ -23,10 +23,12 @@ define([
         buttonY = 300,
         buttonHeight = 60,
         buttonRounds = 10,
+
         dialogOptionParams = {
-            initialX   : 10,
+            initialX   : 40,
             initialY   : 410,
-            incrementY : 30
+            incrementY : 40,
+            maxRows    : 5
         },
         inventoryParams = {
             initialX   : 440,

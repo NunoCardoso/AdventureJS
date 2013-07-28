@@ -4,10 +4,12 @@
  * This module stores game panel
  */
 define([
+    'engine/panel/dialogs',
     'engine/panel/inventory',
     'engine/panel/panel',
     'engine/panel/verbs',
 ], function (
+    Dialogs,
     Inventory,
     Panel,
     Verbs
@@ -15,11 +17,13 @@ define([
     var _,
         _verbs,
         _inventory,
+        _dialogs,
 
         preload = function (options) {
             _           = new Panel(options);
             _verbs      = Verbs.init(options.verbs);
             _inventory  = new Inventory(options.startingInventory);
+            _dialogs    = new Dialogs({});
         },
 
         get = function (key) {
@@ -50,15 +54,18 @@ define([
 
         renderForVerbsAndInventory = function () {
             _.renderForVerbsAndInventory(_verbs, _inventory);
-            _inventory.render();
         },
 
         renderForDialog = function () {
-            _.renderForDialog();
+            _.renderForDialog(_dialogs);
         },
 
-        addDialogs = function (dialogs) {
-            _.addDialogs(dialogs);
+        addDialogOptions = function (dialogoptions) {
+            _dialogs.addDialogOptions(dialogoptions);
+        },
+
+        removeDialogOptions = function () {
+            _dialogs.removeDialogOptions();
         };
 
     return {
@@ -71,6 +78,7 @@ define([
         'getVerbs'                   : getVerbs,
         'renderForVerbsAndInventory' : renderForVerbsAndInventory,
         'renderForDialog'            : renderForDialog,
-        'addDialogs'                 : addDialogs
+        'addDialogOptions'           : addDialogOptions,
+        'removeDialogOptions'        : removeDialogOptions,
     };
 });

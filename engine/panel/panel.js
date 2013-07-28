@@ -43,16 +43,16 @@ define([
             this.mode = 'verbsAndInventory';
         };
 
-        this.renderForDialog = function () {
+        this.renderForDialog = function (dialogs) {
+
+            dialogs.render();
+
             this.removeAllChildren();
             this.addChild(
-                this.background
+                this.background,
+                dialogs
             );
             this.mode = 'dialog';
-        };
-
-        this.addDialogs = function (dialogs) {
-            this.addChild(dialogs);
         };
     };
     return Panel;

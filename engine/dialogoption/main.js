@@ -25,34 +25,6 @@ define([
             }
         },
 
-        params = config.get('dialogoption.params'),
-
-        _calculateDialogOptionPosition = function (i) {
-            return {
-                'x' : params.initialX,
-                'y' : params.initialY + i * params.incrementY
-            };
-        },
-
-        addToPanel = function (dialogOptions) {
-            var i,
-                _do  = get(dialogOptions),
-                _doc = new createjs.Container(),
-                position,
-                order = 0;
-
-            for (i in _do) {
-                // add only dialogs that are still valid to use
-                if (_do[i].timesToUse > 0) {
-                    position = _calculateDialogOptionPosition(order);
-                    _do[i].x = position.x;
-                    _do[i].y = position.y;
-                    _doc.addChild(_do[i]);
-                    order++;
-                }
-            }
-            gamepanel.addDialogs(_doc);
-        },
 
         preload = function (options) {
             var i, id, choices, processedChoices;
@@ -65,6 +37,7 @@ define([
                     var timesToUse = _calculatePersistence(choices[i].persistence);
 
                     processedChoices[i] = new DialogOption({
+                        id     : 'dialogoption.' + i,
                         text   : choices[i].text,
                         dialog : choices[i].dialog,
                         timesToUse : timesToUse
@@ -76,7 +49,6 @@ define([
 
     return {
         'preload' : preload,
-        'get'     : get,
-        'addToPanel' : addToPanel
+        'get'     : get
     };
 });
