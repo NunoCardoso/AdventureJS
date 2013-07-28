@@ -28,6 +28,8 @@ define([
                 // I am already rendered as such, so nothing to do there
                 return;
             }
+            // ask inventory to re-render
+            inventory.render();
 
             this.removeAllChildren();
             this.addChild(

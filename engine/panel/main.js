@@ -28,10 +28,12 @@ define([
 
         addToInventory = function (object) {
             _inventory.add(object);
+            _inventory.render();
         },
 
         removeFromInventory = function (object) {
             _inventory.remove(object);
+            _inventory.render();
         },
 
         isInInventory = function (object) {
@@ -48,6 +50,7 @@ define([
 
         renderForVerbsAndInventory = function () {
             _.renderForVerbsAndInventory(_verbs, _inventory);
+            _inventory.render();
         },
 
         renderForDialog = function () {
@@ -56,7 +59,7 @@ define([
 
         addDialogs = function (dialogs) {
             _.addDialogs(dialogs);
-        }
+        };
 
     return {
         'preload'                    : preload,

@@ -98,10 +98,11 @@ define([
                 this.image.image = this.imageInInventory;
                 this.image.x = 5;
                 this.image.y = 5;
+                this.background.graphics.clear();
                 this.background.graphics
                     .beginStroke("#880000")
                     .beginFill("blue")
-                    .drawRect(0, 0, this.w, this.h);
+                    .drawRect(0, 0, this.w + 10, this.h + 10);
                 this.background.alpha = 0.15;
             }
             this.setDimensions();

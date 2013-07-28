@@ -37,11 +37,11 @@ define([
                 'src' : 'engine/img/cursor/right.png'
             },
             {
-                'id'  : 'image.panel.uparrow',
+                'id'  : 'image.panel.arrowup',
                 'src' : 'engine/img/panel/uparrow.png'
             },
             {
-                'id'  : 'image.panel.downarrow',
+                'id'  : 'image.panel.arrowdown',
                 'src' : 'engine/img/panel/downarrow.png'
             }
         ],
