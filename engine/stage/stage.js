@@ -100,6 +100,11 @@ define([
 
             this.addChild(toscene);
             this.currentScene = toscene;
+
+            if (toscene.hasBeginCutscene) {
+                
+                toscene.performBeginCutscene();
+            }
         };
     };
     return GameStage;

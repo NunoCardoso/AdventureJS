@@ -45,6 +45,10 @@ define([
                 'src' : 'engine/img/cursor/drag.png'
             },
             {
+                'id'  : 'image.cursor.wait',
+                'src' : 'engine/img/cursor/wait.png'
+            },
+            {
                 'id'  : 'image.panel.arrowup',
                 'src' : 'engine/img/panel/uparrow.png'
             },

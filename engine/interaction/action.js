@@ -58,7 +58,7 @@ define([
             if (selectedVerb.nr === 1) {
                 selectedObject = object;
                 _pushText(text + ' ' + selectedObject.label);
-                return decision.decide(selectedVerb, selectedObject);
+                decision.decide(selectedVerb, selectedObject);
             }
             if (selectedVerb.nr === 2) {
                 if (!selectedObject) {
@@ -68,7 +68,7 @@ define([
                 } else {
                     selectedObjectSecond = object;
                     _pushText(text + ' ' + selectedObjectSecond);
-                    return decision.decide(selectedVerb, selectedObject, selectedObjectSecond);
+                    decision.decide(selectedVerb, selectedObject, selectedObjectSecond);
                 }
             }
         },
@@ -127,7 +127,7 @@ define([
         },
 
         clickNpc = function (e) {
-            return _setObject(e);
+            _setObject(e);
         },
 
         mouseOverObject = function (e) {
@@ -139,7 +139,7 @@ define([
         },
 
         clickObject = function (e) {
-            return _setObject(e);
+            _setObject(e);
         },
 
         mouseOverVerb = function (e) {
@@ -151,7 +151,7 @@ define([
         },
 
         clickVerb = function (e) {
-            return _setVerb(e);
+            _setVerb(e);
         },
 
         mouseOverExit = function (e) {
@@ -163,7 +163,7 @@ define([
         },
 
         clickExit = function (exits) {
-            return _setExit(exits);
+            _setExit(exits);
         };
 
     return {

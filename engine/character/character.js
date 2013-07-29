@@ -326,93 +326,33 @@ define([
             return false;
         };
 
-        this._performResult = function (result, npc) {
-            switch (result.action) {
-            case 'dialogMessage':
-                this.say(result.text);
-                return;
-            case 'playDialog':
-                gamedialog.perform({
-                    // slice(0) clones it, because gamedialog will destroy it
-                    lines : result.dialog.lines.slice(0),
-                    to    : result.dialog.to,
-                    onEnd : result.dialog.onEnd
-                });
-                break;
-            default:
-                console.log(action.action + ' not implemented!');
-                break;
-            }
-        };
-
         this.actForNpcClick = function (xy, npc) {
             this.calculateTargetXY(xy, npc);
-            this.setWhenFinished($.proxy(function () {
-                var result = action.clickNpc(npc);
-                if (result) {
-                    action.reset();
-                    this._performResult(result, npc);
-                }
-            }, this));
+            this.setWhenFinished(function () {
+                action.clickNpc(npc);
+            });
         };
 
         this.actForExitClick = function (event, exits) {
             action.clickExit(exits);
             this.calculateTargetXY(event);
-            this.setWhenFinished($.proxy(function () {
-                var proceed = true;
-                if (exits.from.hasCondition()) {
-                    // TODO: check properly the condition, once inventory is ready.
-                    var result = exits.from.testCondition();
-                    proceed = result.conditionMet; // if conditionMet is false, it will prevent us from proceed.
-                    if (result && result.nowDo) {
-                        action.reset();
-                        this._performResult(result.nowDo);
-                    }
-                }
-
-                if (proceed) {
-                   // game over!
-                    if (exits.from.role === 'end') {
-                        require('engine/achievement/main').publish('achievement.gameover');
-                        return;
-                    }
-                    // have to find the scene that has the exits.to scene.
-                    // since exits and scenes are not rendered, I have to iterate scenes.
-                    var toScene = require('engine/scene/main').findSceneWithExit(exits.to);
-                    if (toScene) {
-                        require('engine/stage/main').getInstance().switchScene(
-                            exits.from.parent,
-                            toScene,
-                            exits.to
-                        );
-                    }
-                }
-            }, this));
+            this.setWhenFinished(function () {
+                exits.from.doExit(exits.to);
+            });
         };
 
         this.actForObjectClick = function (event, object) {
             // I don't have to walk to an inventory
             if (object.renderedAs === 'inventory') {
-                var result = action.clickObject(object);
-                if (result) {
-                    // clean up sentence.
-                    action.reset();
-                    this._performResult(result);
-                }
+                action.clickObject(object);
                 return;
             }
-
             // else, walk there, then perform the action.
             this.calculateTargetXY(event, object);
-            this.setWhenFinished($.proxy(function () {
-                var result = action.clickObject(object);
-                if (result) {
-                    // clean up sentence.
-                    action.reset();
-                    this._performResult(result);
-                }
-            }, this));
+            this.setWhenFinished(function () {
+                action.clickObject(object);
+            });
+            return;
         };
     };
     return Character;

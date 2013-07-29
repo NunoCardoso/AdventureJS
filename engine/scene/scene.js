@@ -35,7 +35,6 @@ define([
     p.initialize = function (scene) {
         this.GameScene_initialize();
 
-
         this.name = scene.id;
 
         this.description  = scene.description;
@@ -50,6 +49,8 @@ define([
         this.objects      = {};
         this.exits        = scene.exits || [];
         this.startXY      = undefined;
+        this.beginCutscene = scene.beginCutscene || undefined;
+        this.beginCutscenePerformed = false;
 
         this.dynamicBack  = new createjs.Container();
         this.player       = new createjs.Container();
@@ -348,6 +349,24 @@ define([
                 'player'      : this.player.x
             };
         };
+
+        this.hasBeginCutscene = function () {
+            return typeof this.beginCutscene !== 'undefined';
+        };
+
+        this.performBeginCutscene = function () {
+            if (this.beginCutscenePerformed) {
+                return;
+            }
+            for (i in this.beginCutscene) {
+                gamecursor.changeTo('image.cursor.wait');
+                require('engine/stage/main').update();
+                require('engine/interaction/decision').perform(this.beginCutscene[i]);
+                gamecursor.reset();
+
+            }
+            beginCutscenePerformed = true;
+        }
 
         this.setState = function (json) {
             this.objects       = json.objects;

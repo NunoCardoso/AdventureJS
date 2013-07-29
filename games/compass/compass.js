@@ -345,6 +345,32 @@ define([
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
+                'beginCutscene' : [
+                    {
+                        'action' : 'moveTo',
+                        'target' : 'pc.guybrush',
+                        'position' : {
+                            'x': 300,
+                            'y': 380
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'text' : 'I\'m lost. I need a compass.'
+                    },
+                    {
+                        'action' : 'moveTo',
+                        'target' : 'pc.guybrush',
+                        'position' : {
+                            'x': 400,
+                            'y': 380
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'text' : 'Maybe that pirate can help me.'
+                    }
+                ],
                 'npcs' : [
                     {
                         'id' : 'npc.pirate01',

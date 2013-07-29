@@ -127,8 +127,8 @@ define([
         'getSavegame'  : getSavegame,
         'activateTick' : activateTick,
 
-        'pause' : pause,
-        'play' : play,
+        'pause'  : pause,
+        'play'   : play,
         'update' : update,
 
         'activate' : activate,
