@@ -52,9 +52,9 @@ define([
         this.startXY      = undefined;
 
         this.dynamicBack  = new createjs.Container();
-        this.static       = new createjs.Container();
+        this.player       = new createjs.Container();
         this.dynamicFore  = new createjs.Container();
-        this.menu         = new createjs.Container();
+        this.static       = new createjs.Container();
 
         this.scenePc     = undefined;
         this.sceneNpcs   = undefined;
@@ -109,6 +109,32 @@ define([
                         this.dynamicBack.removeChild(o);
                     }
                 }
+            }
+        };
+
+        // when dragging backgrounds
+        this.move = function (diffX) {
+            var proceed = false;
+            // check if we have spare scene on the left.
+            if (diffX > 0 && this.background.mode !== 'fit' && this.dynamicBack.x < 0) {
+                proceed = true;
+                // make sure that it doesn't drag outbounds
+                if (this.dynamicBack.x + diffX > 0) {
+                    diffX = -this.dynamicBack.x;
+                }
+            }
+            // check if we have space scene on the right
+            if (diffX < 0 && this.background.mode !== 'fit' && (this.dynamicBack.x + this.dynamicBack.w > config.get('game.w'))) {
+                proceed = true;
+                // make sure that it doesn't drag outbounds
+                if (this.dynamicBack.x + this.dynamicBack.w + diffX < config.get('game.w')) {
+                    diffX = config.get('game.w') - this.dynamicBack.x - this.dynamicBack.w;
+                }
+            }
+            if (proceed) {
+                this.dynamicBack.x += diffX;
+                this.dynamicFore.x += diffX;
+                this.player.x += diffX;
             }
         };
 
@@ -194,19 +220,10 @@ define([
             }
         };
 
-        this.renderStatic = function (options) {
+        this.renderPlayer = function (options) {
 
             var i;
-            this.static.removeAllChildren();
-
-            // first to be rendered. Watch out, getPanel() depends on it.
-            if (options.panel) {
-                this.static.addChild(options.panel);
-            }
-
-            if (options.sentence) {
-                this.static.addChild(options.sentence);
-            }
+            this.player.removeAllChildren();
 
             this.scenePc = undefined;
             if (options.pc) {
@@ -225,19 +242,27 @@ define([
                 } else {
                     console.log('startXY should be defined!');
                 }
-                this.static.addChild(options.pc);
+                this.player.addChild(options.pc);
                 this.scenePc = options.pc;
             }
         };
 
-        this.renderMenu = function (options) {
+        this.renderStatic = function (options) {
             if (this.isPlayable()) {
+                // first to be rendered. Watch out, getPanel() depends on it.
+                if (options.panel) {
+                    this.static.addChild(options.panel);
+                }
+
+                if (options.sentence) {
+                    this.static.addChild(options.sentence);
+                }
                 var MenuButton = require('engine/scene/menubutton');
-                this.menu.addChild(new MenuButton({from: this.name}));
+                this.static.addChild(new MenuButton({from: this.name}));
             }
             // add the custom cursor
             gamecursor.reset();
-            this.menu.addChild(gamecursor.get());
+            this.static.addChild(gamecursor.get());
         };
 
         this.render = function (options) {
@@ -253,24 +278,26 @@ define([
             });
 
             gamepanel.renderForVerbsAndInventory();
-            this.renderStatic({
-                'panel'    : gamepanel.get(),
-                'sentence' : sentence.get(),
+
+            this.renderPlayer({
                 'pc'       : gamecharacter.getPc()
             });
 
-            this.renderMenu();
+            this.renderStatic({
+                'panel'    : gamepanel.get(),
+                'sentence' : sentence.get(),
+            });
 
             this.addChild(this.dynamicBack);
-            this.addChild(this.static);
+            this.addChild(this.player);
             this.addChild(this.dynamicFore);
-            this.addChild(this.menu);
+            this.addChild(this.static);
 
         };
 
         this.getMenuButton = function () {
             // have to return as an array, testHit and testClick likes arrays
-            return [this.menu.children[0]];
+            return [this.static.getChildByName('menubutton')];
         };
 
         this.getDynamicBackSceneChildrens = function () {
@@ -317,7 +344,8 @@ define([
             return {
                 'objects' : objectStates,
                 'dynamicBack' : this.dynamicBack.x,
-                'dynamicFore' : this.dynamicFore.x
+                'dynamicFore' : this.dynamicFore.x,
+                'player'      : this.player.x
             };
         };
 
@@ -325,6 +353,7 @@ define([
             this.objects       = json.objects;
             this.dynamicBack.x = json.dynamicBack;
             this.dynamicFore.x = json.dynamicFore;
+            this.player.x      = json.player;
         };
     };
     return GameScene;

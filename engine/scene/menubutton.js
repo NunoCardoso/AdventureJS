@@ -19,6 +19,7 @@ define([
     p.initialize = function (options) {
         this.MenuButton_initialize();
 
+        this.name = 'menubutton';
         this.from = options.from;
 
         this.button = new createjs.Shape();

@@ -19,6 +19,8 @@ define([
         snapshot, // an image snapshot of this stage
         savegame, // a JSON snapshot of this stage
 
+        _onDragging = false,
+
         preload = function (character) {
             stage = new GameStage("canvas");
         },
@@ -65,8 +67,21 @@ define([
             stage.onMouseMove = function (e) {
                 gamecursor.update({x: e.stageX, y: e.stageY});
             };
-            stage.onClick = function (e) {
-                gamecursor.click({x: e.stageX, y: e.stageY});
+
+            stage.onPress = function (evt) {
+
+                evt.onMouseMove = function (e) {
+                    _onDragging = true;
+                    gamecursor.drag({x: e.stageX, y: e.stageY});
+                };
+                evt.onMouseUp = function (e) {
+                    if (_onDragging) {
+                        gamecursor.undrag({x: e.stageX, y: e.stageY});
+                        _onDragging = false;
+                    } else {
+                        gamecursor.click({x: evt.stageX, y: evt.stageY});
+                    }
+                };
             };
         },
 

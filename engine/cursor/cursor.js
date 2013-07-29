@@ -23,6 +23,46 @@ define([
 
         this.gameBoundsY = config.get('game.h');
 
+        this.doTestDrag = function (scene, items) {
+            var i, isHandled;
+
+            for (i = items.length - 1; i >= 0; i--) {
+                if (typeof items[i].testDrag === 'function') {
+                    isHandled = items[i].testDrag(this.x, this.y, scene);
+                    if (isHandled) {
+                        return true;
+                    }
+                }
+                if (items[i].children) {
+                    isHandled = this.doTestDrag(scene, items[i].children);
+                    if (isHandled) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
+       this.doTestUndrag = function (scene, items) {
+            var i, isHandled;
+
+            for (i = items.length - 1; i >= 0; i--) {
+                if (typeof items[i].testDrag === 'function') {
+                    isHandled = items[i].testUndrag(this.x, this.y, scene);
+                    if (isHandled) {
+                        return true;
+                    }
+                }
+                if (items[i].children) {
+                    isHandled = this.doTestUndrag(scene, items[i].children);
+                    if (isHandled) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
         this.doTestHit = function (items) {
             var i, isHandled;
 
@@ -71,6 +111,25 @@ define([
             return xy.y <= this.gameBoundsY;
         };
 
+        this.doTest = function (event, scene, menu) {
+            var isHandled;
+            switch (event) {
+            case 'click':
+                isHandled = this.doTestClick(scene, menu);
+                break;
+            case 'hover':
+                isHandled = this.doTestHit(menu);
+                break;
+            case 'drag':
+                isHandled = this.doTestDrag(scene, menu);
+                break;
+            case 'undrag':
+                isHandled = this.doTestUndrag(scene, menu);
+                break;
+            }
+            return isHandled;
+        };
+
         this.update = function (stage, xy, event) {
             this.x = xy.x;
             this.y = xy.y;
@@ -87,19 +146,19 @@ define([
                 // stage objects, exits and npcs.
                 if (this.clickedOnGame(xy)) {
                     menu = scene.getMenuButton();
-                    isHandled = (event === 'click' ? this.doTestClick(scene, menu) : this.doTestHit(menu));
+                    isHandled = this.doTest(event, scene, menu);
                     if (isHandled) {
                         return;
                     }
 
                     interactables = scene.getDynamicBackSceneChildrens();
-                    isHandled = (event === 'click' ? this.doTestClick(scene, interactables) : this.doTestHit(interactables));
+                    isHandled = this.doTest(event, scene, interactables);
                     if (isHandled) {
                         return;
                     }
 
                     interactables = scene.getDynamicForeSceneChildrens();
-                    isHandled = (event === 'click' ? this.doTestClick(scene, interactables) : this.doTestHit(interactables));
+                    isHandled =  this.doTest(event, scene, interactables);
                     if (isHandled) {
                         return;
                     }
@@ -107,7 +166,7 @@ define([
 
                 // panel can be accessed like this.
                 panel = scene.getPanel().children;
-                return (event === 'click' ? this.doTestClick(scene, panel) : this.doTestHit(panel));
+                return this.doTest(event, scene, panel);
             }
         };
 

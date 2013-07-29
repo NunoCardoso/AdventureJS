@@ -62,6 +62,16 @@ define([
         click = function (xy) {
             _xy = xy || _xy;
             _.update(_stage, _xy, 'click');
+        },
+
+        drag = function (xy) {
+            _xy = xy || _xy;
+            _.update(_stage, _xy, 'drag');
+        },
+
+        undrag = function (xy) {
+            _xy = xy || _xy;
+            _.update(_stage, _xy, 'undrag');
         };
 
     return {
@@ -71,6 +81,8 @@ define([
         'get'     : get,
         'update'  : update,
         'click'   : click,
+        'drag'    : drag,
+        'undrag'  : undrag,
         'setStage': setStage,
         'goLeft'  : goLeft,
         'goUp'    : goUp,
