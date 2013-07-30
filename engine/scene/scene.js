@@ -351,7 +351,7 @@ define([
         };
 
         this.hasBeginCutscene = function () {
-            return this.beginCutscene !== 'undefined';
+            return this.beginCutscene !== undefined;
         };
 
         this.performBeginCutscene = function () {
@@ -359,6 +359,7 @@ define([
                 return;
             }
             require('engine/interaction/decision').performCutscene(this.beginCutscene);
+            this.beginCutscenePerformed = true;
         };
 
         this.setState = function (json) {

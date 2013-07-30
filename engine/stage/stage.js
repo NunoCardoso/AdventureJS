@@ -77,19 +77,17 @@ define([
         };
 
         this.switchScene = function (_fromscene, _toscene, _toExit) {
-            // _fromscene is a name of a scene already on stage
             var fromscene = this.getChildByName(_fromscene);
-            // toscene is a name of a scene to render.
             var toscene   = gamescene.get(_toscene);
 
             this.removeChild(fromscene);
 
             if (toscene.isInteractable()) {
-
                 toscene.render({
                     'toExit'    : _toExit
                 });
             }
+
             if (toscene.isPlayable()) {
                 this.onGame();
                 require('engine/stage/main').activateCursor();
@@ -101,8 +99,7 @@ define([
             this.addChild(toscene);
             this.currentScene = toscene;
 
-            if (toscene.hasBeginCutscene) {
-                
+            if (toscene.hasBeginCutscene()) {
                 toscene.performBeginCutscene();
             }
         };

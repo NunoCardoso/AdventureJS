@@ -45,7 +45,7 @@ define([
         this.testHit   = undefined;
 
         this.hasCondition = function () {
-            return typeof this.condition !== 'undefined';
+            return this.condition !== undefined;
         };
 
         this.render = function (options) {
@@ -109,7 +109,7 @@ define([
         };
 
         this.testCondition = function () {
-            if (this.condition.isInInventory !== 'undefined') {
+            if (this.condition.isInInventory !== undefined) {
                 if (require('engine/panel/main').isInInventory(this.condition.isInInventory)) {
                     return {conditionMet: true, nowDo: this.condition.onSuccess};
                 }

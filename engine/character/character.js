@@ -54,9 +54,6 @@ define([
         // important, so we can know if this is playable character, ommit some events
         this.isPlayable = false;
 
-        // callback after reaching a place
-        this.whenFinished = undefined;
-
         // Deferred for talk
         this.talkDeferred = undefined;
         this.walkDeferred = undefined;
@@ -112,14 +109,12 @@ define([
 
         this.setTargetXY = function (xy) {
             this.targetXY = xy;
-            // abort any callback to perform, as the current itinerary was changed
-            this.whenFinished = undefined;
+            this.walkDeferred = $.Deferred();
+            return this.walkDeferred;
         };
 
         this.moveTo = function (position) {
-            this.walkDeferred = $.Deferred();
-            this.setTargetXY(position);
-            return this.walkDeferred;
+            return this.setTargetXY(position);
         };
 
         this.resetTargetXY = function () {
@@ -137,17 +132,16 @@ define([
                 itemX = (dim.x1 + dim.x2) / 2;
             // playable character is on the left of the object;
             if (this.x < itemX) {
-                this.setTargetXY({
+                return this.setTargetXY({
                     x : dim.x1 - (this.w / 2),
                     y : xy.y
                 });
-            } else {
-            // playable character is on the right of the object;
-                this.setTargetXY({
-                    x : dim.x2 + (this.w / 2),
-                    y : xy.y
-                });
             }
+            // playable character is on the right of the object;
+            return this.setTargetXY({
+                x : dim.x2 + (this.w / 2),
+                y : xy.y
+            });
         };
 
         // triggered when dot key is press
@@ -176,12 +170,6 @@ define([
             this.balloon.shutUp();
         };
 
-        // this is a callback function to perform when the playable character
-        // reaches the targeted place
-        this.setWhenFinished = function (callback) {
-            this.whenFinished = callback;
-        };
-
         // for scenes that stretch, maybe the scene has to scroll, not the character.
         this.update = function (scene) {
 
@@ -198,20 +186,12 @@ define([
                             this.walkDeferred.resolve();
                             this.walkDeferred = undefined;
                         }
-                        if (this.whenFinished) {
-                            this.whenFinished.call();
-                            this.whenFinished = undefined;
-                        }
                     } else if (this.isFacingRight()) {
                         this.character.attitude = "standright";
                         // perform the callback action, since the character reached his destination;
                         if (this.walkDeferred) {
                             this.walkDeferred.resolve();
                             this.walkDeferred = undefined;
-                        }
-                        if (this.whenFinished) {
-                            this.whenFinished.call();
-                            this.whenFinished = undefined;
                         }
                     }
                 }
@@ -338,16 +318,16 @@ define([
         };
 
         this.actForNpcClick = function (xy, npc) {
-            this.calculateTargetXY(xy, npc);
-            this.setWhenFinished(function () {
+            var d = this.calculateTargetXY(xy, npc);
+            d.done(function () {
                 action.clickNpc(npc);
             });
         };
 
         this.actForExitClick = function (event, exits) {
             action.clickExit(exits);
-            this.calculateTargetXY(event);
-            this.setWhenFinished(function () {
+            var d = this.calculateTargetXY(event);
+            d.done(function () {
                 exits.from.doExit(exits.to);
             });
         };
@@ -359,8 +339,8 @@ define([
                 return;
             }
             // else, walk there, then perform the action.
-            this.calculateTargetXY(event, object);
-            this.setWhenFinished(function () {
+            var d = this.calculateTargetXY(event, object);
+            d.done(function () {
                 action.clickObject(object);
             });
             return;

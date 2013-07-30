@@ -162,6 +162,10 @@ define([
         this.render = function () {
             this.renderForNewGame();
         };
+
+        this.hasBeginCutscene = function () {
+            return false;
+        };
     };
     return GameMenu;
 });

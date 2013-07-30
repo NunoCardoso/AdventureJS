@@ -83,7 +83,7 @@ define([
 
         _talk = function (options) {
             if (options.lines.length === 0) {
-                if (options.onEnd !== 'undefined') {
+                if (options.onEnd === undefined) {
                     _onTalkEnded(options);
                 } else {
                     gamepanel.addDialogOptions(_dialogOptions);
