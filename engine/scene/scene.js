@@ -55,7 +55,7 @@ define([
         this.dynamicBack  = new createjs.Container();
         this.player       = new createjs.Container();
         this.dynamicFore  = new createjs.Container();
-        this.static       = new createjs.Container();
+        this.staticBack   = new createjs.Container();
 
         this.scenePc     = undefined;
         this.sceneNpcs   = undefined;
@@ -252,18 +252,18 @@ define([
             if (this.isPlayable()) {
                 // first to be rendered. Watch out, getPanel() depends on it.
                 if (options.panel) {
-                    this.static.addChild(options.panel);
+                    this.staticBack.addChild(options.panel);
                 }
 
                 if (options.sentence) {
-                    this.static.addChild(options.sentence);
+                    this.staticBack.addChild(options.sentence);
                 }
                 var MenuButton = require('engine/scene/menubutton');
-                this.static.addChild(new MenuButton({from: this.name}));
+                this.staticBack.addChild(new MenuButton({from: this.name}));
             }
             // add the custom cursor
             gamecursor.reset();
-            this.static.addChild(gamecursor.get());
+            this.staticBack.addChild(gamecursor.get());
         };
 
         this.render = function (options) {
@@ -286,19 +286,19 @@ define([
 
             this.renderStatic({
                 'panel'    : gamepanel.get(),
-                'sentence' : sentence.get(),
+                'sentence' : sentence.get()
             });
 
             this.addChild(this.dynamicBack);
             this.addChild(this.player);
             this.addChild(this.dynamicFore);
-            this.addChild(this.static);
+            this.addChild(this.staticBack);
 
         };
 
         this.getMenuButton = function () {
             // have to return as an array, testHit and testClick likes arrays
-            return [this.static.getChildByName('menubutton')];
+            return [this.staticBack.getChildByName('menubutton')];
         };
 
         this.getDynamicBackSceneChildrens = function () {
@@ -310,8 +310,8 @@ define([
         };
 
         this.getPanel = function () {
-            if (this.static.children) {
-                return this.static.children[0];
+            if (this.staticBack.children) {
+                return this.staticBack.children[0];
             }
             return undefined;
         };
@@ -351,22 +351,15 @@ define([
         };
 
         this.hasBeginCutscene = function () {
-            return typeof this.beginCutscene !== 'undefined';
+            return this.beginCutscene !== 'undefined';
         };
 
         this.performBeginCutscene = function () {
             if (this.beginCutscenePerformed) {
                 return;
             }
-            for (i in this.beginCutscene) {
-                gamecursor.changeTo('image.cursor.wait');
-                require('engine/stage/main').update();
-                require('engine/interaction/decision').perform(this.beginCutscene[i]);
-                gamecursor.reset();
-
-            }
-            beginCutscenePerformed = true;
-        }
+            require('engine/interaction/decision').performCutscene(this.beginCutscene);
+        };
 
         this.setState = function (json) {
             this.objects       = json.objects;

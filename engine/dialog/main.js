@@ -39,7 +39,7 @@ define([
             gamepanel.renderForDialog();
         },
 
-        _getCharacter = function (character) {
+        getCharacter = function (character) {
             var who;
             if (character.startsWith('pc.')) {
                 who = require('engine/character/main').getPc();
@@ -66,12 +66,12 @@ define([
                     gameachievement.publish(act.achievement);
                     break;
                 case 'fadeToLeft':
-                    var who = _getCharacter(act.character);
+                    var who = getCharacter(act.character);
                     who.setTargetXY({x: -100, y: who.y});
                     break;
                 case 'endDialog':
                     require('engine/interaction/action').reset();
-                     _dialogOptions = undefined;
+                    _dialogOptions = undefined;
                     gamepanel.renderForVerbsAndInventory();
                     break;
                 default:
@@ -83,7 +83,7 @@ define([
 
         _talk = function (options) {
             if (options.lines.length === 0) {
-                if (typeof options.onEnd !== 'undefined') {
+                if (options.onEnd !== 'undefined') {
                     _onTalkEnded(options);
                 } else {
                     gamepanel.addDialogOptions(_dialogOptions);
@@ -91,17 +91,18 @@ define([
                 }
                 return;
             }
-            var line = options.lines.shift();
-            var who = _getCharacter(line.character);
-            who.say(line.text, $.proxy(function () {
+            var line = options.lines.shift(); // removed one line
+            var who  = getCharacter(line.character);
+            var defered = who.say(line.text);
+            defered.done(function () {
                 _talk(options);
-            }, this));
+            });
         },
 
         perform = function (options) {
             _setPanelToDialog();
             var pc  = require('engine/character/main').getPc();
-            var npc = _getCharacter(options.to);
+            var npc = getCharacter(options.to);
             // make both characters do eye contact
             pc.faceTo(npc);
             npc.faceTo(pc);
@@ -111,6 +112,7 @@ define([
     return {
         'preload' : preload,
         'get'     : get,
-        'perform' : perform
+        'perform' : perform,
+        'getCharacter' : getCharacter
     };
 });

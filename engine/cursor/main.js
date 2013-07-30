@@ -13,7 +13,24 @@ define([
         _xy,
 
         changeTo = function (what) {
-            _.changeTo(what);
+            if (!_.busy) {
+                _.changeTo(what);
+            }
+        },
+
+        setBusy = function () {
+
+            changeTo('image.cursor.wait');
+            _.busy = true;
+        },
+
+        setNotBusy = function () {
+            _.busy = false;
+            changeTo('image.cursor.default');
+        },
+
+        isBusy = function () {
+            return _.busy;
         },
 
         reset = function () {
@@ -76,6 +93,9 @@ define([
 
     return {
         'changeTo': changeTo,
+        'setBusy' : setBusy,
+        'setNotBusy' : setNotBusy,
+        'isBusy'  : isBusy,
         'reset'   : reset,
         'preload' : preload,
         'get'     : get,

@@ -220,8 +220,8 @@ define([
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'I stuck the needle into the cork'
+                        'character': 'pc.guybrush',
+                        'text' : 'I stuck the needle into the cork'
                     },
                     {
                         'action': 'publishAchievement',
@@ -256,8 +256,8 @@ define([
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'I always wanted a wine bottle.'
+                        'character': 'pc.guybrush',
+                        'text' : 'I always wanted a wine bottle.'
                     }
                 ]
             },
@@ -271,8 +271,8 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'That is on e fine magnet I have!'
+                        'character': 'pc.guybrush',
+                        'text' : 'That is on e fine magnet I have!'
                     }
                 ]
             },
@@ -286,8 +286,8 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'Ouch! It\'s sharp!'
+                        'character': 'pc.guybrush',
+                        'text' : 'Ouch! It\'s sharp!'
                     }
                 ]
             },
@@ -301,8 +301,8 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'Mmmm.... wine... tasty!'
+                        'character': 'pc.guybrush',
+                        'text' : 'Mmmm.... wine... tasty!'
                     }
                 ]
             },
@@ -332,8 +332,8 @@ define([
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'There, I took the cork out.'
+                        'character': 'pc.guybrush',
+                        'text' : 'There, I took the cork out.'
                     }
                 ]
             }
@@ -348,7 +348,7 @@ define([
                 'beginCutscene' : [
                     {
                         'action' : 'moveTo',
-                        'target' : 'pc.guybrush',
+                        'character' : 'pc.guybrush',
                         'position' : {
                             'x': 300,
                             'y': 380
@@ -356,11 +356,12 @@ define([
                     },
                     {
                         'action' : 'dialogMessage',
-                        'text' : 'I\'m lost. I need a compass.'
+                        'character' : 'pc.guybrush',
+                        'text'  : 'I\'m lost. I need a compass.'
                     },
                     {
                         'action' : 'moveTo',
-                        'target' : 'pc.guybrush',
+                        'character' : 'pc.guybrush',
                         'position' : {
                             'x': 400,
                             'y': 380
@@ -368,7 +369,8 @@ define([
                     },
                     {
                         'action' : 'dialogMessage',
-                        'text' : 'Maybe that pirate can help me.'
+                        'character' : 'pc.guybrush',
+                        'text'  : 'Maybe that pirate can help me.'
                     }
                 ],
                 'npcs' : [
@@ -472,7 +474,8 @@ define([
                 'isInInventory': 'object.winebottle',
                 'onFail': {
                     'action' : 'dialogMessage',
-                    'text'   : 'I can\'t leave without the wine bottle'
+                    'character' : 'pc.guybrush',
+                    'text'  : 'I can\'t leave without the wine bottle'
                 }
             },
             {
@@ -480,7 +483,8 @@ define([
                 'isInInventory': 'object.compass',
                 'onFail': {
                     'action' : 'dialogMessage',
-                    'text'   : 'I can\'t leave without a compass!'
+                    'character' : 'pc.guybrush',
+                    'text'  : 'I can\'t leave without a compass!'
                 }
             }
         ],

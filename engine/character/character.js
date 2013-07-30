@@ -57,11 +57,9 @@ define([
         // callback after reaching a place
         this.whenFinished = undefined;
 
-        // callback after saying a balloon:
-        this.afterSay = undefined;
-
-        // setTimeout for saying something
-        this.saying = undefined;
+        // Deferred for talk
+        this.talkDeferred = undefined;
+        this.walkDeferred = undefined;
 
         // boolean for when this character is speaking
         this.isSpeaking = false;
@@ -118,6 +116,12 @@ define([
             this.whenFinished = undefined;
         };
 
+        this.moveTo = function (position) {
+            this.walkDeferred = $.Deferred();
+            this.setTargetXY(position);
+            return this.walkDeferred;
+        };
+
         this.resetTargetXY = function () {
             this.targetXY = undefined;
         };
@@ -126,7 +130,7 @@ define([
         // but if we clicked on items/characters, we don't want to land
         // on top of them, so let's compute a margin distance.
         this.calculateTargetXY = function (xy, item) {
-            if (typeof item === 'undefined') {
+            if (!item) {
                 return this.setTargetXY(xy);
             }
             var dim = item.getDimensions(),
@@ -146,26 +150,25 @@ define([
             }
         };
 
-        this.finishedSay = function () {
-            this.shutUp();
-            if (typeof this.afterSay === 'function') {
-                this.afterSay.call();
-            }
-        };
-
-        this.say = function (text, callback) {
-            // 0.1 sec per letter;
-            this.afterSay = callback;
-            var interv = text.length * 100;
-            this.talk(text);
-            this.saying = setTimeout($.proxy(this.finishedSay, this), interv);
-        };
-
         // triggered when dot key is press
         // it shutups, but continues the conversation, if on the middle of one
         this.stopSay = function () {
-            clearTimeout(this.saying);
-            this.finishedSay();
+            if (this.talkDeferred) {
+                this.talkDeferred.resolve();
+                this.talkDeferred = undefined;
+            }
+            this.shutUp();
+        };
+
+        this.say = function (text, callback) {
+            this.talkDeferred = $.Deferred();
+            // 0.1 sec per letter;
+            var interv = text.length * 100;
+            this.talk(text);
+            setTimeout($.proxy(function () {
+                this.stopSay();
+            }, this), interv);
+            return this.talkDeferred.promise();
         };
 
         this.shutUp = function () {
@@ -191,6 +194,10 @@ define([
                     if (this.isFacingLeft()) {
                         this.character.attitude = "standleft";
                         // perform the callback action, since the character reached his destination;
+                        if (this.walkDeferred) {
+                            this.walkDeferred.resolve();
+                            this.walkDeferred = undefined;
+                        }
                         if (this.whenFinished) {
                             this.whenFinished.call();
                             this.whenFinished = undefined;
@@ -198,6 +205,10 @@ define([
                     } else if (this.isFacingRight()) {
                         this.character.attitude = "standright";
                         // perform the callback action, since the character reached his destination;
+                        if (this.walkDeferred) {
+                            this.walkDeferred.resolve();
+                            this.walkDeferred = undefined;
+                        }
                         if (this.whenFinished) {
                             this.whenFinished.call();
                             this.whenFinished = undefined;

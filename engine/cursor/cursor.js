@@ -22,6 +22,7 @@ define([
         this.Cursor_initialize();
 
         this.gameBoundsY = config.get('game.h');
+        this.busy = false;
 
         this.doTestDrag = function (scene, items) {
             var i, isHandled;
@@ -43,7 +44,7 @@ define([
             return false;
         };
 
-       this.doTestUndrag = function (scene, items) {
+        this.doTestUndrag = function (scene, items) {
             var i, isHandled;
 
             for (i = items.length - 1; i >= 0; i--) {
@@ -133,6 +134,11 @@ define([
         this.update = function (stage, xy, event) {
             this.x = xy.x;
             this.y = xy.y;
+
+            // do no update on cursor, if he is busy;
+            if (this.busy) {
+                return;
+            }
 
             var i,
                 interactables,
