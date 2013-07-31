@@ -19,10 +19,9 @@ define([
 
         getUser = function () {
             return _user;
-        };
+        },
 
-    (function ($) {
-        $(function () {
+        init = function () {
             var game = new Game();
             game.init();
             game.setUser(_user);
@@ -30,11 +29,14 @@ define([
             game.start({
                 scene: 'scene.menu'
             });
-        });
-    }(jQuery));
+        };
+
+    // TODO: to remove when we have a way to load a game, then trigger the init method
+    init();
 
     return {
         'setUser' : setUser,
-        'getUser' : getUser
+        'getUser' : getUser,
+        'init' :  init
     };
 });
