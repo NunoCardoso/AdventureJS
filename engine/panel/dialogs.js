@@ -85,7 +85,7 @@ define([
         this.render = function (options) {
 
             var dialogoptions = [];
-            if (typeof options === 'undefined') {
+            if (options === undefined) {
                 var i;
 
                 for (i in this.children) {
@@ -116,11 +116,11 @@ define([
 
         this.addDialogOptions = function (dialogoptions) {
             var i,
-                _do = require('engine/dialogoption/main').get(dialogoptions);
-
+                _do;
             this.order = 0;
-            for (i in _do) {
-                this.add(_do[i]);
+            for (i in dialogoptions) {
+//                _do = require('engine/dialogoption/main').get(dialogoptions[i]);
+                this.add(dialogoptions[i]);
             }
         };
 

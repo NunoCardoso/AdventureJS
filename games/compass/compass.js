@@ -212,15 +212,15 @@ define([
                 'actions' : [
                     {
                         'action': 'removeFromInventory',
-                        'target': 'object.needle'
+                        'object': 'object.needle'
                     },
                     {
                         'action': 'removeFromInventory',
-                        'target': 'object.cork'
+                        'object': 'object.cork'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'object.needlewithcork'
+                        'object': 'object.needlewithcork'
                     },
                     {
                         'action': 'dialogMessage',
@@ -242,7 +242,7 @@ define([
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'target': 'dialog.01'
+                        'dialog': 'dialog.01'
                     }
                 ]
             },
@@ -256,7 +256,7 @@ define([
                 'actions' : [
                     {
                         'action': 'fromSceneToInventory',
-                        'target': 'object.winebottle'
+                        'object': 'object.winebottle'
                     },
                     {
                         'action': 'dialogMessage',
@@ -324,15 +324,15 @@ define([
                 'actions' : [
                     {
                         'action': 'removeFromInventory',
-                        'target': 'object.winebottle'
+                        'object': 'object.winebottle'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'object.winebottlewithoutcork'
+                        'object': 'object.winebottlewithoutcork'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'object.cork'
+                        'object': 'object.cork'
                     },
                     {
                         'action': 'dialogMessage',
@@ -509,7 +509,7 @@ define([
                 ],
                 'onEnd' : [
                     {
-                        'action' : 'displayDialogOptions',
+                        'action' : 'startDialogOptions',
                         'dialogOptions' : 'dialogoption.01'
                     }
                 ]

@@ -363,7 +363,11 @@ define([
             if (this.beginCutscenePerformed) {
                 return;
             }
-            require('engine/interaction/decision').performCutscene(this.beginCutscene);
+            gamecursor.setBusy();
+            var deferred = require('engine/interaction/decision').performList(this.beginCutscene);
+            deferred.done(function () {
+                gamecursor.setNotBusy();
+            });
             this.beginCutscenePerformed = true;
         };
 

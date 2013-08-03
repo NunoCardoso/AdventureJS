@@ -11,11 +11,7 @@ define([
     gamedialog
 ) {
 
-    //playDialog:
-    // action=dialogMessage. character=pc, text=text
-
-    // from dialog: 
-    //'to' : pc, lines 'character' : 'pc.guybrush', 'text' : 'Hello.'
+    var _do;
 
     var perform = function (action) {
             var d = $.Deferred(),
@@ -25,6 +21,16 @@ define([
                 scene;
 
             switch (action.action) {
+            case "continueDialogOptions":
+                require('engine/panel/main').addDialogOptions(_do);
+                require('engine/panel/main').renderForDialog();
+                break;
+            case "startDialogOptions":
+                var dialogOptions = require('engine/dialogoption/main').get(action.dialogOptions);
+                _do = dialogOptions;
+                require('engine/panel/main').addDialogOptions(dialogOptions);
+                require('engine/panel/main').renderForDialog();
+                break;
             case 'moveTo':
                 character = gamedialog.getCharacter(action.character);
                 deferred = character.moveTo(action.position);
@@ -34,7 +40,7 @@ define([
                 });
                 return d.promise();
             case 'playDialog':
-                dialog = gamedialog.get(action.target);
+                dialog = gamedialog.get(action.dialog);
                 gamedialog.perform({
                     // slice(0) clones it, because gamedialog will destroy it
                     lines : dialog.lines.slice(0),
@@ -55,17 +61,26 @@ define([
                 return d.promise();
             case 'fromSceneToInventory':
                 require('engine/stage/main').getInstance()
-                    .getCurrentScene().removeObject(action.target);
-                require('engine/panel/main').addToInventory(action.target);
+                    .getCurrentScene().removeObject(action.object);
+                require('engine/panel/main').addToInventory(action.object);
                 break;
             case 'removeFromInventory':
-                require('engine/panel/main').removeFromInventory(action.target);
+                require('engine/panel/main').removeFromInventory(action.object);
                 break;
             case 'addToInventory':
-                require('engine/panel/main').addToInventory(action.target);
+                require('engine/panel/main').addToInventory(action.object);
                 break;
             case 'publishAchievement':
                 require('engine/achievement/main').publish(action.achievement);
+                break;
+            case 'fadeToLeft':
+                var who = gamedialog.getCharacter(action.character);
+                who.setTargetXY({x: -100, y: who.y});
+                break;
+            case 'endDialog':
+                require('engine/interaction/action').reset();
+                _do = undefined;
+                require('engine/panel/main').renderForVerbsAndInventory();
                 break;
             default:
                 console.log(action.action + ' not implemented!');
@@ -73,31 +88,30 @@ define([
             }
         },
 
-        performCutscene = function (cutscenes) {
+        performList = function (list) {
+            var deferred = $.Deferred();
 
-            require('engine/cursor/main').setBusy();
-            var _cutscenes = cutscenes.slice(0); // clone it
-            if (_cutscenes.length > 0) {
-                var _cutscene = _cutscenes.shift();
-                var decision = require('engine/interaction/decision');
-                var deferred = decision.perform(_cutscene);
-                deferred.done($.proxy(function () {
-                    // do next one
-                    this.performCutscene(_cutscenes);
-                }, this));
+            var _list = list.slice(0); // clone it
+            if (_list.length > 0) {
+                var item = _list.shift();
+                var deferred2 = perform(item);
+                if (deferred2) {
+                    deferred2.done(function () {
+                        this.performList(_list);
+                    });
+                } else {
+                    this.performList(_list);
+                }
             } else {
-            // executed only when all cutscenes were played
-                require('engine/cursor/main').setNotBusy();
+                deferred.resolve();
             }
+            return deferred.promise();
         },
 
         decide = function (verb, first, second) {
 
             var mainactions = gameinteraction.find(verb, first, second),
-                a,
-                action,
-                i,
-                j;
+                a, i, j, action;
 
             if (mainactions.length > 0) {
                 for (i = 0; i < mainactions.length; i++) {
@@ -120,6 +134,6 @@ define([
     return {
         'decide' : decide,
         'perform' : perform,
-        'performCutscene' : performCutscene
+        'performList' : performList
     };
 });

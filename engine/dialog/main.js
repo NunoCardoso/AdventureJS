@@ -4,14 +4,12 @@
  * This module handles dialogs
  */
 define([
-    'engine/achievement/main',
     'engine/config',
     'engine/dialog/dialog',
     'engine/dialogoption/main',
     'engine/panel/main',
     'engine/sentence/main'
 ], function (
-    gameachievement,
     config,
     GameDialog,
     gamedialogoption,
@@ -20,7 +18,6 @@ define([
 ) {
 
     var _ = {},
-        _dialogOptions, // store temporarily the current dialog
 
         preload = function (dialogs) {
             var i;
@@ -49,45 +46,14 @@ define([
             return who;
         },
 
-        _onTalkEnded = function (options) {
-            var i, act;
-            for (i in options.onEnd) {
-                act = options.onEnd[i];
-                switch (act.action) {
-                case 'displayDialogOptions':
-                    gamepanel.addDialogOptions(act.dialogOptions);
-                    _dialogOptions = act.dialogOptions;
-                    gamepanel.renderForDialog();
-                    break;
-                case 'addToInventory':
-                    gamepanel.addToInventory(act.object);
-                    break;
-                case 'publishAchievement':
-                    gameachievement.publish(act.achievement);
-                    break;
-                case 'fadeToLeft':
-                    var who = getCharacter(act.character);
-                    who.setTargetXY({x: -100, y: who.y});
-                    break;
-                case 'endDialog':
-                    require('engine/interaction/action').reset();
-                    _dialogOptions = undefined;
-                    gamepanel.renderForVerbsAndInventory();
-                    break;
-                default:
-                    console.log(act.action + ' not implemented!');
-                    break;
-                }
-            }
-        },
-
         _talk = function (options) {
             if (options.lines.length === 0) {
                 if (options.onEnd === undefined) {
-                    _onTalkEnded(options);
+                    require('engine/interaction/decision').perform({
+                        'action' : 'continueDialogOptions'
+                    });
                 } else {
-                    gamepanel.addDialogOptions(_dialogOptions);
-                    gamepanel.renderForDialog();
+                    require('engine/interaction/decision').performList(options.onEnd);
                 }
                 return;
             }
