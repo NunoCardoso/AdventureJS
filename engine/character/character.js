@@ -4,16 +4,16 @@
  * This is the main character (playable or not) class
  */
 define([
-    'engine/config',
     'engine/interaction/action',
     'engine/lib/assets',
     'engine/character/balloon',
+    'engine/character/move',
     'engine/dialog/main'
 ], function (
-    config,
     action,
     assets,
     Balloon,
+    move,
     gamedialog
 ) {
     var Character = function (options) {
@@ -170,88 +170,24 @@ define([
             this.balloon.shutUp();
         };
 
-        // for scenes that stretch, maybe the scene has to scroll, not the character.
         this.update = function (scene) {
-
-            if (this.targetXY) {
-                if (this.x > this.targetXY.x && (this.x - this.targetXY.x > this.speed)) {
-                    this.character.attitude = "walkleft";
-                } else if (this.x < this.targetXY.x  && (this.targetXY.x - this.x > this.speed)) {
-                    this.character.attitude = "walkright";
-                } else {
-                    if (this.isFacingLeft()) {
-                        this.character.attitude = "standleft";
-                        // perform the callback action, since the character reached his destination;
-                        if (this.walkDeferred) {
-                            this.walkDeferred.resolve();
-                            this.walkDeferred = undefined;
-                        }
-                    } else if (this.isFacingRight()) {
-                        this.character.attitude = "standright";
-                        // perform the callback action, since the character reached his destination;
-                        if (this.walkDeferred) {
-                            this.walkDeferred.resolve();
-                            this.walkDeferred = undefined;
-                        }
-                    }
-                }
-            }
-            if (this.character.attitude === "walkleft") {
-                this.setX(this.x - this.speed);
-            } else if (this.character.attitude === "walkright") {
-                this.setX(this.x + this.speed);
-            }
-
-            if (scene && scene.isPlayable()) {
-                // now, let's see if scene should scroll
-                var sceneHasHiddenBackgroundOnRight = (
-                    scene.background.mode !== 'fit' &&
-                    (scene.dynamicBack.x + scene.dynamicBack.w > config.get('game.w'))
-                );
-
-                var sceneHasHiddenBackgroundOnLeft = (
-                    scene.background.mode !== 'fit' &&
-                    (scene.dynamicBack.x < 0)
-                );
-
-                var isCharacterOnLeftHalf = (this.x < (config.get('game.w') / 2));
-                var isCharacterOnRightHalf = (this.x >= (config.get('game.w') / 2));
-
-                if (sceneHasHiddenBackgroundOnLeft && isCharacterOnLeftHalf && this.character.attitude === 'walkleft') {
-                    scene.dynamicBack.x += this.speed;
-                    scene.dynamicFore.x += this.speed;
-                    // restore character into that position
-                    this.setX(this.x + this.speed);
-                    if (this.targetXY) {
-                        // nonetheless, your targetXY comes closer
-                        this.targetXY.x += this.speed;
-                    }
-                }
-
-                if (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && this.character.attitude === 'walkright') {
-                    scene.dynamicBack.x -= this.speed;
-                    scene.dynamicFore.x -= this.speed;
-                    // restore character into that position
-                    this.setX(this.x - this.speed);
-                    if (this.targetXY) {
-                        // nonetheless, your targetXY comes closer
-                        this.targetXY.x -= this.speed;
-                    }
-                }
-            }
-            // change attitude only if it is different
-            if (this.currentAnimation !== this.character.attitude) {
-                this.currentAnimation = this.character.attitude;
-                this.character.gotoAndPlay(this.character.attitude);
-            }
+            move.move(this, scene);
         };
 
         this.isFacingLeft = function () {
-            return this.character.attitude === "walkleft" || this.character.attitude === "standleft" || this.character.attitude === 'talkleft';
+            return this.character.attitude === "walkleft" || 
+                   this.character.attitude === "walkupleft" || 
+                   this.character.attitude === "walkdownleft" || 
+                   this.character.attitude === "standleft" || 
+                   this.character.attitude === 'talkleft';
         };
 
         this.isFacingRight = function () {
-            return this.character.attitude === "walkright" || this.character.attitude === "standright" || this.character.attitude === 'talkright';
+            return this.character.attitude === "walkright" || 
+                   this.character.attitude === "walkupright" || 
+                   this.character.attitude === "walkdownright" || 
+                   this.character.attitude === "standright" || 
+                   this.character.attitude === 'talkright';
         };
 
         this.talk = function (text) {

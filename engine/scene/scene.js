@@ -67,7 +67,8 @@ define([
 
         if (scene.background) {
             this.background = new Background({
-                'background' : scene.background
+                'background'     : scene.background,
+                'backgroundpath' : scene.backgroundpath
             });
         }
 
@@ -322,6 +323,10 @@ define([
 
         this.getNpcs = function () {
             return this.sceneNpcs;
+        };
+
+        this.getBackground = function () {
+            return this.dynamicBack.getChildByName('background');
         };
 
         this.getState = function () {

@@ -27,14 +27,6 @@ define([
             game.start({
                 scene: scene || 'scene.menu'
             });
-        },
-
-        startOnScene = function (scene) {
-            _createDialog();
-            _initGame();
-            game.start({
-                scene: scene
-            });
         };
 
     return {

@@ -9,6 +9,10 @@ define([
                 'src' : 'games/compass/img/background/jungle.jpg'
             },
             {
+                'id'  : 'image.jungle.path',
+                'src' : 'games/compass/img/background/jungle.path.png'
+            },
+            {
                 'id'  : 'image.kyrandia',
                 'src' : 'games/compass/img/background/legend-of-kyrandia.jpg'
             },
@@ -342,10 +346,11 @@ define([
             {
                 'id'                 : 'scene.01',
                 'background'         : 'image.jungle',
+                'backgroundpath'     : 'image.jungle.path',
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
-                'beginCutscene' : [
+/*                'beginCutscene' : [
                     {
                         'action' : 'moveTo',
                         'character' : 'pc.guybrush',
@@ -372,7 +377,7 @@ define([
                         'character' : 'pc.guybrush',
                         'text'  : 'Maybe that pirate can help me.'
                     }
-                ],
+                ],*/
                 'npcs' : [
                     {
                         'id' : 'npc.pirate01',
