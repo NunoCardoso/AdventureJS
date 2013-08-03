@@ -38,6 +38,7 @@ define([
 
         if (options.backgroundpath) {
             this.path = new createjs.Bitmap();
+            this.path.alpha = 0.5;
             this.path.image = assets.getQueueLoaded().getResult(options.backgroundpath);
             this.addChild(this.path);
         }
@@ -52,10 +53,10 @@ define([
             this.w = config.get('game.w');
             this.h = config.get('game.h');
         } else {
-            this.image.scaleX = 1;
+            this.image.scaleX = 1; 
             this.image.scaleY = config.get('game.h') / this.image.image.height;
             if (this.path) {
-                this.path.scaleX = 1;
+                this.path.scaleX = this.image.image.height / this.path.image.height;
                 this.path.scaleY = config.get('game.h') / this.path.image.height;
             }
             this.w = this.image.image.width;

@@ -52,6 +52,7 @@ define([
                 };
             }
             if (tries > 16) {
+                //c.targetXY = undefined;
                 return {x: 0, y: 0, d: 'stand'};
             }
             // recursive, if not within allowed place.
@@ -77,7 +78,8 @@ define([
                 angle = angle + Math.PI;
             }
 
-            if (abs < c.speed) {
+            if (abs < 1) {
+               // c.targetXY = undefined;
                 return {x: 0, y: 0, d: 'stand'};
             }
 
@@ -96,14 +98,14 @@ define([
                 c.setX(c.x + d.x);
                 c.setY(c.y + d.y);
             } else {
-                if (c.isFacingLeft()) {
+                if (c.isFacingLeft() && !c.isStandingLeft()) {
                     c.character.attitude = "standleft";
                     // perform the callback action, since the character reached his destination;
                     if (c.walkDeferred) {
                         c.walkDeferred.resolve();
                         c.walkDeferred = undefined;
                     }
-                } else if (c.isFacingRight()) {
+                } else if (c.isFacingRight() && !c.isStandingRight()) {
                     c.character.attitude = "standright";
                     // perform the callback action, since the character reached his destination;
                     if (c.walkDeferred) {

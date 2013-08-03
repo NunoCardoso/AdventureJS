@@ -116,10 +116,13 @@ define([
                     x : $("#canvas").width(),
                     y : $("#canvas").height()
                 });
-                gamestart.init({
-                    'assetList'      : _assetList.concat(gameAssetList),
-                    'onAssetsLoaded' : onAssetsLoaded,
-                    'onAssetsLoadedOptions' : options
+
+                var deferred = gamestart.init({
+                    'assetList' : _assetList.concat(gameAssetList)
+                });
+
+                deferred.done(function () {
+                    onAssetsLoaded(options);
                 });
             };
 

@@ -174,19 +174,27 @@ define([
             move.move(this, scene);
         };
 
+        this.isStandingLeft = function () {
+            return this.character.attitude === "standleft";
+        };
+
+        this.isStandingRight = function () {
+            return this.character.attitude === "standright";
+        };
+
         this.isFacingLeft = function () {
-            return this.character.attitude === "walkleft" || 
-                   this.character.attitude === "walkupleft" || 
-                   this.character.attitude === "walkdownleft" || 
-                   this.character.attitude === "standleft" || 
+            return this.character.attitude === "walkleft" ||
+                   this.character.attitude === "walkupleft" ||
+                   this.character.attitude === "walkdownleft" ||
+                   this.character.attitude === "standleft" ||
                    this.character.attitude === 'talkleft';
         };
 
         this.isFacingRight = function () {
-            return this.character.attitude === "walkright" || 
-                   this.character.attitude === "walkupright" || 
-                   this.character.attitude === "walkdownright" || 
-                   this.character.attitude === "standright" || 
+            return this.character.attitude === "walkright" ||
+                   this.character.attitude === "walkupright" ||
+                   this.character.attitude === "walkdownright" ||
+                   this.character.attitude === "standright" ||
                    this.character.attitude === 'talkright';
         };
 
