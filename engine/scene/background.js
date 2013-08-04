@@ -78,19 +78,6 @@ define([
             return false;
         };
 
-        this.testUndrag = function (x, y, scene) {
-            var coords = this.globalToLocal(x, y);
-            var mouseHit = this.hitTest(coords.x, coords.y);
-            if (mouseHit) {
-                require('engine/cursor/main').changeTo('image.cursor.drag');
-                if (this.dragXY) {
-                    this.dragXY = undefined;
-                }
-                return true;
-            }
-            return false;
-        };
-
         this.testClick = function (x, y, scene) {
             var coords = this.globalToLocal(x, y);
             var mouseClick = this.hitTest(coords.x, coords.y);

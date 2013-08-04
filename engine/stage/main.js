@@ -20,9 +20,11 @@ define([
         savegame, // a JSON snapshot of this stage
 
         _onDragging = false,
+        _role,
 
-        preload = function (character) {
-            stage = new GameStage("canvas");
+        preload = function (options) {
+            stage = new GameStage(options.canvas);
+            _role = options.role;
         },
 
         getInstance = function () {
@@ -62,24 +64,52 @@ define([
             createjs.Touch.enable(stage);
         },
 
-        activateCursor = function () {
+        isPlayable = function () {
+            return _role === 'play';
+        },
+
+        isEditable = function () {
+            return _role === 'editor';
+        },
+
+        activateCursorForPlay = function () {
             gamecursor.setStage(stage);
             stage.onMouseMove = function (e) {
-                gamecursor.update({x: e.stageX, y: e.stageY});
+                gamecursor.update({x: e.stageX, y: e.stageY}, 'play');
             };
 
             stage.onPress = function (evt) {
 
                 evt.onMouseMove = function (e) {
                     _onDragging = true;
-                    gamecursor.drag({x: e.stageX, y: e.stageY});
+                    gamecursor.drag({x: e.stageX, y: e.stageY}, 'play');
                 };
                 evt.onMouseUp = function (e) {
                     if (_onDragging) {
-                        gamecursor.undrag({x: e.stageX, y: e.stageY});
+                        gamecursor.reset();
                         _onDragging = false;
                     } else {
-                        gamecursor.click({x: evt.stageX, y: evt.stageY});
+                        gamecursor.click({x: evt.stageX, y: evt.stageY}, 'play');
+                    }
+                };
+            };
+        },
+
+        activateCursorForEditor = function () {
+            gamecursor.setStage(stage);
+
+            stage.onPress = function (evt) {
+
+                evt.onMouseMove = function (e) {
+                    _onDragging = true;
+                    gamecursor.drag({x: e.stageX, y: e.stageY}, 'editor');
+                };
+                evt.onMouseUp = function (e) {
+                    if (_onDragging) {
+                        gamecursor.reset();
+                        _onDragging = false;
+                    } else {
+                        gamecursor.click({x: evt.stageX, y: evt.stageY}, 'editor');
                     }
                 };
             };
@@ -132,7 +162,11 @@ define([
         'update' : update,
 
         'activate' : activate,
-        'activateCursor' : activateCursor,
-        'deactivateCursor' : deactivateCursor
+        'activateCursorForPlay' : activateCursorForPlay,
+        'activateCursorForEditor' : activateCursorForEditor,
+        'deactivateCursor'      : deactivateCursor,
+
+        'isPlayable' : isPlayable,
+        'isEditable' : isEditable
     };
 });

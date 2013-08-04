@@ -106,7 +106,7 @@ define([
             this.setDimensions();
         };
 
-        this.testClick = function (x, y, scene) {
+        this.testClick = function (x, y, scene, role) {
             var coords = this.globalToLocal(x, y);
             var mouseClick = this.hitTest(coords.x, coords.y);
             if (mouseClick) {
@@ -116,7 +116,24 @@ define([
             return false;
         };
 
-        this.testHit = function (x, y) {
+
+        this.testDrag = function (x, y, scene, role) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                if (role === 'play') {
+                    console.log('can\'t drag object while playing');
+                } else {
+                    console.log('yes, can drag');
+                    console.log(x);
+                    console.log(y);
+                }
+                return true;
+            }
+            return false;
+        };
+
+        this.testHit = function (x, y, role) {
             var coords = this.globalToLocal(x, y);
             var mouseOver = this.hitTest(coords.x, coords.y);
             if (mouseOver && !this.isMouseOver) {

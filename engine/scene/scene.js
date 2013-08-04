@@ -114,6 +114,10 @@ define([
             }
         };
 
+        this.addObject = function (object) {
+            this.objects[object.id] = object;
+        };
+
         // when dragging backgrounds
         this.move = function (diffX) {
             var proceed = false;
@@ -250,7 +254,8 @@ define([
         };
 
         this.renderStatic = function (options) {
-            if (this.isPlayable()) {
+
+            if (require('engine/stage/main').isPlayable()) {
                 // first to be rendered. Watch out, getPanel() depends on it.
                 if (options.panel) {
                     this.staticBack.addChild(options.panel);
@@ -259,17 +264,19 @@ define([
                 if (options.sentence) {
                     this.staticBack.addChild(options.sentence);
                 }
+
                 var MenuButton = require('engine/scene/menubutton');
                 this.staticBack.addChild(new MenuButton({from: this.name}));
+
+                // add the custom cursor
+                gamecursor.reset();
+                this.staticBack.addChild(gamecursor.get());
             }
-            // add the custom cursor
-            gamecursor.reset();
-            this.staticBack.addChild(gamecursor.get());
         };
 
         this.render = function (options) {
 
-            this.toExit = options.toExit || undefined;
+            this.toExit = (options ? options.toExit : undefined);
             this.startXY = undefined;
 
             this.removeAllChildren();
@@ -279,15 +286,16 @@ define([
                 'npcs' : gamecharacter.getNpcs()
             });
 
-            gamepanel.renderForVerbsAndInventory();
-
-            this.renderPlayer({
-                'pc'       : gamecharacter.getPc()
-            });
-
+            if (require('engine/stage/main').isPlayable()) {
+                gamepanel.renderForVerbsAndInventory();
+            }
             this.renderStatic({
                 'panel'    : gamepanel.get(),
                 'sentence' : sentence.get()
+            });
+
+            this.renderPlayer({
+                'pc'       : gamecharacter.getPc()
             });
 
             this.addChild(this.dynamicBack);

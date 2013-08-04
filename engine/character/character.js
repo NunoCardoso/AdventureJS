@@ -233,7 +233,7 @@ define([
             }
         };
 
-        this.testHit = function (x, y) {
+        this.testHit = function (x, y, role) {
             if (!this.isPlayable) {
                 var coords = this.globalToLocal(x, y);
                 var mouseOver = this.hitTest(coords.x, coords.y);
@@ -248,7 +248,7 @@ define([
             }
         };
 
-        this.testClick = function (x, y, scene) {
+        this.testClick = function (x, y, scene, role) {
             if (!this.isPlayable) {
                 var coords = this.globalToLocal(x, y);
                 var mouseClick = this.hitTest(coords.x, coords.y);
@@ -257,6 +257,20 @@ define([
                     // important, to stop bubbling
                     return true;
                 }
+            }
+            return false;
+        };
+
+        this.testDrag = function (x, y, scene, role) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                if (role === 'play') {
+                    console.log('can\'t  drag while playing');
+                } else {
+                    console.log('yes, can drag');
+                }
+                return true;
             }
             return false;
         };

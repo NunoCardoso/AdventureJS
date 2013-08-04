@@ -77,13 +77,13 @@ define([
             var mouseOver = this.hitTest(coords.x, coords.y);
             if (mouseOver && !this.isMouseOver) {
                 this.isMouseOver = mouseOver;
-                this.text.alpha = 1;
+                this.text.alpha  = 1;
                 this.background.alpha = 0.3;
                 return true;
             }
             if (!mouseOver && this.isMouseOver) {
                 this.isMouseOver = mouseOver;
-                this.text.alpha = 0.7;
+                this.text.alpha  = 0.7;
                 this.background.alpha = 0.15;
                 return true;
             }

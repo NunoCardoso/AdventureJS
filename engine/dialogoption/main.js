@@ -36,11 +36,11 @@ define([
                     var timesToUse = _calculatePersistence(choices[i].persistence);
 
                     processedChoices[i] = new DialogOption({
-                        id     : 'dialogoption.' + i,
-                        text   : choices[i].text,
-                        dialog : choices[i].dialog,
+                        id         : 'dialogoption.' + i,
+                        text       : choices[i].text,
+                        dialog     : choices[i].dialog,
                         timesToUse : timesToUse,
-                        position : i
+                        position   : i
                     });
                 }
                 _[id] = processedChoices;

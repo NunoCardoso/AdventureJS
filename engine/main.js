@@ -12,6 +12,7 @@ define([
     compass
 ) {
     var _user = "Me",
+        _game,
 
         setUser = function (user) {
             _user = user;
@@ -22,12 +23,14 @@ define([
         },
 
         init = function () {
-            var game = new Game();
-            game.init();
-            game.setUser(_user);
-            game.load(compass);
-            game.start({
-                scene: 'scene.menu'
+            _game = new Game();
+            _game.init();
+            _game.setUser(_user);
+            _game.load(compass);
+            _game.start({
+                scene    : 'scene.menu',
+                canvas   : 'canvas',
+                role     : 'play'
             });
         };
 

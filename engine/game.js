@@ -51,6 +51,7 @@ define([
         var _game,
             _user,
             _assetList,
+            _options,
 
             setUser = function (user) {
                 _user = user;
@@ -82,25 +83,29 @@ define([
                 gamestage.update();
             },
 
-            onAssetsLoaded = function (options) {
+            onAssetsLoaded = function () {
                 gamecursor.preload();
                 gamemenu.preload(_game.main);
                 gamecharacter.preload(_game.pc, _game.npcs);
                 gameobject.preload(_game.objects);
-                gameinteraction.preload(_game.interactions);
-                gamedialog.preload(_game.dialogs);
-                gamedialogoption.preload(_game.dialogoptions);
-                gamecondition.preload(_game.conditions);
                 gameexit.preload(_game.exits);
-                gamedialogoption.preload(_game.dialogoptions);
-                gamepanel.preload(_game.panel);
-                gameachievement.preload(_game.achievements);
-                gameachievement.setUser(getUser());
-                gamescene.preload(_game.scenes);
-                if (!options.scene) {
-                    options.scene = 'scene.menu';
+
+                if (_options.role === 'play') {
+
+                    gameinteraction.preload(_game.interactions);
+                    gamedialog.preload(_game.dialogs);
+                    gamedialogoption.preload(_game.dialogoptions);
+                    gamecondition.preload(_game.conditions);
+                    gamepanel.preload(_game.panel);
+                    gameachievement.preload(_game.achievements);
+                    gameachievement.setUser(getUser());
                 }
-                render(options.scene);
+
+                gamescene.preload(_game.scenes);
+                if (!_options.scene) {
+                    _options.scene = 'scene.menu';
+                }
+                render(_options.scene);
             },
 
             /**
@@ -109,9 +114,13 @@ define([
              * rendering the main menu
              */
             start = function (options) {
+                _options = options;
                 var gameAssetList = _game.images.concat(_game.sounds);
 
-                gamestage.preload();
+                gamestage.preload({
+                    canvas : options.canvas || 'canvas',
+                    role   : options.role
+                });
                 config.setCanvasXY({
                     x : $("#canvas").width(),
                     y : $("#canvas").height()
@@ -122,7 +131,7 @@ define([
                 });
 
                 deferred.done(function () {
-                    onAssetsLoaded(options);
+                    onAssetsLoaded();
                 });
             };
 

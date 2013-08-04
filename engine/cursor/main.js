@@ -19,7 +19,6 @@ define([
         },
 
         setBusy = function () {
-
             changeTo('image.cursor.wait');
             _.busy = true;
         },
@@ -69,26 +68,21 @@ define([
             _.update(_stage, _xy);
         },
 
-        update = function (xy) {
+        update = function (xy, role) {
             _xy = xy;
-            _.update(_stage, _xy, 'hover');
+            _.update(_stage, _xy, 'hover', role);
         },
 
         // if it is from keyboard, xy is undefined, use latest.
         // if from the mouse, xy is defined;
-        click = function (xy) {
+        click = function (xy, role) {
             _xy = xy || _xy;
-            _.update(_stage, _xy, 'click');
+            _.update(_stage, _xy, 'click', role);
         },
 
-        drag = function (xy) {
+        drag = function (xy, role) {
             _xy = xy || _xy;
-            _.update(_stage, _xy, 'drag');
-        },
-
-        undrag = function (xy) {
-            _xy = xy || _xy;
-            _.update(_stage, _xy, 'undrag');
+            _.update(_stage, _xy, 'drag', role);
         };
 
     return {
@@ -102,7 +96,6 @@ define([
         'update'  : update,
         'click'   : click,
         'drag'    : drag,
-        'undrag'  : undrag,
         'setStage': setStage,
         'goLeft'  : goLeft,
         'goUp'    : goUp,

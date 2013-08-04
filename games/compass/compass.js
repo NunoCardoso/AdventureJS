@@ -79,6 +79,10 @@ define([
             {
                 'id'  : 'image.object.tree',
                 'src' : 'games/compass/img/object/tree.png'
+            },
+            {
+                'id'  : 'image.object.tshirt',
+                'src' : 'games/compass/img/object/tshirt.png'
             }
         ],
         'sounds': [],
@@ -195,6 +199,11 @@ define([
                 'label': 'tree',
                 'imageInStage' : 'image.object.tree',
                 'onForeground' : true
+            },
+            {
+                'id': 'object.tshirt',
+                'label': 'T-Shirt',
+                'imageInStage' : 'image.object.tshirt',
             }
         ],
         'interactions': [

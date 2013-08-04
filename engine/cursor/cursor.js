@@ -24,18 +24,18 @@ define([
         this.gameBoundsY = config.get('game.h');
         this.busy = false;
 
-        this.doTestDrag = function (scene, items) {
+        this.doTestDrag = function (scene, items, role) {
             var i, isHandled;
 
             for (i = items.length - 1; i >= 0; i--) {
                 if (typeof items[i].testDrag === 'function') {
-                    isHandled = items[i].testDrag(this.x, this.y, scene);
+                    isHandled = items[i].testDrag(this.x, this.y, scene, role);
                     if (isHandled) {
                         return true;
                     }
                 }
                 if (items[i].children) {
-                    isHandled = this.doTestDrag(scene, items[i].children);
+                    isHandled = this.doTestDrag(scene, items[i].children, role);
                     if (isHandled) {
                         return true;
                     }
@@ -44,38 +44,18 @@ define([
             return false;
         };
 
-        this.doTestUndrag = function (scene, items) {
-            var i, isHandled;
-
-            for (i = items.length - 1; i >= 0; i--) {
-                if (typeof items[i].testDrag === 'function') {
-                    isHandled = items[i].testUndrag(this.x, this.y, scene);
-                    if (isHandled) {
-                        return true;
-                    }
-                }
-                if (items[i].children) {
-                    isHandled = this.doTestUndrag(scene, items[i].children);
-                    if (isHandled) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
-
-        this.doTestHit = function (items) {
+        this.doTestHit = function (items, role) {
             var i, isHandled;
 
             for (i = items.length - 1; i >= 0; i--) {
                 if (typeof items[i].testHit === 'function') {
-                    isHandled = items[i].testHit(this.x, this.y);
+                    isHandled = items[i].testHit(this.x, this.y, role);
                     if (isHandled) {
                         return true;
                     }
                 }
                 if (items[i].children) {
-                    isHandled = this.doTestHit(items[i].children);
+                    isHandled = this.doTestHit(items[i].children, role);
                     if (isHandled) {
                         return true;
                     }
@@ -84,7 +64,7 @@ define([
             return false;
         };
 
-        this.doTestClick = function (scene, items) {
+        this.doTestClick = function (scene, items, role) {
             var i, isHandled;
 
             // from the foreground to the background
@@ -93,13 +73,13 @@ define([
             // the first thing on the container
             for (i = items.length - 1; i >= 0; i--) {
                 if (typeof items[i].testClick === 'function') {
-                    isHandled = items[i].testClick(this.x, this.y, scene);
+                    isHandled = items[i].testClick(this.x, this.y, scene, role);
                     if (isHandled) {
                         return true;
                     }
                 }
                 if (items[i].children) {
-                    isHandled = this.doTestClick(scene, items[i].children);
+                    isHandled = this.doTestClick(scene, items[i].children, role);
                     if (isHandled) {
                         return true;
                     }
@@ -112,26 +92,23 @@ define([
             return xy.y <= this.gameBoundsY;
         };
 
-        this.doTest = function (event, scene, menu) {
+        this.doTest = function (event, scene, menu, role) {
             var isHandled;
             switch (event) {
             case 'click':
-                isHandled = this.doTestClick(scene, menu);
+                isHandled = this.doTestClick(scene, menu, role);
                 break;
             case 'hover':
-                isHandled = this.doTestHit(menu);
+                isHandled = this.doTestHit(menu, role);
                 break;
             case 'drag':
-                isHandled = this.doTestDrag(scene, menu);
-                break;
-            case 'undrag':
-                isHandled = this.doTestUndrag(scene, menu);
+                isHandled = this.doTestDrag(scene, menu, role);
                 break;
             }
             return isHandled;
         };
 
-        this.update = function (stage, xy, event) {
+        this.update = function (stage, xy, event, role) {
             this.x = xy.x;
             this.y = xy.y;
 
@@ -151,20 +128,22 @@ define([
                 // interactables should include
                 // stage objects, exits and npcs.
                 if (this.clickedOnGame(xy)) {
-                    menu = scene.getMenuButton();
-                    isHandled = this.doTest(event, scene, menu);
-                    if (isHandled) {
-                        return;
+                    if (role !== 'editor') {
+                        menu = scene.getMenuButton();
+                        isHandled = this.doTest(event, scene, menu, role);
+                        if (isHandled) {
+                            return;
+                        }
                     }
 
                     interactables = scene.getDynamicBackSceneChildrens();
-                    isHandled = this.doTest(event, scene, interactables);
+                    isHandled = this.doTest(event, scene, interactables, role);
                     if (isHandled) {
                         return;
                     }
 
                     interactables = scene.getDynamicForeSceneChildrens();
-                    isHandled =  this.doTest(event, scene, interactables);
+                    isHandled =  this.doTest(event, scene, interactables, role);
                     if (isHandled) {
                         return;
                     }

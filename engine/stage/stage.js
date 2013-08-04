@@ -62,10 +62,11 @@ define([
         };
 
         // used to remove top scene (temporary menu)
+        // only happens on play mode, so it's save for activateCursorOnPlay
         this.removeMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.onGame();
-            require('engine/stage/main').activateCursor();
+            require('engine/stage/main').activateCursorForPlay();
             this.removeChild(toscene);
         };
 
@@ -90,7 +91,12 @@ define([
 
             if (toscene.isPlayable()) {
                 this.onGame();
-                require('engine/stage/main').activateCursor();
+                if (require('engine/stage/main').isPlayable()) {
+                    require('engine/stage/main').activateCursorForPlay();
+                }
+                if (require('engine/stage/main').isEditable()) {
+                    require('engine/stage/main').activateCursorForEditor();
+                } 
             } else {
                 this.notOnGame();
                 require('engine/stage/main').deactivateCursor();
