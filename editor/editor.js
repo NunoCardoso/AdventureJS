@@ -97,6 +97,7 @@ define([
                 }
 
             });
+
             // prepend to body
             $('body').html(template(game) + $('body').html());
             $(".tabs").tabs();

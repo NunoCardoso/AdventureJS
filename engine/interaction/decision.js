@@ -109,7 +109,6 @@ define([
         },
 
         decide = function (verb, first, second) {
-
             var mainactions = gameinteraction.find(verb, first, second),
                 a, i, j, action;
 

@@ -10,7 +10,7 @@ define([
     gamepanel
 ) {
 
-    var _      = {},
+    var _  = {},
 
         get = function (key) {
             return _[key];

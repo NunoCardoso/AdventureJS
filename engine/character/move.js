@@ -98,14 +98,14 @@ define([
                 c.setX(c.x + d.x);
                 c.setY(c.y + d.y);
             } else {
-                if (c.isFacingLeft() && !c.isStandingLeft()) {
+                if (c.character.isFacingLeft() && !c.character.isStandingLeft()) {
                     c.character.attitude = "standleft";
                     // perform the callback action, since the character reached his destination;
                     if (c.walkDeferred) {
                         c.walkDeferred.resolve();
                         c.walkDeferred = undefined;
                     }
-                } else if (c.isFacingRight() && !c.isStandingRight()) {
+                } else if (c.character.isFacingRight() && !c.character.isStandingRight()) {
                     c.character.attitude = "standright";
                     // perform the callback action, since the character reached his destination;
                     if (c.walkDeferred) {
@@ -143,8 +143,8 @@ define([
                 }
             }
             // change attitude only if it is different
-            if (c.currentAnimation !== c.character.attitude) {
-                c.currentAnimation = c.character.attitude;
+            if (c.character.currentAnimation !== c.character.attitude) {
+                c.character.currentAnimation = c.character.attitude;
                 c.character.gotoAndPlay(c.character.attitude);
             }
         };

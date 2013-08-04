@@ -8,12 +8,14 @@ define([
     'engine/lib/assets',
     'engine/character/balloon',
     'engine/character/move',
+    'engine/character/sprite',
     'engine/dialog/main'
 ], function (
     action,
     assets,
     Balloon,
     move,
+    Sprite,
     gamedialog
 ) {
     var Character = function (options) {
@@ -28,16 +30,9 @@ define([
         this.name  = options.id;
         this.label = undefined;
 
-        this.character = new createjs.BitmapAnimation();
-        this.character.spriteSheet = new createjs.SpriteSheet({
-            images     : [assets.getQueueLoaded().getResult(options.images)],
-            frames     : options.frames,
-            animations : options.animations
-        });
-        this.character.frames   = options.frames;
-        this.character.attitude = 'standright';
-        this.currentAnimation   = undefined;
-        this.character.gotoAndPlay(this.character.attitude);
+        this.character = new Sprite(options);
+        this.balloon = new Balloon({textColor : this.textColor});
+
         this.textColor = options.textColor;
 
         this.w = this.character.frames.width;
@@ -48,8 +43,7 @@ define([
         this.regY = this.h;
 
         this.targetXY = undefined;
-
-        this.speed = options.speed;
+        this.speed    = options.speed;
 
         // important, so we can know if this is playable character, ommit some events
         this.isPlayable = false;
@@ -60,8 +54,6 @@ define([
 
         // boolean for when this character is speaking
         this.isSpeaking = false;
-
-        this.balloon = new Balloon({textColor : this.textColor});
 
         this.addChild(
             this.character,
@@ -95,7 +87,7 @@ define([
             return {
                 'x'        : this.x,
                 'y'        : this.y,
-                'attitude' : this.getStandAttitude()
+                'attitude' : this.character.getStandAttitude()
             };
         };
 
@@ -174,53 +166,20 @@ define([
             move.move(this, scene);
         };
 
-        this.isStandingLeft = function () {
-            return this.character.attitude === "standleft";
-        };
-
-        this.isStandingRight = function () {
-            return this.character.attitude === "standright";
-        };
-
-        this.isFacingLeft = function () {
-            return this.character.attitude === "walkleft" ||
-                   this.character.attitude === "walkupleft" ||
-                   this.character.attitude === "walkdownleft" ||
-                   this.character.attitude === "standleft" ||
-                   this.character.attitude === 'talkleft';
-        };
-
-        this.isFacingRight = function () {
-            return this.character.attitude === "walkright" ||
-                   this.character.attitude === "walkupright" ||
-                   this.character.attitude === "walkdownright" ||
-                   this.character.attitude === "standright" ||
-                   this.character.attitude === 'talkright';
-        };
-
         this.talk = function (text) {
             this.isSpeaking = true;
             this.balloon.say(text);
-            if (this.isFacingLeft()) {
+            if (this.character.isFacingLeft()) {
                 this.character.attitude = 'talkleft';
-            } else if (this.isFacingRight()) {
+            } else if (this.character.isFacingRight()) {
                 this.character.attitude = 'talkright';
             }
             this.character.gotoAndPlay(this.character.attitude);
         };
 
-        this.getStandAttitude = function () {
-            if (this.isFacingLeft()) {
-                return 'standleft';
-            }
-            if (this.isFacingRight()) {
-                return 'standright';
-            }
-        };
-
         this.stand = function () {
             this.isSpeaking = false;
-            this.character.gotoAndPlay(this.getStandAttitude());
+            this.character.gotoAndPlay(this.character.getStandAttitude());
         };
 
         this.faceTo = function (other) {

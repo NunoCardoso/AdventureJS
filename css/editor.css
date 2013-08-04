@@ -1,3 +1,5 @@
+@charset 'UTF-8';
+
 @font-face {
    font-family: the8bit;
    src: url(../fnt/half_bold_pixel-7.ttf);
@@ -26,16 +28,4 @@ body, input, textarea, button, label, a, td, th, p, select, option, legend {
     padding:10px;
     border-radius: 10px;
     box-shadow: 0px 0px 5px black;
-}
-
-#canvas.crosshair {
-    cursor: url(../engine/img/cursor/crosshair.gif) 15 15;
-}
-
-#canvas.exitright {
-    cursor: url(../engine/img/cursor/right.png) 15 15;
-}
-
-#canvas.exitleft {
-    cursor: url(../engine/img/cursor/left.png) 15 15;
 }
