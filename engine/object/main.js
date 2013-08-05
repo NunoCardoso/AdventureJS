@@ -19,10 +19,15 @@ define([
 
         get = function (key) {
             return _[key];
+        },
+
+        getAll = function () {
+            return _;
         };
 
     return {
         'preload' : preload,
-        'get'     : get
+        'get'     : get,
+        'getAll'  : getAll
     };
 });

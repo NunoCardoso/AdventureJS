@@ -5,14 +5,12 @@
  */
 define([
     'engine/interaction/action',
-    'engine/lib/assets',
     'engine/character/balloon',
     'engine/character/move',
     'engine/character/sprite',
     'engine/dialog/main'
 ], function (
     action,
-    assets,
     Balloon,
     move,
     Sprite,

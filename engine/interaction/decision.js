@@ -11,9 +11,23 @@ define([
     gamedialog
 ) {
 
-    var _do;
+    var _do,
 
-    var perform = function (action) {
+        _list = [
+            'continueDialogOptions',
+            'startDialogOptions',
+            'moveTo',
+            'playDialog',
+            'dialogMessage',
+            'fromSceneToInventory',
+            'removeFromInventory',
+            'addToInventory',
+            'publishAchievement',
+            'fadeToLeft',
+            'endDialog'
+        ],
+
+        perform = function (action) {
             var d = $.Deferred(),
                 character,
                 deferred,
@@ -110,7 +124,10 @@ define([
 
         decide = function (verb, first, second) {
             var mainactions = gameinteraction.find(verb, first, second),
-                a, i, j, action;
+                a,
+                i,
+                j,
+                action;
 
             if (mainactions.length > 0) {
                 for (i = 0; i < mainactions.length; i++) {
@@ -128,11 +145,16 @@ define([
                     'text'   : 'I can\'t do that.'
                 });
             }
+        },
+
+        getAllActions = function () {
+            return _list;
         };
 
     return {
         'decide' : decide,
         'perform' : perform,
-        'performList' : performList
+        'performList' : performList,
+        'getAllActions' : getAllActions
     };
 });

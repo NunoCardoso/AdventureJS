@@ -1,6 +1,6 @@
-<label for="images.table">Images</label>
+<label for="images-table">Images</label>
 <BR>
-<table class="tablesorter" id="images.table">
+<table class="tablesorter" id="images-table">
     <thead>
         <tr>
             <th>id</th>
@@ -10,7 +10,7 @@
     <tbody>
         {{#images}}
             <tr>
-                <td>{{id}}</td>
+                <td class='image-id'>{{id}}</td>
                 <td>{{src}}</td>
             </tr>
         {{/images}}
@@ -18,9 +18,9 @@
 </table>
 <BR>
 <BR>
-<label for="sounds.table">Sounds</label>
+<label for="sounds-table">Sounds</label>
 <BR>
-<table class="tablesorter" id="sounds.table">
+<table class="tablesorter" id="sounds-table">
     <thead>
         <tr>
             <th>id</th>

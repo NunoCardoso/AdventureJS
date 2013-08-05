@@ -22,16 +22,16 @@
 <label for="main.description">Description</label>
 <textarea id="main.description">{{main.description}}</textarea>
 <BR>
-<label for="main.background">Bakground</label>
-<select id="main.background" size=1></select>
+<label for="main.background">Background</label>
+<select data-default='{{main.background}}' id="main.background" role="image" size=1></select>
 <BR>
 <label for="main.dimensions">Dimensions</label>
-<select id="main.dimensiows" size=1>
+<select id="main.dimensions" size=1>
     <option>800x400</option>
 </select>
 <BR>
 <label for="main.startingScene">Starting scene</label>
-<select id="main.startingScene" size=1></select>
+<select id="main.startingScene" role="scene" size=1></select>
 <BR>
 </fieldset>
 <BR>

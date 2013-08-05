@@ -1,4 +1,4 @@
-<div class="verticaltabs">
+<div class="verticaltabs editor-scenes">
  <ul>
     {{#scenes}}
     <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>

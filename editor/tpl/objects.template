@@ -1,7 +1,10 @@
-<div class="verticaltabs">
+<div class="verticaltabs editor-objects">
  <ul>
     {{#objects}}
-    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
+    <li>
+      <a href="#{{id}}">{{id}}</a>
+      <span class='ui-icon ui-icon-circle-close ui-closable-tab'></span>
+    </li>
     {{/objects}}
     <li><button id="object.new">NEW object...</button></li>
   </ul>

@@ -4,9 +4,11 @@
  * This is the balloon over character heads
  */
 define([
-    'engine/config'
+    'engine/config',
+    'engine/lib/assets'
 ], function (
-    config
+    config,
+    assets
 ) {
     var Sprite = function (options) {
         this.initialize(options);
