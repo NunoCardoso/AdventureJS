@@ -43,6 +43,7 @@ define([
             this.addChild(this.path);
         }
 
+        /* fit will make the background to fit the stage area. No overflow. */
         if (this.mode === 'fit') {
             this.image.scaleX = config.get('game.w') / this.image.image.width;
             this.image.scaleY = config.get('game.h') / this.image.image.height;
@@ -52,12 +53,15 @@ define([
             }
             this.w = config.get('game.w');
             this.h = config.get('game.h');
-        } else {
-            this.image.scaleX = 1; 
+
+        // fit Y, get the scale, then apply it to X.
+        } else if (this.mode === 'overflow') {
             this.image.scaleY = config.get('game.h') / this.image.image.height;
+            this.image.scaleX = this.image.scaleY;
+
             if (this.path) {
-                this.path.scaleX = this.image.image.height / this.path.image.height;
                 this.path.scaleY = config.get('game.h') / this.path.image.height;
+                this.path.scaleX = this.path.scaleY;
             }
             this.w = this.image.image.width;
             this.h = this.image.image.height;

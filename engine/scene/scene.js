@@ -68,7 +68,8 @@ define([
         if (scene.background) {
             this.background = new Background({
                 'background'     : scene.background,
-                'backgroundpath' : scene.backgroundpath
+                'backgroundpath' : scene.backgroundpath,
+                'backgroundmode' : scene.backgroundmode
             });
         }
 
