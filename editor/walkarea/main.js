@@ -11,21 +11,25 @@ define([
 ) {
 
     var _createDialog = function () {
-$('<div id="walkingarea">' +
-    '<div>Please draw the walking areas over the scene background. When done, ' +
-    'click Export, then scroll down. You will see the drawn image. </div>' + 
-    '<div>Save the image in your computer, load it as an asset, ' +
-    'then attach the image as a walking area on this scene.</div>' +
-    '<input type="checkbox" id="toggle" />' +
-    '<label for="toggle">Erase</label><br />' +
-    '<button id="export">export</button>' +
-    '<br>' +
-   ' <canvas id="walkcanvas" width="800" height="600"></canvas></div>')
+        $('<div id="walkingarea">' +
+            '<div>Please draw the walking areas over the scene background. When done, ' +
+            'click Export, then scroll down. You will see the drawn image. </div>' +
+            '<div>Save the image in your computer, load it as an asset, ' +
+            'then attach the image as a walking area on this scene.</div>' +
+            '<input type="checkbox" id="toggle" />' +
+            '<label for="toggle">Erase</label><br />' +
+            '<button id="export">export</button>' +
+            '<br>' +
+            '<canvas id="walkcanvas" width="800" height="600"></canvas>' +
+            '</div>')
                 .dialog({
-                    width  : 820,
-                    height : 660
-                });
-        },
+                width  : 820,
+                height : 660,
+                beforeClose: function () {
+                    $('#walkingarea').remove();
+                }
+            });
+    },
 
         _extractImageFromScene = function (game, scene) {
             var i;
@@ -60,7 +64,7 @@ $('<div id="walkingarea">' +
                     walkarea.unwait();
                     walkarea.create(background);
                 }
-            });   
+            });
         };
 
     return {

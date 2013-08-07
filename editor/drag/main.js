@@ -13,7 +13,7 @@ define([
 ) {
     var game,
         _createDialog = function () {
-            $('<div>' +
+            $('<div id="drag-dialog">' +
                 '<div style="width:150px;float:left;">' +
                     '<div>Drag the item</div>' +
                     '<select size=1 onChange="require(\'editor/drag/util\').addObject(this);">' +
@@ -28,7 +28,10 @@ define([
                 '</div>')
                 .dialog({
                     width  : 1020,
-                    height : 660
+                    height : 660,
+                    beforeClose: function () {
+                        $('#drag-dialog').remove();
+                    }
                 });
         },
 

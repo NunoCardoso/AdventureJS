@@ -23,15 +23,18 @@
 <textarea id="main.description">{{main.description}}</textarea>
 <BR>
 <label for="main.background">Background</label>
-<select data-default='{{main.background}}' id="main.background" role="image" size=1></select>
+<select data-default='{{main.background}}' role='image' id="main.background" role="image" size=1></select>
 <BR>
+<img for='main.background' width="150" height="100">
+<BR>
+
 <label for="main.dimensions">Dimensions</label>
 <select id="main.dimensions" size=1>
     <option>800x400</option>
 </select>
 <BR>
 <label for="main.startingScene">Starting scene</label>
-<select id="main.startingScene" role="scene" size=1></select>
+<select id="main.startingScene" role="scene" data-default="{{main.startingScene}}" size=1></select>
 <BR>
 </fieldset>
 <BR>
@@ -39,17 +42,29 @@
 <legend>Control panel</legend>
 <label for="panel.startingInventory">Starting inventory</label>
 <BR>
-<select id="panel.startingInventory" size=5 multiple>
-{{#each panel.startingInventory}}
-<option>{{this}}</option>
-{{/each}}
-</select>
-<select id="panel.notOnStartingInventory" size=5 multiple></select>
+
+<div>
+    <div style="display:inline-block;">
+        <select id="startingInventory" size=5 multiple style="min-width:300px;">
+        {{#each panel.startingInventory}}
+        <option>{{this}}</option>
+        {{/each}}
+        </select>
+    </div>
+    <div style="display:inline-block;">
+    <button id="removeFromInventory">&gt;&gt;</button>
+    <br>
+    <button id="addToInventory">&lt;&lt;</button>
+    </div>
+    <div style="display:inline-block;">
+        <select id="notOnStartingInventory" size=5 multiple style="min-width:300px;"></select>
+    </div>
+</div>
 <BR>
 
-<label for="panel.verbs">Verbs</label>
+<label for="verbs-table">Verbs</label>
 <BR>
-<table id="panel.verbs" class="tablesorter">
+<table id="verbs-table" class="tablesorter">
     <thead>
         <tr>
             <th>Main verb</th>
@@ -60,7 +75,7 @@
     <tbody>
     {{#each panel.verbs}}
         <tr>
-            <td>{{this.first}}</td>
+            <td class="verb-first">{{this.first}}</td>
             <td>{{this.nr}}</td>
             <td>{{this.second}}</td>
         </tr>

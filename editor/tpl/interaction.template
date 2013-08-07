@@ -1,17 +1,17 @@
 <label for="interaction.{{id}}.verb">Verb:</label>
-<select id="interaction.{{id}}.verb" size=1></select>
+<select role="verbs" id="interaction.{{id}}.verb" data-default="{{verb}}" size=1></select>
 <br>
 
 <input type="radio" name="first" value="character"
- id="interaction.{{id}}.first1"{{#ifTest 'first.name == "character"'}} CHECKED{{/ifTest}}>
+ id="interaction.{{id}}.first1"{{#ifTest 'first.item.startsWith("character.")'}} CHECKED{{/ifTest}}>
 <label for="interaction.{{id}}.first1">on the character</label>
-<select id="interaction.{{id}}.first.item" size=1></select>
+<select role="character" id="interaction.{{id}}.first.item" size=1></select>
 <br>
 
 <input type="radio" name="first" value="object"
- id="interaction.{{id}}.first2"{{#ifTest 'first.name == "object"'}} CHECKED{{/ifTest}}>
+ id="interaction.{{id}}.first2"{{#ifTest 'first.item.startsWith("object.")'}} CHECKED{{/ifTest}}>
 <label for="interaction.{{id}}.first2">on the object</label>
-<select id="interaction.{{id}}.first.item" size=1></select>
+<select role="object" id="interaction.{{id}}.first.item" size=1></select>
 <input type="checkbox" id="interaction.{{id}}.first.inInventory"{{#first.inInventory}} CHECKED{{/first.inInventory}}>
 <label for="interaction.{{id}}.first.inInventory">Object is in inventory</label>
 <br>
@@ -21,15 +21,15 @@
 <br>
 
 <input type="radio" name="second" value="character"
- id="interaction.{{id}}.second1"{{#second}}{{#ifTest 'name == "character"'}} CHECKED{{/ifTest}}{{/second}}>
+ id="interaction.{{id}}.second1"{{#second}}{{#ifTest 'second && second.item.startsWith("character.")'}} CHECKED{{/ifTest}}{{/second}}>
 <label for="interaction.{{id}}.second1">into character</label>
-<select id="interaction.{{id}}.interaction.second.item" size=1></select>
+<select role="character" id="interaction.{{id}}.interaction.second.item" size=1></select>
 <br>
 
 <input type="radio" name="second" value="object"
- id="interaction.{{id}}.second2"{{#second}}{{#ifTest 'name == "object"'}} CHECKED{{/ifTest}}{{/second}}>
+ id="interaction.{{id}}.second2"{{#second}}{{#ifTest 'second && second.item.startsWith("object.")'}} CHECKED{{/ifTest}}{{/second}}>
 <label for="interaction.{{id}}.second2">into object</label>
-<select id="interaction.{{id}}.interaction.second.item" size=1></select>
+<select role="object" id="interaction.{{id}}.interaction.second.item" size=1></select>
 <input type="checkbox" id="interaction.{{id}}.second.inInventory"{{#second}}{{#inInventory}} CHECKED{{/inInventory}}{{/second}}>
 <label for="interaction.{{id}}.second.inInventory">Object is in inventory</label>
 <br>
