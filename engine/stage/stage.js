@@ -55,8 +55,9 @@ define([
         this.addMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.notOnGame();
-            require('engine/stage/main').deactivateCursor();
+            require('engine/stage/main').deactivate();
             this.addChild(toscene);
+
             // adding the menu pauses the ticker, so we need to manualy update
             this.update();
         };
@@ -78,8 +79,9 @@ define([
         };
 
         this.switchScene = function (_fromscene, _toscene, _toExit) {
-            var fromscene = this.getChildByName(_fromscene);
-            var toscene   = gamescene.get(_toscene);
+            var fromscene = this.getChildByName(_fromscene),
+                toscene   = gamescene.get(_toscene),
+                stagemain = require('engine/stage/main');
 
             this.removeChild(fromscene);
 
@@ -91,15 +93,16 @@ define([
 
             if (toscene.isPlayable()) {
                 this.onGame();
-                if (require('engine/stage/main').isPlayable()) {
-                    require('engine/stage/main').activateCursorForPlay();
+                if (stagemain.isPlayable()) {
+                    stagemain.activateCursorForPlay();
                 }
-                if (require('engine/stage/main').isEditable()) {
-                    require('engine/stage/main').activateCursorForEditor();
-                } 
+                if (stagemain.isEditable()) {
+                    stagemain.activateCursorForEditor();
+                }
             } else {
                 this.notOnGame();
-                require('engine/stage/main').deactivateCursor();
+                stagemain.deactivate();
+                stagemain.update();
             }
 
             this.addChild(toscene);

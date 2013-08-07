@@ -13,6 +13,10 @@ define([
                 'src' : 'games/compass/img/background/jungle.path.png'
             },
             {
+                'id'  : 'image.all.path',
+                'src' : 'games/compass/img/background/all.path.png'
+            },
+            {
                 'id'  : 'image.kyrandia',
                 'src' : 'games/compass/img/background/legend-of-kyrandia.jpg'
             },
@@ -203,7 +207,7 @@ define([
             {
                 'id': 'object.tshirt',
                 'label': 'T-Shirt',
-                'imageInStage' : 'image.object.tshirt',
+                'imageInStage' : 'image.object.tshirt'
             }
         ],
         'interactions': [
@@ -436,6 +440,7 @@ define([
                 'id'                 : 'scene.02',
                 'background'         : 'image.jungle2',
                 'backgroundmode'     : 'fit',
+                'backgroundpath'     : 'image.all.path',
                 'description'        : 'This is the second scene.',
                 'interactable'       : true,
                 'objects' : [],

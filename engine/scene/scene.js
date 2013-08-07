@@ -357,7 +357,7 @@ define([
                 }
             }
             return {
-                'objects' : objectStates,
+                'objects'     : objectStates,
                 'dynamicBack' : this.dynamicBack.x,
                 'dynamicFore' : this.dynamicFore.x,
                 'player'      : this.player.x

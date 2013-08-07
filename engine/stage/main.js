@@ -21,6 +21,7 @@ define([
 
         _onDragging = false,
         _role,
+        _oldOnPress,
 
         preload = function (options) {
             stage = new GameStage(options.canvas);
@@ -74,6 +75,10 @@ define([
 
         activateCursorForPlay = function () {
             gamecursor.setStage(stage);
+
+            // backup the old onPress
+            _oldOnPress = stage.onPress;
+
             stage.onMouseMove = function (e) {
                 gamecursor.update({x: e.stageX, y: e.stageY}, 'play');
             };
@@ -98,6 +103,7 @@ define([
         activateCursorForEditor = function () {
             gamecursor.setStage(stage);
 
+            _oldOnPress = stage.onPress;
             stage.onPress = function (evt) {
 
                 evt.onMouseMove = function (e) {
@@ -115,9 +121,8 @@ define([
             };
         },
 
-        deactivateCursor = function () {
-            stage.onMouseMove = undefined;
-            stage.onClick = undefined;
+        deactivate = function () {
+            stage.onPress = _oldOnPress;
         },
 
         activateTick = function () {
@@ -164,7 +169,7 @@ define([
         'activate' : activate,
         'activateCursorForPlay' : activateCursorForPlay,
         'activateCursorForEditor' : activateCursorForEditor,
-        'deactivateCursor'      : deactivateCursor,
+        'deactivate'      : deactivate,
 
         'isPlayable' : isPlayable,
         'isEditable' : isEditable

@@ -59,9 +59,11 @@ define([
             this.image.scaleY = config.get('game.h') / this.image.image.height;
             this.image.scaleX = this.image.scaleY;
 
+            // path size is not the size of the background image
             if (this.path) {
                 this.path.scaleY = config.get('game.h') / this.path.image.height;
-                this.path.scaleX = this.path.scaleY;
+                this.path.scaleX = this.path.scaleY * this.image.image.width / this.path.image.width;
+
             }
             this.w = this.image.image.width;
             this.h = this.image.image.height;
