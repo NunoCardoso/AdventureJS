@@ -20,7 +20,7 @@ define([
                     select.append('<option>--</option>');
                 }
                 if (role === 'object') {
-                    var objects = $('div.editor-objects ul li a');
+                    var objects = $('div.editor-objects ul li a.ui-tabs-anchor');
 
                     objects.each(function () {
                         val = $(this).html();
@@ -43,7 +43,7 @@ define([
                     });
                 }
                 if (role === 'scene') {
-                    var scenes = $('div.editor-scenes ul li a');
+                    var scenes = $('div.editor-scenes ul li a.ui-tabs-anchor');
                     val = $(this).html();
                     d = (_default === val ? ' selected' : '');
                     scenes.each(function () {
@@ -128,12 +128,69 @@ define([
                     $("#startingInventory").append('<option>' + $(this).html() + '</option>');
                 });
             });
+        },
+
+        onTabClose = function () {
+            $('body').on('click', '.ui-icon-circle-close a', function (e) {
+                e.preventDefault();
+                var li = $(e.target).closest("li");
+                var item = li.find('a.ui-tabs-anchor').attr('href');
+                var tabs = li.closest('.verticaltabs');
+                $('<div id="close-dialog">' +
+                    'Are you sure you want to delete ' + item + ' ?' +
+                    '</div>')
+                    .dialog({
+                        resizable: false,
+                        modal: true,
+                        buttons: [
+                            {
+                                text  : "Delete " + item,
+                                click : function () {
+                                    li.remove();
+                                    $('' + item).remove();
+                                    tabs.tabs("refresh");
+                                    $(this).dialog("close");
+                                }
+                            },
+                            {
+                                text  : "Cancel",
+                                click : function () {
+                                    $(this).dialog("close");
+                                }
+                            }
+                        ]
+                    });
+            });
+        },
+
+        onTabButtons = function () {
+            $('button.new').button();
+            $('body').on('click', 'button.new', function (e) {
+                var tab = $(e.target).closest('.verticaltabs');
+                var ul = tab.find('ul.ui-tabs-nav');
+                var lis = ul.find('li');
+                var item = $(e.target).parent().data("role");
+                var valu = item + '.' + (lis.length + 1);
+                var lastli = ul.find('li:last');
+                lastli.after('<li>' +
+         '<a href="#' + valu + '">' + valu + '</a>' +
+         '<span class="ui-icon ui-icon-circle-close ui-closable-tab">' +
+         '<a href="#"></a></span></li>');
+
+                var html = require('editor/main').get().doTemplate(item); 
+                html = '<div id="' + valu + '">' + html + '</div>';
+
+                tab.find('div.ui-tabs-panel:last').after(html);
+                tab.tabs('refresh');
+            });
         };
 
     return {
         'configureSelects' : configureSelects,
         'onChangeSelects'  : onChangeSelects,
-        'startInventory'   : startInventory
+        'startInventory'   : startInventory,
+        'onTabClose'       : onTabClose,
+        'onTabButtons'     : onTabButtons
     };
 
 });

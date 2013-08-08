@@ -14,22 +14,25 @@ define([
 
     var addObject = function (select) {
         var option = $(select).find('option:selected').val();
-        var image = $(select).closest('div').find('img#dragimage');
+        var selectid = $(select).attr('id');
         var o = gameobject.get(option);
-        image[0].src = o.imageInStage.src;
-        $("img").draggable({ helper: "clone" });
-        var scene = gamestage.getInstance().getCurrentScene();
-        $("img").on("dragstop", function (event, ui) {
-            scene.addObject({
-                'id' : option,
-                'x'  : ui.offset.left,
-                'y'  : ui.offset.top,
-                'w'  : 50,
-                'h'  : 50
-            })
-            scene.render();
-            gamestage.update();
-        });
+        if (o.imageInStage) {
+            var image = $("img[for='" + selectid + "']");
+            image[0].src = o.imageInStage.src;
+            $("img").draggable({ helper: "clone" });
+            var scene = gamestage.getInstance().getCurrentScene();
+            $("img").on("dragstop", function (event, ui) {
+                scene.addObject({
+                    'id' : option,
+                    'x'  : ui.offset.left - 50,
+                    'y'  : ui.offset.top - 50,
+                    'w'  : 50,
+                    'h'  : 50
+                });
+                scene.render();
+                gamestage.update();
+            });
+        }
     };
 
     return {

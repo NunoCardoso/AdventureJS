@@ -225,7 +225,8 @@ define([
                 if (role === 'play') {
                     console.log('can\'t  drag while playing');
                 } else {
-                    console.log('yes, can drag');
+                    this.x = coords.x;
+                    this.y = coords.y;
                 }
                 return true;
             }

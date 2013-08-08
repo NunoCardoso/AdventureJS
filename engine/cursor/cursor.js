@@ -149,9 +149,11 @@ define([
                     }
                 }
 
-                // panel can be accessed like this.
-                panel = scene.getPanel().children;
-                return this.doTest(event, scene, panel);
+                if (role !== 'editor') {
+                    // panel can be accessed like this.
+                    panel = scene.getPanel().children;
+                    return this.doTest(event, scene, panel);
+                }
             }
         };
 

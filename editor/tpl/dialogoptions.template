@@ -1,9 +1,13 @@
 <div class="verticaltabs">
  <ul>
     {{#dialogoptions}}
-    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
+    <li><a href="#{{id}}">{{id}}</a>
+          <span class='ui-icon ui-icon-circle-close ui-closable-tab'>
+        <a href="#"></a>
+      </span>
+    </li>
     {{/dialogoptions}}
-    <li><button id="dialogoptions.new">NEW dialog option...</button></li>
+    <button data-role="dialogoption" class="new" id="dialogoptions.new">NEW dialog option...</button>
   </ul>
   {{#dialogoptions}}
   <div id="{{id}}">

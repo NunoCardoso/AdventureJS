@@ -46,105 +46,112 @@ define([
     tabachievements,
     tabexits
 ) {
-    var _ = function (game) {
-
-        var template,
-            _doDynamicForm = function () {
-
-                // prepend to body
-                $('body').html(template(game) + $('body').html());
-                $(".tabs").tabs();
-                $(".verticaltabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
-                $(".verticaltabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
-                $(".tablesorter").tablesorter();
-
-                // fill out
-                dynamicform.configureSelects($("select"));
-                // addOnChange
-                dynamicform.onChangeSelects($("select"));
-
-                dynamicform.startInventory();
-            },
-
-            start = function () {
-                template = Handlebars.compile(editor);
-                Handlebars.registerPartial('tab-game', tabgame);
-                Handlebars.registerPartial('tab-assets', tabassets);
-                Handlebars.registerPartial('tab-scenes', tabscenes);
-                Handlebars.registerPartial('tab-scene', tabscene);
-                Handlebars.registerPartial('tab-objects', tabobjects);
-                Handlebars.registerPartial('tab-object', tabobject);
-                Handlebars.registerPartial('tab-dialogs', tabdialogs);
-                Handlebars.registerPartial('tab-dialog', tabdialog);
-                Handlebars.registerPartial('tab-dialogoptions', tabdialogoptions);
-                Handlebars.registerPartial('tab-dialogoption', tabdialogoption);
-                Handlebars.registerPartial('tab-conditions', tabconditions);
-                Handlebars.registerPartial('tab-condition', tabcondition);
-                Handlebars.registerPartial('tab-interactions', tabinteractions);
-                Handlebars.registerPartial('tab-interaction', tabinteraction);
-                Handlebars.registerPartial('tab-characters', tabcharacters);
-                Handlebars.registerPartial('tab-achievements', tabachievements);
-                Handlebars.registerPartial('tab-exits', tabexits);
-                /**
-                 * This is an Handlebar extension for a fancy if comparison
-                 */
-                Handlebars.registerHelper('ifTest', function (conditional, options) {
-
-                    var evalStr = '',
-                        x,
-                        key,
-                        context = [options.data, options.hash];
-
-                    if (Object.prototype.toString.call(this) === '[object Object]') {
-                        context.push(this);
-                    } else {
-                        context.push({ that: this });
-                    }
-
-                    for (x = 0; x < context.length; x++) {
-                        for (key in context[x]) {
-                            evalStr += 'var ' + key + '=' + JSON.stringify(context[x][key]) + ';';
-                        }
-                    }
-
-                    evalStr += conditional.replace(/@/g, '').replace(/this/g, 'that');
-
-                    try {
-                        if (!eval(evalStr)) {
-                            return options.inverse(this);
-                        }
-                        return options.fn(this);
-                    } catch (e) {
-                        console.error(e + "\n\nThe variable may be outside of this context. Did you forget to add it to the hash? i.e. {{#ifTest 'obj > 1' obj=../obj}}");
-                    }
-
-                });
-
-                assets.preload({
-                    assetList  : game.images.concat(game.sounds),
-                    onComplete : function (queue) {
-                        assets.setQueueLoaded(queue.target);
-                        _doDynamicForm();
-                    }
-                });
-            };
-
-        return {
-            'start' : start
-        };
+    var Editor = function (game) {
+        this.initialize(game);
     };
 
-    // tweak String prototype
-    if (typeof String.prototype.startsWith !== 'function') {
-        String.prototype.startsWith = function (str) {
-            return this.slice(0, str.length) === str;
-        };
-    }
-    if (typeof String.prototype.endsWith !== 'function') {
-        String.prototype.endsWith = function (str) {
-            return this.slice(-str.length) === str;
-        };
-    }
+    var p = Editor.prototype;
+    p.initialize = function (game) {
 
-    return _;
+        this._game = game;
+        this.template = undefined;
+
+        this._doDynamicForm = function () {
+
+            // prepend to body
+            $('body').html(this.template(game) + $('body').html());
+            $(".tabs").tabs();
+            $(".verticaltabs").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+            $(".verticaltabs li").removeClass("ui-corner-top").addClass("ui-corner-left");
+            $(".tablesorter").tablesorter();
+
+            dynamicform.configureSelects($("select"));
+            dynamicform.onChangeSelects($("select"));
+            dynamicform.startInventory();
+            dynamicform.onTabClose();
+            dynamicform.onTabButtons();
+        };
+
+        this.doTemplate = function (item) {
+            var h = Handlebars.compile('{{>tab-' + item + '}}');
+            return h({});
+        };
+
+        this.start = function () {
+            this.template = Handlebars.compile(editor);
+            Handlebars.registerPartial('tab-game', tabgame);
+            Handlebars.registerPartial('tab-assets', tabassets);
+            Handlebars.registerPartial('tab-scenes', tabscenes);
+            Handlebars.registerPartial('tab-scene', tabscene);
+            Handlebars.registerPartial('tab-objects', tabobjects);
+            Handlebars.registerPartial('tab-object', tabobject);
+            Handlebars.registerPartial('tab-dialogs', tabdialogs);
+            Handlebars.registerPartial('tab-dialog', tabdialog);
+            Handlebars.registerPartial('tab-dialogoptions', tabdialogoptions);
+            Handlebars.registerPartial('tab-dialogoption', tabdialogoption);
+            Handlebars.registerPartial('tab-conditions', tabconditions);
+            Handlebars.registerPartial('tab-condition', tabcondition);
+            Handlebars.registerPartial('tab-interactions', tabinteractions);
+            Handlebars.registerPartial('tab-interaction', tabinteraction);
+            Handlebars.registerPartial('tab-characters', tabcharacters);
+            Handlebars.registerPartial('tab-achievements', tabachievements);
+            Handlebars.registerPartial('tab-exits', tabexits);
+            /**
+             * This is an Handlebar extension for a fancy if comparison
+             */
+            Handlebars.registerHelper('ifTest', function (conditional, options) {
+
+                var evalStr = '',
+                    x,
+                    key,
+                    context = [options.data, options.hash];
+
+                if (Object.prototype.toString.call(this) === '[object Object]') {
+                    context.push(this);
+                } else {
+                    context.push({ that: this });
+                }
+
+                for (x = 0; x < context.length; x++) {
+                    for (key in context[x]) {
+                        evalStr += 'var ' + key + '=' + JSON.stringify(context[x][key]) + ';';
+                    }
+                }
+
+                evalStr += conditional.replace(/@/g, '').replace(/this/g, 'that');
+
+                try {
+                    if (!eval(evalStr)) {
+                        return options.inverse(this);
+                    }
+                    return options.fn(this);
+                } catch (e) {
+                    console.error(e + "\n\nThe variable may be outside of this context. Did you forget to add it to the hash? i.e. {{#ifTest 'obj > 1' obj=../obj}}");
+                }
+
+            });
+
+            var self = this;
+            assets.preload({
+                assetList  : game.images.concat(game.sounds),
+                onComplete : function (queue) {
+                    assets.setQueueLoaded(queue.target);
+                    self._doDynamicForm();
+                }
+            });
+        };
+    };
+    return Editor;
 });
+
+// tweak String prototype
+if (typeof String.prototype.startsWith !== 'function') {
+    String.prototype.startsWith = function (str) {
+        return this.slice(0, str.length) === str;
+    };
+}
+if (typeof String.prototype.endsWith !== 'function') {
+    String.prototype.endsWith = function (str) {
+        return this.slice(-str.length) === str;
+    };
+}

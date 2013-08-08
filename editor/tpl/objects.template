@@ -3,10 +3,12 @@
     {{#objects}}
     <li>
       <a href="#{{id}}">{{id}}</a>
-      <span class='ui-icon ui-icon-circle-close ui-closable-tab'></span>
+      <span class='ui-icon ui-icon-circle-close ui-closable-tab'>
+        <a href="#"></a>
+      </span>
     </li>
     {{/objects}}
-    <li><button id="object.new">NEW object...</button></li>
+    <button class="new" data-role="object" id="objects.new">NEW object...</button>
   </ul>
   {{#objects}}
   <div id="{{id}}">

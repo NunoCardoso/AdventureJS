@@ -4,23 +4,22 @@ define([
     'engine/game',
     'games/compass/compass',
     'editor/drag/util',
-    'editor/drag/drag'
+    'editor/drag/drag',
+    'editor/dynamicform'
 ], function (
     Game,
     compass,
     dragutil,
-    drag
+    drag,
+    dynamicform
 ) {
     var game,
         _createDialog = function () {
             $('<div id="drag-dialog">' +
                 '<div style="width:150px;float:left;">' +
                     '<div>Drag the item</div>' +
-                    '<select size=1 onChange="require(\'editor/drag/util\').addObject(this);">' +
-                    '<option>object.winebottle</option>' +
-                    '<option>object.tshirt</option>' +
-                    '</select>' +
-                    '<img id="dragimage"/>' +
+                    '<select id="objectToDrag" role="object" size=1 onChange="require(\'editor/drag/util\').addObject(this);"></select>' +
+                    '<img for="objectToDrag"/>' +
                 '</div>' +
                 '<div id="canvasdiv">' +
                 '<canvas id="dragcanvas" width="800" height="400"></canvas>' +
@@ -31,6 +30,9 @@ define([
                     height : 660,
                     beforeClose: function () {
                         $('#drag-dialog').remove();
+                    },
+                    open: function () {
+                        dynamicform.configureSelects($("#objectToDrag"));
                     }
                 });
         },

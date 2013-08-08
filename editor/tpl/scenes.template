@@ -1,9 +1,14 @@
 <div class="verticaltabs editor-scenes">
  <ul>
     {{#scenes}}
-    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
+    <li>
+      <a href="#{{id}}">{{id}}</a>
+      <span class='ui-icon ui-icon-circle-close ui-closable-tab'>
+        <a href="#"></a>
+      </span>
+      </li>
     {{/scenes}}
-    <li><button id="scene.new">NEW scene...</button></li>
+    <button class="new" data-role="scene" id="scene.new">NEW scene...</button>
   </ul>
   {{#scenes}}
   <div id="{{id}}">

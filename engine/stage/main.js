@@ -73,49 +73,26 @@ define([
             return _role === 'editor';
         },
 
-        activateCursorForPlay = function () {
+        activateCursorFor = function (role) {
             gamecursor.setStage(stage);
-
             // backup the old onPress
             _oldOnPress = stage.onPress;
-
             stage.onMouseMove = function (e) {
-                gamecursor.update({x: e.stageX, y: e.stageY}, 'play');
+                gamecursor.update({x: e.stageX, y: e.stageY}, role);
             };
 
             stage.onPress = function (evt) {
 
                 evt.onMouseMove = function (e) {
                     _onDragging = true;
-                    gamecursor.drag({x: e.stageX, y: e.stageY}, 'play');
+                    gamecursor.drag({x: e.stageX, y: e.stageY}, role);
                 };
                 evt.onMouseUp = function (e) {
                     if (_onDragging) {
                         gamecursor.reset();
                         _onDragging = false;
                     } else {
-                        gamecursor.click({x: evt.stageX, y: evt.stageY}, 'play');
-                    }
-                };
-            };
-        },
-
-        activateCursorForEditor = function () {
-            gamecursor.setStage(stage);
-
-            _oldOnPress = stage.onPress;
-            stage.onPress = function (evt) {
-
-                evt.onMouseMove = function (e) {
-                    _onDragging = true;
-                    gamecursor.drag({x: e.stageX, y: e.stageY}, 'editor');
-                };
-                evt.onMouseUp = function (e) {
-                    if (_onDragging) {
-                        gamecursor.reset();
-                        _onDragging = false;
-                    } else {
-                        gamecursor.click({x: evt.stageX, y: evt.stageY}, 'editor');
+                        gamecursor.click({x: evt.stageX, y: evt.stageY}, role);
                     }
                 };
             };
@@ -167,8 +144,7 @@ define([
         'update' : update,
 
         'activate' : activate,
-        'activateCursorForPlay' : activateCursorForPlay,
-        'activateCursorForEditor' : activateCursorForEditor,
+        'activateCursorFor' : activateCursorFor,
         'deactivate'      : deactivate,
 
         'isPlayable' : isPlayable,

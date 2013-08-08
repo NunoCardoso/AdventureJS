@@ -1,4 +1,4 @@
-/*global define, jQuery */
+/*global define, $ */
 
 /**
  * This module will initialize the editor for a certain game
@@ -9,10 +9,18 @@ define([
     'games/compass/compass'
 ], function (GameEditor, compass) {
 
-    (function ($) {
-        $(function () {
-            var gameeditor = new GameEditor(compass);
-            gameeditor.start();
-        });
-    }(jQuery));
+    var gameeditor,
+
+        get = function () {
+            return gameeditor;
+        };
+
+    $(function () {
+        gameeditor = new GameEditor(compass);
+        gameeditor.start();
+    });
+
+    return {
+        'get' : get
+    };
 });

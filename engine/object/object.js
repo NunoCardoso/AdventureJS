@@ -124,9 +124,8 @@ define([
                 if (role === 'play') {
                     console.log('can\'t drag object while playing');
                 } else {
-                    console.log('yes, can drag');
-                    console.log(x);
-                    console.log(y);
+                    this.x = coords.x;
+                    this.y = coords.y;
                 }
                 return true;
             }
@@ -137,14 +136,28 @@ define([
             var coords = this.globalToLocal(x, y);
             var mouseOver = this.hitTest(coords.x, coords.y);
             if (mouseOver && !this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.background.alpha = 0.3;
-                return require('engine/interaction/action').mouseOverObject(this);
+                if (role === 'play') {
+                    this.isMouseOver = mouseOver;
+                    this.background.alpha = 0.3;
+                    return require('engine/interaction/action').mouseOverObject(this);
+                } else {
+                    
+                    this.imageInStage.cache();
+
+                    console.log("Hover me");
+                }
             }
             if (!mouseOver && this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.background.alpha = 0.15;
-                return require('engine/interaction/action').mouseOutObject(this);
+                if (role === 'play') {
+                    this.isMouseOver = mouseOver;
+                    this.background.alpha = 0.15;
+                    return require('engine/interaction/action').mouseOutObject(this);
+                }  else {
+                    this.imageInStage.filters = undefined;
+                    this.imageInStage.cache();
+
+                    console.log("Not Hover me");
+                }
             }
         };
     };

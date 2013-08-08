@@ -67,7 +67,7 @@ define([
         this.removeMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.onGame();
-            require('engine/stage/main').activateCursorForPlay();
+            require('engine/stage/main').activateCursorFor('play');
             this.removeChild(toscene);
         };
 
@@ -87,17 +87,17 @@ define([
 
             if (toscene.isInteractable()) {
                 toscene.render({
-                    'toExit'    : _toExit
+                    'toExit' : _toExit
                 });
             }
 
             if (toscene.isPlayable()) {
                 this.onGame();
                 if (stagemain.isPlayable()) {
-                    stagemain.activateCursorForPlay();
+                    stagemain.activateCursorFor('play');
                 }
                 if (stagemain.isEditable()) {
-                    stagemain.activateCursorForEditor();
+                    stagemain.activateCursorFor('editor');
                 }
             } else {
                 this.notOnGame();
