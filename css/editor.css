@@ -5,10 +5,9 @@
    src: url(../fnt/half_bold_pixel-7.ttf);
 }
 
-body, input, textarea, button, label, a, td, th, p, select, option, legend {
+body, div, input, textarea, button, label, a, td, th, p, select, option, legend {
    font-family: the8bit !important;
 }
-
 
 #canvas {
    width: 800px;
@@ -28,4 +27,17 @@ body, input, textarea, button, label, a, td, th, p, select, option, legend {
     padding:10px;
     border-radius: 10px;
     box-shadow: 0px 0px 5px black;
+}
+
+tr {
+    height: 19px;
+}
+
+.tablesorter tbody > tr > td[contenteditable=true]:focus {
+  outline: #08f 1px solid;
+  background: #eee;
+  resize: none;
+}
+td.no-edit, span.no-edit {
+  background-color: rgba(230,191,153,0.5);
 }

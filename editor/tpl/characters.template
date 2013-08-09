@@ -18,8 +18,8 @@
     <tbody>
         {{#npcs}}
             <tr>
-                <td>{{id}}</td>
-                <td>{{label}}</td>
+                <td contenteditable="true">{{id}}</td>
+                <td contenteditable="true">{{label}}</td>
             </tr>
         {{/npcs}}
     </tbody>

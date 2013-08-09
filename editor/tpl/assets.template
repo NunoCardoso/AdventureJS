@@ -12,8 +12,8 @@
         {{#images}}
             <tr>
                 <td><img width='70' height='50' for='{{id}}' src='{{src}}'/></td>
-                <td class='image-id'>{{id}}</td>
-                <td>{{src}}</td>
+                <td contenteditable="true" class='image-id'>{{id}}</td>
+                <td contenteditable="true">{{src}}</td>
             </tr>
         {{/images}}
     </tbody>
@@ -25,6 +25,7 @@
 <table class="tablesorter" id="sounds-table">
     <thead>
         <tr>
+            <th></th>
             <th>id</th>
             <th>src</th>
         </tr>
@@ -32,8 +33,9 @@
     <tbody>
         {{#sounds}}
             <tr>
-                <td>{{id}}</td>
-                <td>{{src}}</td>
+                <td></td>
+                <td contenteditable="true">{{id}}</td>
+                <td contenteditable="true">{{src}}</td>
             </tr>
         {{/sounds}}
     </tbody>

@@ -75,9 +75,9 @@
     <tbody>
     {{#each panel.verbs}}
         <tr>
-            <td class="verb-first">{{this.first}}</td>
-            <td>{{this.nr}}</td>
-            <td>{{this.second}}</td>
+            <td contenteditable="true" class="verb-first">{{this.first}}</td>
+            <td contenteditable="true">{{this.nr}}</td>
+            <td contenteditable="true">{{this.second}}</td>
         </tr>
     {{/each}}
     </tbody>

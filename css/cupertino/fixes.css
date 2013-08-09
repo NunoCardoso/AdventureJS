@@ -9,9 +9,11 @@
     right:0;
 }
 
-.ui-closable-tab a {
+.ui-closable-tab a,
+.ui-icon a {
     width:16px;
     height:16px;
+    display: block;
 }
 .ui-tabs-vertical .ui-tabs-nav li {
     overflow: auto;

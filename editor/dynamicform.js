@@ -147,7 +147,7 @@ define([
                                 text  : "Delete " + item,
                                 click : function () {
                                     li.remove();
-                                    $('' + item).remove();
+                                    $(item).remove();
                                     tabs.tabs("refresh");
                                     $(this).dialog("close");
                                 }
@@ -173,17 +173,19 @@ define([
                 var valu = item + '.' + (lis.length + 1);
                 var lastli = ul.find('li:last');
                 lastli.after('<li>' +
-         '<a href="#' + valu + '">' + valu + '</a>' +
-         '<span class="ui-icon ui-icon-circle-close ui-closable-tab">' +
-         '<a href="#"></a></span></li>');
+                     '<a href="#' + valu + '">' + valu + '</a>' +
+                     '<span class="ui-icon ui-icon-circle-close ui-closable-tab">' +
+                     '<a href="#"></a></span></li>');
 
-                var html = require('editor/main').get().doTemplate(item); 
+                var html = require('editor/main').get().doTemplate(item);
                 html = '<div id="' + valu + '">' + html + '</div>';
 
                 tab.find('div.ui-tabs-panel:last').after(html);
                 tab.tabs('refresh');
             });
         };
+
+ 
 
     return {
         'configureSelects' : configureSelects,
@@ -192,5 +194,4 @@ define([
         'onTabClose'       : onTabClose,
         'onTabButtons'     : onTabButtons
     };
-
 });
