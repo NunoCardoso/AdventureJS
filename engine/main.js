@@ -12,6 +12,7 @@ define([
     compass
 ) {
     var _user = "Me",
+        _game,
 
         setUser = function (user) {
             _user = user;
@@ -19,22 +20,26 @@ define([
 
         getUser = function () {
             return _user;
+        },
+
+        init = function () {
+            _game = new Game();
+            _game.init();
+            _game.setUser(_user);
+            _game.load(compass);
+            _game.start({
+                scene    : 'scene.menu',
+                canvas   : 'canvas',
+                role     : 'play'
+            });
         };
 
-    (function ($) {
-        $(function () {
-            var game = new Game();
-            game.init();
-            game.setUser(_user);
-            game.load(compass);
-            game.start({
-                scene: 'scene.menu'
-            });
-        });
-    }(jQuery));
+    // TODO: to remove when we have a way to load a game, then trigger the init method
+    init();
 
     return {
         'setUser' : setUser,
-        'getUser' : getUser
+        'getUser' : getUser,
+        'init' :  init
     };
 });

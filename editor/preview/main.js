@@ -25,15 +25,9 @@ define([
             _createDialog();
             _initGame();
             game.start({
-                scene: scene || 'scene.menu'
-            });
-        },
-
-        startOnScene = function (scene) {
-            _createDialog();
-            _initGame();
-            game.start({
-                scene: scene
+                scene: scene || 'scene.menu',
+                canvas   : 'canvas',
+                role     : 'play'
             });
         };
 

@@ -55,17 +55,19 @@ define([
         this.addMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.notOnGame();
-            require('engine/stage/main').deactivateCursor();
+            require('engine/stage/main').deactivate();
             this.addChild(toscene);
+
             // adding the menu pauses the ticker, so we need to manualy update
             this.update();
         };
 
         // used to remove top scene (temporary menu)
+        // only happens on play mode, so it's save for activateCursorOnPlay
         this.removeMenuScene = function (_toscene) {
             var toscene   = gamescene.get(_toscene);
             this.onGame();
-            require('engine/stage/main').activateCursor();
+            require('engine/stage/main').activateCursorFor('play');
             this.removeChild(toscene);
         };
 
@@ -77,29 +79,38 @@ define([
         };
 
         this.switchScene = function (_fromscene, _toscene, _toExit) {
-            // _fromscene is a name of a scene already on stage
-            var fromscene = this.getChildByName(_fromscene);
-            // toscene is a name of a scene to render.
-            var toscene   = gamescene.get(_toscene);
+            var fromscene = this.getChildByName(_fromscene),
+                toscene   = gamescene.get(_toscene),
+                stagemain = require('engine/stage/main');
 
             this.removeChild(fromscene);
 
             if (toscene.isInteractable()) {
-
                 toscene.render({
-                    'toExit'    : _toExit
+                    'toExit' : _toExit
                 });
             }
+
             if (toscene.isPlayable()) {
                 this.onGame();
-                require('engine/stage/main').activateCursor();
+                if (stagemain.isPlayable()) {
+                    stagemain.activateCursorFor('play');
+                }
+                if (stagemain.isEditable()) {
+                    stagemain.activateCursorFor('editor');
+                }
             } else {
                 this.notOnGame();
-                require('engine/stage/main').deactivateCursor();
+                stagemain.deactivate();
+                stagemain.update();
             }
 
             this.addChild(toscene);
             this.currentScene = toscene;
+
+            if (toscene.hasBeginCutscene()) {
+                toscene.performBeginCutscene();
+            }
         };
     };
     return GameStage;

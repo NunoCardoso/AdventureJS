@@ -106,7 +106,7 @@ define([
             this.setDimensions();
         };
 
-        this.testClick = function (x, y, scene) {
+        this.testClick = function (x, y, scene, role) {
             var coords = this.globalToLocal(x, y);
             var mouseClick = this.hitTest(coords.x, coords.y);
             if (mouseClick) {
@@ -116,18 +116,48 @@ define([
             return false;
         };
 
-        this.testHit = function (x, y) {
+
+        this.testDrag = function (x, y, scene, role) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                if (role === 'play') {
+                    console.log('can\'t drag object while playing');
+                } else {
+                    this.x = coords.x;
+                    this.y = coords.y;
+                }
+                return true;
+            }
+            return false;
+        };
+
+        this.testHit = function (x, y, role) {
             var coords = this.globalToLocal(x, y);
             var mouseOver = this.hitTest(coords.x, coords.y);
             if (mouseOver && !this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.background.alpha = 0.3;
-                return require('engine/interaction/action').mouseOverObject(this);
+                if (role === 'play') {
+                    this.isMouseOver = mouseOver;
+                    this.background.alpha = 0.3;
+                    return require('engine/interaction/action').mouseOverObject(this);
+                } else {
+                    
+                    this.imageInStage.cache();
+
+                    console.log("Hover me");
+                }
             }
             if (!mouseOver && this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.background.alpha = 0.15;
-                return require('engine/interaction/action').mouseOutObject(this);
+                if (role === 'play') {
+                    this.isMouseOver = mouseOver;
+                    this.background.alpha = 0.15;
+                    return require('engine/interaction/action').mouseOutObject(this);
+                }  else {
+                    this.imageInStage.filters = undefined;
+                    this.imageInStage.cache();
+
+                    console.log("Not Hover me");
+                }
             }
         };
     };

@@ -15,11 +15,15 @@ define([
 
             queue.addEventListener("fileload", function (e) {
                 // write the name of the file loaded
-                options.loadedFile.text = e.item.src;
+                if (options.loadedFile) {
+                    options.loadedFile.text = e.item.src;
+                }
                 if (e.item.type === 'sound') {
                     createjs.Sound.registerSound(e.item.src, e.item.id);
                 }
-                options.progressBar.add();
+                if (options.progressBar) {
+                    options.progressBar.add();
+                }
             });
 
             queue.addEventListener("complete", options.onComplete);

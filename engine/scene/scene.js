@@ -35,7 +35,6 @@ define([
     p.initialize = function (scene) {
         this.GameScene_initialize();
 
-
         this.name = scene.id;
 
         this.description  = scene.description;
@@ -50,11 +49,13 @@ define([
         this.objects      = {};
         this.exits        = scene.exits || [];
         this.startXY      = undefined;
+        this.beginCutscene = scene.beginCutscene || undefined;
+        this.beginCutscenePerformed = false;
 
         this.dynamicBack  = new createjs.Container();
         this.player       = new createjs.Container();
         this.dynamicFore  = new createjs.Container();
-        this.static       = new createjs.Container();
+        this.staticBack   = new createjs.Container();
 
         this.scenePc     = undefined;
         this.sceneNpcs   = undefined;
@@ -66,7 +67,9 @@ define([
 
         if (scene.background) {
             this.background = new Background({
-                'background' : scene.background
+                'background'     : scene.background,
+                'backgroundpath' : scene.backgroundpath,
+                'backgroundmode' : scene.backgroundmode
             });
         }
 
@@ -110,6 +113,10 @@ define([
                     }
                 }
             }
+        };
+
+        this.addObject = function (object) {
+            this.objects[object.id] = object;
         };
 
         // when dragging backgrounds
@@ -248,26 +255,29 @@ define([
         };
 
         this.renderStatic = function (options) {
-            if (this.isPlayable()) {
+
+            if (require('engine/stage/main').isPlayable()) {
                 // first to be rendered. Watch out, getPanel() depends on it.
                 if (options.panel) {
-                    this.static.addChild(options.panel);
+                    this.staticBack.addChild(options.panel);
                 }
 
                 if (options.sentence) {
-                    this.static.addChild(options.sentence);
+                    this.staticBack.addChild(options.sentence);
                 }
+
                 var MenuButton = require('engine/scene/menubutton');
-                this.static.addChild(new MenuButton({from: this.name}));
+                this.staticBack.addChild(new MenuButton({from: this.name}));
+
+                // add the custom cursor
+                gamecursor.reset();
+                this.staticBack.addChild(gamecursor.get());
             }
-            // add the custom cursor
-            gamecursor.reset();
-            this.static.addChild(gamecursor.get());
         };
 
         this.render = function (options) {
 
-            this.toExit = options.toExit || undefined;
+            this.toExit = (options ? options.toExit : undefined);
             this.startXY = undefined;
 
             this.removeAllChildren();
@@ -277,27 +287,28 @@ define([
                 'npcs' : gamecharacter.getNpcs()
             });
 
-            gamepanel.renderForVerbsAndInventory();
+            if (require('engine/stage/main').isPlayable()) {
+                gamepanel.renderForVerbsAndInventory();
+            }
+            this.renderStatic({
+                'panel'    : gamepanel.get(),
+                'sentence' : sentence.get()
+            });
 
             this.renderPlayer({
                 'pc'       : gamecharacter.getPc()
             });
 
-            this.renderStatic({
-                'panel'    : gamepanel.get(),
-                'sentence' : sentence.get(),
-            });
-
             this.addChild(this.dynamicBack);
             this.addChild(this.player);
             this.addChild(this.dynamicFore);
-            this.addChild(this.static);
+            this.addChild(this.staticBack);
 
         };
 
         this.getMenuButton = function () {
             // have to return as an array, testHit and testClick likes arrays
-            return [this.static.getChildByName('menubutton')];
+            return [this.staticBack.getChildByName('menubutton')];
         };
 
         this.getDynamicBackSceneChildrens = function () {
@@ -309,8 +320,8 @@ define([
         };
 
         this.getPanel = function () {
-            if (this.static.children) {
-                return this.static.children[0];
+            if (this.staticBack.children) {
+                return this.staticBack.children[0];
             }
             return undefined;
         };
@@ -321,6 +332,10 @@ define([
 
         this.getNpcs = function () {
             return this.sceneNpcs;
+        };
+
+        this.getBackground = function () {
+            return this.dynamicBack.getChildByName('background');
         };
 
         this.getState = function () {
@@ -342,11 +357,27 @@ define([
                 }
             }
             return {
-                'objects' : objectStates,
+                'objects'     : objectStates,
                 'dynamicBack' : this.dynamicBack.x,
                 'dynamicFore' : this.dynamicFore.x,
                 'player'      : this.player.x
             };
+        };
+
+        this.hasBeginCutscene = function () {
+            return this.beginCutscene !== undefined;
+        };
+
+        this.performBeginCutscene = function () {
+            if (this.beginCutscenePerformed) {
+                return;
+            }
+            gamecursor.setBusy();
+            var deferred = require('engine/interaction/decision').performList(this.beginCutscene);
+            deferred.done(function () {
+                gamecursor.setNotBusy();
+            });
+            this.beginCutscenePerformed = true;
         };
 
         this.setState = function (json) {

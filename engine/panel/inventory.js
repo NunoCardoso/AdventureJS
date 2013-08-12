@@ -92,7 +92,7 @@ define([
         this.render = function (options) {
 
             var objects = [];
-            if (typeof options === 'undefined') {
+            if (options === undefined) {
                 var i;
 
                 for (i in this.children) {
@@ -130,7 +130,7 @@ define([
             }
 
             var dimensions = this.calculateObjectDimensions(obj,
-                    (typeof order !== 'undefined' ? order :
+                    (order !== undefined ? order :
                             (this.children ? this.children.length : 0)
                     )
                     );

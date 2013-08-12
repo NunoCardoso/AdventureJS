@@ -45,6 +45,10 @@ define([
                 'src' : 'engine/img/cursor/drag.png'
             },
             {
+                'id'  : 'image.cursor.wait',
+                'src' : 'engine/img/cursor/wait.png'
+            },
+            {
                 'id'  : 'image.panel.arrowup',
                 'src' : 'engine/img/panel/uparrow.png'
             },
@@ -82,11 +86,15 @@ define([
                 },
                 'animations' : {
                     'walkright'  : [0, 5, 'walkright', 6],
+                    'walkupright'  : [0, 5, 'walkupright', 6],
+                    'walkdownright'  : [0, 5, 'walkdownright', 6],
                     'walkleft'   : [6, 11, 'walkleft', 6],
+                    'walkupleft'   : [6, 11, 'walkupleft', 6],
+                    'walkdownleft'   : [6, 11, 'walkdownleft', 6],
                     'standright' : 12,
                     'standleft'  : 13,
                     'talkright'  : [18, 22, 'talkright', 6],
-                    'talkleft'   : [24, 27, 'talkleft', 6],
+                    'talkleft'   : [24, 27, 'talkleft', 6]
                 }
             },
             {

@@ -20,9 +20,12 @@ define([
         savegame, // a JSON snapshot of this stage
 
         _onDragging = false,
+        _role,
+        _oldOnPress,
 
-        preload = function (character) {
-            stage = new GameStage("canvas");
+        preload = function (options) {
+            stage = new GameStage(options.canvas);
+            _role = options.role;
         },
 
         getInstance = function () {
@@ -62,32 +65,41 @@ define([
             createjs.Touch.enable(stage);
         },
 
-        activateCursor = function () {
+        isPlayable = function () {
+            return _role === 'play';
+        },
+
+        isEditable = function () {
+            return _role === 'editor';
+        },
+
+        activateCursorFor = function (role) {
             gamecursor.setStage(stage);
+            // backup the old onPress
+            _oldOnPress = stage.onPress;
             stage.onMouseMove = function (e) {
-                gamecursor.update({x: e.stageX, y: e.stageY});
+                gamecursor.update({x: e.stageX, y: e.stageY}, role);
             };
 
             stage.onPress = function (evt) {
 
                 evt.onMouseMove = function (e) {
                     _onDragging = true;
-                    gamecursor.drag({x: e.stageX, y: e.stageY});
+                    gamecursor.drag({x: e.stageX, y: e.stageY}, role);
                 };
                 evt.onMouseUp = function (e) {
                     if (_onDragging) {
-                        gamecursor.undrag({x: e.stageX, y: e.stageY});
+                        gamecursor.reset();
                         _onDragging = false;
                     } else {
-                        gamecursor.click({x: evt.stageX, y: evt.stageY});
+                        gamecursor.click({x: evt.stageX, y: evt.stageY}, role);
                     }
                 };
             };
         },
 
-        deactivateCursor = function () {
-            stage.onMouseMove = undefined;
-            stage.onClick = undefined;
+        deactivate = function () {
+            stage.onPress = _oldOnPress;
         },
 
         activateTick = function () {
@@ -127,12 +139,15 @@ define([
         'getSavegame'  : getSavegame,
         'activateTick' : activateTick,
 
-        'pause' : pause,
-        'play' : play,
+        'pause'  : pause,
+        'play'   : play,
         'update' : update,
 
         'activate' : activate,
-        'activateCursor' : activateCursor,
-        'deactivateCursor' : deactivateCursor
+        'activateCursorFor' : activateCursorFor,
+        'deactivate'      : deactivate,
+
+        'isPlayable' : isPlayable,
+        'isEditable' : isEditable
     };
 });

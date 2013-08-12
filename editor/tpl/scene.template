@@ -1,13 +1,18 @@
 <div style="float:right;text-align:center;">
     <label>Preview</label>
     <br>
-    <img class="dynamic-image" data-src-id="{{background}}" width="200" height="150">
+    <img for="scene.{{id}}.background" data-src-id="{{background}}" width="200" height="150">
     <br>
     <button id="scene.{{id}}.preview" onClick="require(['editor/preview/main'], function (main) {main.start('{{id}}');})">Preview scene</button>
+    <br>
+    <button id="scene.{{id}}.preview" onClick="require(['editor/walkarea/main'], function (main) {main.start('{{id}}');})">Draw walking areas</button>
+    <br>
+    <button id="scene.{{id}}.preview" onClick="require(['editor/drag/main'], function (main) {main.start('{{id}}');})">Add item to scene...</button>
+    <br>    
 </div>
 
 <label for="scene.{{id}}.background">Background</label>
-<select id="scene.{{id}}.background" size="1"></select>
+<select role="image" data-default="{{background}}" id="scene.{{id}}.background" size="1"></select>
 <BR>
 
 
@@ -16,6 +21,10 @@
     <option>Fit</option>
     <option>Overflow</option>
 </select>
+<BR>
+
+<label for="scene.{{id}}.backgroundpath">Background path</label>
+<select role="image" data-default="{{backgroundpath}}" size=1></select>
 <BR>
 
 <label for="scene.{{id}}.description">Description</label>

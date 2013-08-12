@@ -9,6 +9,14 @@ define([
                 'src' : 'games/compass/img/background/jungle.jpg'
             },
             {
+                'id'  : 'image.jungle.path',
+                'src' : 'games/compass/img/background/jungle.path.png'
+            },
+            {
+                'id'  : 'image.all.path',
+                'src' : 'games/compass/img/background/all.path.png'
+            },
+            {
                 'id'  : 'image.kyrandia',
                 'src' : 'games/compass/img/background/legend-of-kyrandia.jpg'
             },
@@ -75,6 +83,10 @@ define([
             {
                 'id'  : 'image.object.tree',
                 'src' : 'games/compass/img/object/tree.png'
+            },
+            {
+                'id'  : 'image.object.tshirt',
+                'src' : 'games/compass/img/object/tshirt.png'
             }
         ],
         'sounds': [],
@@ -191,6 +203,11 @@ define([
                 'label': 'tree',
                 'imageInStage' : 'image.object.tree',
                 'onForeground' : true
+            },
+            {
+                'id': 'object.tshirt',
+                'label': 'T-Shirt',
+                'imageInStage' : 'image.object.tshirt'
             }
         ],
         'interactions': [
@@ -208,20 +225,20 @@ define([
                 'actions' : [
                     {
                         'action': 'removeFromInventory',
-                        'target': 'object.needle'
+                        'object': 'object.needle'
                     },
                     {
                         'action': 'removeFromInventory',
-                        'target': 'object.cork'
+                        'object': 'object.cork'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'object.needlewithcork'
+                        'object': 'object.needlewithcork'
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'I stuck the needle into the cork'
+                        'character': 'pc.guybrush',
+                        'text' : 'I stuck the needle into the cork'
                     },
                     {
                         'action': 'publishAchievement',
@@ -238,7 +255,7 @@ define([
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'target': 'dialog.01'
+                        'dialog': 'dialog.01'
                     }
                 ]
             },
@@ -252,12 +269,12 @@ define([
                 'actions' : [
                     {
                         'action': 'fromSceneToInventory',
-                        'target': 'object.winebottle'
+                        'object': 'object.winebottle'
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'I always wanted a wine bottle.'
+                        'character': 'pc.guybrush',
+                        'text' : 'I always wanted a wine bottle.'
                     }
                 ]
             },
@@ -271,8 +288,8 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'That is on e fine magnet I have!'
+                        'character': 'pc.guybrush',
+                        'text' : 'That is on e fine magnet I have!'
                     }
                 ]
             },
@@ -286,8 +303,8 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'Ouch! It\'s sharp!'
+                        'character': 'pc.guybrush',
+                        'text' : 'Ouch! It\'s sharp!'
                     }
                 ]
             },
@@ -301,8 +318,8 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'Mmmm.... wine... tasty!'
+                        'character': 'pc.guybrush',
+                        'text' : 'Mmmm.... wine... tasty!'
                     }
                 ]
             },
@@ -320,20 +337,20 @@ define([
                 'actions' : [
                     {
                         'action': 'removeFromInventory',
-                        'target': 'object.winebottle'
+                        'object': 'object.winebottle'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'object.winebottlewithoutcork'
+                        'object': 'object.winebottlewithoutcork'
                     },
                     {
                         'action': 'addToInventory',
-                        'target': 'object.cork'
+                        'object': 'object.cork'
                     },
                     {
                         'action': 'dialogMessage',
-                        'target': 'pc.guybrush',
-                        'param' : 'There, I took the cork out.'
+                        'character': 'pc.guybrush',
+                        'text' : 'There, I took the cork out.'
                     }
                 ]
             }
@@ -342,9 +359,38 @@ define([
             {
                 'id'                 : 'scene.01',
                 'background'         : 'image.jungle',
+                'backgroundpath'     : 'image.jungle.path',
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
+/*                'beginCutscene' : [
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.guybrush',
+                        'position' : {
+                            'x': 300,
+                            'y': 380
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.guybrush',
+                        'text'  : 'I\'m lost. I need a compass.'
+                    },
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.guybrush',
+                        'position' : {
+                            'x': 400,
+                            'y': 380
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.guybrush',
+                        'text'  : 'Maybe that pirate can help me.'
+                    }
+                ],*/
                 'npcs' : [
                     {
                         'id' : 'npc.pirate01',
@@ -394,6 +440,7 @@ define([
                 'id'                 : 'scene.02',
                 'background'         : 'image.jungle2',
                 'backgroundmode'     : 'fit',
+                'backgroundpath'     : 'image.all.path',
                 'description'        : 'This is the second scene.',
                 'interactable'       : true,
                 'objects' : [],
@@ -446,7 +493,8 @@ define([
                 'isInInventory': 'object.winebottle',
                 'onFail': {
                     'action' : 'dialogMessage',
-                    'text'   : 'I can\'t leave without the wine bottle'
+                    'character' : 'pc.guybrush',
+                    'text'  : 'I can\'t leave without the wine bottle'
                 }
             },
             {
@@ -454,7 +502,8 @@ define([
                 'isInInventory': 'object.compass',
                 'onFail': {
                     'action' : 'dialogMessage',
-                    'text'   : 'I can\'t leave without a compass!'
+                    'character' : 'pc.guybrush',
+                    'text'  : 'I can\'t leave without a compass!'
                 }
             }
         ],
@@ -474,7 +523,7 @@ define([
                 ],
                 'onEnd' : [
                     {
-                        'action' : 'displayDialogOptions',
+                        'action' : 'startDialogOptions',
                         'dialogOptions' : 'dialogoption.01'
                     }
                 ]

@@ -1,4 +1,4 @@
-/*global define */
+/*global define, $ */
 
 /**
  * This is the start main
@@ -44,16 +44,20 @@ define([
         gamestage.getInstance().addChild(startScene);
         gamestage.getInstance().update();
 
+        var deferred = $.Deferred();
+
         assets.preload({
             assetList  : options.assetList,
             onComplete : function (queue) {
                 console.log('Assets loaded');
                 assets.setQueueLoaded(queue.target);
-                options.onAssetsLoaded.call(this, options.onAssetsLoadedOptions || {});
+                deferred.resolve();
             },
             loadedFile : loadedFile,
             progressBar: progressBar
         });
+
+        return deferred.promise();
     };
 
     return {

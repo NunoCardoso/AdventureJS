@@ -1,9 +1,13 @@
 <div class="verticaltabs">
  <ul>
     {{#conditions}}
-    <li><a href="#{{id}}">{{id}}</a><span class='ui-icon ui-icon-circle-close ui-closable-tab'></span></li>
+    <li><a href="#{{id}}">{{id}}</a>
+          <span class='ui-icon ui-icon-circle-close ui-closable-tab'>
+        <a href="#"></a>
+      </span>
+      </li>
     {{/conditions}}
-    <li><button id="conditions.new">NEW condition...</button></li>
+    <button data-role="condition" class="new" id="conditions.new">NEW condition...</button>
   </ul>
   {{#conditions}}
   <div id="{{id}}">

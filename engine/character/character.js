@@ -4,16 +4,16 @@
  * This is the main character (playable or not) class
  */
 define([
-    'engine/config',
     'engine/interaction/action',
-    'engine/lib/assets',
     'engine/character/balloon',
+    'engine/character/move',
+    'engine/character/sprite',
     'engine/dialog/main'
 ], function (
-    config,
     action,
-    assets,
     Balloon,
+    move,
+    Sprite,
     gamedialog
 ) {
     var Character = function (options) {
@@ -28,16 +28,9 @@ define([
         this.name  = options.id;
         this.label = undefined;
 
-        this.character = new createjs.BitmapAnimation();
-        this.character.spriteSheet = new createjs.SpriteSheet({
-            images     : [assets.getQueueLoaded().getResult(options.images)],
-            frames     : options.frames,
-            animations : options.animations
-        });
-        this.character.frames   = options.frames;
-        this.character.attitude = 'standright';
-        this.currentAnimation   = undefined;
-        this.character.gotoAndPlay(this.character.attitude);
+        this.character = new Sprite(options);
+        this.balloon = new Balloon({textColor : this.textColor});
+
         this.textColor = options.textColor;
 
         this.w = this.character.frames.width;
@@ -48,25 +41,17 @@ define([
         this.regY = this.h;
 
         this.targetXY = undefined;
-
-        this.speed = options.speed;
+        this.speed    = options.speed;
 
         // important, so we can know if this is playable character, ommit some events
         this.isPlayable = false;
 
-        // callback after reaching a place
-        this.whenFinished = undefined;
-
-        // callback after saying a balloon:
-        this.afterSay = undefined;
-
-        // setTimeout for saying something
-        this.saying = undefined;
+        // Deferred for talk
+        this.talkDeferred = undefined;
+        this.walkDeferred = undefined;
 
         // boolean for when this character is speaking
         this.isSpeaking = false;
-
-        this.balloon = new Balloon({textColor : this.textColor});
 
         this.addChild(
             this.character,
@@ -100,7 +85,7 @@ define([
             return {
                 'x'        : this.x,
                 'y'        : this.y,
-                'attitude' : this.getStandAttitude()
+                'attitude' : this.character.getStandAttitude()
             };
         };
 
@@ -114,8 +99,12 @@ define([
 
         this.setTargetXY = function (xy) {
             this.targetXY = xy;
-            // abort any callback to perform, as the current itinerary was changed
-            this.whenFinished = undefined;
+            this.walkDeferred = $.Deferred();
+            return this.walkDeferred;
+        };
+
+        this.moveTo = function (position) {
+            return this.setTargetXY(position);
         };
 
         this.resetTargetXY = function () {
@@ -126,46 +115,44 @@ define([
         // but if we clicked on items/characters, we don't want to land
         // on top of them, so let's compute a margin distance.
         this.calculateTargetXY = function (xy, item) {
-            if (typeof item === 'undefined') {
+            if (!item) {
                 return this.setTargetXY(xy);
             }
             var dim = item.getDimensions(),
                 itemX = (dim.x1 + dim.x2) / 2;
             // playable character is on the left of the object;
             if (this.x < itemX) {
-                this.setTargetXY({
+                return this.setTargetXY({
                     x : dim.x1 - (this.w / 2),
                     y : xy.y
                 });
-            } else {
+            }
             // playable character is on the right of the object;
-                this.setTargetXY({
-                    x : dim.x2 + (this.w / 2),
-                    y : xy.y
-                });
-            }
-        };
-
-        this.finishedSay = function () {
-            this.shutUp();
-            if (typeof this.afterSay === 'function') {
-                this.afterSay.call();
-            }
-        };
-
-        this.say = function (text, callback) {
-            // 0.1 sec per letter;
-            this.afterSay = callback;
-            var interv = text.length * 100;
-            this.talk(text);
-            this.saying = setTimeout($.proxy(this.finishedSay, this), interv);
+            return this.setTargetXY({
+                x : dim.x2 + (this.w / 2),
+                y : xy.y
+            });
         };
 
         // triggered when dot key is press
         // it shutups, but continues the conversation, if on the middle of one
         this.stopSay = function () {
-            clearTimeout(this.saying);
-            this.finishedSay();
+            if (this.talkDeferred) {
+                this.talkDeferred.resolve();
+                this.talkDeferred = undefined;
+            }
+            this.shutUp();
+        };
+
+        this.say = function (text, callback) {
+            this.talkDeferred = $.Deferred();
+            // 0.1 sec per letter;
+            var interv = text.length * 100;
+            this.talk(text);
+            setTimeout($.proxy(function () {
+                this.stopSay();
+            }, this), interv);
+            return this.talkDeferred.promise();
         };
 
         this.shutUp = function () {
@@ -173,119 +160,24 @@ define([
             this.balloon.shutUp();
         };
 
-        // this is a callback function to perform when the playable character
-        // reaches the targeted place
-        this.setWhenFinished = function (callback) {
-            this.whenFinished = callback;
-        };
-
-        // for scenes that stretch, maybe the scene has to scroll, not the character.
         this.update = function (scene) {
-
-            if (this.targetXY) {
-                if (this.x > this.targetXY.x && (this.x - this.targetXY.x > this.speed)) {
-                    this.character.attitude = "walkleft";
-                } else if (this.x < this.targetXY.x  && (this.targetXY.x - this.x > this.speed)) {
-                    this.character.attitude = "walkright";
-                } else {
-                    if (this.isFacingLeft()) {
-                        this.character.attitude = "standleft";
-                        // perform the callback action, since the character reached his destination;
-                        if (this.whenFinished) {
-                            this.whenFinished.call();
-                            this.whenFinished = undefined;
-                        }
-                    } else if (this.isFacingRight()) {
-                        this.character.attitude = "standright";
-                        // perform the callback action, since the character reached his destination;
-                        if (this.whenFinished) {
-                            this.whenFinished.call();
-                            this.whenFinished = undefined;
-                        }
-                    }
-                }
-            }
-            if (this.character.attitude === "walkleft") {
-                this.setX(this.x - this.speed);
-            } else if (this.character.attitude === "walkright") {
-                this.setX(this.x + this.speed);
-            }
-
-            if (scene && scene.isPlayable()) {
-                // now, let's see if scene should scroll
-                var sceneHasHiddenBackgroundOnRight = (
-                    scene.background.mode !== 'fit' &&
-                    (scene.dynamicBack.x + scene.dynamicBack.w > config.get('game.w'))
-                );
-
-                var sceneHasHiddenBackgroundOnLeft = (
-                    scene.background.mode !== 'fit' &&
-                    (scene.dynamicBack.x < 0)
-                );
-
-                var isCharacterOnLeftHalf = (this.x < (config.get('game.w') / 2));
-                var isCharacterOnRightHalf = (this.x >= (config.get('game.w') / 2));
-
-                if (sceneHasHiddenBackgroundOnLeft && isCharacterOnLeftHalf && this.character.attitude === 'walkleft') {
-                    scene.dynamicBack.x += this.speed;
-                    scene.dynamicFore.x += this.speed;
-                    // restore character into that position
-                    this.setX(this.x + this.speed);
-                    if (this.targetXY) {
-                        // nonetheless, your targetXY comes closer
-                        this.targetXY.x += this.speed;
-                    }
-                }
-
-                if (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && this.character.attitude === 'walkright') {
-                    scene.dynamicBack.x -= this.speed;
-                    scene.dynamicFore.x -= this.speed;
-                    // restore character into that position
-                    this.setX(this.x - this.speed);
-                    if (this.targetXY) {
-                        // nonetheless, your targetXY comes closer
-                        this.targetXY.x -= this.speed;
-                    }
-                }
-            }
-            // change attitude only if it is different
-            if (this.currentAnimation !== this.character.attitude) {
-                this.currentAnimation = this.character.attitude;
-                this.character.gotoAndPlay(this.character.attitude);
-            }
-        };
-
-        this.isFacingLeft = function () {
-            return this.character.attitude === "walkleft" || this.character.attitude === "standleft" || this.character.attitude === 'talkleft';
-        };
-
-        this.isFacingRight = function () {
-            return this.character.attitude === "walkright" || this.character.attitude === "standright" || this.character.attitude === 'talkright';
+            move.move(this, scene);
         };
 
         this.talk = function (text) {
             this.isSpeaking = true;
             this.balloon.say(text);
-            if (this.isFacingLeft()) {
+            if (this.character.isFacingLeft()) {
                 this.character.attitude = 'talkleft';
-            } else if (this.isFacingRight()) {
+            } else if (this.character.isFacingRight()) {
                 this.character.attitude = 'talkright';
             }
             this.character.gotoAndPlay(this.character.attitude);
         };
 
-        this.getStandAttitude = function () {
-            if (this.isFacingLeft()) {
-                return 'standleft';
-            }
-            if (this.isFacingRight()) {
-                return 'standright';
-            }
-        };
-
         this.stand = function () {
             this.isSpeaking = false;
-            this.character.gotoAndPlay(this.getStandAttitude());
+            this.character.gotoAndPlay(this.character.getStandAttitude());
         };
 
         this.faceTo = function (other) {
@@ -298,7 +190,7 @@ define([
             }
         };
 
-        this.testHit = function (x, y) {
+        this.testHit = function (x, y, role) {
             if (!this.isPlayable) {
                 var coords = this.globalToLocal(x, y);
                 var mouseOver = this.hitTest(coords.x, coords.y);
@@ -313,7 +205,7 @@ define([
             }
         };
 
-        this.testClick = function (x, y, scene) {
+        this.testClick = function (x, y, scene, role) {
             if (!this.isPlayable) {
                 var coords = this.globalToLocal(x, y);
                 var mouseClick = this.hitTest(coords.x, coords.y);
@@ -326,93 +218,48 @@ define([
             return false;
         };
 
-        this._performResult = function (result, npc) {
-            switch (result.action) {
-            case 'dialogMessage':
-                this.say(result.text);
-                return;
-            case 'playDialog':
-                gamedialog.perform({
-                    // slice(0) clones it, because gamedialog will destroy it
-                    lines : result.dialog.lines.slice(0),
-                    to    : result.dialog.to,
-                    onEnd : result.dialog.onEnd
-                });
-                break;
-            default:
-                console.log(action.action + ' not implemented!');
-                break;
+        this.testDrag = function (x, y, scene, role) {
+            var coords = this.globalToLocal(x, y);
+            var mouseClick = this.hitTest(coords.x, coords.y);
+            if (mouseClick) {
+                if (role === 'play') {
+                    console.log('can\'t  drag while playing');
+                } else {
+                    this.x = coords.x;
+                    this.y = coords.y;
+                }
+                return true;
             }
+            return false;
         };
 
         this.actForNpcClick = function (xy, npc) {
-            this.calculateTargetXY(xy, npc);
-            this.setWhenFinished($.proxy(function () {
-                var result = action.clickNpc(npc);
-                if (result) {
-                    action.reset();
-                    this._performResult(result, npc);
-                }
-            }, this));
+            var d = this.calculateTargetXY(xy, npc);
+            d.done(function () {
+                action.clickNpc(npc);
+            });
         };
 
         this.actForExitClick = function (event, exits) {
             action.clickExit(exits);
-            this.calculateTargetXY(event);
-            this.setWhenFinished($.proxy(function () {
-                var proceed = true;
-                if (exits.from.hasCondition()) {
-                    // TODO: check properly the condition, once inventory is ready.
-                    var result = exits.from.testCondition();
-                    proceed = result.conditionMet; // if conditionMet is false, it will prevent us from proceed.
-                    if (result && result.nowDo) {
-                        action.reset();
-                        this._performResult(result.nowDo);
-                    }
-                }
-
-                if (proceed) {
-                   // game over!
-                    if (exits.from.role === 'end') {
-                        require('engine/achievement/main').publish('achievement.gameover');
-                        return;
-                    }
-                    // have to find the scene that has the exits.to scene.
-                    // since exits and scenes are not rendered, I have to iterate scenes.
-                    var toScene = require('engine/scene/main').findSceneWithExit(exits.to);
-                    if (toScene) {
-                        require('engine/stage/main').getInstance().switchScene(
-                            exits.from.parent,
-                            toScene,
-                            exits.to
-                        );
-                    }
-                }
-            }, this));
+            var d = this.calculateTargetXY(event);
+            d.done(function () {
+                exits.from.doExit(exits.to);
+            });
         };
 
         this.actForObjectClick = function (event, object) {
             // I don't have to walk to an inventory
             if (object.renderedAs === 'inventory') {
-                var result = action.clickObject(object);
-                if (result) {
-                    // clean up sentence.
-                    action.reset();
-                    this._performResult(result);
-                }
+                action.clickObject(object);
                 return;
             }
-
             // else, walk there, then perform the action.
-            this.calculateTargetXY(event, object);
-            this.setWhenFinished($.proxy(function () {
-                var result = action.clickObject(object);
-                if (result) {
-                    // clean up sentence.
-                    action.reset();
-                    this._performResult(result);
-                }
-            }, this));
+            var d = this.calculateTargetXY(event, object);
+            d.done(function () {
+                action.clickObject(object);
+            });
+            return;
         };
     };
     return Character;

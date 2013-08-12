@@ -16,30 +16,57 @@ define([
         this.initialize(options);
     };
 
-    var p = Background.prototype = new createjs.Bitmap();
+    var p = Background.prototype = new createjs.Container();
     p.Background_initialize = p.initialize;
     p.initialize = function (options) {
         this.Background_initialize();
 
-        this.image  = assets.getQueueLoaded().getResult(options.background);
+        this.name = 'background';
+        this.image  = new createjs.Bitmap();
+        this.image.image = assets.getQueueLoaded().getResult(options.background);
+        this.addChild(this.image);
+
         this.mode = options.backgroundmode;
+
         this.x = 0;
         this.y = 0;
         this.w = 0;
         this.h = 0;
 
         this.dragXY = undefined;
+        this.path = undefined;
 
+        if (options.backgroundpath) {
+            this.path = new createjs.Bitmap();
+            this.path.alpha = 0.5;
+            this.path.image = assets.getQueueLoaded().getResult(options.backgroundpath);
+            this.addChild(this.path);
+        }
+
+        /* fit will make the background to fit the stage area. No overflow. */
         if (this.mode === 'fit') {
-            this.scaleX = config.get('game.w') / this.image.width;
-            this.scaleY = config.get('game.h') / this.image.height;
+            this.image.scaleX = config.get('game.w') / this.image.image.width;
+            this.image.scaleY = config.get('game.h') / this.image.image.height;
+            if (this.path) {
+                this.path.scaleX = config.get('game.w') / this.path.image.width;
+                this.path.scaleY = config.get('game.h') / this.path.image.height;
+            }
             this.w = config.get('game.w');
             this.h = config.get('game.h');
-        } else {
-            this.scaleX = 1;
-            this.scaleY = config.get('game.h') / this.image.height;
-            this.w = this.image.width;
-            this.h = this.image.height;
+
+        // fit Y, get the scale, then apply it to X.
+        } else if (this.mode === 'overflow') {
+            this.image.scaleY = config.get('game.h') / this.image.image.height;
+            this.image.scaleX = this.image.scaleY;
+
+            // path size is not the size of the background image
+            if (this.path) {
+                this.path.scaleY = config.get('game.h') / this.path.image.height;
+                this.path.scaleX = this.path.scaleY * this.image.image.width / this.path.image.width;
+
+            }
+            this.w = this.image.image.width;
+            this.h = this.image.image.height;
         }
 
         this.testDrag = function (x, y, scene) {
@@ -52,19 +79,6 @@ define([
                     scene.move(diffX);
                 }
                 this.dragXY = this.dragXY = {x: x, y: y};
-                return true;
-            }
-            return false;
-        };
-
-        this.testUndrag = function (x, y, scene) {
-            var coords = this.globalToLocal(x, y);
-            var mouseHit = this.hitTest(coords.x, coords.y);
-            if (mouseHit) {
-                require('engine/cursor/main').changeTo('image.cursor.drag');
-                if (this.dragXY) {
-                    this.dragXY = undefined;
-                }
                 return true;
             }
             return false;

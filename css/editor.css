@@ -1,12 +1,13 @@
+@charset 'UTF-8';
+
 @font-face {
    font-family: the8bit;
    src: url(../fnt/half_bold_pixel-7.ttf);
 }
 
-body, input, textarea, button, label, a, td, th, p, select, option, legend {
+body, div, input, textarea, button, label, a, td, th, p, select, option, legend {
    font-family: the8bit !important;
 }
-
 
 #canvas {
    width: 800px;
@@ -28,14 +29,15 @@ body, input, textarea, button, label, a, td, th, p, select, option, legend {
     box-shadow: 0px 0px 5px black;
 }
 
-#canvas.crosshair {
-    cursor: url(../engine/img/cursor/crosshair.gif) 15 15;
+tr {
+    height: 19px;
 }
 
-#canvas.exitright {
-    cursor: url(../engine/img/cursor/right.png) 15 15;
+.tablesorter tbody > tr > td[contenteditable=true]:focus {
+  outline: #08f 1px solid;
+  background: #eee;
+  resize: none;
 }
-
-#canvas.exitleft {
-    cursor: url(../engine/img/cursor/left.png) 15 15;
+td.no-edit, span.no-edit {
+  background-color: rgba(230,191,153,0.5);
 }

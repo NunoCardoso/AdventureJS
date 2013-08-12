@@ -1,5 +1,4 @@
 requirejs.config({
-    "baseUrl": "/AdvGame/",
     "paths": {
         "engine" : "/AdvGame/engine",
         "games"  : "/AdvGame/games",

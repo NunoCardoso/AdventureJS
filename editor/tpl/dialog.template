@@ -10,8 +10,8 @@
     <tbody>
     {{#each lines}}
         <tr>
-            <td>{{this.character}}</td>
-            <td>{{this.text}}</td>
+            <td contenteditable="true">{{this.character}}</td>
+            <td contenteditable="true">{{this.text}}</td>
         </tr>
     {{/each}}
     </tbody>
