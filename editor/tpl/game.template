@@ -8,9 +8,9 @@
     <br>
     <button id="button.load">Load...</button>
     <br>
-    <button id="button.save">Import JSON...</button>
+    <button id="button.import">Import JSON...</button>
     <br>
-    <button id="button.load">Export JSON...</button>
+    <button id="button.export" onClick="require(['editor/collector/collector'], function (collected) {collected.getGame();})">Export JSON...</button>
 </div>
 
 <label for="main.title">Title</label>
