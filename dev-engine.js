@@ -1,7 +1,7 @@
 requirejs.config({
     "paths": {
-        "engine" : "/AdvGame/engine",
-        "games"  : "/AdvGame/games",
+        "engine" : "engine",
+        "games"  : "games",
 	}
 });
 

@@ -1,8 +1,8 @@
 requirejs.config({
     "paths": {
-        "advgame": "/AdvGame/advgame",
-        "games"  : "/AdvGame/games",
-		"editor" : "/AdvGame/editor"
+        "advgame": "advgame",
+        "games"  : "games",
+		"editor" : "editor"
 	}
 });
 

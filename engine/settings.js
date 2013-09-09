@@ -9,12 +9,16 @@ define([
     return {
         'images': [
             {
-                'id'  : 'image.guybrush',
-                'src' : 'games/compass/img/character/guybrush2.png'
+                'id'  : 'image.main',
+                'src' : 'games/aroundtheworld/img/character/main.png'
             },
             {
                 'id'  : 'image.pirate',
                 'src' : 'games/compass/img/character/pirate.png'
+            },
+            {
+                'id' : 'image.bowser',
+                'src': 'games/aroundtheworld/img/character/bowser.png'
             },
             {
                 'id'  : 'image.menu.cogwheel',
@@ -73,28 +77,28 @@ define([
         ],
         'characters': [
             {
-                'id'     : 'pc.guybrush',
-                'images' : 'image.guybrush',
+                'id'     : 'pc.main',
+                'images' : 'image.main',
                 'speed'  : 2,
                 'textColor' : 'black',
                 'frames' : {
-                    'regX'   : 52,
-                    'height' : 150,
-                    'count'  : 30,
+                    'regX'   : 57,
+                    'height' : 114,
+                    'count'  : 20,
                     'regY'   : 0,
-                    'width'  : 104
+                    'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : [0, 5, 'walkright', 6],
-                    'walkupright'  : [0, 5, 'walkupright', 6],
-                    'walkdownright'  : [0, 5, 'walkdownright', 6],
-                    'walkleft'   : [6, 11, 'walkleft', 6],
-                    'walkupleft'   : [6, 11, 'walkupleft', 6],
-                    'walkdownleft'   : [6, 11, 'walkdownleft', 6],
-                    'standright' : 12,
-                    'standleft'  : 13,
-                    'talkright'  : [18, 22, 'talkright', 6],
-                    'talkleft'   : [24, 27, 'talkleft', 6]
+                    'walkright'  : [1, 6, 'walkright', 9],
+                    'walkupright'  : [1, 6, 'walkupright', 9],
+                    'walkdownright'  : [1, 6, 'walkdownright', 9],
+                    'walkleft'   : [9, 15, 'walkleft', 9],
+                    'walkupleft'   : [9, 15, 'walkupleft', 9],
+                    'walkdownleft'   : [9, 15, 'walkdownleft', 9],
+                    'standright' : 0,
+                    'standleft'  : 8,
+                    'talkright'  : [16, 17, 'talkright', 16],
+                    'talkleft'   : [16, 17, 'talkleft', 16]
                 }
             },
             {
@@ -114,6 +118,25 @@ define([
                     'standright' : 1,
                     'talkleft'   : [4, 7, 'talkleft', 6],
                     'talkright'  : [8, 11, 'talkright', 6]
+                }
+            },
+            {
+                'id'     : 'npc.bowser',
+                'images' : 'image.bowser',
+                'textColor' : 'blue',
+                'speed'  : 2,
+                'frames' : {
+                    'regX'   : 52,
+                    'height' : 194,
+                    'count'  : 4,
+                    'regY'   : 0,
+                    'width'  : 208
+                },
+                'animations' : {
+                    'standleft'  : [0, 1, 'talkleft', 0],
+                    'standright' : 0,
+                    'talkleft'   : [2, 3, 'talkleft', 2],
+                    'talkleft'   : [2, 3, 'talkleft', 2]
                 }
             }
         ]
