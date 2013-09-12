@@ -6,83 +6,83 @@ define([
         'images': [
             {
                 'id'  : 'image.jungle',
-                'src' : 'games/compass/img/background/jungle.jpg'
+                'src' : 'games/aroundtheworld/img/background/jungle.jpg'
             },
             {
                 'id'  : 'image.jungle.path',
-                'src' : 'games/compass/img/background/jungle.path.png'
+                'src' : 'games/aroundtheworld/img/background/jungle.path.png'
             },
             {
                 'id'  : 'image.all.path',
-                'src' : 'games/compass/img/background/all.path.png'
+                'src' : 'games/aroundtheworld/img/background/all.path.png'
             },
             {
                 'id'  : 'image.kyrandia',
-                'src' : 'games/compass/img/background/legend-of-kyrandia.jpg'
+                'src' : 'games/aroundtheworld/img/background/around-the-world.png'
             },
             {
                 'id'  : 'image.jungle2',
-                'src' : 'games/compass/img/background/jungle2.jpg'
+                'src' : 'games/aroundtheworld/img/background/jungle2.jpg'
             },
             {
                 'id'  : 'image.stage.winebottle',
-                'src' : 'games/compass/img/object/wine-bottle.png'
+                'src' : 'games/aroundtheworld/img/object/wine-bottle.png'
             },
             {
                 'id'  : 'image.inventory.winebottle',
-                'src' : 'games/compass/img/inventory/wine-bottle.png'
+                'src' : 'games/aroundtheworld/img/inventory/wine-bottle.png'
             },
             {
                 'id'  : 'image.inventory.winebottlewithoutcork',
-                'src' : 'games/compass/img/inventory/wine-bottle-without-cork.png'
+                'src' : 'games/aroundtheworld/img/inventory/wine-bottle-without-cork.png'
             },
             {
                 'id'  : 'image.inventory.corkscrew',
-                'src' : 'games/compass/img/inventory/corkscrew.png'
+                'src' : 'games/aroundtheworld/img/inventory/corkscrew.png'
             },
             {
                 'id'  : 'image.inventory.cork',
-                'src' : 'games/compass/img/inventory/cork.png'
+                'src' : 'games/aroundtheworld/img/inventory/cork.png'
             },
             {
                 'id'  : 'image.inventory.needlewithcork',
-                'src' : 'games/compass/img/inventory/needle-with-cork.png'
+                'src' : 'games/aroundtheworld/img/inventory/needle-with-cork.png'
             },
             {
                 'id'  : 'image.inventory.needle',
-                'src' : 'games/compass/img/inventory/needle.png'
+                'src' : 'games/aroundtheworld/img/inventory/needle.png'
             },
             {
                 'id'  : 'image.inventory.magnet',
-                'src' : 'games/compass/img/inventory/magnet.png'
+                'src' : 'games/aroundtheworld/img/inventory/magnet.png'
             },
             {
                 'id'  : 'image.inventory.rubberduck',
-                'src' : 'games/compass/img/inventory/rubberduck.png'
+                'src' : 'games/aroundtheworld/img/inventory/rubberduck.png'
             },
             {
                 'id'  : 'image.inventory.mobilephone',
-                'src' : 'games/compass/img/inventory/mobilephone.png'
+                'src' : 'games/aroundtheworld/img/inventory/mobilephone.png'
             },
             {
                 'id'  : 'image.inventory.rubberchicken',
-                'src' : 'games/compass/img/inventory/rubberchicken.png'
+                'src' : 'games/aroundtheworld/img/inventory/rubberchicken.png'
             },
             {
                 'id'  : 'image.inventory.sword',
-                'src' : 'games/compass/img/inventory/sword.png'
+                'src' : 'games/aroundtheworld/img/inventory/sword.png'
             },
             {
                 'id'  : 'image.inventory.map',
-                'src' : 'games/compass/img/inventory/map.png'
+                'src' : 'games/aroundtheworld/img/inventory/map.png'
             },
             {
                 'id'  : 'image.inventory.shovel',
-                'src' : 'games/compass/img/inventory/shovel.png'
+                'src' : 'games/aroundtheworld/img/inventory/shovel.png'
             },
             {
                 'id'  : 'image.object.tree',
-                'src' : 'games/compass/img/object/tree.png'
+                'src' : 'games/aroundtheworld/img/object/tree.png'
             },
             {
                 'id'  : 'image.object.straws',
@@ -90,7 +90,7 @@ define([
             },
             {
                 'id'  : 'image.object.tshirt',
-                'src' : 'games/compass/img/object/tshirt.png'
+                'src' : 'games/aroundtheworld/img/object/tshirt.png'
             }
         ],
         'sounds': [],
@@ -109,9 +109,9 @@ define([
             }
         ],
         'main': {
-            'title'         : 'The compass 2',
-            'author'        : 'teacher@school.com',
-            'description'   : 'Can you build a compass?',
+            'title'         : '',
+            'author'        : '',
+            'description'   : '',
             'background'    : 'image.kyrandia',
             'startingScene' : 'scene.01'
         },
@@ -389,7 +389,7 @@ define([
                     {
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'I\'m lost. I need a compass.'
+                        'text'  : 'I\'m lost. I need a aroundtheworld.'
                     },
                     {
                         'action' : 'moveTo',
@@ -521,11 +521,11 @@ define([
             },
             {
                 'id' : 'condition.02',
-                'isInInventory': 'object.compass',
+                'isInInventory': 'object.aroundtheworld',
                 'onFail': {
                     'action' : 'dialogMessage',
                     'character' : 'pc.main',
-                    'text'  : 'I can\'t leave without a compass!'
+                    'text'  : 'I can\'t leave without a aroundtheworld!'
                 }
             }
         ],
@@ -556,11 +556,11 @@ define([
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'Do you have a compass?'
+                        'text' : 'Do you have a aroundtheworld?'
                     },
                     {
                         'character' : 'npc.pirate01',
-                        'text' : 'No. Why would I have a compass?'
+                        'text' : 'No. Why would I have a aroundtheworld?'
                     },
                     {
                         'character' : 'pc.main',
@@ -678,7 +678,7 @@ define([
                 'id' : 'dialogoption.01',
                 'choices' : [
                     {
-                        'text' : 'Do you have a compass?',
+                        'text' : 'Do you have a aroundtheworld?',
                         'dialog' : 'dialog.02',
                         'persistence' : 'once'
                     },
