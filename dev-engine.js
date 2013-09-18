@@ -1,8 +1,6 @@
 requirejs.config({
-    "paths": {
-        "engine" : "engine",
-        "games"  : "games",
-	}
+    "paths": {}
+
 });
 
 // Load the main app module to start the app
