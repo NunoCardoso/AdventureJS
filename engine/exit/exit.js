@@ -50,7 +50,7 @@ define([
 
         this.render = function (options) {
             // if it is 0, it is invisible, and won't trigger cursor changes
-            this.alpha = 0.5;
+            this.alpha = 0.01;
 
             this.label = options.label;
             this.arrow = options.arrow;
