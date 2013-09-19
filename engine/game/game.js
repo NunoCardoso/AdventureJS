@@ -12,6 +12,7 @@ define([
     'engine/dialog/main',
     'engine/dialogoption/main',
     'engine/exit/main',
+    'engine/game/music',
     'engine/interaction/main',
     'engine/lib/keyboard',
     'engine/menu/main',
@@ -31,6 +32,7 @@ define([
     gamedialog,
     gamedialogoption,
     gameexit,
+    gamemusic,
     gameinteraction,
     keyboard,
     gamemenu,
@@ -66,7 +68,7 @@ define([
             },
 
             init = function () {
-                _assetList = settings.images.concat(settings.sounds);
+                _assetList = settings.images.concat(settings.sounds).concat(settings.musics);
                 gamecharacter.init(settings.characters);
             },
 
@@ -105,6 +107,7 @@ define([
                 if (!_options.scene) {
                     _options.scene = 'scene.menu';
                 }
+                gamemusic.preload(_game.main.music);
                 render(_options.scene);
             },
 

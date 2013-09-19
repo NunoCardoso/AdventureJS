@@ -64,15 +64,21 @@ define([
         'sounds' : [
             {
                 'id'  : 'sound.fall',
-                'src' : 'engine/snd/fall.wav'
+                'src' : 'engine/sound/fall.wav'
             },
             {
                 'id'  : 'sound.laser',
-                'src' : 'engine/snd/laser.aiff'
+                'src' : 'engine/sound/laser.aiff'
             },
             {
                 'id'  : 'sound.fight',
-                'src' : 'engine/snd/fight.wav'
+                'src' : 'engine/sound/fight.wav'
+            }
+        ],
+        'musics' : [
+            {
+                'id'  : 'music.intro',
+                'src' : 'engine/music/game-intro.wav'
             }
         ],
         'characters': [

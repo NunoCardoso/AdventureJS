@@ -5,7 +5,7 @@
  */
 
 define([
-    'engine/game',
+    'engine/game/game',
     'games/aroundtheworld/aroundtheworld'
 ], function (
     Game,

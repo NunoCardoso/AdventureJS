@@ -93,7 +93,8 @@ define([
                 'src' : 'games/aroundtheworld/img/object/tshirt.png'
             }
         ],
-        'sounds': [],
+        'sounds' : [],
+        'musics' : [],
         'pc' : {
             'id'    : 'pc.main',
             'label' : 'you'
@@ -113,7 +114,8 @@ define([
             'author'        : '',
             'description'   : '',
             'background'    : 'image.kyrandia',
-            'startingScene' : 'scene.01'
+            'startingScene' : 'scene.01',
+            'music'         : 'music.intro'
         },
         'panel' : {
             'startingInventory' : [

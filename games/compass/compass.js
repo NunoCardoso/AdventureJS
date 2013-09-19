@@ -90,6 +90,7 @@ define([
             }
         ],
         'sounds': [],
+        'musics': [],
         'pc' : {
             'id'    : 'pc.guybrush',
             'label' : 'you'
@@ -105,7 +106,8 @@ define([
             'author'        : 'teacher@school.com',
             'description'   : 'Can you build a compass?',
             'background'    : 'image.kyrandia',
-            'startingScene' : 'scene.01'
+            'startingScene' : 'scene.01',
+            'music'         : 'music.intro'
         },
         'panel' : {
             'startingInventory' : [

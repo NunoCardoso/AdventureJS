@@ -1,9 +1,15 @@
 <div id="settings" class="panel">
     <form>
         <label>Sound: </label>
-        <input type="checkbox"> Enable
+        <input type="checkbox" CHECKED> Enable
         <br>
         <input name="sound.volume" type="range" min="0" max="100" step="5" style="width:200px;">
+        </br>
+        <label>Music: </label>
+        <input type="checkbox" CHECKED onClick="require('engine/game/music').changeMusic(this);"> Enable
+        <br>
+        <input name="sound.volume" type="range" min="0" max="100" step="5" 
+        onChange="require('engine/game/music').changeVolume(this);" style="width:200px;">
         </br>
         <button onClick="require('engine/tpl/main').close();return false;">OK</button>
      </form>
