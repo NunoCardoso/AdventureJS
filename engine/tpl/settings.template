@@ -11,6 +11,8 @@
         <input name="sound.volume" type="range" min="0" max="100" step="5" 
         onChange="require('engine/game/music').changeVolume(this);" style="width:200px;">
         </br>
-        <button onClick="require('engine/tpl/main').close();return false;">OK</button>
+        <div class="buttondiv">
+            <button class="okbutton" onClick="require('engine/tpl/main').close();return false;">OK</button>
+        </div>
      </form>
 </div>

@@ -21,7 +21,7 @@ body, div, input, textarea, button, label, a, td, th, p, select, option, legend 
     position:absolute;
     top:0;
     width:200px;
-    height:60px;
+    height:100px;
     left:0;
     background-color: white;
     padding:10px;

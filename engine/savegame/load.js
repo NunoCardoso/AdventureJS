@@ -28,8 +28,8 @@ define([
             var table = $(link).closest('table');
             var date = tr.find("td.date");
 
-            var button_html = "<br><button onClick=\"require('engine/savegame/load').loadOk(this);return false;\">OK</button>";
-            button_html += "<br><button onClick=\"require('engine/savegame/load').loadCancel(this);return false;\">Cancel</button>";
+            var button_html = "<br><button class='okbutton' onClick=\"require('engine/savegame/load').loadOk(this);return false;\">OK</button>";
+            button_html += "<br><button class='cancelbutton' onClick=\"require('engine/savegame/load').loadCancel(this);return false;\">Cancel</button>";
             // backup date html
             date.data('old-date', date.html());
             date.html(date.html() + button_html);

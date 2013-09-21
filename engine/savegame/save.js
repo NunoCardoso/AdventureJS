@@ -2,7 +2,7 @@
 
 define([
     'engine/config',
-    'engine/stage/main',
+    'engine/stage/main'
 ], function (
     config,
     gamestage
@@ -79,8 +79,8 @@ define([
             var date = tr.find("td.date");
             date.data('old-date', date.html());
 
-            var button_html = "<br><button onClick=\"require('engine/savegame/save').saveOk(this);return false;\">OK</button>";
-            button_html += "<br><button onClick=\"require('engine/savegame/save').saveCancel(this);return false;\">Cancel</button>";
+            var button_html = "<br><button class='okbutton' onClick=\"require('engine/savegame/save').saveOk(this);return false;\">OK</button>";
+            button_html += "<br><button class='cancelbutton' onClick=\"require('engine/savegame/save').saveCancel(this);return false;\">Cancel</button>";
 
             date.html(_getDateHtml() + button_html);
             gamestage.update();

@@ -15,7 +15,7 @@
             {{/each}}
         </table>
     </div>
-    <div>
-        <button onClick="require('engine/tpl/main').close();return false;">Cancel</button>
+    <div class="buttondiv">
+        <button class="cancelbutton" onClick="require('engine/tpl/main').close();return false;">Cancel</button>
      </div>
 </div>

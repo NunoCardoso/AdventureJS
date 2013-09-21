@@ -40,7 +40,7 @@ body, input, textarea, button {
 
 #settings {
     width:200px;
-    height:60px;
+    height:100px;
 }
 
 #loadgame, #savegame {
@@ -56,6 +56,17 @@ body, input, textarea, button {
 #loadgame img, #savegame img {
     width:200px;
     height:150px;
+}
+
+.buttondiv {
+  text-align: center;
+}
+
+.okbutton, .cancelbutton {
+  text-align: center;
+  width: 100px;
+  height: 20px;
+  line-height: 20px;
 }
 
 .panel {
