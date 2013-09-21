@@ -43,19 +43,22 @@ define([
         this.title.shadow = new createjs.Shadow("#000000", 0, 0, 10);
 
         // Author
-        this.author = new createjs.Text(options.author, "24px the8bit", "#CCCCCC");
+        this.authorText = (options.author ? 'By ' + options.author : '');
+        this.author = new createjs.Text(this.authorText, "24px the8bit", "#CCCCCC");
         this.author.textAlign = "center";
         this.author.textBaseline = "middle";
         this.author.x = config.getCanvasXY().x / 2;
-        this.author.y = 100;
+        this.author.y = 350;
         this.author.shadow = new createjs.Shadow("#000000", 0, 0, 10);
 
         // Description
         this.description = new createjs.Text(options.description, "18px the8bit", "#FFFFFF");
-        this.description.textAlign = "center";
+        this.description.textAlign = "left";
         this.description.textBaseline = "middle";
-        this.description.x = config.getCanvasXY().x / 2;
-        this.description.y = 200;
+        this.description.lineWidth = 700;
+
+        this.description.x = 50;
+        this.description.y = 400;
         this.description.shadow = new createjs.Shadow("#000000", 0, 0, 10);
 
         // Main Background
