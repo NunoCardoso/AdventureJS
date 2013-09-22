@@ -176,19 +176,19 @@ define([
                 // now, let's see if scene should scroll
                 var sceneHasHiddenBackgroundOnRight = (
                     scene.background.mode !== 'fit' &&
-                    (scene.dynamicBack.x + scene.dynamicBack.w > config.get('game.w'))
+                    (scene.backgroundOffset + scene.dynamicBack.w > config.get('game.w'))
                 );
 
                 var sceneHasHiddenBackgroundOnLeft = (
                     scene.background.mode !== 'fit' &&
-                    (scene.dynamicBack.x < 0)
+                    (scene.backgroundOffset < 0)
                 );
 
-                var isCharacterOnLeftHalf = (c.x < (config.get('game.w') / 2));
-                var isCharacterOnRightHalf = (c.x >= (config.get('game.w') / 2));
+                var isCharacterOnLeft = (c.x < (config.get('game.w') / 2),
+                    isCharacterOnRight = c.x >= (config.get('game.w') / 2 - 50));
 
-                if ((sceneHasHiddenBackgroundOnLeft  && isCharacterOnLeftHalf  && c.character.attitude === 'walkleft') ||
-                        (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && c.character.attitude === 'walkright')) {
+                if ((sceneHasHiddenBackgroundOnLeft  && isCharacterOnLeft && c.character.isWalkingLeft()) ||
+                        (sceneHasHiddenBackgroundOnRight && isCharacterOnRight && c.character.isWalkingRight())) {
                     scene.backgroundOffset -= diffX;
                     scene.applyOffset();
 

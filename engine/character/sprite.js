@@ -37,6 +37,18 @@ define([
             return this.attitude === "standright";
         };
 
+        this.isWalkingLeft = function () {
+            return this.attitude === "walkleft" ||
+                   this.attitude === "walkupleft" ||
+                   this.attitude === "walkdownleft";
+        };
+
+        this.isWalkingRight = function () {
+            return this.attitude === "walkright" ||
+                   this.attitude === "walkupright" ||
+                   this.attitude === "walkdownright";
+        };
+
         this.isFacingLeft = function () {
             return this.attitude === "walkleft" ||
                    this.attitude === "walkupleft" ||
