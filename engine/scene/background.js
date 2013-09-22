@@ -85,6 +85,12 @@ define([
                     return true;
                 }
                 return false;
+            case 'undrag':
+                if (mine) {
+                    this.dragXY = undefined;
+                    return true;
+                }
+                return false;
             case 'click':
                 if (mine) {
                     scene.getPc().setTargetXY({x : x, y : y});
