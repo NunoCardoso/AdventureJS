@@ -120,6 +120,12 @@ define([
                 'label': 'red berry',
                 'imageInInventory' : 'image.object.inventory.redberry',
                 'onForeground' : false
+            },
+            {
+                'id': 'object.towelwithredberry',
+                'label': 'towel with red berry',
+                'imageInInventory' : 'image.object.inventory.towelwithredberry',
+                'onForeground' : false
             }
         ],
         'interactions': [
@@ -276,41 +282,6 @@ define([
                 },
                 'second' : {
                     'item' : 'object.redberry',
-                    'inInventory' : true
-                },
-                'actions' : [
-                    {
-                        'action': 'removeFromInventory',
-                        'object': 'object.whitetowel'
-                    },
-                    {
-                        'action': 'removeFromInventory',
-                        'object': 'object.redberry'
-                    },
-                    {
-                        'action': 'addToInventory',
-                        'object': 'object.towelwithredberry'
-                    },
-                    {
-                        'action': 'dialogMessage',
-                        'character': 'pc.main',
-                        'text' : 'There, the berry is squashed.'
-                    },
-                    {
-                        'action': 'publishAchievement',
-                        'achievement' : 'achievement.squash'
-                    }
-                ]
-            },
-            {
-                'id' : 'interaction.10',
-                'verb' : 'Use',
-                'first': {
-                    'item' : 'object.redberry',
-                    'inInventory' : true
-                },
-                'second' : {
-                    'item' : 'object.whitetowel',
                     'inInventory' : true
                 },
                 'actions' : [

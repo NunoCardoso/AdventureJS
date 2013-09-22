@@ -67,7 +67,7 @@ define([
                     _pushText(text + ' ' + selectedVerb.second);
                 } else {
                     selectedObjectSecond = object;
-                    _pushText(text + ' ' + selectedObjectSecond);
+                    _pushText(text + ' ' + selectedObjectSecond.label);
                     decision.decide(selectedVerb, selectedObject, selectedObjectSecond);
                 }
             }
