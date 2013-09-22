@@ -69,30 +69,32 @@ define([
             this.h = this.image.image.height;
         }
 
-        this.testDrag = function (x, y, scene) {
-            var coords = this.globalToLocal(x, y);
-            var mouseHit = this.hitTest(coords.x, coords.y);
-            if (mouseHit) {
-                require('engine/cursor/main').changeTo('image.cursor.drag');
-                if (this.dragXY) {
-                    var diffX = x - this.dragXY.x;
-                    scene.move(diffX);
-                }
-                this.dragXY = this.dragXY = {x: x, y: y};
-                return true;
-            }
-            return false;
-        };
+        this.test = function (x, y, event, scene, role) {
+            var coords = this.globalToLocal(x, y),
+                mine   = this.hitTest(coords.x, coords.y);
 
-        this.testClick = function (x, y, scene) {
-            var coords = this.globalToLocal(x, y);
-            var mouseClick = this.hitTest(coords.x, coords.y);
-            if (mouseClick) {
-                scene.getPc().setTargetXY({x : x, y : y});
-                action.reset();
-                return true;
+            switch (event) {
+            case 'drag':
+                if (mine) {
+                    require('engine/cursor/main').changeTo('image.cursor.drag');
+                    if (this.dragXY) {
+                        var diffX = x - this.dragXY.x;
+                        scene.move(diffX);
+                    }
+                    this.dragXY = {x: x, y: y};
+                    return true;
+                }
+                return false;
+            case 'click':
+                if (mine) {
+                    scene.getPc().setTargetXY({x : x, y : y});
+                    action.reset();
+                    return true;
+                }
+                return false;
+            default:
+                return false;
             }
-            return false;
         };
     };
     return Background;

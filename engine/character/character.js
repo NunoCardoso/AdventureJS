@@ -190,47 +190,45 @@ define([
             }
         };
 
-        this.testHit = function (x, y, role) {
-            if (!this.isPlayable) {
-                var coords = this.globalToLocal(x, y);
-                var mouseOver = this.hitTest(coords.x, coords.y);
-                if (mouseOver && !this.isMouseOver) {
-                    this.isMouseOver = mouseOver;
-                    return action.mouseOverNpc(this);
+        this.test = function (x, y, event, scene, role) {
+            var coords = this.globalToLocal(x, y),
+                mine   = this.hitTest(coords.x, coords.y);
+            switch (event) {
+            case 'hover':
+                if (!this.isPlayable) {
+                    if (mine && !this.isMouseOver) {
+                        this.isMouseOver = mine;
+                        return action.mouseOverNpc(this);
+                    }
+                    if (!mine && this.isMouseOver) {
+                        this.isMouseOver = mine;
+                        return action.mouseOutNpc(this);
+                    }
                 }
-                if (!mouseOver && this.isMouseOver) {
-                    this.isMouseOver = mouseOver;
-                    return action.mouseOutNpc(this);
+                return false;
+            case 'click':
+                if (!this.isPlayable) {
+                    if (mine) {
+                        scene.getPc().actForNpcClick({x: x, y: y}, this);
+                        // important, to stop bubbling
+                        return true;
+                    }
                 }
-            }
-        };
-
-        this.testClick = function (x, y, scene, role) {
-            if (!this.isPlayable) {
-                var coords = this.globalToLocal(x, y);
-                var mouseClick = this.hitTest(coords.x, coords.y);
-                if (mouseClick) {
-                    scene.getPc().actForNpcClick({x: x, y: y}, this);
-                    // important, to stop bubbling
+                return false;
+            case 'drag':
+                if (mine) {
+                    if (role === 'play') {
+                        console.log('can\'t  drag while playing');
+                    } else {
+                        this.x = coords.x;
+                        this.y = coords.y;
+                    }
                     return true;
                 }
+                return false;
+            default:
+                return false;
             }
-            return false;
-        };
-
-        this.testDrag = function (x, y, scene, role) {
-            var coords = this.globalToLocal(x, y);
-            var mouseClick = this.hitTest(coords.x, coords.y);
-            if (mouseClick) {
-                if (role === 'play') {
-                    console.log('can\'t  drag while playing');
-                } else {
-                    this.x = coords.x;
-                    this.y = coords.y;
-                }
-                return true;
-            }
-            return false;
         };
 
         this.actForNpcClick = function (xy, npc) {

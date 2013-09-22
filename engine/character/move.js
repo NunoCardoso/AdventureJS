@@ -55,7 +55,7 @@ define([
                 };
             }
             // try to increase this so he is smart on weird paths
-            if (tries < 2) {
+            if (tries < 6) {
                 //c.targetXY = undefined;
                 if (character.walkDeferred) {
                     character.walkDeferred.resolve();

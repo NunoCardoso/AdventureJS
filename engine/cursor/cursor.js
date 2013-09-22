@@ -24,47 +24,7 @@ define([
         this.gameBoundsY = config.get('game.h');
         this.busy = false;
 
-        this.doTestDrag = function (scene, items, role) {
-            var i, isHandled;
-
-            for (i = items.length - 1; i >= 0; i--) {
-                if (typeof items[i].testDrag === 'function') {
-                    isHandled = items[i].testDrag(this.x, this.y, scene, role);
-                    if (isHandled) {
-                        return true;
-                    }
-                }
-                if (items[i].children) {
-                    isHandled = this.doTestDrag(scene, items[i].children, role);
-                    if (isHandled) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
-
-        this.doTestHit = function (items, role) {
-            var i, isHandled;
-
-            for (i = items.length - 1; i >= 0; i--) {
-                if (typeof items[i].testHit === 'function') {
-                    isHandled = items[i].testHit(this.x, this.y, role);
-                    if (isHandled) {
-                        return true;
-                    }
-                }
-                if (items[i].children) {
-                    isHandled = this.doTestHit(items[i].children, role);
-                    if (isHandled) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        };
-
-        this.doTestClick = function (scene, items, role) {
+        this.doTest = function (event, scene, items, role) {
             var i, isHandled;
 
             // from the foreground to the background
@@ -72,14 +32,14 @@ define([
             // this is why it is important to leave the background as
             // the first thing on the container
             for (i = items.length - 1; i >= 0; i--) {
-                if (typeof items[i].testClick === 'function') {
-                    isHandled = items[i].testClick(this.x, this.y, scene, role);
+                if (typeof items[i].test === 'function') {
+                    isHandled = items[i].test(this.x, this.y, event, scene, role);
                     if (isHandled) {
                         return true;
                     }
                 }
                 if (items[i].children) {
-                    isHandled = this.doTestClick(scene, items[i].children, role);
+                    isHandled = this.doTest(event, scene, items[i].children, role);
                     if (isHandled) {
                         return true;
                     }
@@ -90,22 +50,6 @@ define([
 
         this.clickedOnGame = function (xy) {
             return xy.y <= this.gameBoundsY;
-        };
-
-        this.doTest = function (event, scene, menu, role) {
-            var isHandled;
-            switch (event) {
-            case 'click':
-                isHandled = this.doTestClick(scene, menu, role);
-                break;
-            case 'hover':
-                isHandled = this.doTestHit(menu, role);
-                break;
-            case 'drag':
-                isHandled = this.doTestDrag(scene, menu, role);
-                break;
-            }
-            return isHandled;
         };
 
         this.update = function (stage, xy, event, role) {

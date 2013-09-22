@@ -42,27 +42,31 @@ define([
             .drawRect(0, 0, this.w, this.h);
         this.background.alpha = 0.15;
 
-        this.testClick = function (x, y, scene) {
-            var coords = this.globalToLocal(x, y);
-            var mouseClick = this.hitTest(coords.x, coords.y);
-            if (mouseClick) {
-                this.parent.firstRow++;
-                this.parent.render();
-                return true;
-            }
-            return false;
-        };
-
-        this.testHit = function (x, y) {
-            var coords = this.globalToLocal(x, y);
-            var mouseOver = this.hitTest(coords.x, coords.y);
-            if (mouseOver && !this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.background.alpha = 0.3;
-            }
-            if (!mouseOver && this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.background.alpha = 0.15;
+        this.test = function (x, y, event, scene, role) {
+            var coords = this.globalToLocal(x, y),
+                mine   = this.hitTest(coords.x, coords.y);
+            switch (event) {
+            case 'click':
+                if (mine) {
+                    this.parent.firstRow++;
+                    this.parent.render();
+                    return true;
+                }
+                return false;
+            case 'hover':
+                if (mine && !this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    this.background.alpha = 0.3;
+                    return true;
+                }
+                if (!mine && this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    this.background.alpha = 0.15;
+                    return true;
+                }
+                return false;
+            default:
+                return false;
             }
         };
     };

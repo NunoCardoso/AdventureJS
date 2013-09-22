@@ -49,37 +49,39 @@ define([
         this.addChild(this.button);
         this.addChild(this.cogwheel);
 
-       // hovering on text sucks. Let's add a flat hit area!
-        this.testClick = function (x, y, scene) {
-            var coords = this.globalToLocal(x, y);
-            var mouseClick = this.hitTest(coords.x, coords.y);
-            if (mouseClick) {
-                var gamestage = require('engine/stage/main');
-                gamestage.takeSnapshot();
-                // now, prepare menu for save/load/resume
-                var menu = require('engine/menu/main').get();
-                menu.renderForSaveGame();
-                gamestage.pause();
-                gamestage.getInstance().addMenuScene('scene.menu');
-                return true;
-            }
-            return false;
-        };
+        // hovering on text sucks. Let's add a flat hit area!
+        this.test = function (x, y, event, scene, role) {
+            var coords = this.globalToLocal(x, y),
+                mine   = this.hitTest(coords.x, coords.y);
 
-        this.testHit = function (x, y) {
-            var coords = this.globalToLocal(x, y);
-            var mouseOver = this.hitTest(coords.x, coords.y);
-            if (mouseOver && !this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.button.alpha = 1;
-                return true;
+            switch (event) {
+            case 'click':
+                if (mine) {
+                    var gamestage = require('engine/stage/main');
+                    gamestage.takeSnapshot();
+                    // now, prepare menu for save/load/resume
+                    var menu = require('engine/menu/main').get();
+                    menu.renderForSaveGame();
+                    gamestage.pause();
+                    gamestage.getInstance().addMenuScene('scene.menu');
+                    return true;
+                }
+                return false;
+            case 'hover':
+                if (mine && !this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    this.button.alpha = 1;
+                    return true;
+                }
+                if (!mine && this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    this.button.alpha = 0.5;
+                    return true;
+                }
+                return false;
+            default:
+                return false;
             }
-            if (!mouseOver && this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.button.alpha = 0.5;
-                return true;
-            }
-            return false;
         };
     };
     return MenuButton;

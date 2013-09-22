@@ -54,32 +54,33 @@ define([
 
         this.isMouseOver = false;
 
-        this.testClick = function (x, y, scene) {
-            var coords = this.globalToLocal(x, y);
-            var mouseClick = this.hitTest(coords.x, coords.y);
-            if (mouseClick) {
-                createjs.Sound.play('sound.fall');
-                require('engine/interaction/action').clickVerb(this);
-                return true;
-            }
-            return false;
-        };
-
-        this.testHit = function (x, y) {
-            var coords = this.globalToLocal(x, y);
-            var mouseOver = this.hitTest(coords.x, coords.y);
-            if (mouseOver && !this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.text.alpha = 1;
-                this.background.alpha = 0.3;
-                return require('engine/interaction/action').mouseOverVerb(this);
-            }
-
-            if (!mouseOver && this.isMouseOver) {
-                this.isMouseOver = mouseOver;
-                this.text.alpha = 0.7;
-                this.background.alpha = 0.15;
-                return require('engine/interaction/action').mouseOutVerb(this);
+        this.test = function (x, y, event, scene, role) {
+            var coords = this.globalToLocal(x, y),
+                mine   = this.hitTest(coords.x, coords.y);
+            switch (event) {
+            case 'click':
+                if (mine) {
+                    createjs.Sound.play('sound.fall');
+                    require('engine/interaction/action').clickVerb(this);
+                    return true;
+                }
+                return false;
+            case 'hover':
+                if (mine && !this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    this.text.alpha = 1;
+                    this.background.alpha = 0.3;
+                    return require('engine/interaction/action').mouseOverVerb(this);
+                }
+                if (!mine && this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    this.text.alpha = 0.7;
+                    this.background.alpha = 0.15;
+                    return require('engine/interaction/action').mouseOutVerb(this);
+                }
+                return false;
+            default:
+                return false;
             }
         };
     };

@@ -41,8 +41,7 @@ define([
         // TO BE CONFIGURED ON A RENDER() CALL
         this.arrow = undefined;
         this.label = undefined;
-        this.testClick = undefined;
-        this.testHit   = undefined;
+        this.test  = undefined;
 
         this.hasCondition = function () {
             return this.condition !== undefined;
@@ -72,39 +71,43 @@ define([
                 );
 
             if (this.role === 'channel' || this.role === 'end') {
-                this.testClick = function (x, y, scene) {
-                    var coords = this.globalToLocal(x, y);
-                    var mouseClick = this.hitTest(coords.x, coords.y);
-                    if (mouseClick) {
-                        scene.getPc().actForExitClick({x : x, y : y}, {
-                            from: this,
-                            to: this.to
-                        });
-                        return true;
+                this.test = function (x, y, event, scene, role) {
+                    var coords = this.globalToLocal(x, y),
+                        mine   = this.hitTest(coords.x, coords.y);
+
+                    switch (event) {
+
+                    case 'click':
+                        if (mine) {
+                            scene.getPc().actForExitClick({x : x, y : y}, {
+                                from: this,
+                                to: this.to
+                            });
+                            return true;
+                        }
+                        return false;
+                    case 'hover':
+                        if (mine && !this.isMouseOver) {
+                            this.isMouseOver = mine;
+                            gamecursor.changeTo('image.cursor.' + this.arrow);
+                            return action.mouseOverExit(this);
+                        }
+
+                        if (!mine && this.isMouseOver) {
+                            this.isMouseOver = mine;
+                            $("#canvas").attr('class', '');
+                            gamecursor.reset();
+                            return action.mouseOutExit(this);
+                        }
+                        return false;
+                    default:
+                        return false;
                     }
-                    return false;
                 };
 
                 if (this.role === 'end') {
                     this.arrow = 'end';
                 }
-
-                this.testHit = function (x, y, scene) {
-                    var coords = this.globalToLocal(x, y);
-                    var mouseOver = this.hitTest(coords.x, coords.y);
-                    if (mouseOver && !this.isMouseOver) {
-                        this.isMouseOver = mouseOver;
-                        gamecursor.changeTo('image.cursor.' + this.arrow);
-                        return action.mouseOverExit(this);
-                    }
-
-                    if (!mouseOver && this.isMouseOver) {
-                        this.isMouseOver = mouseOver;
-                        $("#canvas").attr('class', '');
-                        gamecursor.reset();
-                        return action.mouseOutExit(this);
-                    }
-                };
             }
         };
 

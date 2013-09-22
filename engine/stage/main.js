@@ -91,6 +91,7 @@ define([
                     if (_onDragging) {
                         gamecursor.reset();
                         _onDragging = false;
+                        gamecursor.undrag({x: evt.stageX, y: evt.stageY}, role);
                     } else {
                         gamecursor.click({x: evt.stageX, y: evt.stageY}, role);
                     }

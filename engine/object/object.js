@@ -106,63 +106,55 @@ define([
             this.setDimensions();
         };
 
-        this.testClick = function (x, y, scene, role) {
-            var coords = this.globalToLocal(x, y);
-            var mouseClick = this.hitTest(coords.x, coords.y);
-            if (this.name== 'object.straws') {
-                console.log('gx='+x+' gy='+y+' lx='+coords.x+' ly='+coords.y+' clc='+mouseClick);
-            }
-            if (mouseClick) {
-                scene.getPc().actForObjectClick({x: x, y: y}, this);
-                return true;
-            }
-            return false;
-        };
+        this.test = function (x, y, event, scene, role) {
+            var coords = this.globalToLocal(x, y),
+                mine   = this.hitTest(coords.x, coords.y);
 
-
-        this.testDrag = function (x, y, scene, role) {
-            var coords = this.globalToLocal(x, y);
-            var mouseClick = this.hitTest(coords.x, coords.y);
-            if (mouseClick) {
-                if (role === 'play') {
-                    console.log('can\'t drag object while playing');
-                } else {
-                    this.x = coords.x;
-                    this.y = coords.y;
+            switch (event) {
+            case 'click':
+                if (mine) {
+                    scene.getPc().actForObjectClick({x: x, y: y}, this);
+                    return true;
                 }
-                return true;
-            }
-            return false;
-        };
-
-        this.testHit = function (x, y, role) {
-            var coords = this.globalToLocal(x, y);
-            var mouseOver = this.hitTest(coords.x, coords.y);
-            if (this.name== 'object.straws') {
-                console.log('gx='+x+' gy='+y+' lx='+coords.x+' ly='+coords.y+' hit='+mouseOver);
-            }
-            if (mouseOver && !this.isMouseOver) {
-                if (role === 'play') {
-                    this.isMouseOver = mouseOver;
-                    this.background.alpha = 0.3;
-                    return require('engine/interaction/action').mouseOverObject(this);
+                return false;
+            case 'drag':
+                if (mine) {
+                    if (role === 'play') {
+                        console.log('can\'t drag object while playing');
+                    } else {
+                        this.x = coords.x;
+                        this.y = coords.y;
+                    }
+                    return true;
                 }
-                if (this.imageInStage.cache) {
-                    this.imageInStage.cache();
+                return false;
+            case 'hover':
+                if (mine && !this.isMouseOver) {
+                    if (role === 'play') {
+                        this.isMouseOver = mine;
+                        this.background.alpha = 0.3;
+                        return require('engine/interaction/action').mouseOverObject(this);
+                    }
+                    if (this.imageInStage.cache) {
+                        this.imageInStage.cache();
+                        return true;
+                    }
                 }
-                console.log("Hover me");
-            }
-            if (!mouseOver && this.isMouseOver) {
-                if (role === 'play') {
-                    this.isMouseOver = mouseOver;
-                    this.background.alpha = 0.15;
-                    return require('engine/interaction/action').mouseOutObject(this);
+                if (!mine && this.isMouseOver) {
+                    if (role === 'play') {
+                        this.isMouseOver = mine;
+                        this.background.alpha = 0.15;
+                        return require('engine/interaction/action').mouseOutObject(this);
+                    }
+                    this.imageInStage.filters = undefined;
+                    if (this.imageInStage.cache) {
+                        this.imageInStage.cache();
+                        return true;
+                    }
                 }
-                this.imageInStage.filters = undefined;
-                if (this.imageInStage.cache) {
-                    this.imageInStage.cache();
-                }
-                console.log("Not Hover me");
+                return false;
+            default:
+                return false;
             }
         };
     };
