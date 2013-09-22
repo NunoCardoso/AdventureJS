@@ -100,8 +100,13 @@ define([
         };
 
         this.setTargetXY = function (xy) {
-            this.targetXY = xy;
-            require('engine/stage/main').getInstance().getCurrentScene().setTargetCursorXY(xy);
+            var scene = require('engine/stage/main').get().getCurrentScene();
+            var coords = scene.getBackground().globalToLocal(xy.x, xy.y);
+            var c = {
+                x: coords.x, y: coords.y
+            };
+            scene.setTargetCursorXY(c);
+            this.targetXY = c;
             this.walkDeferred = $.Deferred();
             return this.walkDeferred;
         };
@@ -112,6 +117,8 @@ define([
 
         this.resetTargetXY = function () {
             this.targetXY = undefined;
+            require('engine/stage/main').get().getCurrentScene().setTargetCursorXY(
+            {x: -100, y:-100});          
         };
 
         // mouse position click can be the target click on most ocations,
@@ -126,13 +133,13 @@ define([
             // playable character is on the left of the object;
             if (this.x < itemX) {
                 return this.moveTo({
-                    x : dim.x1 - (this.w / 2),
+                    x : dim.x1,
                     y : xy.y
                 });
             }
             // playable character is on the right of the object;
             return this.moveTo({
-                x : dim.x2 + (this.w / 2),
+                x : dim.x2,
                 y : xy.y
             });
         };

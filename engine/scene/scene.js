@@ -53,10 +53,12 @@ define([
         this.beginCutscene = scene.beginCutscene || undefined;
         this.beginCutscenePerformed = false;
 
-        this.dynamicBack  = new createjs.Container();
-        this.player       = new createjs.Container();
-        this.dynamicFore  = new createjs.Container();
-        this.staticBack   = new createjs.Container();
+        this.dynamicBack   = new createjs.Container();
+        this.dynamicMiddle = new createjs.Container();
+        this.dynamicFore   = new createjs.Container();
+
+        this.dynamicContainer = new createjs.Container();
+        this.staticContainer  = new createjs.Container();
 
         // used to parallax the background; 
         this.backgroundOffset = 0;
@@ -125,10 +127,8 @@ define([
             this.objects[object.id] = object;
         };
 
-        this.doMove = function (delta) {
-            this.dynamicBack.x = this.backgroundOffset;
-            this.dynamicFore.x = this.backgroundOffset;
-            this.player.x      = this.backgroundOffset;
+        this.applyOffset = function () {
+            this.dynamicContainer.x = this.backgroundOffset;
         };
 
         // when dragging backgrounds
@@ -159,7 +159,7 @@ define([
             }
             if (proceed) {
                 this.backgroundOffset += diffX;
-                this.doMove(diffX);
+                this.applyOffset();
             }
         };
 
@@ -252,10 +252,10 @@ define([
             }
         };
 
-        this.renderPlayer = function (options) {
+        this.renderMiddle = function (options) {
 
             var i;
-            this.player.removeAllChildren();
+            this.dynamicMiddle.removeAllChildren();
 
             this.scenePc = undefined;
             if (options.pc) {
@@ -274,9 +274,13 @@ define([
                 } else {
                     console.log('startXY should be defined!');
                 }
-                this.player.addChild(options.pc);
+                this.dynamicMiddle.addChild(options.pc);
                 this.scenePc = options.pc;
             }
+
+            var t = gamecursor.getTarget();
+            this.dynamicMiddle.addChild(t);
+            this.targetCursor = t;
         };
 
         this.renderStatic = function (options) {
@@ -284,24 +288,19 @@ define([
             if (require('engine/stage/main').isPlayable()) {
                 // first to be rendered. Watch out, getPanel() depends on it.
                 if (options.panel) {
-                    this.staticBack.addChild(options.panel);
+                    this.staticContainer.addChild(options.panel);
                 }
 
                 if (options.sentence) {
-                    this.staticBack.addChild(options.sentence);
+                    this.staticContainer.addChild(options.sentence);
                 }
 
                 var MenuButton = require('engine/scene/menubutton');
-                this.staticBack.addChild(new MenuButton({from: this.name}));
+                this.staticContainer.addChild(new MenuButton({from: this.name}));
 
                 // add the custom cursor
                 gamecursor.reset();
-
-                var t = gamecursor.getTarget();
-                this.staticBack.addChild(t);
-                this.targetCursor = t;
-
-                this.staticBack.addChild(gamecursor.get());
+                this.staticContainer.addChild(gamecursor.get());
             }
         };
 
@@ -320,38 +319,40 @@ define([
             if (require('engine/stage/main').isPlayable()) {
                 gamepanel.renderForVerbsAndInventory();
             }
+
             this.renderStatic({
                 'panel'    : gamepanel.get(),
                 'sentence' : sentence.get()
             });
 
-            this.renderPlayer({
-                'pc'       : gamecharacter.getPc()
+            this.renderMiddle({
+                'pc' : gamecharacter.getPc()
             });
 
-            this.addChild(this.dynamicBack);
-            this.addChild(this.player);
-            this.addChild(this.dynamicFore);
-            this.addChild(this.staticBack);
+            this.dynamicContainer.addChild(this.dynamicBack);
+            this.dynamicContainer.addChild(this.dynamicMiddle);
+            this.dynamicContainer.addChild(this.dynamicFore);
 
+            this.addChild(this.dynamicContainer);
+            this.addChild(this.staticContainer);
         };
 
         this.getMenuButton = function () {
             // have to return as an array, testHit and testClick likes arrays
-            return [this.staticBack.getChildByName('menubutton')];
+            return [this.staticContainer.getChildByName('menubutton')];
         };
 
         this.getDynamicBackSceneChildrens = function () {
-            return this.dynamicBack.children;
+            return this.dynamicContainer.children[0].children;
         };
 
         this.getDynamicForeSceneChildrens = function () {
-            return this.dynamicFore.children;
+            return this.dynamicContainer.children[2].children;
         };
 
         this.getPanel = function () {
-            if (this.staticBack.children) {
-                return this.staticBack.children[0];
+            if (this.staticContainer.children) {
+                return this.staticContainer.children[0];
             }
             return undefined;
         };
@@ -365,14 +366,14 @@ define([
         };
 
         this.getBackground = function () {
-            return this.dynamicBack.getChildByName('background');
+            return this.dynamicContainer.children[0].getChildByName('background');
         };
 
         this.getState = function () {
             var i, o,
                 objectStates = {},
-                objectsBack = this.dynamicBack.getChildByName('container.objects'),
-                objectsFore = this.dynamicFore.getChildByName('container.objects');
+                objectsBack = this.dynamicContainer.children[0].getChildByName('container.objects'),
+                objectsFore = this.dynamicContainer.children[2].getChildByName('container.objects');
 
             if (objectsBack && objectsBack.children) {
                 for (i in objectsBack.children) {
@@ -387,9 +388,9 @@ define([
                 }
             }
             return {
-                'objects'     : objectStates,
+                'objects'          : objectStates,
                 'backgroundOffset' : this.backgroundOffset,
-                'player'      : this.player.x
+                'player'           : this.player.x
             };
         };
 
@@ -415,7 +416,7 @@ define([
             this.player.x      = json.player;
 
             // apply the offset
-            this.doMove(0);
+            this.applyOffset();
         };
     };
     return GameScene;

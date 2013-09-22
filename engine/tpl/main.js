@@ -31,13 +31,13 @@ define([
                 $('#forms').html(template({}));
                 item = new SettingsPanel();
                 item.show();
-                gamestage.getInstance().addChild(item);
+                gamestage.get().addChild(item);
                 gamestage.update();
             }
         },
 
         close = function () {
-            gamestage.getInstance().removeChild(item);
+            gamestage.get().removeChild(item);
             item.hide();
             item = undefined;
             $('#forms').html('');
@@ -50,7 +50,7 @@ define([
                 $('#forms').html(template({'savegames': savegames}));
                 item = new SaveGamePanel();
                 item.show();
-                gamestage.getInstance().addChild(item);
+                gamestage.get().addChild(item);
                 gamestage.update();
             }
         },
@@ -62,7 +62,7 @@ define([
                 $('#forms').html(template({'savegames': savegames}));
                 item = new LoadGamePanel();
                 item.show();
-                gamestage.getInstance().addChild(item);
+                gamestage.get().addChild(item);
                 gamestage.update();
             }
         };

@@ -28,7 +28,7 @@ define([
             _role = options.role;
         },
 
-        getInstance = function () {
+        get = function () {
             return stage;
         },
 
@@ -133,7 +133,7 @@ define([
 
     return {
         'preload'      : preload,
-        'getInstance'  : getInstance,
+        'get'          : get,
         'takeSnapshot' : takeSnapshot,
         'getSnapshot'  : getSnapshot,
         'setSavegame'  : setSavegame,

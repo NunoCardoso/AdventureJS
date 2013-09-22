@@ -39,7 +39,7 @@ define([
             this.loaded++;
             this.w = (this.loaded / this.total) * config.get('progressbar.w');
             this.render();
-            gamestage.getInstance().update();
+            gamestage.get().update();
         };
 
         this.x = config.get('progressbar.x') / 2;

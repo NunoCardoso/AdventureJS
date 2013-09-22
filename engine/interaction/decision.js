@@ -64,7 +64,7 @@ define([
                 break;
             case 'dialogMessage':
                 require('engine/interaction/action').reset();
-                scene = require('engine/stage/main').getInstance()
+                scene = require('engine/stage/main').get()
                     .getCurrentScene();
                 character = gamedialog.getCharacter(action.character);
                 deferred = character.say(action.text);
@@ -74,7 +74,7 @@ define([
                 });
                 return d.promise();
             case 'fromSceneToInventory':
-                require('engine/stage/main').getInstance()
+                require('engine/stage/main').get()
                     .getCurrentScene().removeObject(action.object);
                 require('engine/panel/main').addToInventory(action.object);
                 break;

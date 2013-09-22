@@ -142,7 +142,7 @@ define([
                 // since exits and scenes are not rendered, I have to iterate scenes.
                 var toScene = require('engine/scene/main').findSceneWithExit(exitTo);
                 if (toScene) {
-                    require('engine/stage/main').getInstance().switchScene(
+                    require('engine/stage/main').get().switchScene(
                         this.parent,
                         toScene,
                         exitTo

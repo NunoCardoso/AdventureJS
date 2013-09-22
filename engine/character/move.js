@@ -190,12 +190,13 @@ define([
                 if ((sceneHasHiddenBackgroundOnLeft  && isCharacterOnLeftHalf  && c.character.attitude === 'walkleft') ||
                         (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && c.character.attitude === 'walkright')) {
                     scene.backgroundOffset -= diffX;
-                    scene.doMove();
+                    scene.applyOffset();
 
-                    if (c.targetXY) {
+                /*    if (c.targetXY) {
                         // nonetheless, your targetXY comes closer
                         c.targetXY.x -= diffX;
                     }
+                    */
                 }
             }
             // change attitude only if it is different

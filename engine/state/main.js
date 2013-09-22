@@ -32,7 +32,7 @@ define([
                 }
             }
 
-            currentSceneName = gamestage.getInstance().getState();
+            currentSceneName = gamestage.get().getState();
             pcState = gamecharacter.getPc().getState();
             inventoryState = gamepanel.getInventory().getState();
 
@@ -54,7 +54,7 @@ define([
 
             gamecharacter.getPc().setState(savegame.pc);
             gamepanel.getInventory().setState(savegame.inventory);
-            gamestage.getInstance().setState(savegame.currentScene);
+            gamestage.get().setState(savegame.currentScene);
             // erase actions.
             require('engine/interaction/action').reset();
         };

@@ -58,7 +58,7 @@ define([
         );
 
         this.publish = function () {
-            var stage = require('engine/stage/main').getInstance();
+            var stage = require('engine/stage/main').get();
             this.alpha = 0;
             stage.addChild(this);
             createjs.Tween.get(this).to({alpha: 1}, 1000)

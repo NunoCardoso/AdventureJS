@@ -41,8 +41,8 @@ define([
             loadingText
         );
 
-        gamestage.getInstance().addChild(startScene);
-        gamestage.getInstance().update();
+        gamestage.get().addChild(startScene);
+        gamestage.get().update();
 
         var deferred = $.Deferred();
 

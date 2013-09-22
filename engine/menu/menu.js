@@ -36,6 +36,9 @@ define([
             return false;
         };
 
+        this.resetTargetXY = function (xy) {};        
+        this.setTargetCursorXY = function (xy) {};
+
         // Title
         this.title = new createjs.Text(options.title, "36px the8bit", "#FFFFFF");
         this.title.textAlign = "center";
@@ -78,7 +81,7 @@ define([
             onClick: function () {
                 var gamestage = require('engine/stage/main');
                 gamestage.activateTick();
-                gamestage.getInstance().switchScene(
+                gamestage.get().switchScene(
                     'scene.menu',
                     options.startingScene
                 );
@@ -121,8 +124,8 @@ define([
             onClick: function () {
                 var stage = require('engine/stage/main');
                 stage.play();
-                stage.getInstance().removeMenuScene('scene.menu');
-                gamemusic.play(stage.getInstance().getCurrentScene().music);
+                stage.get().removeMenuScene('scene.menu');
+                gamemusic.play(stage.get().getCurrentScene().music);
             }
         });
 

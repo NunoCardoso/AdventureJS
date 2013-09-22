@@ -76,7 +76,7 @@ define([
                 var scene = gamescene.get(_scene);
                 scene.render();
                 gamescene.add(scene);
-                gamestage.getInstance().switchScene(
+                gamestage.get().switchScene(
                     'scene.start',
                     scene.name
                 );
