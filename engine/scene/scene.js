@@ -130,12 +130,19 @@ define([
                     diffX = -this.dynamicBack.x;
                 }
             }
+
+            // background might be scaled off, so let's check
+            backgroundWidth = this.dynamicBack.w;
+            if (this.getBackground().children[0].scaleX) {
+                backgroundWidth *= this.getBackground().children[0].scaleX;
+            }
+
             // check if we have space scene on the right
-            if (diffX < 0 && this.background.mode !== 'fit' && (this.dynamicBack.x + this.dynamicBack.w > config.get('game.w'))) {
+            if (diffX < 0 && this.background.mode !== 'fit' && (this.dynamicBack.x + backgroundWidth > config.get('game.w'))) {
                 proceed = true;
                 // make sure that it doesn't drag outbounds
-                if (this.dynamicBack.x + this.dynamicBack.w + diffX < config.get('game.w')) {
-                    diffX = config.get('game.w') - this.dynamicBack.x - this.dynamicBack.w;
+                if (this.dynamicBack.x + backgroundWidth + diffX < config.get('game.w')) {
+                    diffX = config.get('game.w') - this.dynamicBack.x - backgroundWidth;
                 }
             }
             if (proceed) {
