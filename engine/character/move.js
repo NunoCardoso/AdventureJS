@@ -37,54 +37,69 @@ define([
             return 'walkleft';
         },
 
-        _nextDirection = function (c, angle, tries, scenepath) {
-            var goX = c.x + Math.cos(angle) * c.speed,
-                goY = c.y + Math.sin(angle) * c.speed;
+        /** just calculate next direction, and give the next step coordinates 
+          * it scans all allowable direction 
+          */
+        _nextDirection = function (character, angle, tries, scenepath) {
+            var goX = character.x + Math.cos(angle) * character.speed,
+                goY = character.y + Math.sin(angle) * character.speed;
 
-            var coords = scenepath.globalToLocal(goX, goY);
+            var coords   = scenepath.globalToLocal(goX, goY);
             var mouseHit = scenepath.hitTest(coords.x, coords.y);
 
             if (mouseHit) {
                 return {
-                    x : c.speed * Math.cos(angle),
-                    y : c.speed * Math.sin(angle),
+                    x : character.speed * Math.cos(angle),
+                    y : character.speed * Math.sin(angle),
                     d : _getAttitude(angle)
                 };
             }
-            if (tries > 16) {
+            if (tries < 2) {
                 //c.targetXY = undefined;
+                if (character.walkDeferred) {
+                    character.walkDeferred.resolve();
+                    character.walkDeferred = undefined;
+                }
                 return {x: 0, y: 0, d: 'stand'};
             }
             // recursive, if not within allowed place.
-
             angle = -1 * (angle + Math.PI / 8);
             tries++;
-            return _nextDirection(c, angle, tries, scenepath);
+            return _nextDirection(character, angle, tries, scenepath);
         },
 
-        _calculateDirection = function (c, scene) {
+        _calculateDirection = function (character, scene) {
             var scenepath = scene.getBackground().path;
-            if (!c.targetXY) {
+            // no target? no walk.
+            if (!character.targetXY) {
+                if (character.walkDeferred) {
+                    character.walkDeferred.resolve();
+                    character.walkDeferred = undefined;
+                }
                 return {x: 0, y: 0, d: 'stand'};
             }
 
-            var deltaY = c.targetXY.y - c.y,
-                deltaX = c.targetXY.x - c.x,
-                abs = Math.sqrt(deltaY * deltaY + deltaX * deltaX),
-                slope = deltaY / deltaX,
-                angle = Math.atan(slope);
+            var deltaY = character.targetXY.y - character.y,
+                deltaX = character.targetXY.x - character.x,
+                distance = Math.sqrt(deltaY * deltaY + deltaX * deltaX),
+                angle = Math.atan(deltaY / deltaX);
 
+            // fix angle.
             if (deltaX < 0) {
                 angle = angle + Math.PI;
             }
 
-            if (abs < 1) {
-               // c.targetXY = undefined;
+            // set threshold to stop walk.
+            if (distance < 2) {
+                if (character.walkDeferred) {
+                    character.walkDeferred.resolve();
+                    character.walkDeferred = undefined;
+                }
                 return {x: 0, y: 0, d: 'stand'};
             }
 
             // fazer isto recursivo;
-            return _nextDirection(c, angle, 0, scenepath);
+            return _nextDirection(character, angle, 0, scenepath);
         },
 
         move = function (c, scene) {

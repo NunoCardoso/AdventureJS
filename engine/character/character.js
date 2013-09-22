@@ -116,19 +116,19 @@ define([
         // on top of them, so let's compute a margin distance.
         this.calculateTargetXY = function (xy, item) {
             if (!item) {
-                return this.setTargetXY(xy);
+                return this.moveTo(xy);
             }
             var dim = item.getDimensions(),
                 itemX = (dim.x1 + dim.x2) / 2;
             // playable character is on the left of the object;
             if (this.x < itemX) {
-                return this.setTargetXY({
+                return this.moveTo({
                     x : dim.x1 - (this.w / 2),
                     y : xy.y
                 });
             }
             // playable character is on the right of the object;
-            return this.setTargetXY({
+            return this.moveTo({
                 x : dim.x2 + (this.w / 2),
                 y : xy.y
             });

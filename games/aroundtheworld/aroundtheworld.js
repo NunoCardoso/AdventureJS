@@ -23,6 +23,26 @@ define([
             {
                 'id'  : 'image.object.straws',
                 'src' : 'games/aroundtheworld/img/object/cornfieldstraws.png'
+            },
+            {
+                'id'  : 'image.object.clothesline',
+                'src' : 'games/aroundtheworld/img/object/clothesline.png'
+            },
+            {
+                'id'  : 'image.object.whitetowel',
+                'src' : 'games/aroundtheworld/img/object/whitetowel.png'
+            },
+            {
+                'id'  : 'image.object.shirt',
+                'src' : 'games/aroundtheworld/img/object/shirt.png'
+            },
+            {
+                'id'  : 'image.object.inventory.whitetowel',
+                'src' : 'games/aroundtheworld/img/object/inventorywhitetowel.png'
+            },
+            {
+                'id'  : 'image.object.inventory.shirt',
+                'src' : 'games/aroundtheworld/img/object/inventoryshirt.png'
             }
         ],
         'sounds' : [],
@@ -66,9 +86,123 @@ define([
                 'label': 'straws',
                 'imageInStage' : 'image.object.straws',
                 'onForeground' : true
+            },
+            {
+                'id': 'object.clothesline',
+                'label': 'clothesline',
+                'imageInStage' : 'image.object.clothesline',
+                'onForeground' : false
+            },
+            {
+                'id': 'object.whitetowel',
+                'label': 'white towel',
+                'imageInStage' : 'image.object.whitetowel',
+                'imageInInventory' : 'image.object.inventory.whitetowel',
+                'onForeground' : false
+            },
+            {
+                'id': 'object.shirt',
+                'label': 'shirt',
+                'imageInStage' : 'image.object.shirt',
+                'imageInInventory' : 'image.object.inventory.shirt',
+                'onForeground' : false
             }
         ],
         'interactions': [
+            {
+                'id' : 'interaction.01',
+                'verb' : 'Look at',
+                'first': {
+                    'item' : 'object.straws',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'Cool, straws. Now I need a drink.'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.02',
+                'verb' : 'Pick up',
+                'first': {
+                    'item' : 'object.straws',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'Nah. Don\'t need a straw.'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.03',
+                'verb' : 'Look at',
+                'first': {
+                    'item' : 'object.clothesline',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'Someone is drying their clothes.'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.04',
+                'verb' : 'Pick up',
+                'first': {
+                    'item' : 'object.clothesline',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'Nah. I have already a clothesline ata home.'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.05',
+                'verb' : 'Look at',
+                'first': {
+                    'item' : 'object.shirt',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'it\'s a blue, white and red shirt. Reminds me of something...'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.06',
+                'verb' : 'Pick up',
+                'first': {
+                    'item' : 'object.shirt',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'fromSceneToInventory',
+                        'object': 'object.shirt'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'XS. Not my size. And not my style, also.'
+                    }
+                ]
+            }
         ],
         'scenes': [
             {
@@ -91,10 +225,31 @@ define([
                 'objects' : [
                     {
                         'id' : 'object.straws',
-                        'x'  : 300,
+                        'x'  : 250,
                         'y'  : 200,
                         'w'  : 195,
                         'h'  : 240
+                    },
+                    {
+                        'id' : 'object.clothesline',
+                        'x'  : 430,
+                        'y'  : 210,
+                        'w'  : 338,
+                        'h'  : 145
+                    },
+                    {
+                        'id' : 'object.shirt',
+                        'x'  : 542,
+                        'y'  : 243,
+                        'w'  : 68,
+                        'h'  : 76
+                    },
+                    {
+                        'id' : 'object.whitetowel',
+                        'x'  : 660,
+                        'y'  : 230,
+                        'w'  : 68,
+                        'h'  : 76
                     }
                 ],
                 'exits' : [
