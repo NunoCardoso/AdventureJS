@@ -37,7 +37,7 @@ define([
         this.h = this.character.frames.height;
 
         // the register X and Y should be the feet of the sprite
-        this.regX = this.w / 2;
+        this.regX = 0;
         this.regY = this.h;
 
         this.targetXY = undefined;

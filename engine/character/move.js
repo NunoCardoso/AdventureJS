@@ -12,72 +12,84 @@ define([
      * when one hits valid area, use it.
      */
 
-    var _getAttitude = function (angle) {
+    /**
+     * measure distance if character would move on a certain angle
+     */
+    var _newPosition = function (character, scenepath, angle, normalize) {
+            var newAngle,
+                attitude;
+
             if (angle < -5 * Math.PI / 8 && angle >= -7 * Math.PI / 8) {
-                return 'walkdownleft';
+                newAngle = -3 * Math.PI / 4;
+                attitude = 'walkdownleft';
             }
             if (angle < -3 * Math.PI / 8 && angle >= -5 * Math.PI / 8) {
-                return 'walkdown';
+                newAngle = -2 * Math.PI / 4;
+                attitude = 'walkdown';
             }
             if (angle < -Math.PI / 8 && angle >= -3 * Math.PI / 8) {
-                return 'walkdownright';
+                newAngle = -1 * Math.PI / 4;
+                attitude = 'walkdownright';
             }
             if (angle < Math.PI / 8 && angle >= -Math.PI / 8) {
-                return 'walkright';
+                newAngle = 0;
+                attitude = 'walkright';
             }
             if (angle < 3 * Math.PI / 8 && angle >= Math.PI / 8) {
-                return 'walkupright';
+                newAngle = Math.PI / 4;
+                attitude = 'walkupright';
             }
             if (angle < 5 * Math.PI / 8 && angle >= 3 * Math.PI / 8) {
-                return 'walkup';
+                newAngle = 2 * Math.PI / 4;
+                attitude = 'walkup';
             }
             if (angle < 7 * Math.PI / 8 && angle >= 5 * Math.PI / 8) {
-                return 'walkupleft';
+                newAngle = 3 * Math.PI / 4;
+                attitude = 'walkupleft';
             }
-            return 'walkleft';
-        },
+            if (!attitude) {
+                attitude = 'walkleft';
+                newAngle = Math.PI;
+            }
 
-        /** just calculate next direction, and give the next step coordinates 
-          * it scans all allowable direction 
-          */
-        _nextDirection = function (character, angle, tries, scenepath) {
-            var goX = character.x + Math.cos(angle) * character.speed,
-                goY = character.y + Math.sin(angle) * character.speed;
+            var angleToTest = (normalize ? newAngle : angle),
+                goX = character.x + Math.cos(angleToTest) * character.speed,
+                goY = character.y + Math.sin(angleToTest) * character.speed,
+                deltaY = character.targetXY.y - goY,
+                deltaX = character.targetXY.x - goX,
+                distance = Math.sqrt(deltaY * deltaY + deltaX * deltaX);
 
+            // check if it is out of bonds. If so, penalize distances by doubling it.
             var coords   = scenepath.globalToLocal(goX, goY);
             var mouseHit = scenepath.hitTest(coords.x, coords.y);
 
-            if (mouseHit) {
-                return {
-                    x : character.speed * Math.cos(angle),
-                    y : character.speed * Math.sin(angle),
-                    d : _getAttitude(angle)
-                };
+            if (!mouseHit) {
+                distance = distance * 2;
             }
-            // try to increase this so he is smart on weird paths
-            if (tries < 6) {
-                //c.targetXY = undefined;
-                if (character.walkDeferred) {
-                    character.walkDeferred.resolve();
-                    character.walkDeferred = undefined;
-                }
-                return {x: 0, y: 0, d: 'stand'};
+
+            return {
+                'x' : goX,
+                'y' : goY,
+                'a' : attitude,
+                'd' : distance
+            };
+        },
+
+        _stand = function (character) {
+            if (character.walkDeferred) {
+                character.walkDeferred.resolve();
+                character.walkDeferred = undefined;
             }
-            // recursive, if not within allowed place.
-            angle = -1 * (angle + Math.PI / 8);
-            tries++;
-            return _nextDirection(character, angle, tries, scenepath);
+            return {x: 0, y: 0, a: 'stand'};
         },
 
         _calculateDirection = function (character, scene) {
+
             var scenepath = scene.getBackground().path;
+
             // no target? no walk.
             if (!character.targetXY) {
-                if (character.walkDeferred) {
-                    character.walkDeferred.resolve();
-                    character.walkDeferred = undefined;
-                }
-                return {x: 0, y: 0, d: 'stand'};
+                return _stand(character);
             }
 
             var deltaY = character.targetXY.y - character.y,
@@ -92,27 +104,56 @@ define([
 
             // set threshold to stop walk.
             if (distance < 2) {
-                if (character.walkDeferred) {
-                    character.walkDeferred.resolve();
-                    character.walkDeferred = undefined;
-                }
-                return {x: 0, y: 0, d: 'stand'};
+                return _stand(character);
             }
 
-            // fazer isto recursivo;
-            return _nextDirection(character, angle, 0, scenepath);
+            // best so far: stand
+            var bestPositionSoFar = {
+                'x' : character.x,
+                'y' : character.y,
+                'a' : 'stand',
+                'd' : distance
+            };
+
+            // let's try same angle, chech it distance to goal is shorter.
+            var sameAttitudePosition = _newPosition(character, scenepath, angle, false);
+            if (sameAttitudePosition.d < bestPositionSoFar.d) {
+                bestPositionSoFar = sameAttitudePosition;
+            }
+
+            // go round the quadrant in 45º bits 
+            var i;
+            for (i = 0; i < 8; i++) {
+                var testAngle = angle + i * (Math.PI / 8);
+                var testPosition = _newPosition(character, scenepath, testAngle, true);
+                if (testPosition.d < bestPositionSoFar.d) {
+                    bestPositionSoFar = testPosition;
+                }
+            }
+
+            if (bestPositionSoFar.a !== 'stand') {
+                return bestPositionSoFar;
+            }
+            // if we need to stand, resolve the deferred
+            return _stand(character);
         },
 
         move = function (c, scene) {
 
             var d = _calculateDirection(c, scene);
+            var diffX;
+
             if (!d) {
                 return;
             }
-            if (d.d !== 'stand') {
-                c.character.attitude = d.d;
-                c.setX(c.x + d.x);
-                c.setY(c.y + d.y);
+            if (d.a !== 'stand') {
+
+                c.character.attitude = d.a;
+                // save the x diff, useful for panning the scene on the other way.
+                diffX = d.x - c.x;
+                oldX = c.x;
+                c.setX(d.x);
+                c.setY(d.y);
             } else {
                 if (c.character.isFacingLeft() && !c.character.isStandingLeft()) {
                     c.character.attitude = "standleft";
@@ -148,13 +189,13 @@ define([
 
                 if ((sceneHasHiddenBackgroundOnLeft  && isCharacterOnLeftHalf  && c.character.attitude === 'walkleft') ||
                         (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && c.character.attitude === 'walkright')) {
-                    scene.dynamicBack.x -= d.x;
-                    scene.dynamicFore.x -= d.x;
+                    scene.dynamicBack.x -= diffX;
+                    scene.dynamicFore.x -= diffX;
                     // restore character into that position
-                    c.setX(c.x - d.x);
+                    c.setX(oldX);
                     if (c.targetXY) {
                         // nonetheless, your targetXY comes closer
-                        c.targetXY.x -= d.x;
+                        c.targetXY.x -= diffX;
                     }
                 }
             }

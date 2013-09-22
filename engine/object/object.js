@@ -133,7 +133,8 @@ define([
                     if (role === 'play') {
                         this.isMouseOver = mine;
                         this.background.alpha = 0.3;
-                        return require('engine/interaction/action').mouseOverObject(this);
+                        require('engine/interaction/action').mouseOverObject(this);
+                        return true;
                     }
                     if (this.imageInStage.cache) {
                         this.imageInStage.cache();
@@ -144,7 +145,8 @@ define([
                     if (role === 'play') {
                         this.isMouseOver = mine;
                         this.background.alpha = 0.15;
-                        return require('engine/interaction/action').mouseOutObject(this);
+                        require('engine/interaction/action').mouseOutObject(this);
+                        return true;
                     }
                     this.imageInStage.filters = undefined;
                     if (this.imageInStage.cache) {

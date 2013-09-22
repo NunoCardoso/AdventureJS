@@ -5,6 +5,10 @@
    src: url(../fnt/half_bold_pixel-7.ttf);
 }
 
+body {
+  margin: 0;
+}
+
 body, input, textarea, button {
    font-family: the8bit;
 }
