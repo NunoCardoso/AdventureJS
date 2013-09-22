@@ -109,6 +109,9 @@ define([
         this.testClick = function (x, y, scene, role) {
             var coords = this.globalToLocal(x, y);
             var mouseClick = this.hitTest(coords.x, coords.y);
+            if (this.name== 'object.straws') {
+                console.log('gx='+x+' gy='+y+' lx='+coords.x+' ly='+coords.y+' clc='+mouseClick);
+            }
             if (mouseClick) {
                 scene.getPc().actForObjectClick({x: x, y: y}, this);
                 return true;
@@ -135,29 +138,31 @@ define([
         this.testHit = function (x, y, role) {
             var coords = this.globalToLocal(x, y);
             var mouseOver = this.hitTest(coords.x, coords.y);
+            if (this.name== 'object.straws') {
+                console.log('gx='+x+' gy='+y+' lx='+coords.x+' ly='+coords.y+' hit='+mouseOver);
+            }
             if (mouseOver && !this.isMouseOver) {
                 if (role === 'play') {
                     this.isMouseOver = mouseOver;
                     this.background.alpha = 0.3;
                     return require('engine/interaction/action').mouseOverObject(this);
-                } else {
-                    
-                    this.imageInStage.cache();
-
-                    console.log("Hover me");
                 }
+                if (this.imageInStage.cache) {
+                    this.imageInStage.cache();
+                }
+                console.log("Hover me");
             }
             if (!mouseOver && this.isMouseOver) {
                 if (role === 'play') {
                     this.isMouseOver = mouseOver;
                     this.background.alpha = 0.15;
                     return require('engine/interaction/action').mouseOutObject(this);
-                }  else {
-                    this.imageInStage.filters = undefined;
-                    this.imageInStage.cache();
-
-                    console.log("Not Hover me");
                 }
+                this.imageInStage.filters = undefined;
+                if (this.imageInStage.cache) {
+                    this.imageInStage.cache();
+                }
+                console.log("Not Hover me");
             }
         };
     };

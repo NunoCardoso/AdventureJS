@@ -136,17 +136,18 @@ define([
                         }
                     }
 
+                    interactables = scene.getDynamicForeSceneChildrens();
+                    isHandled =  this.doTest(event, scene, interactables, role);
+                    if (isHandled) {
+                        return;
+                    }
+                    
                     interactables = scene.getDynamicBackSceneChildrens();
                     isHandled = this.doTest(event, scene, interactables, role);
                     if (isHandled) {
                         return;
                     }
 
-                    interactables = scene.getDynamicForeSceneChildrens();
-                    isHandled =  this.doTest(event, scene, interactables, role);
-                    if (isHandled) {
-                        return;
-                    }
                 }
 
                 if (role !== 'editor') {

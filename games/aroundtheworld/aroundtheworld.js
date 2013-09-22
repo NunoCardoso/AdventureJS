@@ -43,6 +43,14 @@ define([
             {
                 'id'  : 'image.object.inventory.shirt',
                 'src' : 'games/aroundtheworld/img/object/inventoryshirt.png'
+            },
+            {
+                'id'  : 'image.object.inventory.redberry',
+                'src' : 'games/aroundtheworld/img/object/inventorytomato.png'
+            },
+            {
+                'id'  : 'image.object.inventory.towelwithredberry',
+                'src' : 'games/aroundtheworld/img/object/inventorytowelwithtomato.png'
             }
         ],
         'sounds' : [],
@@ -106,6 +114,12 @@ define([
                 'imageInStage' : 'image.object.shirt',
                 'imageInInventory' : 'image.object.inventory.shirt',
                 'onForeground' : false
+            },
+            {
+                'id': 'object.redberry',
+                'label': 'red berry',
+                'imageInInventory' : 'image.object.inventory.redberry',
+                'onForeground' : false
             }
         ],
         'interactions': [
@@ -133,9 +147,17 @@ define([
                 },
                 'actions' : [
                     {
+                        'action': 'addToInventory',
+                        'object': 'object.redberry'
+                    },
+                    {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'Nah. Don\'t need a straw.'
+                        'text' : 'I\'ll just take one red berry.'
+                    },
+                    {
+                        'action': 'publishAchievement',
+                        'achievement' : 'achievement.redberry'
                     }
                 ]
             },
@@ -165,7 +187,7 @@ define([
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'Nah. I have already a clothesline ata home.'
+                        'text' : 'Nah. I don\'t do laundry. I\'m virtual, baby!'
                     }
                 ]
             },
@@ -180,7 +202,7 @@ define([
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'it\'s a blue, white and red shirt. Reminds me of something...'
+                        'text' : 'It\'s a blue, white and red shirt. Reminds me of something...'
                     }
                 ]
             },
@@ -200,6 +222,118 @@ define([
                         'action': 'dialogMessage',
                         'character': 'pc.main',
                         'text' : 'XS. Not my size. And not my style, also.'
+                    },
+                    {
+                        'action': 'publishAchievement',
+                        'achievement' : 'achievement.clothes'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.07',
+                'verb' : 'Look at',
+                'first': {
+                    'item' : 'object.whitetowel',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'it\'s a small table towel.'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.08',
+                'verb' : 'Pick up',
+                'first': {
+                    'item' : 'object.whitetowel',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'fromSceneToInventory',
+                        'object': 'object.whitetowel'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'Picnic time!'
+                    },
+                    {
+                        'action': 'publishAchievement',
+                        'achievement' : 'achievement.clothes'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.09',
+                'verb' : 'Use',
+                'first': {
+                    'item' : 'object.whitetowel',
+                    'inInventory' : true
+                },
+                'second' : {
+                    'item' : 'object.redberry',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action': 'removeFromInventory',
+                        'object': 'object.whitetowel'
+                    },
+                    {
+                        'action': 'removeFromInventory',
+                        'object': 'object.redberry'
+                    },
+                    {
+                        'action': 'addToInventory',
+                        'object': 'object.towelwithredberry'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'There, the berry is squashed.'
+                    },
+                    {
+                        'action': 'publishAchievement',
+                        'achievement' : 'achievement.squash'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.10',
+                'verb' : 'Use',
+                'first': {
+                    'item' : 'object.redberry',
+                    'inInventory' : true
+                },
+                'second' : {
+                    'item' : 'object.whitetowel',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action': 'removeFromInventory',
+                        'object': 'object.whitetowel'
+                    },
+                    {
+                        'action': 'removeFromInventory',
+                        'object': 'object.redberry'
+                    },
+                    {
+                        'action': 'addToInventory',
+                        'object': 'object.towelwithredberry'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'There, the berry is squashed.'
+                    },
+                    {
+                        'action': 'publishAchievement',
+                        'achievement' : 'achievement.squash'
                     }
                 ]
             }
@@ -291,6 +425,18 @@ define([
         'dialogoptions' : [
         ],
         'achievements': [
+            {
+                'id' : 'achievement.redberry',
+                'title' : 'You got a red berry!'
+            },
+            {
+                'id' : 'achievement.clothes',
+                'title' : 'You shamelessly stole clothes!'
+            },
+            {
+                'id' : 'achievement.squash',
+                'title' : 'You ruined a good towel!'
+            },
             {
                 'id' : 'achievement.gameover',
                 'title' : 'You finished the game!'

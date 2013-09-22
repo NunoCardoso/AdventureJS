@@ -54,6 +54,7 @@ define([
                     d : _getAttitude(angle)
                 };
             }
+            // try to increase this so he is smart on weird paths
             if (tries < 2) {
                 //c.targetXY = undefined;
                 if (character.walkDeferred) {
