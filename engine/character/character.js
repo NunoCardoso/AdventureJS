@@ -114,11 +114,11 @@ define([
         // mouse position click can be the target click on most ocations,
         // but if we clicked on items/characters, we don't want to land
         // on top of them, so let's compute a margin distance.
-        this.calculateTargetXY = function (xy, item) {
+        this.calculateTargetXY = function (xy, item, scene) {
             if (!item) {
                 return this.moveTo(xy);
             }
-            var dim = item.getDimensions(),
+            var dim = item.getDimensions(scene),
                 itemX = (dim.x1 + dim.x2) / 2;
             // playable character is on the left of the object;
             if (this.x < itemX) {
@@ -246,14 +246,14 @@ define([
             });
         };
 
-        this.actForObjectClick = function (event, object) {
+        this.actForObjectClick = function (event, scene, object) {
             // I don't have to walk to an inventory
             if (object.renderedAs === 'inventory') {
                 action.clickObject(object);
                 return;
             }
             // else, walk there, then perform the action.
-            var d = this.calculateTargetXY(event, object);
+            var d = this.calculateTargetXY(event, object, scene);
             d.done(function () {
                 action.clickObject(object);
             });

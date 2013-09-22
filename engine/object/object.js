@@ -73,10 +73,15 @@ define([
             }
         };
 
-        this.getDimensions = function () {
+        // TODO: there must be a better way to do this
+        this.getDimensions = function (scene) {
+            var offset = 0;
+            if (scene) {
+                offset = scene.backgroundOffset;
+            }
             return {
-                'x1' : this.x,
-                'x2' : this.x + this.w,
+                'x1' : this.x + offset,
+                'x2' : this.x + offset + this.w,
                 'y1' : this.y,
                 'y2' : this.y + this.h
             };
@@ -113,7 +118,7 @@ define([
             switch (event) {
             case 'click':
                 if (mine) {
-                    scene.getPc().actForObjectClick({x: x, y: y}, this);
+                    scene.getPc().actForObjectClick({x: x, y: y}, scene, this);
                     return true;
                 }
                 return false;

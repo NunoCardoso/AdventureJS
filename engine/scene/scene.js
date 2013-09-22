@@ -57,6 +57,9 @@ define([
         this.dynamicFore  = new createjs.Container();
         this.staticBack   = new createjs.Container();
 
+        // used to parallax the background; 
+        this.backgroundOffset = 0;
+
         this.scenePc     = undefined;
         this.sceneNpcs   = undefined;
 
@@ -119,15 +122,25 @@ define([
             this.objects[object.id] = object;
         };
 
+        this.doMove = function (delta) {
+            this.dynamicBack.x = this.backgroundOffset;
+            this.dynamicFore.x = this.backgroundOffset;
+            this.player.x      = this.backgroundOffset;
+            //if (this.scenePc && this.scenePc.targetXY) {
+                // fix character's targetXY if there is one
+                //this.scenePc.targetXY.x -= delta;
+            //}
+        };
+
         // when dragging backgrounds
         this.move = function (diffX) {
             var proceed = false;
             // check if we have spare scene on the left.
-            if (diffX > 0 && this.background.mode !== 'fit' && this.dynamicBack.x < 0) {
+            if (diffX > 0 && this.background.mode !== 'fit' && this.backgroundOffset < 0) {
                 proceed = true;
                 // make sure that it doesn't drag outbounds
-                if (this.dynamicBack.x + diffX > 0) {
-                    diffX = -this.dynamicBack.x;
+                if (this.backgroundOffset + diffX > 0) {
+                    diffX = -this.backgroundOffset;
                 }
             }
 
@@ -138,17 +151,16 @@ define([
             }
 
             // check if we have space scene on the right
-            if (diffX < 0 && this.background.mode !== 'fit' && (this.dynamicBack.x + backgroundWidth > config.get('game.w'))) {
+            if (diffX < 0 && this.background.mode !== 'fit' && (this.backgroundOffset + backgroundWidth > config.get('game.w'))) {
                 proceed = true;
                 // make sure that it doesn't drag outbounds
-                if (this.dynamicBack.x + backgroundWidth + diffX < config.get('game.w')) {
-                    diffX = config.get('game.w') - this.dynamicBack.x - backgroundWidth;
+                if (this.backgroundOffset + backgroundWidth + diffX < config.get('game.w')) {
+                    diffX = config.get('game.w') - this.backgroundOffset - backgroundWidth;
                 }
             }
             if (proceed) {
-                this.dynamicBack.x += diffX;
-                this.dynamicFore.x += diffX;
-                this.player.x += diffX;
+                this.backgroundOffset += diffX;
+                this.doMove(diffX);
             }
         };
 
@@ -365,8 +377,7 @@ define([
             }
             return {
                 'objects'     : objectStates,
-                'dynamicBack' : this.dynamicBack.x,
-                'dynamicFore' : this.dynamicFore.x,
+                'backgroundOffset' : this.backgroundOffset,
                 'player'      : this.player.x
             };
         };
@@ -389,9 +400,11 @@ define([
 
         this.setState = function (json) {
             this.objects       = json.objects;
-            this.dynamicBack.x = json.dynamicBack;
-            this.dynamicFore.x = json.dynamicFore;
+            this.backgroundOffset = json.backgroundOffset;
             this.player.x      = json.player;
+
+            // apply the offset
+            this.doMove(0);
         };
     };
     return GameScene;

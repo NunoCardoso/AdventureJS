@@ -33,6 +33,10 @@ define([
                 'src' : 'engine/img/cursor/crosshair.gif'
             },
             {
+                'id'  : 'image.cursor.target',
+                'src' : 'engine/img/cursor/target.png'
+            },
+            {
                 'id'  : 'image.cursor.left',
                 'src' : 'engine/img/cursor/left.png'
             },

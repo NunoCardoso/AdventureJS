@@ -189,10 +189,9 @@ define([
 
                 if ((sceneHasHiddenBackgroundOnLeft  && isCharacterOnLeftHalf  && c.character.attitude === 'walkleft') ||
                         (sceneHasHiddenBackgroundOnRight && isCharacterOnRightHalf && c.character.attitude === 'walkright')) {
-                    scene.dynamicBack.x -= diffX;
-                    scene.dynamicFore.x -= diffX;
-                    // restore character into that position
-                    c.setX(oldX);
+                    scene.backgroundOffset -= diffX;
+                    scene.doMove();
+
                     if (c.targetXY) {
                         // nonetheless, your targetXY comes closer
                         c.targetXY.x -= diffX;
