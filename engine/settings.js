@@ -83,6 +83,10 @@ define([
             {
                 'id'  : 'music.intro',
                 'src' : 'engine/music/game-intro.wav'
+            },
+            {
+                'id'  : 'music.scene.01',
+                'src' : 'engine/music/game-scene01.wav'
             }
         ],
         'characters': [

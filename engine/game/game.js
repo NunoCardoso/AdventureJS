@@ -80,6 +80,7 @@ define([
                     'scene.start',
                     scene.name
                 );
+                gamemusic.playMenuMusic();
                 keyboard.attachEvents();
                 gamestage.activate();
                 gamestage.update();
@@ -107,7 +108,7 @@ define([
                 if (!_options.scene) {
                     _options.scene = 'scene.menu';
                 }
-                gamemusic.preload(_game.main.music);
+                gamemusic.setMenuMusic(_game.main.music);
                 render(_options.scene);
             },
 

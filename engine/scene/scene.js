@@ -45,6 +45,7 @@ define([
         this.ending       = scene.ending;
         this.pc           = scene.pc;
         this.npcs         = scene.npcs;
+        this.music        = scene.music;
         this.background   = undefined;
         this.objects      = {};
         this.exits        = scene.exits || [];

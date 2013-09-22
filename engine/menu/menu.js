@@ -7,12 +7,14 @@ define([
     'engine/config',
     'engine/lib/assets',
     'engine/menu/button',
-    'engine/menu/settings'
+    'engine/menu/settings',
+    'engine/game/music'
 ], function (
     config,
     assets,
     Button,
-    SettingsButton
+    SettingsButton,
+    gamemusic
 ) {
 
     var GameMenu = function (options) {
@@ -120,6 +122,7 @@ define([
                 var stage = require('engine/stage/main');
                 stage.play();
                 stage.getInstance().removeMenuScene('scene.menu');
+                gamemusic.play(stage.getInstance().getCurrentScene().music);
             }
         });
 

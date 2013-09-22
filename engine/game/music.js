@@ -8,6 +8,7 @@ define([
 
     var _musicName,
         _music,
+        _menuMusic,
 
         playMusic = function () {
             _music = createjs.Sound.play(_musicName);
@@ -36,7 +37,16 @@ define([
             }
         },
 
-        preload = function (musicName) {
+        setMenuMusic = function (music) {
+            _menuMusic = music;
+        },
+
+        playMenuMusic = function () {
+            play(_menuMusic);
+        },
+
+        play = function (musicName) {
+            stopMusic();
             if (musicName) {
                 _musicName = musicName;
                 playMusic();
@@ -44,8 +54,10 @@ define([
         };
 
     return {
-        'preload'      : preload,
+        'play'         : play,
         'changeMusic'  : changeMusic,
-        'changeVolume' : changeVolume
+        'changeVolume' : changeVolume,
+        'setMenuMusic' : setMenuMusic,
+        'playMenuMusic' : playMenuMusic
     };
 });

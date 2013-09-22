@@ -5,10 +5,12 @@
  */
 define([
     'engine/config',
-    'engine/lib/assets'
+    'engine/lib/assets',
+    'engine/game/music'
 ], function (
     config,
-    assets
+    assets,
+    gamemusic
 ) {
     var MenuButton = function (options) {
         this.initialize(options);
@@ -64,6 +66,7 @@ define([
                     menu.renderForSaveGame();
                     gamestage.pause();
                     gamestage.getInstance().addMenuScene('scene.menu');
+                    gamemusic.playMenuMusic();
                     return true;
                 }
                 return false;

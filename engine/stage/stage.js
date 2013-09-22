@@ -10,14 +10,16 @@ define([
     'engine/panel/main',
     'engine/scene/main',
     'engine/sentence/main',
-    'engine/cursor/main'
+    'engine/cursor/main',
+    'engine/game/music'
 ], function (
     gamecharacter,
     config,
     gamepanel,
     gamescene,
     sentence,
-    gamecursor
+    gamecursor,
+    gamemusic
 ) {
     var GameStage = function (el) {
         this.initialize(el);
@@ -57,7 +59,7 @@ define([
             this.notOnGame();
             require('engine/stage/main').deactivate();
             this.addChild(toscene);
-
+            gamemusic.play(toscene.music);
             // adding the menu pauses the ticker, so we need to manualy update
             this.update();
         };
@@ -111,6 +113,8 @@ define([
             if (toscene.hasBeginCutscene()) {
                 toscene.performBeginCutscene();
             }
+
+            gamemusic.play(toscene.music);
         };
     };
     return GameStage;

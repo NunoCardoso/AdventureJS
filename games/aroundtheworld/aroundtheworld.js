@@ -317,6 +317,7 @@ define([
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
+                'music'              : 'music.scene.01',
                 'npcs' : [
                     {
                         'id' : 'npc.bowser',
