@@ -4,13 +4,16 @@
  * This module handles the cursor
  */
 define([
-    'engine/cursor/cursor'
+    'engine/cursor/cursor',
+    'engine/cursor/target'
 ], function (
-    Cursor
+    Cursor,
+    Target
 ) {
     var _,
         _stage,
         _xy,
+        _t,
 
         changeTo = function (what) {
             if (!_.busy) {
@@ -38,6 +41,7 @@ define([
 
         preload = function () {
             _ = new Cursor();
+            _t = new Target(); 
         },
 
         get = function () {
@@ -88,6 +92,15 @@ define([
         undrag = function (xy, role) {
             _xy = xy || _xy;
             _.update(_stage, _xy, 'undrag', role);
+        },
+
+        setTargetPosition = function (xy) {
+            _t.x = xy.x;
+            _t.y = xy.y;
+        },
+
+        getTarget = function () {
+            return _t;
         };
 
     return {
@@ -106,6 +119,8 @@ define([
         'goLeft'  : goLeft,
         'goUp'    : goUp,
         'goRight' : goRight,
-        'goDown'  : goDown
+        'goDown'  : goDown,
+        'setTargetPosition' : setTargetPosition,
+        'getTarget' : getTarget
     };
 });

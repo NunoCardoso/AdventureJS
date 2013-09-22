@@ -77,7 +77,7 @@ define([
         this.getDimensions = function (scene) {
             var offset = 0;
             if (scene) {
-                offset = scene.backgroundOffset;
+               // offset = scene.backgroundOffset;
             }
             return {
                 'x1' : this.x + offset,

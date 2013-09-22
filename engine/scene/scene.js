@@ -64,6 +64,8 @@ define([
         this.scenePc     = undefined;
         this.sceneNpcs   = undefined;
 
+        this.targetCursor = undefined;
+
         var i;
         for (i in scene.objects) {
             this.objects[scene.objects[i].id] = scene.objects[i];
@@ -127,10 +129,6 @@ define([
             this.dynamicBack.x = this.backgroundOffset;
             this.dynamicFore.x = this.backgroundOffset;
             this.player.x      = this.backgroundOffset;
-            //if (this.scenePc && this.scenePc.targetXY) {
-                // fix character's targetXY if there is one
-                //this.scenePc.targetXY.x -= delta;
-            //}
         };
 
         // when dragging backgrounds
@@ -247,6 +245,13 @@ define([
             }
         };
 
+        this.setTargetCursorXY = function (xy) {
+            if (this.targetCursor) {
+                this.targetCursor.x = xy.x;
+                this.targetCursor.y = xy.y;
+            }
+        };
+
         this.renderPlayer = function (options) {
 
             var i;
@@ -291,6 +296,11 @@ define([
 
                 // add the custom cursor
                 gamecursor.reset();
+
+                var t = gamecursor.getTarget();
+                this.staticBack.addChild(t);
+                this.targetCursor = t;
+
                 this.staticBack.addChild(gamecursor.get());
             }
         };

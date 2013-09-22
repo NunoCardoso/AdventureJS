@@ -8,13 +8,15 @@ define([
     'engine/character/balloon',
     'engine/character/move',
     'engine/character/sprite',
-    'engine/dialog/main'
+    'engine/dialog/main',
+    'engine/cursor/main'
 ], function (
     action,
     Balloon,
     move,
     Sprite,
-    gamedialog
+    gamedialog,
+    gamecursor
 ) {
     var Character = function (options) {
         this.initialize(options);
@@ -99,6 +101,7 @@ define([
 
         this.setTargetXY = function (xy) {
             this.targetXY = xy;
+            require('engine/stage/main').getInstance().getCurrentScene().setTargetCursorXY(xy);
             this.walkDeferred = $.Deferred();
             return this.walkDeferred;
         };
