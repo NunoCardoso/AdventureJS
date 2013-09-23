@@ -1,4 +1,4 @@
-/*global define, createjs, $ */
+/*global define, createjs, $, adv_game_id */
 
 /**
  * This module bootstraps the game, preloads assets, then lands on the main menu
@@ -63,8 +63,27 @@ define([
                 return _user;
             },
 
-            load = function (game) {
-                _game = game;
+            load = function () {
+                var d = $.Deferred();
+                if (adv_game_id === undefined) {
+                    require(['games/aroundtheworld/aroundtheworld'], function (game) {
+                        _game = game;
+                        d.resolve();
+                    });
+                } else {
+                    $.ajax({
+                        url: '/adventure-game-handins/app/advgame/game/' + adv_game_id,
+                        method: 'GET',
+                        success: function (response) {
+                            _game = response;
+                            d.resolve();
+                        },
+                        error: function (response) {
+                            console.log('can\'t load game.');
+                        }
+                    });
+                }
+                return d;
             },
 
             init = function () {

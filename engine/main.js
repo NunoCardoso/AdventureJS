@@ -5,11 +5,9 @@
  */
 
 define([
-    'engine/game/game',
-    'games/aroundtheworld/aroundtheworld'
+    'engine/game/game'
 ], function (
-    Game,
-    compass
+    Game
 ) {
     var _user = "Me",
         _game,
@@ -23,15 +21,18 @@ define([
         },
 
         init = function () {
+
             _game = new Game();
             _game.init();
             _game.setUser(_user);
-            _game.load(compass);
-            _game.start({
-                scene    : 'scene.menu',
-                canvas   : 'canvas',
-                role     : 'play'
-            });
+            var deferred = _game.load();
+            deferred.done(function () {
+                _game.start({
+                    scene    : 'scene.menu',
+                    canvas   : 'canvas',
+                    role     : 'play'
+                });
+            }); 
         };
 
     // TODO: to remove when we have a way to load a game, then trigger the init method
