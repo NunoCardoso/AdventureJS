@@ -318,6 +318,47 @@ define([
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
                 'music'              : 'music.scene.01',
+                'beginCutscene' : [
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.main',
+                        'position' : {
+                            'x': 200,
+                            'y': 390
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.main',
+                        'text'  : 'Wow. I\'m in Japan! Cool!'
+                    },
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.main',
+                        'position' : {
+                            'x': 100,
+                            'y': 390
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.main',
+                        'text'  : 'What now? I have to leave this place! I left the oven on!'
+                    },
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.main',
+                        'position' : {
+                            'x': 200,
+                            'y': 390
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.main',
+                        'text'  : 'Maybe someone will help me.'
+                    }
+                ],
                 'npcs' : [
                     {
                         'id' : 'npc.bowser',

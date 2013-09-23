@@ -102,24 +102,23 @@ define([
             }
         },
 
-        performList = function (list) {
-            var deferred = $.Deferred();
+        performList = function (options) {
+            var self = this;
 
-            var _list = list.slice(0); // clone it
+            var _list = options.taskList.slice(0); // clone it
             if (_list.length > 0) {
                 var item = _list.shift();
                 var deferred2 = perform(item);
                 if (deferred2) {
                     deferred2.done(function () {
-                        this.performList(_list);
+                        self.performList({taskList: _list, whenDone: options.whenDone});
                     });
                 } else {
-                    this.performList(_list);
+                    self.performList({taskList: _list, whenDone: options.whenDone});
                 }
             } else {
-                deferred.resolve();
+                options.whenDone.apply();
             }
-            return deferred.promise();
         },
 
         decide = function (verb, first, second) {

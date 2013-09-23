@@ -389,8 +389,7 @@ define([
             }
             return {
                 'objects'          : objectStates,
-                'backgroundOffset' : this.backgroundOffset,
-                'player'           : this.player.x
+                'backgroundOffset' : this.backgroundOffset
             };
         };
 
@@ -403,9 +402,11 @@ define([
                 return;
             }
             gamecursor.setBusy();
-            var deferred = require('engine/interaction/decision').performList(this.beginCutscene);
-            deferred.done(function () {
-                gamecursor.setNotBusy();
+            require('engine/interaction/decision').performList({
+                taskList: this.beginCutscene,
+                whenDone: function () {
+                    gamecursor.setNotBusy();
+                }
             });
             this.beginCutscenePerformed = true;
         };
@@ -413,7 +414,6 @@ define([
         this.setState = function (json) {
             this.objects       = json.objects;
             this.backgroundOffset = json.backgroundOffset;
-            this.player.x      = json.player;
 
             // apply the offset
             this.applyOffset();
