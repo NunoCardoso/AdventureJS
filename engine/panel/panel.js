@@ -6,9 +6,11 @@
 define([
     'engine/config',
     'engine/panel/background',
+    'engine/sentence/main'
 ], function (
     config,
-    Background
+    Background,
+    gamesentence
 ) {
     var Panel = function (options) {
         this.initialize(options);
@@ -34,7 +36,8 @@ define([
             this.removeAllChildren();
             this.addChild(
                 this.background,
-                inventory
+                inventory,
+                gamesentence.get()
             );
             var i;
             for (i in verbs) {

@@ -65,6 +65,11 @@ define([
                    this.attitude === 'talkright';
         };
 
+        this.isTalking = function () {
+            return this.attitude === "talkright" ||
+                   this.attitude === "talkleft";
+        };
+
         this.getStandAttitude = function () {
             if (this.isFacingLeft()) {
                 return 'standleft';

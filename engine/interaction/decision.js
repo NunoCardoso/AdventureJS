@@ -117,7 +117,9 @@ define([
                     self.performList({taskList: _list, whenDone: options.whenDone});
                 }
             } else {
-                options.whenDone.apply();
+                if (typeof options.whenDone === 'function') {
+                    options.whenDone.apply();
+                }
             }
         },
 

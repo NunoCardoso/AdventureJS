@@ -13,8 +13,8 @@ define([
             var loadgame = require('engine/savegame/main').load(slot);
             require('engine/tpl/main').close();
 
-            gamestage.play();
             gamestate.setFromJSON(loadgame.json);
+            gamestage.play();
         },
 
         loadCancel = function (button) {
@@ -23,7 +23,6 @@ define([
         },
 
         onImageClick = function (link) {
-
             var tr = $(link).closest('tr');
             var table = $(link).closest('table');
             var date = tr.find("td.date");

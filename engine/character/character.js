@@ -187,7 +187,8 @@ define([
 
         this.stand = function () {
             this.isSpeaking = false;
-            this.character.gotoAndPlay(this.character.getStandAttitude());
+            this.character.attitude = this.character.getStandAttitude();
+            this.character.gotoAndPlay(this.character.attitude);
         };
 
         this.faceTo = function (other) {

@@ -155,20 +155,22 @@ define([
                 c.setX(d.x);
                 c.setY(d.y);
             } else {
-                if (c.character.isFacingLeft() && !c.character.isStandingLeft()) {
-                    c.character.attitude = "standleft";
-                    // perform the callback action, since the character reached his destination;
-                    if (c.walkDeferred) {
-                        c.walkDeferred.resolve();
-                        c.walkDeferred = undefined;
+                // if he is talking (a taking started), 
+                // let it talk. Just ask it to stand when he is not standing and not tallking
+                if (!c.character.isTalking()) {
+
+                    if (c.character.isFacingLeft() && !c.character.isStandingLeft()) {
+                        c.character.attitude = "standleft";
+                       
+                    } else if (c.character.isFacingRight() && !c.character.isStandingRight()) {
+                        c.character.attitude = "standright";
+                        
                     }
-                } else if (c.character.isFacingRight() && !c.character.isStandingRight()) {
-                    c.character.attitude = "standright";
-                    // perform the callback action, since the character reached his destination;
-                    if (c.walkDeferred) {
-                        c.walkDeferred.resolve();
-                        c.walkDeferred = undefined;
-                    }
+                }
+                // perform the callback action, since the character reached his destination;
+                if (c.walkDeferred) {
+                    c.walkDeferred.resolve();
+                    c.walkDeferred = undefined;
                 }
             }
 

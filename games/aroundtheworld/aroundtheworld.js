@@ -307,6 +307,51 @@ define([
                         'achievement' : 'achievement.squash'
                     }
                 ]
+            },
+            {
+                'id' : 'interaction.10',
+                'verb' : 'Talk to',
+                'first' : {
+                    'item' : 'npc.bowser'
+                },
+                'actions' : [
+                    {
+                        'action': 'playDialog',
+                        'dialog': 'dialog.01'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.11',
+                'verb' : 'Give',
+                'first' : {
+                    'item' : 'object.shirt'
+                },
+                'second' : {
+                    'item' : 'npc.bowser'
+                },
+                'actions' : [
+                    {
+                        'action': 'playDialog',
+                        'dialog': 'dialog.04'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.12',
+                'verb' : 'Give',
+                'first' : {
+                    'item' : 'object.towelwithredberry'
+                },
+                'second' : {
+                    'item' : 'npc.bowser'
+                },
+                'actions' : [
+                    {
+                        'action': 'playDialog',
+                        'dialog': 'dialog.05'
+                    }
+                ]
             }
         ],
         'scenes': [
@@ -431,11 +476,185 @@ define([
                 'to'   : 'exit.03'
             }
         ],
+
         'conditions' : [
         ],
+
         'dialogs' : [
+            {
+                'id' : 'dialog.01',
+                'to' : 'npc.bowser',
+                'lines' : [
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'Halt! Where are you going?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'startDialogOptions',
+                        'dialogOptions' : 'dialogoption.01'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.02',
+                'to' : 'npc.bowser',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Hi. I’m selling these fine leather jackets.'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'Do you have XXXXXXL size?'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Er... not at the moment, no.'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'Then I am not interested!'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.03',
+                'to' : 'npc.bowser',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Hello. May I pass please?'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'Depends. What do you know about Japan?'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'I know that Nintendos come from there.'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'Ninten- what is that?!'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Oh yeah, we’re in the XIX century. Doh.'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'You can’t pass unless you can prove that you know about Japan!'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Ok, so what should I do to prove that?'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'You can show me a flag of Japan, and I will let you pass. Deal?'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Ok, deal.'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.04',
+                'to' : 'npc.bowser',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Hi. Here it is. The flag of Japan.'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'What? This is a shirt!'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'No, but the colours and pattern match. See?'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'This is the flag of France! Try again.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'endDialog',
+                        'character' : 'npc.bowser'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.05',
+                'to' : 'npc.bowser',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Here it is. The flag of Japan.'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'Mmm yes, it is. OK, you may pass now.'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Thanks.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'endDialog',
+                        'character' : 'npc.bowser'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.06',
+                'to' : 'npc.bowser',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'I must be going. Duty calls.'
+                    },
+                    {
+                        'character' : 'npc.bowser',
+                        'text' : 'I\'ll be here, blocking your path.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'endDialog',
+                        'character' : 'npc.bowser'
+                    }
+                ]
+            }
         ],
         'dialogoptions' : [
+            {
+                'id' : 'dialogoption.01',
+                'choices' : [
+                    {
+                        'text' : 'Hi. I’m selling these fine leather jackets.?',
+                        'dialog' : 'dialog.02',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text' : 'Hello. May I pass please?',
+                        'dialog' : 'dialog.03',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text' : 'Oops, wrong way. Bye.',
+                        'dialog' : 'dialog.06',
+                        'persistence' : 'always'
+                    }
+                ]
+            }
         ],
         'achievements': [
             {

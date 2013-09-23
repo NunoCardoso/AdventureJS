@@ -53,7 +53,9 @@ define([
                         'action' : 'continueDialogOptions'
                     });
                 } else {
-                    require('engine/interaction/decision').performList(options.onEnd);
+                    require('engine/interaction/decision').performList({
+                        taskList : options.onEnd
+                    });
                 }
                 return;
             }

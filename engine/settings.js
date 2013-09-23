@@ -96,23 +96,23 @@ define([
                 'speed'  : 2,
                 'textColor' : 'black',
                 'frames' : {
-                    'regX'   : 57,
+                    'regX'   : 50,
                     'height' : 114,
                     'count'  : 20,
                     'regY'   : 0,
                     'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : [1, 6, 'walkright', 9],
-                    'walkupright'  : [1, 6, 'walkupright', 9],
-                    'walkdownright'  : [1, 6, 'walkdownright', 9],
-                    'walkleft'   : [9, 15, 'walkleft', 9],
-                    'walkupleft'   : [9, 15, 'walkupleft', 9],
-                    'walkdownleft'   : [9, 15, 'walkdownleft', 9],
+                    'walkright'  : [1, 6, 'walkright', 7],
+                    'walkupright'  : [1, 6, 'walkupright', 7],
+                    'walkdownright'  : [1, 6, 'walkdownright', 7],
+                    'walkleft'   : [9, 15, 'walkleft', 7],
+                    'walkupleft'   : [9, 15, 'walkupleft', 7],
+                    'walkdownleft'   : [9, 15, 'walkdownleft', 7],
                     'standright' : 0,
                     'standleft'  : 8,
-                    'talkright'  : [16, 17, 'talkright', 16],
-                    'talkleft'   : [16, 17, 'talkleft', 16]
+                    'talkright'  : [16, 17, 'talkright', 5],
+                    'talkleft'   : [16, 17, 'talkleft', 5]
                 }
             },
             {
@@ -147,10 +147,10 @@ define([
                     'width'  : 208
                 },
                 'animations' : {
-                    'standleft'  : [0, 1, 'talkleft', 0],
+                    'standleft'  : [0, 1, 'standleft', 6],
                     'standright' : 0,
-                    'talkleft'   : [2, 3, 'talkleft', 2],
-                    'talkleft'   : [2, 3, 'talkleft', 2]
+                    'talkleft'   : [2, 3, 'talkleft', 6],
+                    'talkright'  : [2, 3, 'talkright', 6]
                 }
             }
         ]

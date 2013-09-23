@@ -12,7 +12,6 @@ define([
     'engine/panel/main',
     'engine/scene/background',
     'engine/scene/menubutton',
-    'engine/sentence/main',
     'engine/cursor/main'
 ], function (
     gamecharacter,
@@ -23,7 +22,6 @@ define([
     gamepanel,
     Background,
     MenuButton,
-    sentence,
     gamecursor
 ) {
     var GameScene = function (options) {
@@ -291,10 +289,6 @@ define([
                     this.staticContainer.addChild(options.panel);
                 }
 
-                if (options.sentence) {
-                    this.staticContainer.addChild(options.sentence);
-                }
-
                 var MenuButton = require('engine/scene/menubutton');
                 this.staticContainer.addChild(new MenuButton({from: this.name}));
 
@@ -321,8 +315,7 @@ define([
             }
 
             this.renderStatic({
-                'panel'    : gamepanel.get(),
-                'sentence' : sentence.get()
+                'panel'    : gamepanel.get()
             });
 
             this.renderMiddle({
