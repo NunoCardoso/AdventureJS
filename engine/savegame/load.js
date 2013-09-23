@@ -2,10 +2,12 @@
 
 define([
     'engine/stage/main',
-    'engine/state/main'
+    'engine/state/main',
+    'engine/game/music'
 ], function (
     gamestage,
-    gamestate
+    gamestate,
+    gamemusic
 ) {
     var loadOk = function (button) {
             var tr = $(button).closest("tr");
@@ -14,6 +16,7 @@ define([
             require('engine/tpl/main').close();
 
             gamestate.setFromJSON(loadgame.json);
+            gamemusic.play(gamestage.get().getCurrentScene().music);
             gamestage.play();
         },
 

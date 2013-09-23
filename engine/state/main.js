@@ -57,6 +57,7 @@ define([
             gamestage.get().setState(savegame.currentScene);
             // erase actions.
             require('engine/interaction/action').reset();
+            require('engine/stage/main').activateCursorFor('play');
         };
 
     return {
