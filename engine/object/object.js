@@ -44,6 +44,7 @@ define([
 
         this.getState = function () {
             return {
+                'id': this.name,
                 'x' : this.x,
                 'y' : this.y,
                 'w' : this.w,

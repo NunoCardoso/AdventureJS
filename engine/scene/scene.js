@@ -142,7 +142,7 @@ define([
             }
 
             // background might be scaled off, so let's check
-            backgroundWidth = this.dynamicBack.w;
+            var backgroundWidth = this.dynamicBack.w;
             if (this.getBackground().children[0].scaleX) {
                 backgroundWidth *= this.getBackground().children[0].scaleX;
             }
@@ -405,11 +405,15 @@ define([
         };
 
         this.setState = function (json) {
-            this.objects       = json.objects;
+            this.objects = [];
+            for (var i in json.objects) {
+                this.objects[json.objects[i].id] = json.objects[i];
+            }
             this.backgroundOffset = json.backgroundOffset;
 
             // apply the offset
             this.applyOffset();
+            this.render();
         };
     };
     return GameScene;
