@@ -193,18 +193,25 @@ define([
                         (sceneHasHiddenBackgroundOnRight && isCharacterOnRight && c.character.isWalkingRight())) {
                     scene.backgroundOffset -= diffX;
                     scene.applyOffset();
-
-                /*    if (c.targetXY) {
-                        // nonetheless, your targetXY comes closer
-                        c.targetXY.x -= diffX;
-                    }
-                    */
                 }
             }
+
             // change attitude only if it is different
             if (c.character.currentAnimation !== c.character.attitude) {
                 c.character.currentAnimation = c.character.attitude;
                 c.character.gotoAndPlay(c.character.attitude);
+            }
+
+            // if the scene has onX conditions
+            if (scene.conditions) {
+                var i, cd;
+                for (i in scene.conditions) {
+                    cd = scene.conditions[i];
+                    if (cd.on && c.on.test && c.on.test === "higherThan" && c.x > c.on.x) {
+                        console.log('Condition t otrigger!');
+                        
+                    } 
+                }
             }
         };
 

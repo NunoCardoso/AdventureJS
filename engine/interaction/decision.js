@@ -96,6 +96,22 @@ define([
                 _do = undefined;
                 require('engine/panel/main').renderForVerbsAndInventory();
                 break;
+            case 'endGame':
+                require('engine/achievement/main').publish('achievement.gameover');
+                break;
+            case 'switchScene':
+                // have to find the scene that has the exits.to scene.
+                // since exits and scenes are not rendered, I have to iterate scenes.
+                var toScene = require('engine/scene/main').findSceneWithExit(action.scene);
+                if (toScene) {
+                    var stage = require('engine/stage/main').get();
+                    stage.switchScene(
+                        stage.getCurrentScene().name,
+                        toScene,
+                        action.scene
+                    );
+                }
+                break;
             default:
                 console.log(action.action + ' not implemented!');
                 break;

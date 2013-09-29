@@ -487,9 +487,12 @@ define([
         'conditions' : [
             {
                 'id' : 'condition.01',
-                'onX': 1000,
+                'on': {
+                    'test': 'higherThan',
+                    'x' : 1000
+                },
                 'test': 'flag',
-                'flag': 'hasTalkedWithBowser',
+                'item': 'hasTalkedWithBowser',
                 'onFail': [
                     {
                         'action' : 'setBusyIcon'
@@ -513,9 +516,12 @@ define([
             },
             {
                 'id' : 'condition.02',
-                'onX': 1300,
+                'on': {
+                    'test': 'higherThan',
+                    'x' : 1300
+                },
                 'test': 'flag',
-                'flag': 'hasHandedJapanFlagToBowser',
+                'item': 'hasHandedJapanFlagToBowser',
                 'onFail': [
                     {
                         'action' : 'setBusyIcon'

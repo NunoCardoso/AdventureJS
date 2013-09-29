@@ -5,6 +5,7 @@
  */
 define([
     'engine/character/main',
+    'engine/character/main',
     'engine/config',
     'engine/exit/main',
     'engine/lib/assets',
@@ -15,6 +16,7 @@ define([
     'engine/cursor/main'
 ], function (
     gamecharacter,
+    gamecondition,
     config,
     gameexit,
     assets,
@@ -46,6 +48,8 @@ define([
         this.music        = scene.music;
         this.background   = undefined;
         this.objects      = {};
+        this.conditions   = {};
+
         this.exits        = scene.exits || [];
         this.startXY      = undefined;
         this.beginCutscene = scene.beginCutscene || undefined;
@@ -69,6 +73,10 @@ define([
         var i;
         for (i in scene.objects) {
             this.objects[scene.objects[i].id] = scene.objects[i];
+        }
+
+        for (i in scene.conditions) {
+            this.conditions[scene.conditions[i].id] = gameconditions.get[scene.conditions[i]];
         }
 
         if (scene.background) {

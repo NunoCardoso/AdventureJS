@@ -111,43 +111,11 @@ define([
             }
         };
 
-        this.testCondition = function () {
-            if (this.condition.isInInventory !== undefined) {
-                if (require('engine/panel/main').isInInventory(this.condition.isInInventory)) {
-                    return {conditionMet: true, nowDo: this.condition.onSuccess};
-                }
-                return {conditionMet: false, nowDo: this.condition.onFail};
-            }
-        };
-
         this.doExit = function (exitTo) {
             var proceed = true;
             if (this.hasCondition()) {
                 // TODO: check properly the condition, once inventory is ready.
-                var result = this.testCondition();
-                proceed = result.conditionMet; // if conditionMet is false, it will prevent us from proceed.
-                if (result && result.nowDo) {
-                    action.reset();
-                    require('engine/interaction/decision').perform(result.nowDo);
-                }
-            }
-
-            if (proceed) {
-               // game over!
-                if (this.role === 'end') {
-                    require('engine/achievement/main').publish('achievement.gameover');
-                    return;
-                }
-                // have to find the scene that has the exits.to scene.
-                // since exits and scenes are not rendered, I have to iterate scenes.
-                var toScene = require('engine/scene/main').findSceneWithExit(exitTo);
-                if (toScene) {
-                    require('engine/stage/main').get().switchScene(
-                        this.parent,
-                        toScene,
-                        exitTo
-                    );
-                }
+                this.condition.doTest();
             }
         };
     };

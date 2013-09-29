@@ -483,7 +483,8 @@ define([
             {
                 'id'   : 'exit.03',
                 'role' : 'channel',
-                'to'   : 'exit.02'
+                'to'   : 'exit.02',
+                'condition' : 'condition.03'
             },
             {
                 'id'   : 'exit.04',
@@ -491,26 +492,41 @@ define([
                 'condition' : 'condition.02'
             }
         ],
-        'flags' : {},  
+        'flags' : {},
         'conditions' : [
             {
                 'id' : 'condition.01',
                 'test' :  'isInInventory',
-                'object' : 'object.winebottle',
+                'item' : 'object.winebottle',
                 'onFail': [{
                     'action' : 'dialogMessage',
                     'character' : 'pc.main',
                     'text'  : 'I can\'t leave without the wine bottle'
+                }],
+                'onSuccess' : [{
+                    'action' : 'goToExit',
+                    'exit'  : 'exit.03'
                 }]
             },
             {
                 'id' : 'condition.02',
                 'test' : 'isInInventory',
-                'object' : 'object.compass',
+                'item' : 'object.compass',
                 'onFail': [{
                     'action' : 'dialogMessage',
                     'character' : 'pc.main',
                     'text'  : 'I can\'t leave without a compass!'
+                }],
+                'onSuccess' : [{
+                    'action' : 'endGame'
+                }]
+            },
+            {
+                'id' : 'condition.03',
+                'test' :  'alwaysTrue',
+                'onSuccess' : [{
+                    'action' : 'goToExit',
+                    'exit'  : 'exit.02'
                 }]
             }
         ],
