@@ -365,7 +365,9 @@ define([
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
+                'conditions'         : [],
 /*                'beginCutscene' : [
+
                     {
                         'action' : 'moveTo',
                         'character' : 'pc.main',
@@ -489,6 +491,7 @@ define([
                 'condition' : 'condition.02'
             }
         ],
+        'flags' : {},  
         'conditions' : [
             {
                 'id' : 'condition.01',

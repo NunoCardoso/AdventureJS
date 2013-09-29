@@ -12,6 +12,7 @@ define([
     'engine/dialog/main',
     'engine/dialogoption/main',
     'engine/exit/main',
+    'engine/flags/main',
     'engine/game/music',
     'engine/interaction/main',
     'engine/lib/keyboard',
@@ -32,6 +33,7 @@ define([
     gamedialog,
     gamedialogoption,
     gameexit,
+    gameflags,
     gamemusic,
     gameinteraction,
     keyboard,
@@ -112,6 +114,7 @@ define([
                 gamecharacter.preload(_game.pc, _game.npcs);
                 gameobject.preload(_game.objects);
                 gameexit.preload(_game.exits);
+                gameflags.preload(_game.flags);
 
                 if (_options.role === 'play') {
 
