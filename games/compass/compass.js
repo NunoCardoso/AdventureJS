@@ -92,7 +92,7 @@ define([
         'sounds': [],
         'musics': [],
         'pc' : {
-            'id'    : 'pc.guybrush',
+            'id'    : 'pc.main',
             'label' : 'you'
         },
         'npcs' : [
@@ -239,7 +239,7 @@ define([
                     },
                     {
                         'action': 'dialogMessage',
-                        'character': 'pc.guybrush',
+                        'character': 'pc.main',
                         'text' : 'I stuck the needle into the cork'
                     },
                     {
@@ -275,7 +275,7 @@ define([
                     },
                     {
                         'action': 'dialogMessage',
-                        'character': 'pc.guybrush',
+                        'character': 'pc.main',
                         'text' : 'I always wanted a wine bottle.'
                     }
                 ]
@@ -290,7 +290,7 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'character': 'pc.guybrush',
+                        'character': 'pc.main',
                         'text' : 'That is on e fine magnet I have!'
                     }
                 ]
@@ -305,7 +305,7 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'character': 'pc.guybrush',
+                        'character': 'pc.main',
                         'text' : 'Ouch! It\'s sharp!'
                     }
                 ]
@@ -320,7 +320,7 @@ define([
                 'actions' : [
                     {
                         'action': 'dialogMessage',
-                        'character': 'pc.guybrush',
+                        'character': 'pc.main',
                         'text' : 'Mmmm.... wine... tasty!'
                     }
                 ]
@@ -351,7 +351,7 @@ define([
                     },
                     {
                         'action': 'dialogMessage',
-                        'character': 'pc.guybrush',
+                        'character': 'pc.main',
                         'text' : 'There, I took the cork out.'
                     }
                 ]
@@ -368,7 +368,7 @@ define([
 /*                'beginCutscene' : [
                     {
                         'action' : 'moveTo',
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'position' : {
                             'x': 300,
                             'y': 380
@@ -376,12 +376,12 @@ define([
                     },
                     {
                         'action' : 'dialogMessage',
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text'  : 'I\'m lost. I need a compass.'
                     },
                     {
                         'action' : 'moveTo',
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'position' : {
                             'x': 400,
                             'y': 380
@@ -389,7 +389,7 @@ define([
                     },
                     {
                         'action' : 'dialogMessage',
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text'  : 'Maybe that pirate can help me.'
                     }
                 ],*/
@@ -495,7 +495,7 @@ define([
                 'isInInventory': 'object.winebottle',
                 'onFail': {
                     'action' : 'dialogMessage',
-                    'character' : 'pc.guybrush',
+                    'character' : 'pc.main',
                     'text'  : 'I can\'t leave without the wine bottle'
                 }
             },
@@ -504,7 +504,7 @@ define([
                 'isInInventory': 'object.compass',
                 'onFail': {
                     'action' : 'dialogMessage',
-                    'character' : 'pc.guybrush',
+                    'character' : 'pc.main',
                     'text'  : 'I can\'t leave without a compass!'
                 }
             }
@@ -515,7 +515,7 @@ define([
                 'to' : 'npc.pirate01',
                 'lines' : [
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'Hello.'
                     },
                     {
@@ -535,7 +535,7 @@ define([
                 'to' : 'npc.pirate01',
                 'lines' : [
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'Do you have a compass?'
                     },
                     {
@@ -543,7 +543,7 @@ define([
                         'text' : 'No. Why would I have a compass?'
                     },
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'Because you are in the jungle!'
                     },
                     {
@@ -557,7 +557,7 @@ define([
                 'to' : 'npc.pirate01',
                 'lines' : [
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'You wouldn\'t have a corkscrew I can borrow?'
                     },
                     {
@@ -585,7 +585,7 @@ define([
                 'to' : 'npc.pirate01',
                 'lines' : [
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'Please go.'
                     },
                     {
@@ -609,7 +609,7 @@ define([
                 'to' : 'npc.pirate01',
                 'lines' : [
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'Nice weather, huh?'
                     },
                     {
@@ -623,7 +623,7 @@ define([
                 'to' : 'npc.pirate01',
                 'lines' : [
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'I\'m selling these fine leather jackets.'
                     },
                     {
@@ -637,7 +637,7 @@ define([
                 'to' : 'npc.pirate01',
                 'lines' : [
                     {
-                        'character' : 'pc.guybrush',
+                        'character' : 'pc.main',
                         'text' : 'Bye'
                     },
                     {

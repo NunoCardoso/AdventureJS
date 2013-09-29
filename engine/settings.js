@@ -17,8 +17,8 @@ define([
                 'src' : 'games/compass/img/character/pirate.png'
             },
             {
-                'id' : 'image.bowser',
-                'src': 'games/aroundtheworld/img/character/bowser.png'
+                'id'  : 'image.bowser',
+                'src' : 'games/aroundtheworld/img/character/bowser.png'
             },
             {
                 'id'  : 'image.menu.cogwheel',

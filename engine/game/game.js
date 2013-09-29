@@ -66,7 +66,8 @@ define([
             load = function () {
                 var d = $.Deferred();
                 if (adv_game_id === undefined) {
-                    require(['games/aroundtheworld/aroundtheworld'], function (game) {
+                    require(['games/compass/compass'], function (game) {
+			     // require(['games/aroundtheworld/aroundtheworld'], function (game) {
                         _game = game;
                         d.resolve();
                     });
