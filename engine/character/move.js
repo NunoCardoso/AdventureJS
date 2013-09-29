@@ -207,10 +207,10 @@ define([
                 var i, cd;
                 for (i in scene.conditions) {
                     cd = scene.conditions[i];
-                    if (cd.on && c.on.test && c.on.test === "higherThan" && c.x > c.on.x) {
+                    if (cd.ifOn && cd.ifOn.test && cd.ifOn.test === "higherThan" && c.x > cd.ifOn.x) {
                         console.log('Condition t otrigger!');
                         
-                    } 
+                    }
                 }
             }
         };

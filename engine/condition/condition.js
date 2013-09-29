@@ -11,7 +11,7 @@ define([
     var Condition = function (options) {
 
         this.name = 'condition.' + options.id;
-        this.on   = options.on;
+        this.ifOn = options.ifOn;
         this.test = options.test;
         this.item = options.item;
         this.onSuccess = options.onSuccess;

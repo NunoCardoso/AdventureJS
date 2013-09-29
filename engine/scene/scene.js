@@ -76,7 +76,8 @@ define([
         }
 
         for (i in scene.conditions) {
-            this.conditions[scene.conditions[i].id] = gamecondition.get[scene.conditions[i]];
+            var condition = gamecondition.get(scene.conditions[i]);
+            this.conditions[condition.id] = condition;
         }
 
         if (scene.background) {

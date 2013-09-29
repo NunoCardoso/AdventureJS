@@ -487,7 +487,7 @@ define([
         'conditions' : [
             {
                 'id' : 'condition.01',
-                'on': {
+                'ifOn': {
                     'test': 'higherThan',
                     'x' : 1000
                 },
@@ -516,7 +516,7 @@ define([
             },
             {
                 'id' : 'condition.02',
-                'on': {
+                'ifOn': {
                     'test': 'higherThan',
                     'x' : 1300
                 },
