@@ -422,21 +422,24 @@ define([
                 ],
                 'exits' : [
                     {
-                        'exit' : 'exit.01',
+                        'id' : 'exit.01',
                         'label' : 'begin',
+                        'role' : 'begin',
                         'x' : 0,
                         'y' : 190,
                         'w' : 100,
                         'h' : 200
                     },
                     {
-                        'exit' : 'exit.02',
+                        'id' : 'exit.02',
                         'label' : 'jungle',
+                        'role' : 'channel',
                         'x' : 400,
                         'y' : 200,
                         'w' : 50,
                         'h' : 200,
-                        'arrow' : 'right'
+                        'arrow' : 'right',
+                        'condition' : 'condition.01'
                     }
                 ]
             },
@@ -450,46 +453,27 @@ define([
                 'objects' : [],
                 'exits' : [
                     {
-                        'exit' : 'exit.03',
+                        'id' : 'exit.03',
                         'label' : 'jungle entrance',
+                        'role' : 'channel',
                         'x' : 100,
                         'y' : 200,
                         'w' : 50,
                         'h' : 200,
-                        'arrow' : 'left'
+                        'arrow' : 'left',
+                        'condition' : 'condition.03'
                     },
                     {
-                        'exit' : 'exit.04',
+                        'id' : 'exit.04',
+                        'role' : 'end',
                         'label' : 'end',
                         'x' : 600,
                         'y' : 200,
                         'w' : 50,
-                        'h' : 200
+                        'h' : 200,
+                        'condition' : 'condition.02'
                     }
                 ]
-            }
-        ],
-        'exits' : [
-            {
-                'id'   : 'exit.01',
-                'role' : 'begin'
-            },
-            {
-                'id'   : 'exit.02',
-                'role' : 'channel',
-                'to'   : 'exit.03',
-                'condition' : 'condition.01'
-            },
-            {
-                'id'   : 'exit.03',
-                'role' : 'channel',
-                'to'   : 'exit.02',
-                'condition' : 'condition.03'
-            },
-            {
-                'id'   : 'exit.04',
-                'role' : 'end',
-                'condition' : 'condition.02'
             }
         ],
         'flags' : {},
@@ -503,30 +487,30 @@ define([
                     'character' : 'pc.main',
                     'text'  : 'I can\'t leave without the wine bottle'
                 }],
-                'onSuccess' : [{
+                'onSuccess'  : [{
                     'action' : 'goToExit',
-                    'exit'  : 'exit.03'
+                    'exit'   : 'exit.03'
                 }]
             },
             {
-                'id' : 'condition.02',
-                'test' : 'isInInventory',
-                'item' : 'object.compass',
-                'onFail': [{
-                    'action' : 'dialogMessage',
+                'id'     : 'condition.02',
+                'test'   : 'isInInventory',
+                'item'   : 'object.compass',
+                'onFail' : [{
+                    'action'    : 'dialogMessage',
                     'character' : 'pc.main',
-                    'text'  : 'I can\'t leave without a compass!'
+                    'text'      : 'I can\'t leave without a compass!'
                 }],
-                'onSuccess' : [{
+                'onSuccess'  : [{
                     'action' : 'endGame'
                 }]
             },
             {
-                'id' : 'condition.03',
-                'test' :  'alwaysTrue',
-                'onSuccess' : [{
+                'id'   : 'condition.03',
+                'test' : 'alwaysTrue',
+                'onSuccess'  : [{
                     'action' : 'goToExit',
-                    'exit'  : 'exit.02'
+                    'exit'   : 'exit.02'
                 }]
             }
         ],

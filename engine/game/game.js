@@ -11,7 +11,6 @@ define([
     'engine/cursor/main',
     'engine/dialog/main',
     'engine/dialogoption/main',
-    'engine/exit/main',
     'engine/flags/main',
     'engine/game/music',
     'engine/interaction/main',
@@ -32,7 +31,6 @@ define([
     gamecursor,
     gamedialog,
     gamedialogoption,
-    gameexit,
     gameflags,
     gamemusic,
     gameinteraction,
@@ -69,7 +67,7 @@ define([
                 var d = $.Deferred();
                 if (adv_game_id === undefined) {
                     require(['games/compass/compass'], function (game) {
-			     // require(['games/aroundtheworld/aroundtheworld'], function (game) {
+                    // require(['games/aroundtheworld/aroundtheworld'], function (game) {
                         _game = game;
                         d.resolve();
                     });
@@ -113,7 +111,6 @@ define([
                 gamemenu.preload(_game.main);
                 gamecharacter.preload(_game.pc, _game.npcs);
                 gameobject.preload(_game.objects);
-                gameexit.preload(_game.exits);
                 gameflags.preload(_game.flags);
 
                 if (_options.role === 'play') {

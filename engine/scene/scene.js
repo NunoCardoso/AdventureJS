@@ -5,9 +5,9 @@
  */
 define([
     'engine/character/main',
-    'engine/character/main',
+    'engine/condition/main',
     'engine/config',
-    'engine/exit/main',
+    'engine/exit/exit',
     'engine/lib/assets',
     'engine/object/main',
     'engine/panel/main',
@@ -18,7 +18,7 @@ define([
     gamecharacter,
     gamecondition,
     config,
-    gameexit,
+    Exit,
     assets,
     gameobject,
     gamepanel,
@@ -76,7 +76,7 @@ define([
         }
 
         for (i in scene.conditions) {
-            this.conditions[scene.conditions[i].id] = gameconditions.get[scene.conditions[i]];
+            this.conditions[scene.conditions[i].id] = gamecondition.get[scene.conditions[i]];
         }
 
         if (scene.background) {
@@ -90,7 +90,7 @@ define([
         this.hasExit = function (_exit) {
             var i;
             for (i in this.exits) {
-                if (this.exits[i].exit === _exit) {
+                if (this.exits[i].id === _exit) {
                     return _exit;
                 }
             }
@@ -211,8 +211,8 @@ define([
             for (i in this.exits) {
                 // I have to load the Exit from gameexit,
                 // then render for this scene's exit params.
-                e = gameexit.get(this.exits[i].exit);
-                e.render(this.exits[i]);
+                e = new Exit(this.exits[i]);
+
                 if (!this.toExit && e.role === 'begin') {
                     this.startXY = {
                         x : e.xx + e.w / 2,
@@ -222,12 +222,11 @@ define([
                 this.dynamicBack.addChild(e);
             }
 
-
             // if this scene does not have a begin exit,
             // then let's check the toExit.
             if (!this.startXY) {
                 for (i in this.exits) {
-                    if (this.exits[i].exit === this.toExit) {
+                    if (this.exits[i].id === this.toExit) {
                         e = this.dynamicBack.getChildByName(this.toExit);
                         this.startXY = {
                             x : e.xx + e.w / 2,
@@ -414,7 +413,8 @@ define([
 
         this.setState = function (json) {
             this.objects = [];
-            for (var i in json.objects) {
+            var i;
+            for (i in json.objects) {
                 this.objects[json.objects[i].id] = json.objects[i];
             }
             this.backgroundOffset = json.backgroundOffset;

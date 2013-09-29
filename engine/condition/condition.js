@@ -11,7 +11,7 @@ define([
     var Condition = function (options) {
 
         this.name = 'condition.' + options.id;
-        this.on = options.on;
+        this.on   = options.on;
         this.test = options.test;
         this.item = options.item;
         this.onSuccess = options.onSuccess;
@@ -20,7 +20,7 @@ define([
         this.performResult = function (result) {
             if (result && result.nowDo) {
                 action.reset();
-                require('engine/interaction/decision').performList(result.nowDo);
+                require('engine/interaction/decision').performList({taskList: result.nowDo});
             }
         };
 
@@ -31,17 +31,19 @@ define([
 
             case 'isInInventory':
 
-                if (require('engine/panel/main').isInInventory(this.condition.item)) {
+                if (require('engine/panel/main').isInInventory(this.item)) {
                     result = {conditionMet: true, nowDo: this.onSuccess};
+                } else {
+                    result = {conditionMet: false, nowDo: this.onFail};
                 }
-                result = {conditionMet: false, nowDo: this.onFail};
                 break;
 
             case 'flag':
                 if (require('engine/flags/main').get(this.flags.item) === true) {
                     result = {conditionMet: true, nowDo: this.onSuccess};
+                } else {
+                    result = {conditionMet: false, nowDo: this.onFail};
                 }
-                result = {conditionMet: false, nowDo: this.onFail};
                 break;
 
             case 'alwaysTrue':

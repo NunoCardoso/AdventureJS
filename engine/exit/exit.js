@@ -31,6 +31,15 @@ define([
         this.role = options.role;
         this.to   = options.to;
 
+        // TO BE CONFIGURED ON A RENDER() CALL
+        this.alpha = 0.01;
+
+        this.label = options.label;
+        this.arrow = options.arrow;
+
+
+        this.test  = undefined;
+
         this.isMouseOver = false;
 
         this.condition = undefined;
@@ -38,78 +47,63 @@ define([
             this.condition = gamecondition.get(options.condition);
         }
 
-        // TO BE CONFIGURED ON A RENDER() CALL
-        this.arrow = undefined;
-        this.label = undefined;
-        this.test  = undefined;
-
         this.hasCondition = function () {
             return this.condition !== undefined;
         };
 
-        this.render = function (options) {
-            // if it is 0, it is invisible, and won't trigger cursor changes
-            this.alpha = 0.01;
+        // I do not want to fix x or y, or the global coordinates are gone
+        this.xx = options.x;
+        this.yy = options.y;
+        this.w = options.w;
+        this.h = options.h;
 
-            this.label = options.label;
-            this.arrow = options.arrow;
+        this.graphics.clear();
+        this.graphics
+            .beginFill("black")
+            .drawRect(
+                this.xx,
+                this.yy,
+                this.w,
+                this.h
+            );
 
-            // I do not want to fix x or y, or the global coordinates are gone
-            this.xx = options.x;
-            this.yy = options.y;
-            this.w = options.w;
-            this.h = options.h;
+        this.test = function (x, y, event, scene, role) {
+            var coords = this.globalToLocal(x, y),
+                mine   = this.hitTest(coords.x, coords.y);
 
-            this.graphics.clear();
-            this.graphics
-                .beginFill("black")
-                .drawRect(
-                    this.xx,
-                    this.yy,
-                    this.w,
-                    this.h
-                );
+            switch (event) {
 
-            if (this.role === 'channel' || this.role === 'end') {
-                this.test = function (x, y, event, scene, role) {
-                    var coords = this.globalToLocal(x, y),
-                        mine   = this.hitTest(coords.x, coords.y);
-
-                    switch (event) {
-
-                    case 'click':
-                        if (mine) {
-                            scene.getPc().actForExitClick({x : x, y : y}, {
-                                from: this,
-                                to: this.to
-                            });
-                            return true;
-                        }
-                        return false;
-                    case 'hover':
-                        if (mine && !this.isMouseOver) {
-                            this.isMouseOver = mine;
-                            gamecursor.changeTo('image.cursor.' + this.arrow);
-                            return action.mouseOverExit(this);
-                        }
-
-                        if (!mine && this.isMouseOver) {
-                            this.isMouseOver = mine;
-                            $("#canvas").attr('class', '');
-                            gamecursor.reset();
-                            return action.mouseOutExit(this);
-                        }
-                        return false;
-                    default:
-                        return false;
-                    }
-                };
-
-                if (this.role === 'end') {
-                    this.arrow = 'end';
+            case 'click':
+                if (mine) {
+                    scene.getPc().actForExitClick({x : x, y : y}, {
+                        from: this,
+                        to: this.to
+                    });
+                    return true;
                 }
+                return false;
+            case 'hover':
+                if (mine && !this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    gamecursor.changeTo('image.cursor.' + this.arrow);
+                    return action.mouseOverExit(this);
+                }
+
+                if (!mine && this.isMouseOver) {
+                    this.isMouseOver = mine;
+                    $("#canvas").attr('class', '');
+                    gamecursor.reset();
+                    return action.mouseOutExit(this);
+                }
+                return false;
+            default:
+                return false;
             }
         };
+
+        if (this.role === 'end') {
+            this.arrow = 'end';
+        }
 
         this.doExit = function (exitTo) {
             var proceed = true;
