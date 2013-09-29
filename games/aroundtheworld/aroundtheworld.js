@@ -462,6 +462,10 @@ define([
                         'h' : 200,
                         'arrow' : 'right'
                     }
+                ],
+                'conditions' : [
+                    'condition.01',
+                    'condition.02'
                 ]
             }
         ],
@@ -476,8 +480,64 @@ define([
                 'to'   : 'exit.03'
             }
         ],
-
+        'flags' : {
+            'hasTalkedWithBowser'        : false,
+            'hasHandedJapanFlagToBowser' : false
+        },
         'conditions' : [
+            {
+                'id' : 'condition.01',
+                'onX': 1000,
+                'test': 'flag',
+                'flag': 'hasTalkedWithBowser',
+                'onFail': [
+                    {
+                        'action' : 'setBusyIcon'
+                    },
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.main',
+                        'position' : {
+                            'x' : 1200,
+                            'y' : 380
+                        }
+                    },
+                    {
+                        'action' : 'playDialog',
+                        'dialog' : 'dialog.01'
+                    },
+                    {
+                        'action' : 'setDefaultIcon'
+                    }
+                ]
+            },
+            {
+                'id' : 'condition.02',
+                'onX': 1300,
+                'test': 'flag',
+                'flag': 'hasHandedJapanFlagToBowser',
+                'onFail': [
+                    {
+                        'action' : 'setBusyIcon'
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.main',
+                        'text'  : 'I don\'t handed a Japan flag yet.'
+                    },
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.main',
+                        'position' : {
+                            'x' : 1200,
+                            'y' : 380
+                        }
+                    },
+                    {
+                        'action' : 'setDefaultIcon'
+                    }
+                ]
+            }
         ],
 
         'dialogs' : [

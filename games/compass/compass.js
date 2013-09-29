@@ -492,21 +492,23 @@ define([
         'conditions' : [
             {
                 'id' : 'condition.01',
-                'isInInventory': 'object.winebottle',
-                'onFail': {
+                'test' :  'isInInventory',
+                'object' : 'object.winebottle',
+                'onFail': [{
                     'action' : 'dialogMessage',
                     'character' : 'pc.main',
                     'text'  : 'I can\'t leave without the wine bottle'
-                }
+                }]
             },
             {
                 'id' : 'condition.02',
-                'isInInventory': 'object.compass',
-                'onFail': {
+                'test' : 'isInInventory',
+                'object' : 'object.compass',
+                'onFail': [{
                     'action' : 'dialogMessage',
                     'character' : 'pc.main',
                     'text'  : 'I can\'t leave without a compass!'
-                }
+                }]
             }
         ],
         'dialogs' : [
