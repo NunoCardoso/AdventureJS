@@ -13,6 +13,7 @@ define([
     'engine/dialogoption/main',
     'engine/flags/main',
     'engine/game/music',
+    'engine/game/preferences',
     'engine/interaction/main',
     'engine/lib/keyboard',
     'engine/menu/main',
@@ -33,6 +34,7 @@ define([
     gamedialogoption,
     gameflags,
     gamemusic,
+    gamepreferences,
     gameinteraction,
     keyboard,
     gamemenu,
@@ -109,6 +111,7 @@ define([
             },
 
             onAssetsLoaded = function () {
+                gamepreferences.getPreferences();
                 gamecursor.preload();
                 gamemenu.preload(_game.main);
                 gamecharacter.preload(_game.pc, _game.npcs);

@@ -186,7 +186,7 @@ define([
                     },
                     {
                         'action': 'changeBackground',
-                        'newBackground': 'images.japannewyear'
+                        'newBackground': 'image.japannewyear'
                     }
                 ]
             },

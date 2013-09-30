@@ -59,7 +59,7 @@ define([
             this.notOnGame();
             require('engine/stage/main').deactivate();
             this.addChild(toscene);
-            gamemusic.play(toscene.music);
+            gamemusic.playMusic(toscene.music);
             // adding the menu pauses the ticker, so we need to manualy update
             this.update();
         };
@@ -114,7 +114,7 @@ define([
                 toscene.performBeginCutscene();
             }
 
-            gamemusic.play(toscene.music);
+            gamemusic.playMusic(toscene.music);
         };
     };
     return GameStage;

@@ -7,34 +7,55 @@ define([
 ], function () {
 
     var _musicName,
-        _music,
+        _soundName,
         _menuMusic,
-
-        playMusic = function () {
-            _music = createjs.Sound.play(_musicName);
-            _music.addEventListener("complete", function () {
-                playMusic();
-            });
-        },
+        _currentMusic,
+        _currentSound,
 
         stopMusic = function () {
-            if (_music) {
-                _music = createjs.Sound.stop(_musicName);
+            if (require('engine/game/preferences').isMusicEnabled()) {
+                if (_currentMusic) {
+                    _currentMusic = createjs.Sound.stop(_musicName);
+                    _currentMusic = undefined;
+                    _musicName = undefined;
+                }
             }
         },
 
-        changeMusic = function (item) {
-            if (item.checked) {
-                playMusic();
-            } else {
+        stopSound = function () {
+            if (require('engine/game/preferences').isSoundEnabled()) {
+                if (_currentSound) {
+                    _currentMusic = createjs.Sound.stop(_soundName);
+                    _currentSound = undefined;
+                    _soundName = undefined;
+                }
+            }
+        },
+
+        playMusic = function (musicName) {
+            if (require('engine/game/preferences').isMusicEnabled()) {
                 stopMusic();
+                if (musicName) {
+                    _musicName = musicName;
+                    _currentMusic = createjs.Sound.play(_musicName);
+                    _currentMusic.setVolume(
+                        parseInt(
+                            require('engine/game/preferences').getMusicVolume(),
+                            10
+                        ) / 100);
+                    _currentMusic.addEventListener("complete", function () {
+                        playMusic(musicName);
+                    });
+                }
             }
         },
 
-        changeVolume = function (howmuch) {
-            if (_music) {
-                _music.setVolume(parseInt(howmuch.value, 10) / 100);
-            }
+        getCurrentMusic = function () {
+            return _currentMusic;
+        },
+
+        getCurrentSound = function () {
+            return _currentSound;
         },
 
         setMenuMusic = function (music) {
@@ -42,22 +63,33 @@ define([
         },
 
         playMenuMusic = function () {
-            play(_menuMusic);
+            playMusic(_menuMusic);
         },
 
-        play = function (musicName) {
-            stopMusic();
-            if (musicName) {
-                _musicName = musicName;
-                playMusic();
+        playSound = function (soundName) {
+            if (require('engine/game/preferences').isSoundEnabled()) {
+                if (soundName) {
+                    _soundName = soundName;
+                    _currentSound = createjs.Sound.play(_soundName);
+                    _currentSound.setVolume(
+                        parseInt(
+                            require('engine/game/preferences').getSoundVolume(), 10) / 100);
+                    _currentSound.addEventListener("complete", function () {
+                        _currentSound = undefined;
+                        _soundName = undefined;
+                    });
+                }
             }
         };
 
     return {
-        'play'         : play,
-        'changeMusic'  : changeMusic,
-        'changeVolume' : changeVolume,
-        'setMenuMusic' : setMenuMusic,
-        'playMenuMusic' : playMenuMusic
+        'playMusic'       : playMusic,
+        'stopMusic'       : stopMusic,
+        'playSound'       : playSound,
+        'stopSound'       : stopSound,
+        'setMenuMusic'    : setMenuMusic,
+        'playMenuMusic'   : playMenuMusic,
+        'getCurrentMusic' : getCurrentMusic,
+        'getCurrentSound' : getCurrentSound
     };
 });

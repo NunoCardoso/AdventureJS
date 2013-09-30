@@ -28,8 +28,8 @@ define([
             'endGame',
             'goToExit',
             'setBusyIcon',
-            'setDefaultIcon'
-
+            'setDefaultIcon',
+            'changeBackground'
         ],
 
         perform = function (action) {
@@ -122,6 +122,11 @@ define([
                 break;
             case 'setDefaultIcon':
                 require('engine/cursor/main').setNotBusy();
+                break;
+            case 'changeBackground':
+                scene = require('engine/stage/main').get()
+                    .getCurrentScene();
+                scene.background.switchBackgroundTo(action.newBackground);
                 break;
             default:
                 console.log(action.action + ' not implemented!');

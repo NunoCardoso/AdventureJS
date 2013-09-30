@@ -60,7 +60,7 @@ define([
             switch (event) {
             case 'click':
                 if (mine) {
-                    createjs.Sound.play('sound.fall');
+                    require('engine/game/music').playSound('sound.fall');
                     require('engine/interaction/action').clickVerb(this);
                     return true;
                 }

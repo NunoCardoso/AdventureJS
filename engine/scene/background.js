@@ -23,7 +23,13 @@ define([
 
         this.name = 'background';
         this.image  = new createjs.Bitmap();
-        this.image.image = assets.getQueueLoaded().getResult(options.background);
+
+        this.setImageBackground = function (img) {
+            this.image.image = assets.getQueueLoaded().getResult(img);
+        };
+
+        this.setImageBackground(options.background);
+
         this.addChild(this.image);
 
         this.mode = options.backgroundmode;
@@ -68,6 +74,14 @@ define([
             this.w = this.image.image.width;
             this.h = this.image.image.height;
         }
+
+        this.switchBackgroundTo = function (img) {
+            createjs.Tween.get(this).to({alpha: 0.01}, 500)
+                .call(function () {
+                    this.setImageBackground(img);
+                    createjs.Tween.get(this).to({alpha: 1}, 500);
+                });
+        };
 
         this.test = function (x, y, event, scene, role) {
             var coords = this.globalToLocal(x, y),

@@ -35,7 +35,7 @@ define([
         this.alpha = 0.01;
 
         this.label = options.label;
-        this.arrow = options.arrow;
+        this.arrow = options.arrow || 'default';
 
 
         this.test  = undefined;
