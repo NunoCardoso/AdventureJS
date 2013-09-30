@@ -37,24 +37,10 @@ define([
         this.line.lineWidth = 250;
         this.balloon.alpha = 1;
 
-        this.drawTooltip = function () {
-            var x = this.line.x - this.line.regX,
-                y = this.line.y + this.line.getMeasuredHeight();
-
-            this.tooltip.graphics
-                .s("#FFFFFF")
-                .f("#FFFFFF")
-                .mt(x - 20, y)
-                .lt(x,      y + 20)
-                .lt(x - 5,  y)
-                .lt(x - 20, y)
-                .cp();
-        };
-
         this.drawBalloon = function () {
 
             this.balloon.x = 0;
-            this.balloon.y = -10;
+            this.balloon.y = -70;
             this.balloon.w = this.line.lineWidth + 10; // 10 is padding left + padding right
             this.balloon.h = this.line.getMeasuredHeight() + 10; // 10 is padding left + padding right
 
@@ -62,11 +48,23 @@ define([
             this.regY = this.balloon.h;
 
             this.line.x = 0;
-            this.line.y = -2; // little padding
+            this.line.y = -62; // little padding
             this.line.regX = -this.line.lineWidth / 2;
 
+            // tooltip
+            this.tooltipX = this.line.x - this.line.regX;
+            this.tooltipY = this.line.y + this.line.getMeasuredHeight();
+
+            // if balloon and line goes out of bounds from game scene
+            var coords = this.localToGlobal(this.balloon.x, this.balloon.y);
+            var leftOffset = (coords.x);
+            if ( coords.x < 0) {
+                this.balloon.x -= coords.x - 5;
+                this.line.x -= coords.x - 5;
+            }
+
             this.balloon.graphics
-                .s("#DDDDDD")
+                .s("#FFFFFF")
                 .f("#FFFFFF")
                 .rr(
                     0,
@@ -75,6 +73,15 @@ define([
                     this.balloon.h,
                     10
                 );
+
+            this.tooltip.graphics
+                .s("#FFFFFF")
+                .f("#FFFFFF")
+                .mt(this.tooltipX - 30, this.tooltipY)
+                .lt(this.tooltipX,      this.tooltipY + 60)
+                .lt(this.tooltipX - 15, this.tooltipY)
+                .lt(this.tooltipX - 30, this.tooltipY)
+                .cp();
         };
 
         this.setX = function (x) {
@@ -88,7 +95,6 @@ define([
         this.say = function (text) {
             this.line.text = text;
             this.drawBalloon();
-            this.drawTooltip();
         };
 
         this.shutUp = function () {
