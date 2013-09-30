@@ -8,12 +8,14 @@ define([
     'engine/scene/main',
     'engine/stage/main',
     'engine/character/main',
-    'engine/panel/main'
+    'engine/panel/main',
+    'engine/flags/main'
 ], function (
     gamescene,
     gamestage,
     gamecharacter,
-    gamepanel
+    gamepanel,
+    gameflags
 ) {
 
     var getToJSON = function () {
@@ -24,7 +26,8 @@ define([
                 sceneStates = {},
                 currentSceneName,
                 pcState,
-                inventoryState;
+                inventoryState,
+                flagState;
 
             for (key in scenes) {
                 if (scenes[key].isPlayable()) {
@@ -35,12 +38,14 @@ define([
             currentSceneName = gamestage.get().getState();
             pcState = gamecharacter.getPc().getState();
             inventoryState = gamepanel.getInventory().getState();
+            flagState = gameflags.getState();
 
             return JSON.stringify({
                 'scenes' : sceneStates,
                 'currentScene' : currentSceneName,
                 'pc' : pcState,
-                'inventory' : inventoryState
+                'inventory' : inventoryState,
+                'flags' : flagState
             });
         },
 
@@ -52,6 +57,7 @@ define([
                 gamescene.get(key).setState(savegame.scenes[key]);
             }
 
+            gameflags.setState(savegame.flags);
             gamecharacter.getPc().setState(savegame.pc);
             gamepanel.getInventory().setState(savegame.inventory);
             gamestage.get().setState(savegame.currentScene);

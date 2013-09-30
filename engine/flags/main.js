@@ -15,10 +15,20 @@ define([
 
         get = function (key) {
             return _[key];
+        },
+
+        getState = function () {
+            return _;
+        },
+
+        setState = function (flags) {
+            _ = flags;
         };
 
     return {
-        'preload' : preload,
-        'get'     : get
+        'preload'  : preload,
+        'get'      : get,
+        'getState' : getState,
+        'setState' : setState
     };
 });
