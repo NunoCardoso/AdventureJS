@@ -52,7 +52,7 @@ define([
                 break;
             case 'moveTo':
                 character = gamedialog.getCharacter(action.character);
-                deferred = character.moveTo(action.position);
+                deferred = character.moveTo(action.position, 'global');
                 deferred.done(function () {
                     console.log('move to done');
                     d.resolve();

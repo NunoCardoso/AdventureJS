@@ -13,8 +13,12 @@ define([
                 'src' : 'games/aroundtheworld/img/background/japan.jpg'
             },
             {
+                'id'  : 'image.japannewyear',
+                'src' : 'games/aroundtheworld/img/background/japan-newyear.png'
+            },
+            {
                 'id'  : 'image.japan.path',
-                'src' : 'games/aroundtheworld/img/background/japan.path.png'
+                'src' : 'games/aroundtheworld/img/background/japan.path2.png'
             },
             {
                 'id'  : 'image.all.path',
@@ -179,6 +183,10 @@ define([
                         'action': 'dialogMessage',
                         'character': 'pc.main',
                         'text' : 'Someone is drying their clothes.'
+                    },
+                    {
+                        'action': 'changeBackground',
+                        'newBackground': 'images.japannewyear'
                     }
                 ]
             },
@@ -519,7 +527,7 @@ define([
                 'id' : 'condition.02',
                 'ifOn': {
                     'test': 'higherThan',
-                    'x' : 1450
+                    'x' : 4450
                 },
                 'test': 'flag',
                 'item': 'hasHandedJapanFlagToBowser',

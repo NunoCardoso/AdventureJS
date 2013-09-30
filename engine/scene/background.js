@@ -38,7 +38,7 @@ define([
 
         if (options.backgroundpath) {
             this.path = new createjs.Bitmap();
-            this.path.alpha = 0.5;
+            this.path.alpha = 0.01;
             this.path.image = assets.getQueueLoaded().getResult(options.backgroundpath);
             this.addChild(this.path);
         }

@@ -93,6 +93,8 @@ define([
             },
 
             render = function (_scene) {
+                // vcleanup progress bar
+                gamestage.get().removeAllChildren();
                 var scene = gamescene.get(_scene);
                 scene.render();
                 gamescene.add(scene);

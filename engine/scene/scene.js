@@ -70,6 +70,9 @@ define([
 
         this.targetCursor = undefined;
 
+        // this is the background width, with scale effect.
+        this.backgroundWidth = undefined;
+
         var i;
         for (i in scene.objects) {
             this.objects[scene.objects[i].id] = scene.objects[i];
@@ -136,6 +139,7 @@ define([
 
         this.applyOffset = function () {
             this.dynamicContainer.x = this.backgroundOffset;
+            this.background.path.x = -this.backgroundOffset;
         };
 
         // when dragging backgrounds
@@ -150,18 +154,12 @@ define([
                 }
             }
 
-            // background might be scaled off, so let's check
-            var backgroundWidth = this.dynamicBack.w;
-            if (this.getBackground().children[0].scaleX) {
-                backgroundWidth *= this.getBackground().children[0].scaleX;
-            }
-
             // check if we have space scene on the right
-            if (diffX < 0 && this.background.mode !== 'fit' && (this.backgroundOffset + backgroundWidth > config.get('game.w'))) {
+            if (diffX < 0 && this.background.mode !== 'fit' && (this.backgroundOffset + this.backgroundWidth > config.get('game.w'))) {
                 proceed = true;
                 // make sure that it doesn't drag outbounds
-                if (this.backgroundOffset + backgroundWidth + diffX < config.get('game.w')) {
-                    diffX = config.get('game.w') - this.backgroundOffset - backgroundWidth;
+                if (this.backgroundOffset + this.backgroundWidth + diffX < config.get('game.w')) {
+                    diffX = config.get('game.w') - this.backgroundOffset - this.backgroundWidth;
                 }
             }
             if (proceed) {
@@ -248,6 +246,12 @@ define([
                     this.dynamicBack.addChild(options.npcs[_id]);
                     this.sceneNpcs.push(options.npcs[_id]);
                 }
+            }
+
+            // update scene's background width.
+            this.backgroundWidth = this.dynamicBack.w;
+            if (this.getBackground().children[0].scaleX) {
+                this.backgroundWidth *= this.getBackground().children[0].scaleX;
             }
         };
 
@@ -367,7 +371,7 @@ define([
         };
 
         this.getBackground = function () {
-            return this.dynamicContainer.children[0].getChildByName('background');
+            return this.background;
         };
 
         this.getState = function () {

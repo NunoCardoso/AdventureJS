@@ -173,9 +173,10 @@ define([
 
             if (scene && scene.isPlayable()) {
                 // now, let's see if scene should scroll
+
                 var sceneHasHiddenBackgroundOnRight = (
                     scene.background.mode !== 'fit' &&
-                    (scene.backgroundOffset + scene.dynamicBack.w > config.get('game.w'))
+                    (scene.backgroundOffset + scene.backgroundWidth > config.get('game.w'))
                 );
 
                 var sceneHasHiddenBackgroundOnLeft = (

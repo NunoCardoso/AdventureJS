@@ -99,26 +99,37 @@ define([
             this.y = y;
         };
 
-        this.setTargetXY = function (xy) {
-            var scene = require('engine/stage/main').get().getCurrentScene();
-            var coords = scene.getBackground().globalToLocal(xy.x, xy.y);
-            var c = {
-                x: coords.x, y: coords.y
-            };
+        this.setTargetXY = function (xy, reference) {
+            var scene = require('engine/stage/main').get().getCurrentScene(),
+                coords,
+                c;
+
+            if (reference === 'global') {
+                c = xy;
+            } else {
+                coords = scene.getBackground().globalToLocal(xy.x, xy.y);
+                c = {
+                    x: coords.x,
+                    y: coords.y
+                };
+            }
+
             scene.setTargetCursorXY(c);
             this.targetXY = c;
             this.walkDeferred = $.Deferred();
             return this.walkDeferred;
         };
 
-        this.moveTo = function (position) {
-            return this.setTargetXY(position);
+        this.moveTo = function (position, reference) {
+            return this.setTargetXY(position, reference);
         };
 
         this.resetTargetXY = function () {
             this.targetXY = undefined;
-            require('engine/stage/main').get().getCurrentScene().setTargetCursorXY(
-            {x: -100, y:-100});          
+            require('engine/stage/main').get().getCurrentScene().setTargetCursorXY({
+                x: -100,
+                y: -100
+            });
         };
 
         // mouse position click can be the target click on most ocations,
