@@ -17,6 +17,18 @@ define([
                 'src' : 'games/aroundtheworld/img/background/japan-newyear.png'
             },
             {
+                'id'  : 'image.backyard',
+                'src' : 'games/aroundtheworld/img/background/backyard.png'
+            },
+            {
+                'id'  : 'image.backyard.path',
+                'src' : 'games/aroundtheworld/img/background/all.path.png'
+            },
+            {
+                'id'  : 'image.spin',
+                'src' : 'games/aroundtheworld/img/background/spin.png'
+            },
+            {
                 'id'  : 'image.japan.path',
                 'src' : 'games/aroundtheworld/img/background/japan.path2.png'
             },
@@ -41,6 +53,10 @@ define([
                 'src' : 'games/aroundtheworld/img/object/shirt.png'
             },
             {
+                'id'  : 'image.object.amulet',
+                'src' : 'games/aroundtheworld/img/object/amulet.png'
+            },
+            {
                 'id'  : 'image.object.inventory.whitetowel',
                 'src' : 'games/aroundtheworld/img/object/inventorywhitetowel.png'
             },
@@ -55,6 +71,10 @@ define([
             {
                 'id'  : 'image.object.inventory.towelwithredberry',
                 'src' : 'games/aroundtheworld/img/object/inventorytowelwithtomato.png'
+            },
+            {
+                'id'  : 'image.object.inventory.amulet',
+                'src' : 'games/aroundtheworld/img/object/inventoryamulet.png'
             }
         ],
         'sounds' : [],
@@ -117,6 +137,13 @@ define([
                 'label': 'shirt',
                 'imageInStage' : 'image.object.shirt',
                 'imageInInventory' : 'image.object.inventory.shirt',
+                'onForeground' : false
+            },
+            {
+                'id': 'object.amulet',
+                'label': 'amulet',
+                'imageInStage' : 'image.object.amulet',
+                'imageInInventory' : 'image.object.inventory.amulet',
                 'onForeground' : false
             },
             {
@@ -360,18 +387,136 @@ define([
                         'dialog': 'dialog.05'
                     }
                 ]
+            },
+            {
+                'id' : 'interaction.13',
+                'verb' : 'Look at',
+                'first': {
+                    'item' : 'object.amulet',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'What is this? Looks like an amulet.'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.14',
+                'verb' : 'Pick up',
+                'first': {
+                    'item' : 'object.amulet',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action' : 'setBusyIcon'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'What is he doing here?'
+                    },
+                    {
+                        'action': 'fromSceneToInventory',
+                        'object': 'object.amulet'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'Wow, what is this?'
+                    },
+                    {
+                        'action': 'changeBackground',
+                        'newBackground': 'image.spin'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'I\'m feeling a little dizzy, what is going on?'
+                    },
+                    {
+                        'action' : 'goToExit',
+                        'exit'   : 'exit.02'
+                    },
+                    {
+                        'action' : 'setDefaultIcon'
+                    },
+                ]
             }
         ],
         'scenes': [
             {
                 'id'                 : 'scene.01',
+                'background'         : 'image.backyard',
+                'backgroundpath'     : 'image.backyard.path',
+                'backgroundmode'     : 'fit',
+                'description'        : 'This is the first scene.',
+                'interactable'       : true,
+           //     'music'              : 'music.scene.01',
+                'beginCutscene' : [
+                    {
+                        'action' : 'moveTo',
+                        'character' : 'pc.main',
+                        'position' : {
+                            'x': 200,
+                            'y': 390
+                        }
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.main',
+                        'text'  : 'Oh backyard, sweet backyard!'
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.main',
+                        'text'  : 'I am really bored! Nothing exciting happens to me.'
+                    },
+                    {
+                        'action' : 'setDefaultIcon'
+                    }
+                ],
+                'npcs' : [],
+                'objects' : [
+                    {
+                        'id' : 'object.amulet',
+                        'x'  : 500,
+                        'y'  : 300,
+                        'w'  : 30,
+                        'h'  : 30
+                    }
+                ],
+                'exits' : [
+                    {
+                        'id' : 'exit.01',
+                        'label' : 'begin',
+                        'role' : 'begin',
+                        'x' : 0,
+                        'y' : 190,
+                        'w' : 100,
+                        'h' : 200
+                    }
+                ],
+                'conditions' : [
+                    'condition.01',
+                    'condition.02'
+                ]
+            },
+            {
+                'id'                 : 'scene.02',
                 'background'         : 'image.japan',
                 'backgroundpath'     : 'image.japan.path',
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
-                'music'              : 'music.scene.01',
+                'music'              : 'music.scene.02',
                 'beginCutscene' : [
+                    {
+                        'action' : 'setDefaultIcon'
+                    },
                     {
                         'action' : 'moveTo',
                         'character' : 'pc.main',
@@ -454,38 +599,19 @@ define([
                 ],
                 'exits' : [
                     {
-                        'exit' : 'exit.01',
+                        'id' : 'exit.02',
                         'label' : 'begin',
-                        'x' : 50,
+                        'role' : 'begin',
+                        'x' : 0,
                         'y' : 190,
                         'w' : 100,
                         'h' : 200
-                    },
-                    {
-                        'exit' : 'exit.02',
-                        'label' : 'France',
-                        'x' : 2000,
-                        'y' : 200,
-                        'w' : 50,
-                        'h' : 200,
-                        'arrow' : 'right'
                     }
                 ],
                 'conditions' : [
                     'condition.01',
                     'condition.02'
                 ]
-            }
-        ],
-        'exits' : [
-            {
-                'id'   : 'exit.01',
-                'role' : 'begin'
-            },
-            {
-                'id'   : 'exit.02',
-                'role' : 'channel',
-                'to'   : 'exit.03'
             }
         ],
         'flags' : {

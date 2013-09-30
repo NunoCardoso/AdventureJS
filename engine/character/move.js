@@ -76,9 +76,8 @@ define([
         },
 
         _stand = function (character) {
-            if (character.walkDeferred) {
+            if (character.walkDeferred && character.walkDeferred.state() === 'pending') {
                 character.walkDeferred.resolve();
-                character.walkDeferred = undefined;
             }
             return {x: 0, y: 0, a: 'stand'};
         },
@@ -165,9 +164,8 @@ define([
                     }
                 }
                 // perform the callback action, since the character reached his destination;
-                if (c.walkDeferred) {
+                if (c.walkDeferred  && c.walkDeferred.state() === 'pending') {
                     c.walkDeferred.resolve();
-                    c.walkDeferred = undefined;
                 }
             }
 

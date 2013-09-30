@@ -158,11 +158,10 @@ define([
         // triggered when dot key is press
         // it shutups, but continues the conversation, if on the middle of one
         this.stopSay = function () {
-            if (this.talkDeferred) {
-                this.talkDeferred.resolve();
-                this.talkDeferred = undefined;
-            }
             this.shutUp();
+            if (this.talkDeferred && this.talkDeferred.state() === 'pending') {
+                this.talkDeferred.resolve();
+            }
         };
 
         this.say = function (text, callback) {

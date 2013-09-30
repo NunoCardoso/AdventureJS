@@ -38,8 +38,10 @@ define([
 
         close = function () {
             gamestage.get().removeChild(item);
-            item.hide();
-            item = undefined;
+            if (item) {
+                item.hide();
+                item = undefined;
+            }
             $('#forms').html('');
         },
 
@@ -71,6 +73,6 @@ define([
         'openSettings'  : openSettings,
         'close'         : close,
         'openSavegame'  : openSavegame,
-        'openLoadgame'  : openLoadgame,
+        'openLoadgame'  : openLoadgame
     };
 });

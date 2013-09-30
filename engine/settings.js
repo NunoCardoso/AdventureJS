@@ -85,7 +85,7 @@ define([
                 'src' : 'engine/music/game-intro.wav'
             },
             {
-                'id'  : 'music.scene.01',
+                'id'  : 'music.scene.02',
                 'src' : 'engine/music/game-scene01.wav'
             }
         ],

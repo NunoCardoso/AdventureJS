@@ -76,11 +76,16 @@ define([
         }
 
         this.switchBackgroundTo = function (img) {
+            var d = $.Deferred();
             createjs.Tween.get(this).to({alpha: 0.01}, 500)
                 .call(function () {
                     this.setImageBackground(img);
-                    createjs.Tween.get(this).to({alpha: 1}, 500);
+                    createjs.Tween.get(this).to({alpha: 1}, 500)
+                    .call(function () {
+                        d.resolve();
+                    });
                 });
+            return d.promise();
         };
 
         this.test = function (x, y, event, scene, role) {

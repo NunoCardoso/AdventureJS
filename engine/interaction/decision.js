@@ -54,7 +54,6 @@ define([
                 character = gamedialog.getCharacter(action.character);
                 deferred = character.moveTo(action.position, 'global');
                 deferred.done(function () {
-                    console.log('move to done');
                     d.resolve();
                 });
                 return d.promise();
@@ -74,7 +73,6 @@ define([
                 character = gamedialog.getCharacter(action.character);
                 deferred = character.say(action.text);
                 deferred.done(function () {
-                    console.log('dialog done');
                     d.resolve();
                 });
                 return d.promise();
@@ -126,8 +124,11 @@ define([
             case 'changeBackground':
                 scene = require('engine/stage/main').get()
                     .getCurrentScene();
-                scene.background.switchBackgroundTo(action.newBackground);
-                break;
+                deferred = scene.background.switchBackgroundTo(action.newBackground);
+                deferred.done(function () {
+                    d.resolve();
+                });
+                return d.promise();
             default:
                 console.log(action.action + ' not implemented!');
                 break;
@@ -165,16 +166,13 @@ define([
             if (mainactions.length > 0) {
                 for (i = 0; i < mainactions.length; i++) {
                     a = mainactions[i];
-                    for (j = 0; j < a.actions.length; j++) {
-                        action = a.actions[j];
-                        perform(action);
-                    }
+                    this.performList({taskList: a.actions});
                 }
             } else {
                 perform({
                     'action' : 'dialogMessage',
                     // TODO CHANGE
-                    'character' : 'pc.guybrush',
+                    'character' : require('engine/character/main').getPc().name,
                     'text'   : 'I can\'t do that.'
                 });
             }
