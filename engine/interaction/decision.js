@@ -29,7 +29,8 @@ define([
             'goToExit',
             'setBusyIcon',
             'setDefaultIcon',
-            'changeBackground'
+            'changeBackground',
+            'wait'
         ],
 
         perform = function (action) {
@@ -126,6 +127,11 @@ define([
                     .getCurrentScene();
                 deferred = scene.background.switchBackgroundTo(action.newBackground);
                 deferred.done(function () {
+                    d.resolve();
+                });
+                return d.promise();
+            case 'wait':
+                createjs.Tween.get(this).wait(action.howmuch).call(function () {
                     d.resolve();
                 });
                 return d.promise();

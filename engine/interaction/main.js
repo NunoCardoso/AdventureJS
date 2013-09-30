@@ -39,11 +39,23 @@ define([
                     if (first.name === firstname) {
 
                         // if there is no second name, it is a match.
-                        if (typeof second === 'undefined' && typeof _[i].second === 'undefined') {
-                            found.push(_[i]);
+                        if (second === undefined && _[i].second === undefined) {
+
+                            // wait... if object, let's see if it is in inventory
+                            if (_[i].first.inInventory !== undefined) {
+                                var isit = require('engine/panel/main').isInInventory(firstname);
+
+                                if (_[i].first.inInventory === true && isit) {
+                                    found.push(_[i]);
+                                } else if (_[i].first.inInventory === false && !isit) {
+                                    found.push(_[i]);
+                                }
+                            } else {
+                                found.push(_[i]);
+                            }
                         }
 
-                        if (typeof second !== 'undefined') {
+                        if (second !== undefined) {
                             // if there is a second name, test it.
                             secondname = _[i].second.item;
                             if (second.name === secondname) {
@@ -53,7 +65,7 @@ define([
                     } else {
                         // maybe firstname matches second object, and secondname matches first object.
                         // test only if we have a valid second object
-                        if (typeof second !== 'undefined') {
+                        if (second !== undefined) {
                             secondname = _[i].second.item;
                             if ((first.name === secondname) && firstname === second.name) {
                                 found.push(_[i]);

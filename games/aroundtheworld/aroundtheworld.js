@@ -404,6 +404,21 @@ define([
                 ]
             },
             {
+                'id' : 'interaction.13.5',
+                'verb' : 'Look at',
+                'first': {
+                    'item' : 'object.amulet',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : 'It\'s the amulet I picked up on the backyard.'
+                    }
+                ]
+            },
+            {
                 'id' : 'interaction.14',
                 'verb' : 'Pick up',
                 'first': {
@@ -420,17 +435,30 @@ define([
                         'text' : 'What is he doing here?'
                     },
                     {
+                        'action': 'wait',
+                        'howmuch': 2000
+                    },
+                    {
                         'action': 'fromSceneToInventory',
                         'object': 'object.amulet'
                     },
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'Wow, what is this?'
+                        'text' : 'Wow, what is this doing here? Looks ancient. Looks...'
+                    },
+                    {
+                        'action': 'dialogMessage',
+                        'character': 'pc.main',
+                        'text' : '...Japanese?'
                     },
                     {
                         'action': 'changeBackground',
                         'newBackground': 'image.spin'
+                    },
+                    {
+                        'action': 'wait',
+                        'howmuch': 2000
                     },
                     {
                         'action': 'dialogMessage',
@@ -438,12 +466,16 @@ define([
                         'text' : 'I\'m feeling a little dizzy, what is going on?'
                     },
                     {
+                        'action': 'wait',
+                        'howmuch': 2000
+                    },
+                    {
                         'action' : 'goToExit',
                         'exit'   : 'exit.02'
                     },
                     {
                         'action' : 'setDefaultIcon'
-                    },
+                    }
                 ]
             }
         ],
@@ -458,6 +490,9 @@ define([
            //     'music'              : 'music.scene.01',
                 'beginCutscene' : [
                     {
+                        'action' : 'setBusyIcon'
+                    },
+                    {
                         'action' : 'moveTo',
                         'character' : 'pc.main',
                         'position' : {
@@ -468,12 +503,17 @@ define([
                     {
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'Oh backyard, sweet backyard!'
+                        'text'  : 'Tired of studing ancient history!'
                     },
                     {
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'I am really bored! Nothing exciting happens to me.'
+                        'text'  : 'I mean, who needs to learn things about ancient Japan?'
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'pc.main',
+                        'text'  : 'Like it is going to be useful for me. Ah ah ah!'
                     },
                     {
                         'action' : 'setDefaultIcon'
