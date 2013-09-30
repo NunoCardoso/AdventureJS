@@ -46,7 +46,7 @@ define([
         );
 
         // the dialog to trigger on click;
-        this.dialog = options.dialog;
+        this.dialog     = options.dialog;
         this.timesToUse = options.timesToUse;
 
         this.isMouseOver = false;

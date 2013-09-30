@@ -46,12 +46,16 @@ define([
             return who;
         },
 
+        _continueDialogOptions = function () {
+            require('engine/interaction/decision').perform({
+                'action' : 'continueDialogOptions'
+            });
+        },
+
         _talk = function (options) {
             if (options.lines.length === 0) {
                 if (options.onEnd === undefined) {
-                    require('engine/interaction/decision').perform({
-                        'action' : 'continueDialogOptions'
-                    });
+                    _continueDialogOptions();
                 } else {
                     require('engine/interaction/decision').performList({
                         taskList : options.onEnd
@@ -59,9 +63,11 @@ define([
                 }
                 return;
             }
-            var line = options.lines.shift(); // removed one line
-            var who  = getCharacter(line.character);
-            var defered = who.say(line.text);
+            
+            var line = options.lines.shift(), // removed one line
+                who  = getCharacter(line.character),
+                defered = who.say(line.text);
+
             defered.done(function () {
                 _talk(options);
             });
@@ -69,8 +75,8 @@ define([
 
         perform = function (options) {
             _setPanelToDialog();
-            var pc  = require('engine/character/main').getPc();
-            var npc = getCharacter(options.to);
+            var pc  = require('engine/character/main').getPc(),
+                npc = getCharacter(options.to);
             // make both characters do eye contact
             pc.faceTo(npc);
             npc.faceTo(pc);

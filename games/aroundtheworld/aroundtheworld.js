@@ -78,7 +78,20 @@ define([
             }
         ],
         'sounds' : [],
-        'musics' : [],
+        'musics' : [
+            {
+                'id'  : 'music.intro',
+                'src' : 'games/aroundtheworld/msc/game-intro.wav'
+            },
+            {
+                'id'  : 'music.backyard',
+                'src' : 'games/aroundtheworld/msc/game-scene01.wav'
+            },
+            {
+                'id'  : 'music.japan',
+                'src' : 'games/aroundtheworld/msc/japan.mp3'
+            }
+        ],
         'pc' : {
             'id'    : 'pc.main',
             'label' : 'you'
@@ -87,6 +100,14 @@ define([
             {
                 'id'    : 'npc.bowser',
                 'label' : 'Bowser'
+            },
+            {
+                'id'    : 'npc.girl',
+                'label' : 'little girl'
+            },
+            {
+                'id'    : 'npc.togatsu',
+                'label' : 'Togatsu'
             }
         ],
         'main': {
@@ -94,7 +115,7 @@ define([
             'author'        : 'John Teacher',
             'description'   : 'Do you really know Japan history? Do you really know how was France in the XVIII century? Well, buckle up, let’s blast to the past and have fun!',
             'background'    : 'image.aroundtheworld',
-            'startingScene' : 'scene.01',
+            'startingScene' : 'scene.japan',
             'music'         : 'music.intro'
         },
         'panel' : {
@@ -352,7 +373,7 @@ define([
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'dialog': 'dialog.01'
+                        'dialog': 'dialog.talktobowser'
                     }
                 ]
             },
@@ -368,7 +389,7 @@ define([
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'dialog': 'dialog.04'
+                        'dialog': 'dialog.giveshirttobowser'
                     }
                 ]
             },
@@ -384,7 +405,7 @@ define([
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'dialog': 'dialog.05'
+                        'dialog': 'dialog.givetowelwithredberrytobowser'
                     }
                 ]
             },
@@ -471,23 +492,36 @@ define([
                     },
                     {
                         'action' : 'goToExit',
-                        'exit'   : 'exit.02'
+                        'exit'   : 'exit.tojapan'
                     },
                     {
                         'action' : 'setDefaultIcon'
+                    }
+                ]
+            },
+            {
+                'id' : 'interaction.15',
+                'verb' : 'Talk to',
+                'first' : {
+                    'item' : 'npc.girl'
+                },
+                'actions' : [
+                    {
+                        'action': 'playDialog',
+                        'dialog': 'dialog.talktogirl'
                     }
                 ]
             }
         ],
         'scenes': [
             {
-                'id'                 : 'scene.01',
+                'id'                 : 'scene.backyard',
                 'background'         : 'image.backyard',
                 'backgroundpath'     : 'image.backyard.path',
                 'backgroundmode'     : 'fit',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
-           //     'music'              : 'music.scene.01',
+                'music'              : 'music.backyard',
                 'beginCutscene' : [
                     {
                         'action' : 'setBusyIcon'
@@ -531,7 +565,7 @@ define([
                 ],
                 'exits' : [
                     {
-                        'id' : 'exit.01',
+                        'id' : 'exit.backyard',
                         'label' : 'begin',
                         'role' : 'begin',
                         'x' : 0,
@@ -540,71 +574,82 @@ define([
                         'h' : 200
                     }
                 ],
-                'conditions' : [
-                    'condition.01',
-                    'condition.02'
-                ]
+                'conditions' : []
             },
             {
-                'id'                 : 'scene.02',
+                'id'                 : 'scene.japan',
                 'background'         : 'image.japan',
                 'backgroundpath'     : 'image.japan.path',
                 'backgroundmode'     : 'overflow',
                 'description'        : 'This is the first scene.',
                 'interactable'       : true,
-                'music'              : 'music.scene.02',
+                'music'              : 'music.japan',
                 'beginCutscene' : [
                     {
                         'action' : 'setDefaultIcon'
                     },
                     {
-                        'action' : 'moveTo',
+                        'action'    : 'moveTo',
                         'character' : 'pc.main',
-                        'position' : {
-                            'x': 200,
-                            'y': 390
+                        'position'  : {
+                            'x' : 170,
+                            'y' : 390
                         }
                     },
                     {
-                        'action' : 'dialogMessage',
+                        'action'    : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'Wow. I\'m in Japan! Cool!'
+                        'text'      : 'Woah! A second ago I was sitting in my room trying to study for my culture studies exam.'
                     },
                     {
-                        'action' : 'moveTo',
+                        'action'    : 'moveTo',
                         'character' : 'pc.main',
-                        'position' : {
-                            'x': 100,
-                            'y': 390
+                        'position'  : {
+                            'x' : 100,
+                            'y' : 390
                         }
                     },
                     {
-                        'action' : 'dialogMessage',
+                        'action'    : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'What now? I have to leave this place! I left the oven on!'
+                        'text'      : 'Now it seems like I have been transported a village in Japan.'
                     },
                     {
-                        'action' : 'moveTo',
+                        'action'    : 'moveTo',
                         'character' : 'pc.main',
-                        'position' : {
-                            'x': 200,
-                            'y': 390
+                        'position'  : {
+                            'x' : 170,
+                            'y' : 390
                         }
                     },
                     {
-                        'action' : 'dialogMessage',
+                        'action'    : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'Maybe someone will help me.'
+                        'text'      : 'Perhaps the amulet I found in the back yard yesterday is magic?'
                     }
                 ],
                 'npcs' : [
+                    {
+                        'id' : 'npc.girl',
+                        'position' : {
+                            'x'    : 250,
+                            'y'    : 350
+                        }
+
+                    },
                     {
                         'id' : 'npc.bowser',
                         'position' : {
                             'x'    : 1350,
                             'y'    : 370
                         }
-
+                    },
+                    {
+                        'id' : 'npc.togatsu',
+                        'position' : {
+                            'x'    : 950,
+                            'y'    : 380
+                        }
                     }
                 ],
                 'objects' : [
@@ -639,7 +684,7 @@ define([
                 ],
                 'exits' : [
                     {
-                        'id' : 'exit.02',
+                        'id' : 'exit.japan',
                         'label' : 'begin',
                         'role' : 'begin',
                         'x' : 0,
@@ -649,8 +694,8 @@ define([
                     }
                 ],
                 'conditions' : [
-                    'condition.01',
-                    'condition.02'
+                    'condition.first',
+                    'condition.second'
                 ]
             }
         ],
@@ -660,7 +705,7 @@ define([
         },
         'conditions' : [
             {
-                'id' : 'condition.01',
+                'id' : 'condition.first',
                 'ifOn': {
                     'test': 'higherThan',
                     'x' : 1000
@@ -677,12 +722,12 @@ define([
                         'character' : 'pc.main',
                         'position' : {
                             'x' : 1200,
-                            'y' : 380
+                            'y' : 350
                         }
                     },
                     {
                         'action' : 'playDialog',
-                        'dialog' : 'dialog.01'
+                        'dialog' : 'dialog.talktobowser'
                     },
                     {
                         'action' : 'setDefaultIcon'
@@ -690,7 +735,7 @@ define([
                 ]
             },
             {
-                'id' : 'condition.02',
+                'id' : 'condition.second',
                 'ifOn': {
                     'test': 'higherThan',
                     'x' : 4450
@@ -712,7 +757,7 @@ define([
                         'character' : 'pc.main',
                         'position' : {
                             'x' : 1100,
-                            'y' : 380
+                            'y' : 350
                         }
                     },
                     {
@@ -724,7 +769,7 @@ define([
 
         'dialogs' : [
             {
-                'id' : 'dialog.01',
+                'id' : 'dialog.talktobowser',
                 'to' : 'npc.bowser',
                 'lines' : [
                     {
@@ -735,12 +780,12 @@ define([
                 'onEnd' : [
                     {
                         'action' : 'startDialogOptions',
-                        'dialogOptions' : 'dialogoption.01'
+                        'dialogOptions' : 'dialogoption.withbowser'
                     }
                 ]
             },
             {
-                'id' : 'dialog.02',
+                'id' : 'dialog.sellingjackets',
                 'to' : 'npc.bowser',
                 'lines' : [
                     {
@@ -759,10 +804,16 @@ define([
                         'character' : 'npc.bowser',
                         'text' : 'Then I am not interested!'
                     }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withbowser'
+                    }
                 ]
             },
             {
-                'id' : 'dialog.03',
+                'id' : 'dialog.mayipass',
                 'to' : 'npc.bowser',
                 'lines' : [
                     {
@@ -801,10 +852,16 @@ define([
                         'character' : 'pc.main',
                         'text' : 'Ok, deal.'
                     }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withbowser'
+                    }
                 ]
             },
             {
-                'id' : 'dialog.04',
+                'id' : 'dialog.hereitis',
                 'to' : 'npc.bowser',
                 'lines' : [
                     {
@@ -832,7 +889,7 @@ define([
                 ]
             },
             {
-                'id' : 'dialog.05',
+                'id' : 'dialog.hereitis',
                 'to' : 'npc.bowser',
                 'lines' : [
                     {
@@ -856,7 +913,7 @@ define([
                 ]
             },
             {
-                'id' : 'dialog.06',
+                'id' : 'dialog.wrongway',
                 'to' : 'npc.bowser',
                 'lines' : [
                     {
@@ -874,25 +931,282 @@ define([
                         'character' : 'npc.bowser'
                     }
                 ]
+            },
+            {
+                'id' : 'dialog.talktogirl',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Hi! Might I ask who you are?'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'Woaaaah, I\'m a little crying girl, isn’t it obvious? Woaaaaah'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'startDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.whycrying',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Hello. Why are you crying?'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'Today is Omisoka, and tomorrow we are supposed to celebrate new year.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'But we don\'t have any rice to make Kagami Mochi for the celebration!'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'addDialogOption',
+                        'dialogOptions' : 'dialogoption.withgirl1',
+                        'text'          : 'Why do you not have any rice?',
+                        'dialog'        : 'dialog.whynotrice',
+                        'persistence'   : 'once'
+                    },
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.notthatlittle',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'You don\'t seem that little to me.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'I am actually the tallest in my class.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.scaryplace',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'This seems like a scary place for a little girl.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'It didn\'t use to be scary, until the dragon Tatsu came to our village.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'addDialogOption',
+                        'dialogOptions' : 'dialogoption.withgirl1',
+                        'text'          : 'What is Tatsu doing?',
+                        'dialog'        : 'dialog.whatistatsu',
+                        'persistence'   : 'once'
+                    },
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.whynotrice',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Why do you not have any rice?'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'All the rice has to be bought at Togatsu\'s store...'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : '...but he is refusing to give us any!'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'addDialogOption',
+                        'dialogOptions' : 'dialogoption.withgirl1',
+                        'text'          : 'Why is he refusing to give you rice?',
+                        'dialog'        : 'dialog.whyistatsu',
+                        'persistence'   : 'once'
+                    },
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.whatistatsu',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'What is Tatsu doing?'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'Tatsu has stolen all our fishing equipment, and he refusing to give it back...'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : '...until someone can answers his three riddles.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'All the rice has to be bought at Togatsu\'s store...'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'addDialogOption',
+                        'dialogOptions' : 'dialogoption.withgirl1',
+                        'text'          : 'Where can I find this dragon?',
+                        'dialog'        : 'dialog.finddragon',
+                        'persistence'   : 'once'
+                    },
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.whyistatsu',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Why is he refusing to give you rice?'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'His family and servants hold a giant feast every year...'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : '...but because of Tatsu they don’t have enough fish to make osechi-ryōri.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : 'He is holding the village ransom!'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Thank you, I\'ll try my best.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.finddragon',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'Where can I find this dragon?'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text' : ' He is standing on a bridge in the far east.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withgirl1'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialog.bye',
+                'to' : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text' : 'bye.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action' : 'endDialog',
+                        'character' : 'npc.girl'
+                    }
+                ]
             }
         ],
         'dialogoptions' : [
             {
-                'id' : 'dialogoption.01',
+                'id' : 'dialogoption.withbowser',
                 'choices' : [
                     {
                         'text' : 'Hi. I’m selling these fine leather jackets.?',
-                        'dialog' : 'dialog.02',
+                        'dialog' : 'dialog.sellingjackets',
                         'persistence' : 'once'
                     },
                     {
                         'text' : 'Hello. May I pass please?',
-                        'dialog' : 'dialog.03',
+                        'dialog' : 'dialog.mayipass',
                         'persistence' : 'always'
                     },
                     {
                         'text' : 'Oops, wrong way. Bye.',
-                        'dialog' : 'dialog.06',
+                        'dialog' : 'dialog.wrongway',
+                        'persistence' : 'always'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialogoption.withgirl1',
+                'choices' : [
+                    {
+                        'text' : 'Hello. Why are you crying?',
+                        'dialog' : 'dialog.whycrying',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text' : 'You don\'t seem that little to me.',
+                        'dialog' : 'dialog.notthatlittle',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text' : 'This seems like a scary place for a little girl.',
+                        'dialog' : 'dialog.scaryplace',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text' : 'Bye.',
+                        'dialog' : 'dialog.bye',
                         'persistence' : 'always'
                     }
                 ]

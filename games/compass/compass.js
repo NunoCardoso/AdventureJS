@@ -555,6 +555,12 @@ define([
                         'character' : 'npc.pirate01',
                         'text' : 'I have a GPS, moron. And no, I will not let you use it!'
                     }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.01'
+                    }
                 ]
             },
             {
@@ -621,6 +627,12 @@ define([
                         'character' : 'npc.pirate01',
                         'text' : 'Yup. It\'s going to rain, though.'
                     }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.01'
+                    }
                 ]
             },
             {
@@ -634,6 +646,12 @@ define([
                     {
                         'character' : 'npc.pirate01',
                         'text' : 'Already have one, thanks.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.01'
                     }
                 ]
             },

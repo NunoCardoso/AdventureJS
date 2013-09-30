@@ -60,11 +60,15 @@ define([
             this.balloon
         );
 
-        this.getDimensions = function () {
+        this.getDimensions = function (scene) {
+            var offset = 0;
+            if (scene) {
+               // offset = scene.backgroundOffset;
+            }
             return {
-                'x1' : this.x - this.regX / 2,
+                'x1' : this.x - offset - this.w / 2,
+                'x2' : this.x - offset + this.w / 2,
                 'y1' : this.y - this.regY,
-                'x2' : this.x + this.regX / 2,
                 'y2' : this.y
             };
         };
@@ -230,7 +234,8 @@ define([
             case 'click':
                 if (!this.isPlayable) {
                     if (mine) {
-                        scene.getPc().actForNpcClick({x: x, y: y}, this);
+                        // I might be a npc, to ask pc to start it.
+                        scene.getPc().actForNpcClick({x: x, y: y}, this, scene);
                         // important, to stop bubbling
                         return true;
                     }
@@ -252,8 +257,8 @@ define([
             }
         };
 
-        this.actForNpcClick = function (xy, npc) {
-            var d = this.calculateTargetXY(xy, npc);
+        this.actForNpcClick = function (xy, npc, scene) {
+            var d = this.calculateTargetXY(xy, npc, scene);
             d.done(function () {
                 action.clickNpc(npc);
             });

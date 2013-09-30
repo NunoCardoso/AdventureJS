@@ -45,10 +45,27 @@ define([
                 }
                 _[id] = processedChoices;
             }
+        },
+
+        appendTo = function (dialogOptionId, option) {
+
+            var i = _[dialogOptionId].length;
+
+            var timesToUse = _calculatePersistence(option.persistence);
+            var choice = new DialogOption({
+                id         : 'dialogoption.' + i,
+                text       : option.text,
+                dialog     : option.dialog,
+                timesToUse : timesToUse,
+                position   : i
+            });
+
+            _[dialogOptionId].push(choice);
         };
 
     return {
         'preload' : preload,
-        'get'     : get
+        'get'     : get,
+        'appendTo': appendTo
     };
 });

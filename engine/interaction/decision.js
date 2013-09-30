@@ -1,4 +1,4 @@
-/*global define, $ */
+/*global define, $, createjs */
 
 /**
  * This module handles interactions
@@ -16,6 +16,7 @@ define([
         _list = [
             'continueDialogOptions',
             'startDialogOptions',
+            'addDialogOption',
             'moveTo',
             'playDialog',
             'dialogMessage',
@@ -41,6 +42,13 @@ define([
                 scene;
 
             switch (action.action) {
+
+            case "addDialogOption":
+                require('engine/dialogoption/main').appendTo(
+                    action.dialogOptions,
+                    action
+                );
+                break;
             case "continueDialogOptions":
                 require('engine/panel/main').addDialogOptions(_do);
                 require('engine/panel/main').renderForDialog();

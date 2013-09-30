@@ -17,8 +17,16 @@ define([
                 'src' : 'games/compass/img/character/pirate.png'
             },
             {
+                'id'  : 'image.girl',
+                'src' : 'games/aroundtheworld/img/character/little-girl.png'
+            },
+            {
                 'id'  : 'image.bowser',
                 'src' : 'games/aroundtheworld/img/character/bowser.png'
+            },
+            {
+                'id'  : 'image.togatsu',
+                'src' : 'games/aroundtheworld/img/character/togatsu-san.png'
             },
             {
                 'id'  : 'image.menu.cogwheel',
@@ -79,16 +87,7 @@ define([
                 'src' : 'engine/sound/fight.wav'
             }
         ],
-        'musics' : [
-            {
-                'id'  : 'music.intro',
-                'src' : 'engine/music/game-intro.wav'
-            },
-            {
-                'id'  : 'music.scene.02',
-                'src' : 'engine/music/game-scene01.wav'
-            }
-        ],
+        'musics' : [],
         'characters': [
             {
                 'id'     : 'pc.main',
@@ -132,6 +131,44 @@ define([
                     'standright' : 1,
                     'talkleft'   : [4, 7, 'talkleft', 6],
                     'talkright'  : [8, 11, 'talkright', 6]
+                }
+            },
+            {
+                'id'     : 'npc.girl',
+                'images' : 'image.girl',
+                'textColor' : 'green',
+                'speed'  : 2,
+                'frames' : {
+                    'regX'   : 50,
+                    'height' : 114,
+                    'count'  : 8,
+                    'regY'   : 0,
+                    'width'  : 100
+                },
+                'animations' : {
+                    'standleft'  : [0, 3, 'standleft', 6],
+                    'standright' : [0, 3, 'standright', 6],
+                    'talkleft'   : [4, 5, 'talkleft', 6],
+                    'talkright'  : [4, 5, 'talkright', 6]
+                }
+            },
+            {
+                'id'        : 'npc.togatsu',
+                'images'    : 'image.togatsu',
+                'textColor' : 'green',
+                'speed'  : 2,
+                'frames' : {
+                    'regX'   : 104,
+                    'height' : 194,
+                    'count'  : 3,
+                    'regY'   : 0,
+                    'width'  : 208
+                },
+                'animations' : {
+                    'standleft'  : 0,
+                    'standright' : 0,
+                    'talkleft'   : [1, 2, 'talkleft', 6],
+                    'talkright'  : [1, 2, 'talkright', 6]
                 }
             },
             {
