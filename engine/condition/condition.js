@@ -10,12 +10,14 @@ define([
 ) {
     var Condition = function (options) {
 
-        this.name = 'condition.' + options.id;
+        this.id   = this.name = options.id;
         this.ifOn = options.ifOn;
         this.test = options.test;
         this.item = options.item;
+        this.persistence = options.persistence;
         this.onSuccess = options.onSuccess;
         this.onFail    = options.onFail;
+        this.executed  = false;
 
         this.performResult = function (result) {
             if (result && result.nowDo) {
@@ -39,7 +41,7 @@ define([
                 break;
 
             case 'flag':
-                if (require('engine/flags/main').get(this.flags.item) === true) {
+                if (require('engine/flags/main').get(this.item) === true) {
                     result = {conditionMet: true, nowDo: this.onSuccess};
                 } else {
                     result = {conditionMet: false, nowDo: this.onFail};

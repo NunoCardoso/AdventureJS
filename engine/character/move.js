@@ -151,7 +151,6 @@ define([
                 c.character.attitude = d.a;
                 // save the x diff, useful for panning the scene on the other way.
                 diffX = d.x - c.x;
-                oldX = c.x;
                 c.setX(d.x);
                 c.setY(d.y);
             } else {
@@ -161,10 +160,8 @@ define([
 
                     if (c.character.isFacingLeft() && !c.character.isStandingLeft()) {
                         c.character.attitude = "standleft";
-                       
                     } else if (c.character.isFacingRight() && !c.character.isStandingRight()) {
                         c.character.attitude = "standright";
-                        
                     }
                 }
                 // perform the callback action, since the character reached his destination;
@@ -186,8 +183,8 @@ define([
                     (scene.backgroundOffset < 0)
                 );
 
-                var isCharacterOnLeft = (c.x < (config.get('game.w') / 2),
-                    isCharacterOnRight = c.x >= (config.get('game.w') / 2 - 50));
+                var isCharacterOnLeft = (c.x < (config.get('game.w') / 2)),
+                    isCharacterOnRight = (c.x >= (config.get('game.w') / 2 - 50));
 
                 if ((sceneHasHiddenBackgroundOnLeft  && isCharacterOnLeft && c.character.isWalkingLeft()) ||
                         (sceneHasHiddenBackgroundOnRight && isCharacterOnRight && c.character.isWalkingRight())) {
@@ -202,14 +199,18 @@ define([
                 c.character.gotoAndPlay(c.character.attitude);
             }
 
-            // if the scene has onX conditions
+            // if the scene has X conditions
             if (scene.conditions) {
-                var i, cd;
+                var i, condition;
                 for (i in scene.conditions) {
-                    cd = scene.conditions[i];
-                    if (cd.ifOn && cd.ifOn.test && cd.ifOn.test === "higherThan" && c.x > cd.ifOn.x) {
-                        console.log('Condition t otrigger!');
-                        
+                    condition = scene.conditions[i];
+                    if (c.isPlayable && condition.ifOn &&
+                            condition.ifOn.test && condition.ifOn.test === "higherThan" &&
+                            c.x > condition.ifOn.x && !condition.executed) {
+                        condition.doTest();
+                        if (condition.persistence === 'once') {
+                            condition.executed = true;
+                        }
                     }
                 }
             }

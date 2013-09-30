@@ -26,7 +26,10 @@ define([
             'fadeToLeft',
             'endDialog',
             'endGame',
-            'goToExit'
+            'goToExit',
+            'setBusyIcon',
+            'setDefaultIcon'
+
         ],
 
         perform = function (action) {
@@ -113,6 +116,12 @@ define([
                         action.scene
                     );
                 }
+                break;
+            case 'setBusyIcon':
+                require('engine/cursor/main').setBusy();
+                break;
+            case 'setDefaultIcon':
+                require('engine/cursor/main').setNotBusy();
                 break;
             default:
                 console.log(action.action + ' not implemented!');

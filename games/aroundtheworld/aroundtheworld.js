@@ -493,6 +493,7 @@ define([
                 },
                 'test': 'flag',
                 'item': 'hasTalkedWithBowser',
+                'persistence' : 'once',
                 'onFail': [
                     {
                         'action' : 'setBusyIcon'
@@ -518,10 +519,11 @@ define([
                 'id' : 'condition.02',
                 'ifOn': {
                     'test': 'higherThan',
-                    'x' : 1300
+                    'x' : 1450
                 },
                 'test': 'flag',
                 'item': 'hasHandedJapanFlagToBowser',
+                'persistence' : 'always',
                 'onFail': [
                     {
                         'action' : 'setBusyIcon'
@@ -535,7 +537,7 @@ define([
                         'action' : 'moveTo',
                         'character' : 'pc.main',
                         'position' : {
-                            'x' : 1200,
+                            'x' : 1100,
                             'y' : 380
                         }
                     },
