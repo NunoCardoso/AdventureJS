@@ -1,18 +1,24 @@
 <div id="settings" class="panel">
     <form>
         <label>Sound: </label>
-        <input type="checkbox" CHECKED onClick="require('engine/game/preferences').enableSoundChanged(this);"> Enable
+        <input id="preferences-enable-sound" type="checkbox" 
+        onClick="require('engine/game/preferences').enableSoundChanged(this);"> Enable
         <br>
-        <input name="sound.volume" type="range" min="0" max="100" step="5" 
+        <input id="preferences-volume-sound" name="sound.volume" 
+        type="range" min="0" max="100" step="5" 
         onChange="require('engine/game/preferences').soundVolumeChanged(this);" style="width:200px;">
         </br>
         <label>Music: </label>
-        <input type="checkbox" CHECKED onClick="require('engine/game/preferences').enableMusicChanged(this);"> Enable
+        <input id="preferences-enable-music" type="checkbox" 
+        onClick="require('engine/game/preferences').enableMusicChanged(this);"> Enable
         <br>
-        <input name="sound.volume" type="range" min="0" max="100" step="5" 
+        <input id="preferences-volume-music" name="music.volume"
+        type="range" min="0" max="100" step="5" 
         onChange="require('engine/game/preferences').musicVolumeChanged(this);" style="width:200px;">
         </br>
-        <label>Debug: </label><input type="checkbox" onClick="require('engine/game/preferences').enableDebugChanged(this);" CHECKED>
+        <label>Debug: </label>
+        <input id="preferences-enable-debug" type="checkbox" 
+        onClick="require('engine/game/preferences').enableDebugChanged(this);">
         </br>
         <div class="buttondiv">
             <button class="okbutton" onClick="require('engine/tpl/main').close();return false;">OK</button>

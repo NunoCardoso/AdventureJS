@@ -20,8 +20,8 @@ define([
             'musicVolume' : 100,
             'soundVolume' : 100,
             'soundEnable' : true,
-            'musicEnable' : false,
-            'debug' : false
+            'musicEnable' : true,
+            'debug' : true
         };
 
         //To set a cookie
@@ -35,6 +35,36 @@ define([
 
         deleteCookie = function (key) {
             return $.cookie(key, null);
+        },
+
+        _setMusicVolume = function (volume) {
+            _musicVolume = volume;
+            setCookieValue('musicVolume', volume);
+        },
+
+        _setMusicEnable = function (enable) {
+            _musicEnable = enable;
+            setCookieValue('musicEnable', enable);
+        },
+
+        _setSoundVolume = function (volume) {
+            _soundVolume = volume;
+            setCookieValue('soundVolume', volume);
+        },
+
+        _setSoundEnable = function (enable) {
+            _soundEnable = enable;
+            setCookieValue('soundEnable', enable);
+        },
+
+        _setDebug = function (debug) {
+            _debug = debug;
+            setCookieValue('debug', debug);
+        },
+
+        _setType = function (type) {
+            _type = type;
+            setCookieValue('type', type);
         },
 
         _get = function () {
@@ -72,41 +102,12 @@ define([
             return _get();
         },
 
-        _setMusicVolume = function (volume) {
-            _musicVolume = volume;
-            setCookieValue('musicVolume', volume);
-        },
-
-        _setMusicEnable = function (enable) {
-            _musicEnable = enable;
-            setCookieValue('musicEnable', enable);
-        },
-
-        _setSoundVolume = function (volume) {
-            _soundVolume = volume;
-            setCookieValue('soundVolume', volume);
-        },
-
-        _setSoundEnable = function (enable) {
-            _soundEnable = enable;
-            setCookieValue('soundEnable', enable);
-        },
-
-        _setDebug = function (debug) {
-            _debug = debug;
-            setCookieValue('debug', debug);
-        },
-
-        _setType = function (type) {
-            _type = type;
-            setCookieValue('type', type);
-        },
-
-        musicVolumeChanged = function (howmuch) {
-            var music = gamemusic.getCurrentMusic();
+        musicVolumeChanged = function (item) {
+            var howmuch = item.value,
+                music = gamemusic.getCurrentMusic();
             _setMusicVolume(howmuch);
             if (music) {
-                music.setVolume(parseInt(howmuch.value, 10) / 100);
+                music.setVolume(parseInt(howmuch, 10) / 100);
             }
         },
 
@@ -115,16 +116,17 @@ define([
                 _setMusicEnable(true);
                 gamemusic.playMusic();
             } else {
-                _setMusicEnable(false);
                 gamemusic.stopMusic();
+                _setMusicEnable(false);
             }
         },
 
-        soundVolumeChanged = function (howmuch) {
-            var sound = gamemusic.getCurrentSound();
+        soundVolumeChanged = function (item) {
+            var howmuch = item.value,
+                sound = gamemusic.getCurrentSound();
             _setSoundVolume(howmuch);
             if (sound) {
-                sound.setVolume(parseInt(howmuch.value, 10) / 100);
+                sound.setVolume(parseInt(howmuch, 10) / 100);
             }
         },
 
@@ -134,6 +136,10 @@ define([
             } else {
                 _setSoundEnable(false);
             }
+        },
+
+        enableDebugChanged = function (item) {
+            _setDebug(item.value);
         },
 
         isSoundEnabled = function () {
@@ -150,10 +156,6 @@ define([
 
         getMusicVolume = function () {
             return _musicVolume;
-        },
-
-        enableDebugChanged = function (debug) {
-            _setDebug(debug);
         };
 
     return {

@@ -114,7 +114,9 @@ define([
                 toscene.performBeginCutscene();
             }
 
-            gamemusic.playMusic(toscene.music);
+            if (toscene.music) {
+                gamemusic.playMusic(toscene.music);
+            }
         };
     };
     return GameStage;

@@ -15,9 +15,9 @@ define([
         stopMusic = function () {
             if (require('engine/game/preferences').isMusicEnabled()) {
                 if (_currentMusic) {
+                    console.log('stopping music ' + _musicName);
                     _currentMusic = createjs.Sound.stop(_musicName);
                     _currentMusic = undefined;
-                    _musicName = undefined;
                 }
             }
         },
@@ -25,9 +25,9 @@ define([
         stopSound = function () {
             if (require('engine/game/preferences').isSoundEnabled()) {
                 if (_currentSound) {
-                    _currentMusic = createjs.Sound.stop(_soundName);
+                    console.log('stopping sound ' + _musicName);
+                    _currentSound = createjs.Sound.stop(_soundName);
                     _currentSound = undefined;
-                    _soundName = undefined;
                 }
             }
         },
@@ -37,16 +37,17 @@ define([
                 stopMusic();
                 if (musicName) {
                     _musicName = musicName;
-                    _currentMusic = createjs.Sound.play(_musicName);
-                    _currentMusic.setVolume(
-                        parseInt(
-                            require('engine/game/preferences').getMusicVolume(),
-                            10
-                        ) / 100);
-                    _currentMusic.addEventListener("complete", function () {
-                        playMusic(musicName);
-                    });
                 }
+                _currentMusic = createjs.Sound.play(_musicName);
+                var volume = parseInt(
+                        require('engine/game/preferences').getMusicVolume(),
+                        10
+                    ) / 100;
+                _currentMusic.setVolume(volume);
+                console.log('playing music ' + _musicName + ' at ' + volume);
+                _currentMusic.addEventListener("complete", function () {
+                    playMusic(musicName);
+                });
             }
         },
 
@@ -70,15 +71,16 @@ define([
             if (require('engine/game/preferences').isSoundEnabled()) {
                 if (soundName) {
                     _soundName = soundName;
-                    _currentSound = createjs.Sound.play(_soundName);
-                    _currentSound.setVolume(
-                        parseInt(
-                            require('engine/game/preferences').getSoundVolume(), 10) / 100);
-                    _currentSound.addEventListener("complete", function () {
-                        _currentSound = undefined;
-                        _soundName = undefined;
-                    });
                 }
+                _currentSound = createjs.Sound.play(_soundName);
+                var volume = parseInt(
+                        require('engine/game/preferences').getSoundVolume(), 10) / 100;
+                _currentSound.setVolume(volume);
+                console.log('playing sound ' + _soundName + ' at ' + volume);
+
+                _currentSound.addEventListener("complete", function () {
+                    _currentSound = undefined;
+                });
             }
         };
 

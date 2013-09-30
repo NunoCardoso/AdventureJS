@@ -16,7 +16,7 @@ define([
             require('engine/tpl/main').close();
 
             gamestate.setFromJSON(loadgame.json);
-            gamemusic.play(gamestage.get().getCurrentScene().music);
+            gamemusic.playMusic(gamestage.get().getCurrentScene().music);
             gamestage.play();
         },
 

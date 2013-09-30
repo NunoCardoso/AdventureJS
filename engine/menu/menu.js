@@ -36,7 +36,7 @@ define([
             return false;
         };
 
-        this.resetTargetXY = function (xy) {};        
+        this.resetTargetXY = function (xy) {};
         this.setTargetCursorXY = function (xy) {};
 
         // Title
@@ -79,6 +79,7 @@ define([
             h: config.get('button.h'),
             r: config.get('button.r'),
             onClick: function () {
+                require('engine/tpl/main').close();
                 var gamestage = require('engine/stage/main');
                 gamestage.activateTick();
                 gamestage.get().switchScene(
@@ -94,6 +95,7 @@ define([
             h: config.get('button.h'),
             r: config.get('button.r'),
             onClick: function () {
+                require('engine/tpl/main').close();
                 require('engine/tpl/main').openLoadgame();
             }
         });
@@ -110,6 +112,7 @@ define([
                 require('engine/stage/main').setSavegame(
                     require('engine/state/main').getToJSON()
                 );
+                require('engine/tpl/main').close();
                 require('engine/tpl/main').openSavegame();
             }
         });
@@ -122,10 +125,11 @@ define([
             h: config.get('button.h'),
             r: config.get('button.r'),
             onClick: function () {
+                require('engine/tpl/main').close();
                 var stage = require('engine/stage/main');
                 stage.play();
                 stage.get().removeMenuScene('scene.menu');
-                gamemusic.play(stage.get().getCurrentScene().music);
+                gamemusic.playMusic(stage.get().getCurrentScene().music);
             }
         });
 
