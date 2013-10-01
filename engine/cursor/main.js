@@ -22,7 +22,7 @@ define([
         },
 
         setBusy = function () {
-            changeTo('image.cursor.wait');
+            _.changeTo('image.cursor.wait');
             _.busy = true;
         },
 
@@ -41,7 +41,7 @@ define([
 
         preload = function () {
             _ = new Cursor();
-            _t = new Target(); 
+            _t = new Target();
         },
 
         get = function () {

@@ -144,7 +144,7 @@ define([
              */
             start = function (options) {
                 _options = options;
-                var gameAssetList = _game.images.concat(_game.sounds);
+                var gameAssetList = _game.images.concat(_game.sounds).concat(_game.musics);
 
                 gamestage.preload({
                     canvas : options.canvas || 'canvas',

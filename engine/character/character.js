@@ -60,16 +60,32 @@ define([
             this.balloon
         );
 
-        this.getDimensions = function (scene) {
-            var offset = 0;
-            if (scene) {
-               // offset = scene.backgroundOffset;
+        this.calculateBestTarget = function (mousexy, characterxy, scene) {
+            var dim = {
+                'x1' : mousexy.x - this.w / 2,
+                'x2' : mousexy.x + this.w / 2,
+                'y1' : mousexy.y - this.regY,
+                'y2' : mousexy.y
+            };
+
+            var itemX = (dim.x1 + dim.x2) / 2;
+
+            // Dimensions of itemX will be RELATIVE to the game window,
+            // so they are a bounding box of it, on mouse-kind of coordinates.
+            // playable character is not, so add the backgroundOffset to have
+            // the RELATIVE coordinates.
+
+            // playable character is on the left of the object;
+            if (characterxy.x + scene.backgroundOffset < itemX) {
+                return {
+                    x : dim.x1,
+                    y : mousexy.y
+                };
             }
+            // playable character is on the right of the object;
             return {
-                'x1' : this.x - offset - this.w / 2,
-                'x2' : this.x - offset + this.w / 2,
-                'y1' : this.y - this.regY,
-                'y2' : this.y
+                x : dim.x2,
+                y : mousexy.y
             };
         };
 
@@ -139,24 +155,14 @@ define([
         // mouse position click can be the target click on most ocations,
         // but if we clicked on items/characters, we don't want to land
         // on top of them, so let's compute a margin distance.
-        this.calculateTargetXY = function (xy, item, scene) {
+        this.calculateTargetXY = function (mousexy, item, scene) {
             if (!item) {
-                return this.moveTo(xy);
+                return this.moveTo(mousexy);
             }
-            var dim = item.getDimensions(scene),
-                itemX = (dim.x1 + dim.x2) / 2;
-            // playable character is on the left of the object;
-            if (this.x < itemX) {
-                return this.moveTo({
-                    x : dim.x1,
-                    y : xy.y
-                });
-            }
-            // playable character is on the right of the object;
-            return this.moveTo({
-                x : dim.x2,
-                y : xy.y
-            });
+
+            var thisxy = {x: this.x, y: this.y};
+            var newTarget = item.calculateBestTarget(mousexy, thisxy, scene);
+            return this.moveTo(newTarget);
         };
 
         // triggered when dot key is press

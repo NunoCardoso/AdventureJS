@@ -407,6 +407,7 @@ define([
                 return;
             }
             gamecursor.setBusy();
+            require('engine/stage/main').update();
             require('engine/interaction/decision').performList({
                 taskList: this.beginCutscene,
                 whenDone: function () {

@@ -115,7 +115,7 @@ define([
             'author'        : 'John Teacher',
             'description'   : 'Do you really know Japan history? Do you really know how was France in the XVIII century? Well, buckle up, let’s blast to the past and have fun!',
             'background'    : 'image.aroundtheworld',
-            'startingScene' : 'scene.japan',
+            'startingScene' : 'scene.backyard',
             'music'         : 'music.intro'
         },
         'panel' : {
@@ -492,10 +492,7 @@ define([
                     },
                     {
                         'action' : 'goToExit',
-                        'exit'   : 'exit.tojapan'
-                    },
-                    {
-                        'action' : 'setDefaultIcon'
+                        'exit'   : 'exit.japan'
                     }
                 ]
             },
@@ -548,9 +545,6 @@ define([
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
                         'text'  : 'Like it is going to be useful for me. Ah ah ah!'
-                    },
-                    {
-                        'action' : 'setDefaultIcon'
                     }
                 ],
                 'npcs' : [],
@@ -585,9 +579,6 @@ define([
                 'interactable'       : true,
                 'music'              : 'music.japan',
                 'beginCutscene' : [
-                    {
-                        'action' : 'setDefaultIcon'
-                    },
                     {
                         'action'    : 'moveTo',
                         'character' : 'pc.main',

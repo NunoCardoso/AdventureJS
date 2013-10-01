@@ -75,16 +75,30 @@ define([
         };
 
         // TODO: there must be a better way to do this
-        this.getDimensions = function (scene) {
+        this.calculateBestTarget = function (mousexy, characterxy, scene) {
             var offset = 0;
             if (scene) {
                 offset = scene.backgroundOffset;
             }
-            return {
+            var dim = {
                 'x1' : this.x + offset,
                 'x2' : this.x + offset + this.w,
                 'y1' : this.y,
                 'y2' : this.y + this.h
+            };
+            var itemX = (dim.x1 + dim.x2) / 2;
+
+            // if playable character is on the left of the object;
+            if (characterxy.x < itemX) {
+                return {
+                    x : dim.x1,
+                    y : mousexy.y
+                };
+            }
+
+            return {
+                x : dim.x2,
+                y : mousexy.y
             };
         };
 

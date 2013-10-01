@@ -110,12 +110,14 @@ define([
             this.addChild(toscene);
             this.currentScene = toscene;
 
-            if (toscene.hasBeginCutscene()) {
-                toscene.performBeginCutscene();
-            }
-
             if (toscene.music) {
                 gamemusic.playMusic(toscene.music);
+            }
+
+            this.update();
+
+            if (toscene.hasBeginCutscene()) {
+                toscene.performBeginCutscene();
             }
         };
     };
