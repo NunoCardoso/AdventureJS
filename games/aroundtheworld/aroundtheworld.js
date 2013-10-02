@@ -98,8 +98,8 @@ define([
         },
         'npcs' : [
             {
-                'id'    : 'npc.bowser',
-                'label' : 'Bowser'
+                'id'    : 'npc.tatsu',
+                'label' : 'Tatsu'
             },
             {
                 'id'    : 'npc.girl',
@@ -115,7 +115,7 @@ define([
             'author'        : 'John Teacher',
             'description'   : 'Do you really know Japan history? Do you really know how was France in the XVIII century? Well, buckle up, let’s blast to the past and have fun!',
             'background'    : 'image.aroundtheworld',
-            'startingScene' : 'scene.backyard',
+            'startingScene' : 'scene.japan',
             'music'         : 'music.intro'
         },
         'panel' : {
@@ -368,12 +368,12 @@ define([
                 'id' : 'interaction.10',
                 'verb' : 'Talk to',
                 'first' : {
-                    'item' : 'npc.bowser'
+                    'item' : 'npc.tatsu'
                 },
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'dialog': 'dialog.talktobowser'
+                        'dialog': 'dialog.talkToTatsu'
                     }
                 ]
             },
@@ -384,12 +384,12 @@ define([
                     'item' : 'object.shirt'
                 },
                 'second' : {
-                    'item' : 'npc.bowser'
+                    'item' : 'npc.tatsu'
                 },
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'dialog': 'dialog.giveshirttobowser'
+                        'dialog': 'dialog.giveshirtToTatsu'
                     }
                 ]
             },
@@ -400,12 +400,12 @@ define([
                     'item' : 'object.towelwithredberry'
                 },
                 'second' : {
-                    'item' : 'npc.bowser'
+                    'item' : 'npc.tatsu'
                 },
                 'actions' : [
                     {
                         'action': 'playDialog',
-                        'dialog': 'dialog.givetowelwithredberrytobowser'
+                        'dialog': 'dialog.giveTowelWithRedBerryToTatsu'
                     }
                 ]
             },
@@ -497,15 +497,28 @@ define([
                 ]
             },
             {
-                'id' : 'interaction.15',
-                'verb' : 'Talk to',
+                'id'    : 'interaction.15',
+                'verb'  : 'Talk to',
                 'first' : {
                     'item' : 'npc.girl'
                 },
                 'actions' : [
                     {
-                        'action': 'playDialog',
-                        'dialog': 'dialog.talktogirl'
+                        'action' : 'playDialog',
+                        'dialog' : 'dialog.toGirl'
+                    }
+                ]
+            },
+            {
+                'id'    : 'interaction.16',
+                'verb'  : 'Talk to',
+                'first' : {
+                    'item' : 'npc.togatsu'
+                },
+                'actions' : [
+                    {
+                        'action'        : 'startDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTogatsu1'
                     }
                 ]
             }
@@ -629,7 +642,7 @@ define([
 
                     },
                     {
-                        'id' : 'npc.bowser',
+                        'id' : 'npc.tatsu',
                         'position' : {
                             'x'    : 1350,
                             'y'    : 370
@@ -691,8 +704,8 @@ define([
             }
         ],
         'flags' : {
-            'hasTalkedWithBowser'        : false,
-            'hasHandedJapanFlagToBowser' : false
+            'hasTalkedwithTatsu'        : false,
+            'hasHandedJapanFlagToTatsu' : false
         },
         'conditions' : [
             {
@@ -702,7 +715,7 @@ define([
                     'x' : 1000
                 },
                 'test': 'flag',
-                'item': 'hasTalkedWithBowser',
+                'item': 'hasTalkedwithTatsu',
                 'persistence' : 'once',
                 'onFail': [
                     {
@@ -718,7 +731,7 @@ define([
                     },
                     {
                         'action' : 'playDialog',
-                        'dialog' : 'dialog.talktobowser'
+                        'dialog' : 'dialog.talkToTatsu'
                     },
                     {
                         'action' : 'setDefaultIcon'
@@ -732,7 +745,7 @@ define([
                     'x' : 4450
                 },
                 'test': 'flag',
-                'item': 'hasHandedJapanFlagToBowser',
+                'item': 'hasHandedJapanFlagToTatsu',
                 'persistence' : 'always',
                 'onFail': [
                     {
@@ -760,444 +773,916 @@ define([
 
         'dialogs' : [
             {
-                'id' : 'dialog.talktobowser',
-                'to' : 'npc.bowser',
+                'id'    : 'dialog.talkToTatsu',
+                'to'    : 'npc.tatsu',
                 'lines' : [
                     {
-                        'character' : 'npc.bowser',
-                        'text' : 'Halt! Where are you going?'
-                    }
-                ],
-                'onEnd' : [
-                    {
-                        'action' : 'startDialogOptions',
-                        'dialogOptions' : 'dialogoption.withbowser'
-                    }
-                ]
-            },
-            {
-                'id' : 'dialog.sellingjackets',
-                'to' : 'npc.bowser',
-                'lines' : [
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Hi. I’m selling these fine leather jackets.'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'Do you have XXXXXXL size?'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Er... not at the moment, no.'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'Then I am not interested!'
-                    }
-                ],
-                'onEnd' : [
-                    {
-                        'action' : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withbowser'
-                    }
-                ]
-            },
-            {
-                'id' : 'dialog.mayipass',
-                'to' : 'npc.bowser',
-                'lines' : [
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Hello. May I pass please?'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'Depends. What do you know about Japan?'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'I know that Nintendos come from there.'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'Ninten- what is that?!'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Oh yeah, we’re in the XIX century. Doh.'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'You can’t pass unless you can prove that you know about Japan!'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Ok, so what should I do to prove that?'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'You can show me a flag of Japan, and I will let you pass. Deal?'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Ok, deal.'
-                    }
-                ],
-                'onEnd' : [
-                    {
-                        'action' : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withbowser'
-                    }
-                ]
-            },
-            {
-                'id' : 'dialog.hereitis',
-                'to' : 'npc.bowser',
-                'lines' : [
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Hi. Here it is. The flag of Japan.'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'What? This is a shirt!'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'No, but the colours and pattern match. See?'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'This is the flag of France! Try again.'
-                    }
-                ],
-                'onEnd' : [
-                    {
-                        'action' : 'endDialog',
-                        'character' : 'npc.bowser'
-                    }
-                ]
-            },
-            {
-                'id' : 'dialog.hereitis',
-                'to' : 'npc.bowser',
-                'lines' : [
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Here it is. The flag of Japan.'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'Mmm yes, it is. OK, you may pass now.'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Thanks.'
-                    }
-                ],
-                'onEnd' : [
-                    {
-                        'action' : 'endDialog',
-                        'character' : 'npc.bowser'
-                    }
-                ]
-            },
-            {
-                'id' : 'dialog.wrongway',
-                'to' : 'npc.bowser',
-                'lines' : [
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'I must be going. Duty calls.'
-                    },
-                    {
-                        'character' : 'npc.bowser',
-                        'text' : 'I\'ll be here, blocking your path.'
-                    }
-                ],
-                'onEnd' : [
-                    {
-                        'action' : 'endDialog',
-                        'character' : 'npc.bowser'
-                    }
-                ]
-            },
-            {
-                'id' : 'dialog.talktogirl',
-                'to' : 'npc.girl',
-                'lines' : [
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Hi! Might I ask who you are?'
-                    },
-                    {
-                        'character' : 'npc.girl',
-                        'text' : 'Woaaaah, I\'m a little crying girl, isn’t it obvious? Woaaaaah'
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Hold it right there, kid!'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'startDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withTatsu'
                     }
                 ]
             },
             {
-                'id' : 'dialog.whycrying',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withTatsuSellingJackets',
+                'to'    : 'npc.tatsu',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'Hello. Why are you crying?'
+                        'text'      : 'Hi. I\'m selling these fine leather jackets.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Do you have XXXXXXL size?'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Er... not at the moment, no.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Then go away!'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTatsu'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuMohawk',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I have never seen a dragon with a mohawk before.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'How many dragons have you seen before?'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Err... mm... none.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'It\'s a fashion statement. All dragons are wearing it these days.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTatsu'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuExitTatsu',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I must be going, someone is calling me.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Whatever. You shall not pass!'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'    : 'endDialog',
+                        'character' : 'npc.tatsu'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTogatsuExit',
+                'to'    : 'npc.togatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Look at the time. I gotta go.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'Mmph.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'    : 'endDialog',
+                        'character' : 'npc.togatsu'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.toGirl',
+                'to'    : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Hi! Might I ask who are you?'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'Today is Omisoka, and tomorrow we are supposed to celebrate new year.'
+                        'text'      : 'Woaaaah, I\'m a little crying girl, isn’t it obvious? Woaaaaah'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'startDialogOptions',
+                        'dialogOptions' : 'dialogoption.withGirl'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withGirlWhyCrying',
+                'to'    : 'npc.girl',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Why are you crying?'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'But we don\'t have any rice to make Kagami Mochi for the celebration!'
+                        'text'      : 'Today is Omisoka, and tomorrow we are supposed to celebrate new year.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text'      : 'But we don\'t have any rice to make Kagami Mochi for the celebration!'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'addDialogOption',
-                        'dialogOptions' : 'dialogoption.withgirl1',
+                        'dialogOptions' : 'dialogoption.withGirl',
                         'text'          : 'Why do you not have any rice?',
-                        'dialog'        : 'dialog.whynotrice',
+                        'dialog'        : 'dialog.withGirlWhyNotRice',
                         'persistence'   : 'once'
                     },
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withGirl'
                     }
                 ]
             },
             {
-                'id' : 'dialog.notthatlittle',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withGirlNotThatLittle',
+                'to'    : 'npc.girl',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'You don\'t seem that little to me.'
+                        'text'      : 'You don\'t seem that little to me.'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'I am actually the tallest in my class.'
+                        'text'      : 'I am actually the tallest in my class.'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'He have actually the same height.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text'      : 'Yes, but you don\'t have a neck.'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withGirl'
                     }
                 ]
             },
             {
-                'id' : 'dialog.scaryplace',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withGirlScaryPlace',
+                'to'    : 'npc.girl',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'This seems like a scary place for a little girl.'
+                        'text'      : 'This seems like a scary place for a little girl.'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'It didn\'t use to be scary, until the dragon Tatsu came to our village.'
+                        'text'      : 'It didn\'t use to be scary...'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text'      : '...until the dragon Tatsu came to our village.'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'addDialogOption',
-                        'dialogOptions' : 'dialogoption.withgirl1',
-                        'text'          : 'What is Tatsu doing?',
-                        'dialog'        : 'dialog.whatistatsu',
+                        'dialogOptions' : 'dialogoption.withGirl',
+                        'text'          : 'you said a dragon?',
+                        'dialog'        : 'dialog.withGirlWhatIsTatsu',
                         'persistence'   : 'once'
                     },
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withGirl'
                     }
                 ]
             },
             {
-                'id' : 'dialog.whynotrice',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withGirlWhyNotRice',
+                'to'    : 'npc.girl',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'Why do you not have any rice?'
+                        'text'      : 'Why do you not have any rice?'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'All the rice has to be bought at Togatsu\'s store...'
+                        'text'      : 'All rice has to be bought at Togatsu\'s store...'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : '...but he is refusing to give us any!'
+                        'text'      : '...but he is refusing to sell us any!'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'addDialogOption',
-                        'dialogOptions' : 'dialogoption.withgirl1',
-                        'text'          : 'Why is he refusing to give you rice?',
-                        'dialog'        : 'dialog.whyistatsu',
+                        'dialogOptions' : 'dialogoption.withGirl',
+                        'text'          : 'Why is he refusing to sell you rice?',
+                        'dialog'        : 'dialog.withGirlWhyIsTatsu',
                         'persistence'   : 'once'
                     },
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withGirl'
                     }
                 ]
             },
             {
-                'id' : 'dialog.whatistatsu',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withGirlWhatIsTatsu',
+                'to'    : 'npc.girl',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'What is Tatsu doing?'
+                        'text'      : 'You said a dr.. a dr... a dragon?'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'Tatsu has stolen all our fishing equipment, and he refusing to give it back...'
+                        'text'      : 'Yes, Tatsu the Dragon. He stole all our fishing equipment...'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : '...until someone can answers his three riddles.'
+                        'text'      :  '...and he refusing to give it back, unless...'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'All the rice has to be bought at Togatsu\'s store...'
+                        'text'      : '...unless someone answers his riddles.'
+                    },
+                    {
+                        'character' : 'npc.girl',
+                        'text'      : 'All rice has to be bought at Togatsu\'s store.'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'addDialogOption',
-                        'dialogOptions' : 'dialogoption.withgirl1',
+                        'dialogOptions' : 'dialogoption.withGirl',
                         'text'          : 'Where can I find this dragon?',
-                        'dialog'        : 'dialog.finddragon',
+                        'dialog'        : 'dialog.withGirlFindDragon',
                         'persistence'   : 'once'
                     },
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withGirl'
                     }
                 ]
             },
             {
-                'id' : 'dialog.whyistatsu',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withGirlWhyIsTatsu',
+                'to'    : 'npc.girl',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'Why is he refusing to give you rice?'
+                        'text'      : 'Why is he refusing to give you rice?'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'His family and servants hold a giant feast every year...'
+                        'text'      : 'His family hold a giant feast every year...'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : '...but because of Tatsu they don’t have enough fish to make osechi-ryōri.'
+                        'text'      : '...but because of dragon Tatsu, they don’t have enough fish...'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : 'He is holding the village ransom!'
-                    },
-                    {
-                        'character' : 'pc.main',
-                        'text' : 'Thank you, I\'ll try my best.'
+                        'text'      : '... they can\'t make osechi-ryōri. He is holding the village ransom!'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withGirl'
                     }
                 ]
             },
             {
-                'id' : 'dialog.finddragon',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withGirlFindDragon',
+                'to'    : 'npc.girl',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'Where can I find this dragon?'
+                        'text'      : 'Where can I find this Tatsu dragon?'
                     },
                     {
                         'character' : 'npc.girl',
-                        'text' : ' He is standing on a bridge in the far east.'
+                        'text'      : ' He is standing on a bridge in the far east.'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withgirl1'
+                        'dialogOptions' : 'dialogoption.withGirl'
                     }
                 ]
             },
             {
-                'id' : 'dialog.bye',
-                'to' : 'npc.girl',
+                'id'    : 'dialog.withGirlBye',
+                'to'    : 'npc.girl',
                 'lines' : [
                     {
                         'character' : 'pc.main',
-                        'text' : 'bye.'
+                        'text'      : 'See you later.'
                     }
                 ],
                 'onEnd' : [
                     {
-                        'action' : 'endDialog',
+                        'action'    : 'endDialog',
                         'character' : 'npc.girl'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTogatsuRubBelly',
+                'to'    : 'npc.togatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Hello! Mind if I rub your belly for good luck?'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I am going to talk to a dragon, so I definitely need it.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'You certainly may not! Mmph.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTogatsu1'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTogatsuWhoAreYou',
+                'to'    : 'npc.togatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Hello! Who are you?'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'I am Togatsu San, the wealthiest shopkeeper in all of Okinawa.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'And you have the silliest selection of clothing I have ever seen.'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I heard that you sell the best rice around here.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'Yes, but you will get none! These peasants want their rice, and I will be damned...'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : '...if I\'m not going to use them for my own purpose.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'Tell me, are you good at answering riddles?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'startDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTogatsu2'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTogatsuBreeze',
+                'to'    : 'npc.togatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I was 4th in the 2013 Seattle county junior spelling bee championship!'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'I don’t think casting spells on bees will help you on solving Tatsu\'s riddles.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'You better have your homework ready about Japan, it is his favourite subject.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTogatsu2'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTogatsuJeopardy',
+                'to'    : 'npc.togatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I watch a lot of Jeopardy.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'Well, I have something that will definitely put your life in jeopardy.'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'And what... what is that?'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'Go talk to that friendly dragon over there, and answer his riddles.'
+                    },
+                    {
+                        'character' : 'npc.togatsu',
+                        'text'      : 'And catch me some fish. If you bring back enough, I will sell you some rice.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTogatsu2'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuFishing',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : ' I hear you have some fishing equipment.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Maybe I do, maybe I don\'t. Wha do you care?'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I would really like to have a fishing pole.'
+                    },
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I need some white fish for making Kamaboko'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Well, we can play a game: you have to answer three riddles!'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'If you get them right, I will give you a fishing pole!'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'But if you fail, I will held you hostage until you make me a leather jacket! Agreed?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'addDialogOption',
+                        'dialogOptions' : 'dialogoption.withTatsu',
+                        'text'          : 'Agreed. Let\'s have the first riddle.',
+                        'dialog'        : 'dialog.withTatsuFirstRiddle',
+                        'persistence'   : 'once'
+                    },
+                    {
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTogatsu2'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuFirstRiddle',
+                'to'    : 'npc.togatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Agreed. Let\'s have the first riddle.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Here is the first one:'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'What is it that four mice are eating?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'ねずみが４匹で食べるものなーんだ？'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'       : 'addDialogOption',
+                        'dialogoption' : 'dialogoption.withTatsuFirstRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.firstRiddleFirstAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Is it Stew?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Correct! Stew in Japanese is spelled Shichu.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Shi means four, and chu is the sound a mouse makes.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Are you ready for the next riddle?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'addDialogOption',
+                        'dialogOptions' : 'dialogoption.withTatsu',
+                        'text'          : 'Yes, give me the second riddle.',
+                        'dialog'        : 'dialog.withTatsuSecondRiddle',
+                        'persistence'   : 'once'
+                    },
+                    {
+                        'action'       : 'continueDialogOptions',
+                        'dialogoption' : 'dialogoption.withTatsu'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.firstRiddleSecondAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Is it rice?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Mouses don\'t eat rice! Try again'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'       : 'continueDialogOptions',
+                        'dialogoption' : 'dialogoption.withTatsuFirstRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.firstRiddleThirdAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I have no idea what mice eat.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Well, think about it.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'    : 'endDialog',
+                        'character' : 'npc.tatsu'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuSecondRiddle',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : ' Yes, give me the second riddle?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Pay attention:'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Bread is bread, but what bread is inedible?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : '「パンはパンでも食べられないパンは、'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'なぁに？」答え:「フライパン」?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'       : 'continueDialogOptions',
+                        'dialogoption' : 'dialogoption.withTatsuSecondRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuSecondRiddleFirstAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'A really dried up bread?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Hey, a dried up bread is delicious after you heat it...'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : '...for 30 seconds in the microwave. Try again'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'       : 'continueDialogOptions',
+                        'dialogoption' : 'dialogoption.withTatsuSecondRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuSecondRiddleSecondAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Banana bread?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Bread with bananas? Mmm... Interesting, but wrong.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'       : 'continueDialogOptions',
+                        'dialogoption' : 'dialogoption.withTatsuSecondRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuSecondRiddleThirdAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'A frying pan?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Correct! In Japanese, the word for bread is pan.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Ready for the last riddle?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'addDialogOption',
+                        'dialogOptions' : 'dialogoption.withTatsu',
+                        'text'          : 'I\'m ready for the third and last riddle.',
+                        'dialog'        : 'dialog.withTatsuThirdRiddle',
+                        'persistence'   : 'once'
+                    },
+                    {
+                        'action'       : 'continueDialogOptions',
+                        'dialogoption' : 'dialogoption.withTatsuFirstRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuGiveUp',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'I give up.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Mmph... wimp!'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'    : 'endDialog',
+                        'character' : 'npc.tatsu'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuThirdRiddle',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Yes, give me the last riddle.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Ok! Pay attention:'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'What song is traditionally played at new years eve all through Japan?'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'startDisplayDialog',
+                        'dialogOptions' : 'dialogoption.withTatsuThirdRiddle'
                     }
                 ]
             }
         ],
         'dialogoptions' : [
             {
-                'id' : 'dialogoption.withbowser',
+                'id'      : 'dialogoption.withTatsu',
                 'choices' : [
                     {
-                        'text' : 'Hi. I’m selling these fine leather jackets.?',
-                        'dialog' : 'dialog.sellingjackets',
+                        'text'        : 'Hi. I\'m selling these fine leather jackets.',
+                        'dialog'      : 'dialog.withTatsuSellingJackets',
                         'persistence' : 'once'
                     },
                     {
-                        'text' : 'Hello. May I pass please?',
-                        'dialog' : 'dialog.mayipass',
+                        'text'        : 'I have never seen a dragon with a mohawk before.',
+                        'dialog'      : 'dialog.withTatsuMohawk',
                         'persistence' : 'always'
                     },
                     {
-                        'text' : 'Oops, wrong way. Bye.',
-                        'dialog' : 'dialog.wrongway',
+                        'text'        : 'I hear you have some fishing equipment.',
+                        'dialog'      : 'dialog.withTatsuFishing',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text'        : 'Oops, wrong way. Bye.',
+                        'dialog'      : 'dialog.withTatsuExit',
                         'persistence' : 'always'
                     }
                 ]
             },
             {
-                'id' : 'dialogoption.withgirl1',
+                'id'      : 'dialogoption.withGirl',
                 'choices' : [
                     {
-                        'text' : 'Hello. Why are you crying?',
-                        'dialog' : 'dialog.whycrying',
+                        'text'        : 'Hello. Why are you crying?',
+                        'dialog'      : 'dialog.withGirlWhyCrying',
                         'persistence' : 'once'
                     },
                     {
-                        'text' : 'You don\'t seem that little to me.',
-                        'dialog' : 'dialog.notthatlittle',
+                        'text'        : 'You don\'t seem that little to me.',
+                        'dialog'      : 'dialog.withGirlNotThatLittle',
                         'persistence' : 'always'
                     },
                     {
-                        'text' : 'This seems like a scary place for a little girl.',
-                        'dialog' : 'dialog.scaryplace',
+                        'text'        : 'This seems like a scary place for a little girl.',
+                        'dialog'      : 'dialog.withGirlScaryPlace',
                         'persistence' : 'once'
                     },
                     {
-                        'text' : 'Bye.',
-                        'dialog' : 'dialog.bye',
+                        'text'        : 'Bye.',
+                        'dialog'      : 'dialog.withGirlBye',
+                        'persistence' : 'always'
+                    }
+                ]
+            },
+            {
+                'id'      : 'dialogoption.withTogatsu1',
+                'choices' : [
+                    {
+                        'character'   : 'pc.main',
+                        'text'        : 'Hello. Mind if I rub your belly for good luck?',
+                        'dialog'      : 'dialog.withTogatsuRubBelly',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text'        : 'Hello. Who are you?',
+                        'dialog'      : 'dialog.withTogatsuWhoAreYou',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text'        : 'Nope. Have to go. Bye.',
+                        'dialog'      : 'dialog.withTogatsuExit',
+                        'persistence' : 'always'
+                    }
+                ]
+            },
+            {
+                'id'      : 'dialogoption.withTogatsu2',
+                'choices' : [
+                    {
+                        'text'        : 'It should be a breeze.',
+                        'dialog'      : 'dialog.withTogatsuBreeze',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'Yes, I watch a lof of Jeopardy.',
+                        'dialog'      : 'dialog.withTogatsuJeopardy',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'Nope. Have to go. Bye.',
+                        'dialog'      : 'dialog.withTogatsuExit',
+                        'persistence' : 'always'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialogoption.withTatsuFirstRiddle',
+                'choices' : [
+                    {
+                        'text'        : 'It is stew?',
+                        'dialog'      : 'dialog.withTatsuFirstRiddleFirstAnswer',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text'        : 'Is it rice?',
+                        'dialog'      : 'dialog.withTatsuFirstRiddleSecondAnswer',
+                        'persistence' : 'always'
+                    },
+                    {
+                        'text'        : 'I have no idea what mice eat.',
+                        'dialog'      : 'dialog.withTatsuFirstRiddleThirdAnswer',
+                        'persistence' : 'always'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialogoption.withTatsuSecondRiddle',
+                'choices' : [
+                    {
+                        'text'        : 'A really dried up bread?',
+                        'dialog'      : 'dialog.withTatsuSecondRiddleFirstAnswer',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'Banana bread?',
+                        'dialog'      : 'dialog.withTatsuSecondRiddleSecondAnswer',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'A frying pan?',
+                        'dialog'      : 'dialog.withTatsuSeconfRiddleThirdAnswer',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'I give up',
+                        'dialog'      : 'dialog.withTatsuGiveUp',
                         'persistence' : 'always'
                     }
                 ]
@@ -1205,19 +1690,19 @@ define([
         ],
         'achievements': [
             {
-                'id' : 'achievement.redberry',
+                'id'    : 'achievement.redberry',
                 'title' : 'You got a red berry!'
             },
             {
-                'id' : 'achievement.clothes',
+                'id'    : 'achievement.clothes',
                 'title' : 'You shamelessly stole clothes!'
             },
             {
-                'id' : 'achievement.squash',
+                'id'    : 'achievement.squash',
                 'title' : 'You ruined a good towel!'
             },
             {
-                'id' : 'achievement.gameover',
+                'id'    : 'achievement.gameover',
                 'title' : 'You finished the game!'
             }
         ]

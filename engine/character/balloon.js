@@ -63,6 +63,11 @@ define([
                 this.line.x -= coords.x - 5;
             }
 
+            if (coords.y < 0) {
+                this.balloon.y -= coords.y - 5;
+                this.line.y -= coords.y - 5;
+            }
+
             this.balloon.graphics
                 .s("#FFFFFF")
                 .f("#FFFFFF")

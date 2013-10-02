@@ -172,7 +172,7 @@ define([
                 }
             },
             {
-                'id'     : 'npc.bowser',
+                'id'     : 'npc.tatsu',
                 'images' : 'image.bowser',
                 'textColor' : 'blue',
                 'speed'  : 2,

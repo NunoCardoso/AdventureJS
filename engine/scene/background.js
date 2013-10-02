@@ -112,6 +112,8 @@ define([
                 return false;
             case 'click':
                 if (mine) {
+                    // ask the character to move, only if we are in interactive mode
+                    
                     scene.getPc().setTargetXY({x : x, y : y});
                     action.reset();
                     return true;

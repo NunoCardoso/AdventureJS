@@ -115,14 +115,16 @@ define([
         };
 
         this.addDialogOptions = function (dialogoptions) {
-            var i,
-                _do;
+            var i;
             this.order = 0;
             for (i in dialogoptions) {
-//                _do = require('engine/dialogoption/main').get(dialogoptions[i]);
                 this.add(dialogoptions[i]);
             }
         };
+
+        // Keep tracking of the option index that was clicked;
+        // we might want to add additional dialog options next to it
+        this.lastOneClicked = undefined;
 
         this.add = function (dialogoption) {
 
@@ -136,11 +138,7 @@ define([
         };
 
         this.addAll = function (options) {
-            var i;
-            this.order = 0;
-            for (i in options) {
-                this.add(options[i]);
-            }
+            this.addDialogOptions(options);
         };
 
         this.removeDialogOptions = function (options) {

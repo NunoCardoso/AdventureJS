@@ -7,7 +7,7 @@ define([
     'engine/panel/dialogs',
     'engine/panel/inventory',
     'engine/panel/panel',
-    'engine/panel/verbs',
+    'engine/panel/verbs'
 ], function (
     Dialogs,
     Inventory,
@@ -66,6 +66,10 @@ define([
 
         removeDialogOptions = function () {
             _dialogs.removeDialogOptions();
+        },
+
+        getMode = function () {
+            return _.mode;
         };
 
     return {
@@ -80,5 +84,6 @@ define([
         'renderForDialog'            : renderForDialog,
         'addDialogOptions'           : addDialogOptions,
         'removeDialogOptions'        : removeDialogOptions,
+        'getMode'                    : getMode
     };
 });

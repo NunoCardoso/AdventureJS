@@ -182,8 +182,8 @@ define([
                     (scene.backgroundOffset < 0)
                 );
 
-                var isCharacterOnLeft = (c.x < (config.get('game.w') / 2)),
-                    isCharacterOnRight = (c.x >= (config.get('game.w') / 2 - 50));
+                var isCharacterOnLeft = (c.x + scene.backgroundOffset < (config.get('game.w') / 2)),
+                    isCharacterOnRight = (c.x + scene.backgroundOffset >= (config.get('game.w') / 2 - 50));
 
                 if ((sceneHasHiddenBackgroundOnLeft  && isCharacterOnLeft && c.character.isWalkingLeft()) ||
                         (sceneHasHiddenBackgroundOnRight && isCharacterOnRight && c.character.isWalkingRight())) {

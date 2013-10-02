@@ -155,6 +155,12 @@ define([
                     y : $("#canvas").height()
                 });
 
+                // make it extra-sharp
+                var context = $("#canvas")[0].getContext('2d');
+                if (context.webkitImageSmoothingEnabled !== undefined) {
+                    context.webkitImageSmoothingEnabled = false;
+                }
+
                 var deferred = gamestart.init({
                     'assetList' : _assetList.concat(gameAssetList)
                 });
