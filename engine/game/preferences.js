@@ -1,4 +1,4 @@
-/*global define, createjs, $ */
+/*global define, createjs, jQuery */
 
 /**
  * This module handles game music
@@ -26,7 +26,7 @@ define([
 
         //To set a cookie
     var setCookieValue = function (key, value) {
-            $.cookie(key, value, { 'expires': 7, 'path': '/'});
+            jQuery.cookie(key, value, { 'expires': 7, 'path': '/'});
         },
 
         getCookieValue = function (key) {

@@ -75,7 +75,7 @@ define([
                     });
                 } else {
                     $.ajax({
-                        url: '/adventure-game-handins/app/advgame/game/' + adv_game_id,
+                        url: '/adventure-game-handins/app/advgames/engine/' + adv_game_id,
                         method: 'GET',
                         success: function (response) {
                             _game = response;
@@ -83,6 +83,10 @@ define([
                         },
                         error: function (response) {
                             console.log('can\'t load game.');
+                            require(['games/aroundtheworld/aroundtheworld'], function (game) {
+                                _game = game;
+                                d.resolve();
+                            });
                         }
                     });
                 }
