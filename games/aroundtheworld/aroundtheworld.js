@@ -453,7 +453,7 @@ define([
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'What is he doing here?'
+                        'text' : 'What is this thing doing here?'
                     },
                     {
                         'action': 'wait',
@@ -466,12 +466,12 @@ define([
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'Wow, what is this doing here? Looks ancient. Looks...'
+                        'text' : 'Look at those strange inscriptions.. It seems like it is glowing more and more'
                     },
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : '...Japanese?'
+                        'text' : 'Something is happening!'
                     },
                     {
                         'action': 'changeBackground',
@@ -484,7 +484,7 @@ define([
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'I\'m feeling a little dizzy, what is going on?'
+                        'text' : 'Woaaaaaaaaaaaaaaaaaaaahhhhhhhhhhhh'
                     },
                     {
                         'action': 'wait',
@@ -547,17 +547,17 @@ define([
                     {
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'Tired of studing ancient history!'
+                        'text'  : 'Phew! Studying ancient history and cultures is hard, and worst of all I have a big test tomorrow..'
                     },
                     {
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'I mean, who needs to learn things about ancient Japan?'
+                        'text'  : 'Some fresh air from the back yard seems to help though.. need to clear my mind..'
                     },
                     {
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'Like it is going to be useful for me. Ah ah ah!'
+                        'text'  : 'Hey wait! What is that glowing thing over there..'
                     }
                 ],
                 'npcs' : [],
@@ -565,9 +565,9 @@ define([
                     {
                         'id' : 'object.amulet',
                         'x'  : 500,
-                        'y'  : 300,
-                        'w'  : 30,
-                        'h'  : 30
+                        'y'  : 330,
+                        'w'  : 60,
+                        'h'  : 45
                     }
                 ],
                 'exits' : [
@@ -616,7 +616,7 @@ define([
                     {
                         'action'    : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'      : 'Now it seems like I have been transported a village in Japan.'
+                        'text'      : 'Where am I? It seems strange but the amulet has transported me to a Japanese village.'
                     },
                     {
                         'action'    : 'moveTo',
@@ -629,7 +629,7 @@ define([
                     {
                         'action'    : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'      : 'Perhaps the amulet I found in the back yard yesterday is magic?'
+                        'text'      : 'Theres a little girl crying over there, perhaps I should go talk to her.'
                     }
                 ],
                 'npcs' : [

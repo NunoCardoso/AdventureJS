@@ -146,10 +146,10 @@ define([
                     'width'  : 100
                 },
                 'animations' : {
-                    'standleft'  : [0, 3, 'standleft', 6],
-                    'standright' : [0, 3, 'standright', 6],
-                    'talkleft'   : [4, 5, 'talkleft', 6],
-                    'talkright'  : [4, 5, 'talkright', 6]
+                    'standleft'  : [0, 1, 'standleft', 6],
+                    'standright' : [0, 1, 'standright', 6],
+                    'talkleft'   : [2, 3, 'talkleft', 6],
+                    'talkright'  : [2, 3, 'talkright', 6]
                 }
             },
             {
