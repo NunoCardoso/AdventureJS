@@ -75,7 +75,7 @@ define([
                     });
                 } else {
                     $.ajax({
-                        url: '/adventure-game-handins/app/advgames/engine/' + adv_game_id,
+							url: '/adventure-game-handins/app/advgames/' + adv_game_id + '/engine',
                         method: 'GET',
                         success: function (response) {
                             _game = response;
