@@ -35,10 +35,12 @@ define([
         _onTick = function (event) {
             if (!event.paused) {
                 var scene = stage.getCurrentScene();
-                scene.getPc().update(scene);
-                var i, npcs = scene.getNpcs();
-                for (i in npcs) {
-                    npcs[i].update(scene);
+                if (scene.isInteractable()) {
+                    scene.getPc().update(scene);
+                    var i, npcs = scene.getNpcs();
+                    for (i in npcs) {
+                        npcs[i].update(scene);
+                    }
                 }
                 stage.update(event);
             }

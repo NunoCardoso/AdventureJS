@@ -49,41 +49,45 @@ define([
             this.addChild(this.path);
         }
 
-        /* fit will make the background to fit the stage area. No overflow. */
-        if (this.mode === 'fit') {
-            this.image.scaleX = config.get('game.w') / this.image.image.width;
-            this.image.scaleY = config.get('game.h') / this.image.image.height;
-            if (this.path) {
-                this.path.scaleX = config.get('game.w') / this.path.image.width;
-                this.path.scaleY = config.get('game.h') / this.path.image.height;
+        this.fitBackground = function () {
+            /* fit will make the background to fit the stage area. No overflow. */
+            if (this.mode === 'fit') {
+                this.image.scaleX = config.get('game.w') / this.image.image.width;
+                this.image.scaleY = config.get('game.h') / this.image.image.height;
+                if (this.path) {
+                    this.path.scaleX = config.get('game.w') / this.path.image.width;
+                    this.path.scaleY = config.get('game.h') / this.path.image.height;
+                }
+                this.w = config.get('game.w');
+                this.h = config.get('game.h');
+
+            // fit Y, get the scale, then apply it to X.
+            } else if (this.mode === 'overflow') {
+                this.image.scaleY = config.get('game.h') / this.image.image.height;
+                this.image.scaleX = this.image.scaleY;
+
+                // path size is not the size of the background image
+                if (this.path) {
+                    this.path.scaleY = config.get('game.h') / this.path.image.height;
+                    this.path.scaleX = this.path.scaleY * this.image.image.width / this.path.image.width;
+
+                }
+                this.w = this.image.image.width;
+                this.h = this.image.image.height;
             }
-            this.w = config.get('game.w');
-            this.h = config.get('game.h');
+        };
 
-        // fit Y, get the scale, then apply it to X.
-        } else if (this.mode === 'overflow') {
-            this.image.scaleY = config.get('game.h') / this.image.image.height;
-            this.image.scaleX = this.image.scaleY;
-
-            // path size is not the size of the background image
-            if (this.path) {
-                this.path.scaleY = config.get('game.h') / this.path.image.height;
-                this.path.scaleX = this.path.scaleY * this.image.image.width / this.path.image.width;
-
-            }
-            this.w = this.image.image.width;
-            this.h = this.image.image.height;
-        }
-
-        this.switchBackgroundTo = function (img) {
+        this.switchBackgroundTo = function (img, backgroundmode) {
             var d = $.Deferred();
             createjs.Tween.get(this).to({alpha: 0.01}, 500)
                 .call(function () {
+                    this.backgroundmode = backgroundmode;
                     this.setImageBackground(img);
+                    this.fitBackground();
                     createjs.Tween.get(this).to({alpha: 1}, 500)
-                    .call(function () {
-                        d.resolve();
-                    });
+                        .call(function () {
+                            d.resolve();
+                        });
                 });
             return d.promise();
         };
@@ -113,7 +117,6 @@ define([
             case 'click':
                 if (mine) {
                     // ask the character to move, only if we are in interactive mode
-                    
                     scene.getPc().setTargetXY({x : x, y : y});
                     action.reset();
                     return true;
@@ -123,6 +126,9 @@ define([
                 return false;
             }
         };
+
+        this.fitBackground();
+
     };
     return Background;
 });

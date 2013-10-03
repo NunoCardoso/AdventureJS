@@ -75,21 +75,37 @@ define([
             {
                 'id'  : 'image.object.inventory.amulet',
                 'src' : 'games/aroundtheworld/img/object/inventoryamulet.png'
+            },
+            {
+                'id'  : 'image.object.inventory.fishingpole',
+                'src' : 'games/aroundtheworld/img/object/inventoryfishingpole.png'
+            },
+            {
+                'id'  : 'image.object.1x1',
+                'src' : 'games/aroundtheworld/img/object/1x1.png'
+            },
+            {
+                'id'  : 'image.object.inventory.fish',
+                'src' : 'games/aroundtheworld/img/object/inventoryfish.png'
+            },
+            {
+                'id'  : 'image.object.inventory.rice',
+                'src' : 'games/aroundtheworld/img/object/inventoryrice.png'
             }
         ],
         'sounds' : [],
         'musics' : [
             {
                 'id'  : 'music.intro',
-                'src' : 'games/aroundtheworld/msc/game-intro.wav'
-            },
-            {
-                'id'  : 'music.backyard',
                 'src' : 'games/aroundtheworld/msc/game-scene01.wav'
             },
             {
+                'id'  : 'music.backyard',
+                'src' : 'games/aroundtheworld/msc/chinese_juggler.mp3'
+            },
+            {
                 'id'  : 'music.japan',
-                'src' : 'games/aroundtheworld/msc/japan.mp3'
+                'src' : 'games/aroundtheworld/msc/chinflow.mp3'
             }
         ],
         'pc' : {
@@ -120,6 +136,7 @@ define([
         },
         'panel' : {
             'startingInventory' : [
+                'object.fish'
             ],
             'verbs' : [
                 {'first': 'Give',    'nr' : 2, 'second': 'to'},
@@ -178,6 +195,30 @@ define([
                 'label': 'towel with red berry',
                 'imageInInventory' : 'image.object.inventory.towelwithredberry',
                 'onForeground' : false
+            },
+            {
+                'id': 'object.fishingpole',
+                'label': 'fishing pole',
+                'imageInInventory' : 'image.object.inventory.fishingpole',
+                'onForeground' : false
+            },
+            {
+                'id': 'object.lake',
+                'label': 'lake',
+                'imageInStage' : 'image.object.1x1',
+                'onForeground' : false
+            },
+            {
+                'id': 'object.fish',
+                'label': 'fish',
+                'imageInInventory' : 'image.object.inventory.fish',
+                'onForeground' : false
+            },
+            {
+                'id': 'object.rice',
+                'label': 'bag of rice',
+                'imageInInventory' : 'image.object.inventory.rice',
+                'onForeground' : false
             }
         ],
         'interactions': [
@@ -231,10 +272,6 @@ define([
                         'action': 'dialogMessage',
                         'character': 'pc.main',
                         'text' : 'Someone is drying their clothes.'
-                    },
-                    {
-                        'action': 'changeBackground',
-                        'newBackground': 'image.japannewyear'
                     }
                 ]
             },
@@ -466,7 +503,7 @@ define([
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'Look at those strange inscriptions.. It seems like it is glowing more and more'
+                        'text' : 'Look at those strange inscriptions... It seems like it is glowing more and more'
                     },
                     {
                         'action': 'dialogMessage',
@@ -475,7 +512,8 @@ define([
                     },
                     {
                         'action': 'changeBackground',
-                        'newBackground': 'image.spin'
+                        'newBackground': 'image.spin',
+                        'backgroundmode' : 'fit'
                     },
                     {
                         'action': 'wait',
@@ -484,7 +522,7 @@ define([
                     {
                         'action': 'dialogMessage',
                         'character': 'pc.main',
-                        'text' : 'Woaaaaaaaaaaaaaaaaaaaahhhhhhhhhhhh'
+                        'text' : 'Woaaaaaaaaaaa aaaaaahhhhhhhhh'
                     },
                     {
                         'action': 'wait',
@@ -519,6 +557,162 @@ define([
                     {
                         'action'        : 'startDialogOptions',
                         'dialogOptions' : 'dialogoption.withTogatsu1'
+                    }
+                ]
+            },
+            {
+                'id'    : 'interaction.17',
+                'verb'  : 'Look at',
+                'first' : {
+                    'item' : 'object.fishingpole',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Awesome, a FX-7000 model!'
+                    }
+                ]
+            },
+            {
+                'id'    : 'interaction.18',
+                'verb'  : 'Use',
+                'first' : {
+                    'item' : 'object.fishingpole',
+                    'inInventory' : true
+                },
+                'second' : {
+                    'item' : 'object.lake',
+                    'inInventory' : false
+                },
+                'actions' : [
+                    {
+                        'action'        : 'setBusyIcon'
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Let\'s go fish!'
+                    },
+                    {
+                        'action'        : 'changeAttitude',
+                        'character'     : 'pc.main',
+                        'attitude'      : 'fishing'
+                    },
+                    {
+                        'action': 'wait',
+                        'howmuch': 4000
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Wow, I got one fish! They bite hard!'
+                    },
+                    {
+                        'action'        : 'addToInventory',
+                        'object'        : 'object.fish'
+                    },
+                    {
+                        'action'        : 'publishAchievement',
+                        'achievement'   : 'achievement.fish'
+                    },
+                    {
+                        'action'        : 'changeAttitude',
+                        'character'     : 'pc.main',
+                        'attitude'      : 'standleft'
+                    },
+                    {
+                        'action'        : 'setDefaultIcon'
+                    }
+                ]
+            },
+            {
+                'id'    : 'interaction.19',
+                'verb'  : 'Give',
+                'first' : {
+                    'item' : 'object.fish',
+                    'inInventory' : true
+                },
+                'second' : {
+                    'item' : 'npc.togatsu'
+                },
+                'actions' : [
+                    {
+                        'action'     : 'setBusyIcon'
+                    },
+                    {
+                        'action'     : 'removeFromInventory',
+                        'object'     : 'object.fish'
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Here, a fish as promised!'
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'npc.togatsu',
+                        'text'          : 'Wow, this one is big! Here\'s your rice, kid!'
+                    },
+                    {
+                        'action'     : 'addToInventory',
+                        'object'     : 'object.rice'
+                    },
+                    {
+                        'action'     : 'setDefaultIcon'
+                    }
+                ]
+            },
+            {
+                'id'    : 'interaction.20',
+                'verb'  : 'Give',
+                'first' : {
+                    'item' : 'object.rice',
+                    'inInventory' : true
+                },
+                'second' : {
+                    'item' : 'npc.girl'
+                },
+                'actions' : [
+                    {
+                        'action'     : 'setBusyIcon'
+                    },
+                    {
+                        'action'     : 'removeFromInventory',
+                        'object'     : 'object.rice'
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Here is yoiur rice, little girl. You can stop crying now.'
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'npc.girl',
+                        'text'          : 'I can\'t believe it! You have saved the celebration!'
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'npc.girl',
+                        'text'          : 'Togatsu San was even so impressed that he has invited everyone to his giant feast.'
+                    },
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'npc.girl',
+                        'text'          : 'Thank you, stranger!'
+                    },
+                    {
+                        'action'         : 'changeBackground',
+                        'newBackground'  : 'image.japannewyear',
+                        'backgroundmode' : 'fit'
+                    },
+                    {
+                        'action'         : 'publishAchievement',
+                        'achievement'    : 'achievement.gameover'
+                    },
+                    {
+                        'action'     : 'setDefaultIcon'
                     }
                 ]
             }
@@ -684,6 +878,13 @@ define([
                         'y'  : 230,
                         'w'  : 68,
                         'h'  : 76
+                    },
+                    {
+                        'id' : 'object.lake',
+                        'x'  : 1660,
+                        'y'  : 230,
+                        'w'  : 400,
+                        'h'  : 100
                     }
                 ],
                 'exits' : [
@@ -845,7 +1046,7 @@ define([
                 ]
             },
             {
-                'id'    : 'dialog.withTatsuExitTatsu',
+                'id'    : 'dialog.withTatsuExit',
                 'to'    : 'npc.tatsu',
                 'lines' : [
                     {
@@ -1548,6 +1749,86 @@ define([
                         'dialogOptions' : 'dialogoption.withTatsuThirdRiddle'
                     }
                 ]
+            },
+            {
+                'id'    : 'dialog.withTatsuThirdRiddleFirstAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'You\'re the best, by Bill Conti.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'I can\'t stand karate kids. Wrong answer.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Try again.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDisplayDialog',
+                        'dialogOptions' : 'dialogoption.withTatsuThirdRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuThirdRiddleSecondAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'The theme song to Super Mario Brothers.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Super Mario? Don\'t know what those. Wrong answer.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Try again.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action'        : 'continueDisplayDialog',
+                        'dialogOptions' : 'dialogoption.withTatsuThirdRiddle'
+                    }
+                ]
+            },
+            {
+                'id'    : 'dialog.withTatsuThirdRiddleThirdAnswer',
+                'to'    : 'npc.tatsu',
+                'lines' : [
+                    {
+                        'character' : 'pc.main',
+                        'text'      : 'Beethovens 9th Symphony?'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'Correct! All the orchestras play it during new years.'
+                    },
+                    {
+                        'character' : 'npc.tatsu',
+                        'text'      : 'You answered all riddles. Here is your fishing pole.'
+                    }
+                ],
+                'onEnd' : [
+                    {
+                        'action': 'addToInventory',
+                        'object': 'object.fishingpole'
+                    },
+                    {
+                        'action'    : 'endDialog',
+                        'character' : 'npc.tatsu'
+                    },
+                    {
+                        'action'      : 'publishAchievement',
+                        'achievement' : 'achievement.riddles'
+                    }
+                ]
             }
         ],
         'dialogoptions' : [
@@ -1677,7 +1958,32 @@ define([
                     },
                     {
                         'text'        : 'A frying pan?',
-                        'dialog'      : 'dialog.withTatsuSeconfRiddleThirdAnswer',
+                        'dialog'      : 'dialog.withTatsuSecondRiddleThirdAnswer',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'I give up',
+                        'dialog'      : 'dialog.withTatsuGiveUp',
+                        'persistence' : 'always'
+                    }
+                ]
+            },
+            {
+                'id' : 'dialogoption.withTatsuThirdRiddle',
+                'choices' : [
+                    {
+                        'text'        : 'You\'re the best, by Bill Conti?',
+                        'dialog'      : 'dialog.withTatsuThirdRiddleFirstAnswer',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'The theme song to Super Mario Brothers?',
+                        'dialog'      : 'dialog.withTatsuThirdRiddleSecondAnswer',
+                        'persistence' : 'once'
+                    },
+                    {
+                        'text'        : 'Beethoven\'s 9th Symphony?',
+                        'dialog'      : 'dialog.withTatsuThirdRiddleThirdAnswer',
                         'persistence' : 'once'
                     },
                     {
@@ -1687,6 +1993,7 @@ define([
                     }
                 ]
             }
+
         ],
         'achievements': [
             {
@@ -1700,6 +2007,14 @@ define([
             {
                 'id'    : 'achievement.squash',
                 'title' : 'You ruined a good towel!'
+            },
+            {
+                'id'    : 'achievement.riddles',
+                'title' : 'You solved all riddles!'
+            },
+            {
+                'id'    : 'achievement.fish',
+                'title' : 'You got your first virtual fish!'
             },
             {
                 'id'    : 'achievement.gameover',

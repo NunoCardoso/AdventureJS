@@ -31,7 +31,8 @@ define([
             'setBusyIcon',
             'setDefaultIcon',
             'changeBackground',
-            'wait'
+            'wait',
+            'changeAttitude'
         ],
 
         perform = function (action) {
@@ -39,6 +40,7 @@ define([
                 character,
                 deferred,
                 dialog,
+                who,
                 scene;
 
             switch (action.action) {
@@ -100,7 +102,7 @@ define([
                 require('engine/achievement/main').publish(action.achievement);
                 break;
             case 'fadeToLeft':
-                var who = gamedialog.getCharacter(action.character);
+                who = gamedialog.getCharacter(action.character);
                 who.setTargetXY({x: -100, y: who.y});
                 break;
             case 'endDialog':
@@ -133,7 +135,7 @@ define([
             case 'changeBackground':
                 scene = require('engine/stage/main').get()
                     .getCurrentScene();
-                deferred = scene.background.switchBackgroundTo(action.newBackground);
+                deferred = scene.background.switchBackgroundTo(action.newBackground, action.backgroundmode);
                 deferred.done(function () {
                     d.resolve();
                 });
@@ -143,6 +145,10 @@ define([
                     d.resolve();
                 });
                 return d.promise();
+            case 'changeAttitude':
+                who = gamedialog.getCharacter(action.character);
+                who.changeAttitudeTo(action.attitude);
+                break;
             default:
                 console.log(action.action + ' not implemented!');
                 break;

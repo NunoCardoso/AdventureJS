@@ -111,7 +111,8 @@ define([
                     'standright' : 0,
                     'standleft'  : 8,
                     'talkright'  : [16, 17, 'talkright', 5],
-                    'talkleft'   : [16, 17, 'talkleft', 5]
+                    'talkleft'   : [16, 17, 'talkleft', 5],
+                    'fishing'    : 18
                 }
             },
             {

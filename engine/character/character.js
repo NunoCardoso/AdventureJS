@@ -89,6 +89,11 @@ define([
             };
         };
 
+        this.changeAttitudeTo = function (attitude) {
+            this.character.attitude = attitude;
+            this.character.gotoAndPlay(this.character.attitude);
+        };
+
         this.setLabel = function (label) {
             this.label = label;
         };
@@ -98,8 +103,7 @@ define([
             this.setX(json.x);
             this.setY(json.y);
             this.resetTargetXY();
-            this.character.attitude = json.attitude;
-            this.character.gotoAndPlay(this.character.attitude);
+            this.changeAttitudeTo(json.attitude);
         };
 
         // called to convert this character state into json
@@ -178,6 +182,11 @@ define([
             this.talkDeferred = $.Deferred();
             // 0.1 sec per letter;
             var interv = text.length * 100;
+
+            // have a min of 2 secs per balloon
+            if (interv < 2000) {
+                interv = 2000;
+            }
             this.talk(text);
             setTimeout($.proxy(function () {
                 this.stopSay();
@@ -198,26 +207,22 @@ define([
             this.isSpeaking = true;
             this.balloon.say(text);
             if (this.character.isFacingLeft()) {
-                this.character.attitude = 'talkleft';
+                this.changeAttitudeTo('talkleft');
             } else if (this.character.isFacingRight()) {
-                this.character.attitude = 'talkright';
+                this.changeAttitudeTo('talkright');
             }
-            this.character.gotoAndPlay(this.character.attitude);
         };
 
         this.stand = function () {
             this.isSpeaking = false;
-            this.character.attitude = this.character.getStandAttitude();
-            this.character.gotoAndPlay(this.character.attitude);
+            this.changeAttitudeTo(this.character.getStandAttitude());
         };
 
         this.faceTo = function (other) {
             if (this.x < other.x) {
-                this.character.attitude = 'standright';
-                this.character.gotoAndPlay(this.character.attitude);
+                this.changeAttitudeTo('standright');
             } else {
-                this.character.attitude = 'standleft';
-                this.character.gotoAndPlay(this.character.attitude);
+                this.changeAttitudeTo('standleft');
             }
         };
 
