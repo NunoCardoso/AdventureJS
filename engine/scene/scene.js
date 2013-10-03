@@ -377,9 +377,13 @@ define([
         this.getState = function () {
             var i, o,
                 objectStates = {},
-                objectsBack = this.dynamicContainer.children[0].getChildByName('container.objects'),
-                objectsFore = this.dynamicContainer.children[2].getChildByName('container.objects');
+                objectsBack,
+                objectsFore;
 
+            if (this.dynamicContainer.children.length > 0) {
+                objectsBack = this.dynamicContainer.children[0].getChildByName('container.objects');
+                objectsFore = this.dynamicContainer.children[2].getChildByName('container.objects');
+            }
             if (objectsBack && objectsBack.children) {
                 for (i in objectsBack.children) {
                     o = objectsBack.children[i];

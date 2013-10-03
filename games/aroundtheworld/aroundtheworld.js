@@ -136,7 +136,6 @@ define([
         },
         'panel' : {
             'startingInventory' : [
-                'object.fish'
             ],
             'verbs' : [
                 {'first': 'Give',    'nr' : 2, 'second': 'to'},
@@ -623,6 +622,11 @@ define([
                         'attitude'      : 'standleft'
                     },
                     {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Awesome!'
+                    },
+                    {
                         'action'        : 'setDefaultIcon'
                     }
                 ]
@@ -713,6 +717,36 @@ define([
                     },
                     {
                         'action'     : 'setDefaultIcon'
+                    }
+                ]
+            },
+            {
+                'id'    : 'interaction.21',
+                'verb'  : 'Look at',
+                'first' : {
+                    'item' : 'object.fish',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Here, fishy fishy fishy fishy! Who\'s a good fish? You are!'
+                    }
+                ]
+            },
+            {
+                'id'    : 'interaction.22',
+                'verb'  : 'Look at',
+                'first' : {
+                    'item' : 'object.lake',
+                    'inInventory' : true
+                },
+                'actions' : [
+                    {
+                        'action'        : 'dialogMessage',
+                        'character'     : 'pc.main',
+                        'text'          : 'Damn, re!'
                     }
                 ]
             }
@@ -905,8 +939,8 @@ define([
             }
         ],
         'flags' : {
-            'hasTalkedwithTatsu'        : false,
-            'hasHandedJapanFlagToTatsu' : false
+            'hasTalkedwithTatsu'    : false,
+            'hasSolvedThreeRiddles' : false
         },
         'conditions' : [
             {
@@ -943,19 +977,29 @@ define([
                 'id' : 'condition.second',
                 'ifOn': {
                     'test': 'higherThan',
-                    'x' : 4450
+                    'x'   : 1300
                 },
                 'test': 'flag',
-                'item': 'hasHandedJapanFlagToTatsu',
+                'item': 'hasSolvedThreeRiddles',
                 'persistence' : 'always',
                 'onFail': [
                     {
                         'action' : 'setBusyIcon'
                     },
                     {
+                        'action' : 'changeAttitude',
+                        'character' : 'pc.main',
+                        'attitude' : 'standright'
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'npc.tatsu',
+                        'text'  : 'GWARRR!'
+                    },
+                    {
                         'action' : 'dialogMessage',
                         'character' : 'pc.main',
-                        'text'  : 'I don\'t handed a Japan flag yet.'
+                        'text'  : 'Aaaaaahhhh!'
                     },
                     {
                         'action' : 'moveTo',
@@ -964,6 +1008,16 @@ define([
                             'x' : 1100,
                             'y' : 350
                         }
+                    },
+                    {
+                        'action' : 'changeAttitude',
+                        'character' : 'pc.main',
+                        'attitude' : 'standright'
+                    },
+                    {
+                        'action' : 'dialogMessage',
+                        'character' : 'npc.tatsu',
+                        'text'  : 'Hey, nobody shall pass unless you can answer my riddles!'
                     },
                     {
                         'action' : 'setDefaultIcon'
@@ -1074,7 +1128,7 @@ define([
                         'text'      : 'Look at the time. I gotta go.'
                     },
                     {
-                        'character' : 'npc.togatsu',
+                        'character' : 'npc.tatsu',
                         'text'      : 'Mmph.'
                     }
                 ],
@@ -1488,11 +1542,11 @@ define([
                         'dialogOptions' : 'dialogoption.withTatsu',
                         'text'          : 'Agreed. Let\'s have the first riddle.',
                         'dialog'        : 'dialog.withTatsuFirstRiddle',
-                        'persistence'   : 'once'
+                        'persistence'   : 'always'
                     },
                     {
                         'action'        : 'continueDialogOptions',
-                        'dialogOptions' : 'dialogoption.withTogatsu2'
+                        'dialogOptions' : 'dialogoption.withTatsu'
                     }
                 ]
             },
@@ -1514,18 +1568,18 @@ define([
                     },
                     {
                         'character' : 'npc.tatsu',
-                        'text'      : 'ねずみが４匹で食べるものなーんだ？'
+                        'text'      : 'ねずみが４匹で食 べるものなーんだ？'
                     }
                 ],
                 'onEnd' : [
                     {
-                        'action'       : 'addDialogOption',
-                        'dialogoption' : 'dialogoption.withTatsuFirstRiddle'
+                        'action'        : 'startDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTatsuFirstRiddle'
                     }
                 ]
             },
             {
-                'id'    : 'dialog.firstRiddleFirstAnswer',
+                'id'    : 'dialog.withTatsuFirstRiddleFirstAnswer',
                 'to'    : 'npc.tatsu',
                 'lines' : [
                     {
@@ -1554,13 +1608,13 @@ define([
                         'persistence'   : 'once'
                     },
                     {
-                        'action'       : 'continueDialogOptions',
-                        'dialogoption' : 'dialogoption.withTatsu'
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTatsu'
                     }
                 ]
             },
             {
-                'id'    : 'dialog.firstRiddleSecondAnswer',
+                'id'    : 'dialog.withTatsuFirstRiddleSecondAnswer',
                 'to'    : 'npc.tatsu',
                 'lines' : [
                     {
@@ -1575,12 +1629,12 @@ define([
                 'onEnd' : [
                     {
                         'action'       : 'continueDialogOptions',
-                        'dialogoption' : 'dialogoption.withTatsuFirstRiddle'
+                        'dialogOptions' : 'dialogoption.withTatsuFirstRiddle'
                     }
                 ]
             },
             {
-                'id'    : 'dialog.firstRiddleThirdAnswer',
+                'id'    : 'dialog.withTatsuFirstRiddleThirdAnswer',
                 'to'    : 'npc.tatsu',
                 'lines' : [
                     {
@@ -1617,17 +1671,17 @@ define([
                     },
                     {
                         'character' : 'npc.tatsu',
-                        'text'      : '「パンはパンでも食べられないパンは、'
+                        'text'      : '「パンはパンでも 食べられないパンは、'
                     },
                     {
                         'character' : 'npc.tatsu',
-                        'text'      : 'なぁに？」答え:「フライパン」?'
+                        'text'      : 'なぁに？」答え: 「フライパン」?'
                     }
                 ],
                 'onEnd' : [
                     {
                         'action'       : 'continueDialogOptions',
-                        'dialogoption' : 'dialogoption.withTatsuSecondRiddle'
+                        'dialogOptions' : 'dialogoption.withTatsuSecondRiddle'
                     }
                 ]
             },
@@ -1651,7 +1705,7 @@ define([
                 'onEnd' : [
                     {
                         'action'       : 'continueDialogOptions',
-                        'dialogoption' : 'dialogoption.withTatsuSecondRiddle'
+                        'dialogOptions' : 'dialogoption.withTatsuSecondRiddle'
                     }
                 ]
             },
@@ -1671,7 +1725,7 @@ define([
                 'onEnd' : [
                     {
                         'action'       : 'continueDialogOptions',
-                        'dialogoption' : 'dialogoption.withTatsuSecondRiddle'
+                        'dialogOptions' : 'dialogoption.withTatsuSecondRiddle'
                     }
                 ]
             },
@@ -1701,8 +1755,8 @@ define([
                         'persistence'   : 'once'
                     },
                     {
-                        'action'       : 'continueDialogOptions',
-                        'dialogoption' : 'dialogoption.withTatsuFirstRiddle'
+                        'action'        : 'continueDialogOptions',
+                        'dialogOptions' : 'dialogoption.withTatsu'
                     }
                 ]
             },
@@ -1745,7 +1799,7 @@ define([
                 ],
                 'onEnd' : [
                     {
-                        'action'        : 'startDisplayDialog',
+                        'action'        : 'startDialogOptions',
                         'dialogOptions' : 'dialogoption.withTatsuThirdRiddle'
                     }
                 ]
@@ -1769,7 +1823,7 @@ define([
                 ],
                 'onEnd' : [
                     {
-                        'action'        : 'continueDisplayDialog',
+                        'action'        : 'continueDialogOptions',
                         'dialogOptions' : 'dialogoption.withTatsuThirdRiddle'
                     }
                 ]
@@ -1793,7 +1847,7 @@ define([
                 ],
                 'onEnd' : [
                     {
-                        'action'        : 'continueDisplayDialog',
+                        'action'        : 'continueDialogOptions',
                         'dialogOptions' : 'dialogoption.withTatsuThirdRiddle'
                     }
                 ]
@@ -1827,6 +1881,11 @@ define([
                     {
                         'action'      : 'publishAchievement',
                         'achievement' : 'achievement.riddles'
+                    },
+                    {
+                        'action'      : 'setFlag',
+                        'flag'        : 'hasSolvedThreeRiddles',
+                        'value'       : true
                     }
                 ]
             }
@@ -1843,12 +1902,12 @@ define([
                     {
                         'text'        : 'I have never seen a dragon with a mohawk before.',
                         'dialog'      : 'dialog.withTatsuMohawk',
-                        'persistence' : 'always'
+                        'persistence' : 'once'
                     },
                     {
                         'text'        : 'I hear you have some fishing equipment.',
                         'dialog'      : 'dialog.withTatsuFishing',
-                        'persistence' : 'always'
+                        'persistence' : 'once'
                     },
                     {
                         'text'        : 'Oops, wrong way. Bye.',
@@ -1912,7 +1971,7 @@ define([
                         'persistence' : 'once'
                     },
                     {
-                        'text'        : 'Yes, I watch a lof of Jeopardy.',
+                        'text'        : 'Yes, I watch a lot of Jeopardy.',
                         'dialog'      : 'dialog.withTogatsuJeopardy',
                         'persistence' : 'once'
                     },

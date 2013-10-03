@@ -11,9 +11,7 @@ define([
     gamedialog
 ) {
 
-    var _do,
-
-        _list = [
+    var _list = [
             'continueDialogOptions',
             'startDialogOptions',
             'addDialogOption',
@@ -32,7 +30,8 @@ define([
             'setDefaultIcon',
             'changeBackground',
             'wait',
-            'changeAttitude'
+            'changeAttitude',
+            'changeFlag'
         ],
 
         perform = function (action) {
@@ -40,6 +39,7 @@ define([
                 character,
                 deferred,
                 dialog,
+                dialogOptions,
                 who,
                 scene;
 
@@ -52,12 +52,12 @@ define([
                 );
                 break;
             case "continueDialogOptions":
-                require('engine/panel/main').addDialogOptions(_do);
+                dialogOptions = require('engine/dialogoption/main').get(action.dialogOptions);
+                require('engine/panel/main').addDialogOptions(dialogOptions);
                 require('engine/panel/main').renderForDialog();
                 break;
             case "startDialogOptions":
-                var dialogOptions = require('engine/dialogoption/main').get(action.dialogOptions);
-                _do = dialogOptions;
+                dialogOptions = require('engine/dialogoption/main').get(action.dialogOptions);
                 require('engine/panel/main').addDialogOptions(dialogOptions);
                 require('engine/panel/main').renderForDialog();
                 break;
@@ -107,7 +107,6 @@ define([
                 break;
             case 'endDialog':
                 require('engine/interaction/action').reset();
-                _do = undefined;
                 require('engine/panel/main').renderForVerbsAndInventory();
                 break;
             case 'endGame':
@@ -148,6 +147,9 @@ define([
             case 'changeAttitude':
                 who = gamedialog.getCharacter(action.character);
                 who.changeAttitudeTo(action.attitude);
+                break;
+            case 'setFlag':
+                require('engine/flags/main').set(action.flag, action.value);
                 break;
             default:
                 console.log(action.action + ' not implemented!');

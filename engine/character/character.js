@@ -179,6 +179,10 @@ define([
         };
 
         this.say = function (text, callback) {
+            if (this.talkDeferred) {
+                this.talkDeferred.reject();
+            }
+
             this.talkDeferred = $.Deferred();
             // 0.1 sec per letter;
             var interv = text.length * 100;

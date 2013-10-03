@@ -17,6 +17,10 @@ define([
             return _[key];
         },
 
+        set = function (key, value) {
+            _[key] = value;
+        },
+
         getState = function () {
             return _;
         },
@@ -28,6 +32,7 @@ define([
     return {
         'preload'  : preload,
         'get'      : get,
+        'set'      : set,
         'getState' : getState,
         'setState' : setState
     };
