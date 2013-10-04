@@ -114,14 +114,13 @@ define([
                 this.hitArea = undefined;
             } else if (how === "inventory") {
                 this.image.image = this.imageInInventory;
-                this.image.x = 5;
-                this.image.y = 5;
+                this.image.x = 3;
+                this.image.y = 3;
                 this.background.graphics.clear();
                 this.background.graphics
-                    .beginStroke("#880000")
-                    .beginFill("blue")
-                    .drawRect(0, 0, this.w + 10, this.h + 10);
-                this.background.alpha = 0.15;
+                    .beginFill("#91765A")
+                    .drawRect(0, 3, this.w -2 , this.h + 2);
+                this.background.alpha = 0.01;
             }
             this.setDimensions();
         };
@@ -152,7 +151,7 @@ define([
                 if (mine && !this.isMouseOver) {
                     if (role === 'play') {
                         this.isMouseOver = mine;
-                        this.background.alpha = 0.3;
+                        this.background.alpha = 1;
                         require('engine/interaction/action').mouseOverObject(this);
                         return true;
                     }
@@ -164,7 +163,7 @@ define([
                 if (!mine && this.isMouseOver) {
                     if (role === 'play') {
                         this.isMouseOver = mine;
-                        this.background.alpha = 0.15;
+                        this.background.alpha = 0.01;
                         require('engine/interaction/action').mouseOutObject(this);
                         return true;
                     }

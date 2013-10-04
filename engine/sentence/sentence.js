@@ -18,11 +18,11 @@ define([
         this.Sentence_initialize();
 
         this.text  = '';
-        this.font  = "20px the8bit";
+        this.font  = "24px the8bit";
         this.color = "#FFFFFF";
         this.textAlign    = "center";
         this.textBaseline = "top";
-        this.x = config.get('panel.w') / 2 + 2;
+        this.x = config.get('panel.w') / 2 + 7;
         this.y = config.get('panel.y');
     };
     return Sentence;

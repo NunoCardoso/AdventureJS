@@ -71,6 +71,10 @@ define([
             {
                 'id'  : 'image.panel.arrowdown',
                 'src' : 'engine/img/panel/downarrow.png'
+            },
+            {
+                'id'  : 'image.panel.background',
+                'src' : 'engine/img/panel/background.png'
             }
         ],
         'sounds' : [

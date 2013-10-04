@@ -35,24 +35,24 @@ define([
         this.mask.graphics
             .beginFill("red")
             .drawRect(
-                400,
-                420,
-                400,
-                180
+                350,
+                430,
+                450,
+                170
             );
 
         this.arrowUp = new ArrowUp({
-            'x' : 400,
-            'y' : 420,
-            'w' : 40,
-            'h' : 90
+            'x' : 363,
+            'y' : 430,
+            'w' : 30,
+            'h' : 80
         });
 
         this.arrowDown = new ArrowDown({
-            'x' : 400,
-            'y' : 510,
-            'w' : 40,
-            'h' : 90
+            'x' : 363,
+            'y' : 520,
+            'w' : 30,
+            'h' : 80
         });
 
         this.calculateObjectDimensions = function (obj, order) {

@@ -12,8 +12,8 @@ define([
         panelWidth = gameWidth,
         panelHeight = 200,
         sentenceHeight  = 20,
-        verbWidth = 400,
-        verbHeight = panelHeight - sentenceHeight,
+        verbWidth = 350,
+        verbHeight = panelHeight - sentenceHeight - 20,
         verbColumns = 3,
         verbRows = 3,
         progressbarWidth = 200,
@@ -31,12 +31,12 @@ define([
             maxRows    : 5
         },
         inventoryParams = {
-            initialX   : 440,
-            initialY   : 420,
-            incrementX : 90,
-            incrementY : 90,
+            initialX   : 402,
+            initialY   : 430,
+            incrementX : 80,
+            incrementY : 85,
             maxRows    : 2,
-            maxColumns : 4
+            maxColumns : 5
         },
         inventoryX = 80,
         inventoryY = 80,
@@ -57,8 +57,8 @@ define([
             'sentence.y' : gameHeight,
             'sentence.defaultText' : 'Walk to',
 
-            'panel.verbs.x' : 0,
-            'panel.verbs.y' : gameHeight + sentenceHeight,
+            'panel.verbs.x' : 55,
+            'panel.verbs.y' : gameHeight + sentenceHeight + 20,
             'panel.verbs.columns' : verbColumns,
             'panel.verbs.rows' : verbRows,
             'panel.verbs.incrementX' : parseInt(verbWidth / verbColumns, 10),

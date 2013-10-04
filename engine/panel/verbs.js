@@ -13,7 +13,7 @@ define([
     var verbs,
 
         verbParams = {
-            initialX   : 0,
+            initialX   : config.get('panel.verbs.x'),
             initialY   : config.get('panel.verbs.y'),
             incrementX : config.get('panel.verbs.incrementX'),
             incrementY : config.get('panel.verbs.incrementY'),

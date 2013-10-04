@@ -26,20 +26,19 @@ define([
         this.background = new createjs.Shape();
 
         this.image.image = assets.getQueueLoaded().getResult('image.panel.arrowup');
-        this.image.scaleX = 40 / this.image.image.width;
-        this.image.scaleY = 90 / this.image.image.height;
+        this.image.scaleX = 35 / this.image.image.width;
+        this.image.scaleY = 80 / this.image.image.height;
         this.isMouseOver = false;
 
         this.addChild(
-            this.image,
-            this.background
+            this.background,
+            this.image
         );
 
         this.background.graphics
-            .beginStroke("#880000")
-            .beginFill("blue")
-            .drawRect(0, 0, this.w, this.h);
-        this.background.alpha = 0.15;
+            .beginFill("#91765A")
+            .drawRect(2, 0, this.w + 2, this.h);
+        this.background.alpha = 0.01;
 
         this.test = function (x, y, event, scene, role) {
             var coords = this.globalToLocal(x, y),
@@ -55,12 +54,12 @@ define([
             case 'hover':
                 if (mine && !this.isMouseOver) {
                     this.isMouseOver = mine;
-                    this.background.alpha = 0.3;
+                    this.background.alpha = 1;
                     return true;
                 }
                 if (!mine && this.isMouseOver) {
                     this.isMouseOver = mine;
-                    this.background.alpha = 0.15;
+                    this.background.alpha = 0.01;
                     return true;
                 }
                 return false;

@@ -24,13 +24,12 @@ define([
 
         this.text = new createjs.Text();
         this.background = new createjs.Shape();
-        this.background.x = 0;
-        this.background.y = 0;
+        this.background.x = -this.w / 2 + 11;
+        this.background.y = -1;
         this.background.graphics
-            .beginStroke("#880000")
-            .beginFill("blue")
-            .drawRect(0, 0, this.w, this.h);
-        this.background.alpha = 0.15;
+            .beginFill("#91765A")
+            .drawRect(0, 0, this.w -4, this.h -4);
+        this.background.alpha = 0.01;
 
         this.addChild(
             this.background,
@@ -38,9 +37,9 @@ define([
         );
 
         this.text.text = options.text;
-        this.text.font = "28px the8bit";
+        this.text.font = "24px the8bit";
         this.text.color = "#FFFFFF";
-        this.text.textAlign = "left";
+        this.text.textAlign = "center";
         this.text.textBaseline = "middle";
         this.text.alpha = 0.7;
 
@@ -69,13 +68,13 @@ define([
                 if (mine && !this.isMouseOver) {
                     this.isMouseOver = mine;
                     this.text.alpha = 1;
-                    this.background.alpha = 0.3;
+                    this.background.alpha = 1;
                     return require('engine/interaction/action').mouseOverVerb(this);
                 }
                 if (!mine && this.isMouseOver) {
                     this.isMouseOver = mine;
                     this.text.alpha = 0.7;
-                    this.background.alpha = 0.15;
+                    this.background.alpha = 0.01;
                     return require('engine/interaction/action').mouseOutVerb(this);
                 }
                 return false;
