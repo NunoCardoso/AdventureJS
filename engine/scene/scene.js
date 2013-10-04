@@ -13,6 +13,7 @@ define([
     'engine/panel/main',
     'engine/scene/background',
     'engine/scene/menubutton',
+    'engine/scene/helpbutton',
     'engine/cursor/main'
 ], function (
     gamecharacter,
@@ -24,6 +25,7 @@ define([
     gamepanel,
     Background,
     MenuButton,
+    HelpButton,
     gamecursor
 ) {
     var GameScene = function (options) {
@@ -301,8 +303,8 @@ define([
                     this.staticContainer.addChild(options.panel);
                 }
 
-                var MenuButton = require('engine/scene/menubutton');
                 this.staticContainer.addChild(new MenuButton({from: this.name}));
+                this.staticContainer.addChild(new HelpButton());
 
                 // add the custom cursor
                 gamecursor.reset();
@@ -345,6 +347,11 @@ define([
         this.getMenuButton = function () {
             // have to return as an array, testHit and testClick likes arrays
             return [this.staticContainer.getChildByName('menubutton')];
+        };
+
+        this.getHelpButton = function () {
+            // have to return as an array, testHit and testClick likes arrays
+            return [this.staticContainer.getChildByName('helpbutton')];
         };
 
         this.getDynamicBackSceneChildrens = function () {

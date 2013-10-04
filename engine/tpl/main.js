@@ -7,23 +7,26 @@ define([
     'text!engine/tpl/loadgame.template',
     'text!engine/tpl/savegame.template',
     'text!engine/tpl/settings.template',
+    'text!engine/tpl/help.template',
     'engine/tpl/loadgamepanel',
     'engine/tpl/savegamepanel',
     'engine/tpl/settingspanel',
-    'engine/stage/main',
+    'engine/tpl/helppanel',
     'engine/savegame/main'
 ], function (
     loadgameTpl,
     savegameTpl,
     settingsTpl,
+    helpTpl,
     LoadGamePanel,
     SaveGamePanel,
     SettingsPanel,
-    gamestage,
+    HelpPanel,
     savegame
 ) {
 
     var item,
+        gamestage,
 
         openSettings = function () {
             if (!item) {
@@ -31,12 +34,28 @@ define([
                 $('#forms').html(template({}));
                 item = new SettingsPanel();
                 item.show();
+                gamestage = require('engine/stage/main');
+                gamestage.get().addChild(item);
+                gamestage.update();
+            }
+        },
+
+        openHelp = function (text) {
+            if (!item) {
+                var template = Handlebars.compile(helpTpl);
+                $('#forms').html(template({
+                    text: text || 'No description available.'
+                }));
+                item = new HelpPanel();
+                item.show();
+                gamestage = require('engine/stage/main');
                 gamestage.get().addChild(item);
                 gamestage.update();
             }
         },
 
         close = function () {
+            gamestage = require('engine/stage/main');
             gamestage.get().removeChild(item);
             if (item) {
                 item.hide();
@@ -52,6 +71,7 @@ define([
                 $('#forms').html(template({'savegames': savegames}));
                 item = new SaveGamePanel();
                 item.show();
+                gamestage = require('engine/stage/main');
                 gamestage.get().addChild(item);
                 gamestage.update();
             }
@@ -64,6 +84,7 @@ define([
                 $('#forms').html(template({'savegames': savegames}));
                 item = new LoadGamePanel();
                 item.show();
+                gamestage = require('engine/stage/main');
                 gamestage.get().addChild(item);
                 gamestage.update();
             }
@@ -71,8 +92,9 @@ define([
 
     return {
         'openSettings'  : openSettings,
-        'close'         : close,
+        'openHelp'      : openHelp,
         'openSavegame'  : openSavegame,
-        'openLoadgame'  : openLoadgame
+        'openLoadgame'  : openLoadgame,
+        'close'         : close
     };
 });

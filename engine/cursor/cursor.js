@@ -78,6 +78,11 @@ define([
                         if (isHandled) {
                             return;
                         }
+                        help = scene.getHelpButton();
+                        isHandled = this.doTest(event, scene, help, role);
+                        if (isHandled) {
+                            return;
+                        }
                     }
 
                     interactables = scene.getDynamicForeSceneChildrens();

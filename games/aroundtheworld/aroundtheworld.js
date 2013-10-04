@@ -757,7 +757,7 @@ define([
                 'background'         : 'image.backyard',
                 'backgroundpath'     : 'image.backyard.path',
                 'backgroundmode'     : 'fit',
-                'description'        : 'This is the first scene.',
+                'description'        : 'Come on, this is easy. Just pick up the amulet.',
                 'interactable'       : true,
                 'music'              : 'music.backyard',
                 'beginCutscene' : [
@@ -816,7 +816,7 @@ define([
                 'background'         : 'image.japan',
                 'backgroundpath'     : 'image.japan.path',
                 'backgroundmode'     : 'overflow',
-                'description'        : 'This is the first scene.',
+                'description'        : 'This is ancient Japan. Talk to the characters, learn what they need, and satisfy their needs.',
                 'interactable'       : true,
                 'music'              : 'music.japan',
                 'beginCutscene' : [

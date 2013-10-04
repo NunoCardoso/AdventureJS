@@ -1,0 +1,6 @@
+<div id="help" class="panel" style="width: 400px;">
+    {{text}}
+    <div class="buttondiv">
+       <button class="okbutton" onClick="require('engine/tpl/main').close();return false;">OK</button>
+    </div>
+</div>
