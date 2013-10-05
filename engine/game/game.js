@@ -87,7 +87,7 @@ define([
                                 _loadFallBack(d);
                                 return;
                             }
-                            _game = response;
+                            _game = response.json;
                             _source = "DB game";
                             d.resolve();
                         },
