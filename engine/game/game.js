@@ -69,7 +69,6 @@ define([
             load = function () {
                 var d = $.Deferred();
                 if (adv_game_id === undefined) {
-                    // require(['games/compass/compass'], function (game) {
                     require(['games/aroundtheworld/aroundtheworld'], function (game) {
                         _game = game;
                         _source = "fallback game";
@@ -77,7 +76,7 @@ define([
                     });
                 } else {
                     $.ajax({
-                        url: '/adventure-game-handins/app/advgames/' + adv_game_id + '/engine',
+                        url: '/adventure-games-hand-ins/app/advgames/' + adv_game_id + '/engine',
                         method: 'GET',
                         success: function (response) {
                             _game = response;
