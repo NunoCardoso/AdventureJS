@@ -37,7 +37,7 @@ define([
             for (i = 0; i < _games.length; i++) {
                 var processed = false;
                 for (j = 0; j < savegamesFromDB.length; j++) {
-                    if (savegamesFromDB[j].id === i) {
+                    if (savegamesFromDB[j].slot_id === i) {
                         processed = true;
                         _games[i] = _filledSpot(savegamesFromDB[j], i);
                     }
