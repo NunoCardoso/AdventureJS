@@ -66,30 +66,34 @@ define([
                 return _user;
             },
 
+            _loadFallBack = function (d) {
+                require(['games/aroundtheworld/aroundtheworld'], function (game) {
+                    _game = game;
+                    _source = "fallback game";
+                    d.resolve();
+                });
+            },
+
             load = function () {
                 var d = $.Deferred();
                 if (adv_game_id === undefined) {
-                    require(['games/aroundtheworld/aroundtheworld'], function (game) {
-                        _game = game;
-                        _source = "fallback game";
-                        d.resolve();
-                    });
+                    _loadFallBack(d);
                 } else {
                     $.ajax({
-                        url: '/adventure-games-hand-ins/app/advgames/' + adv_game_id + '/engine',
+                        url: '/adventure-games-hand-ins/app/advgames/' + adv_game_id,
                         method: 'GET',
                         success: function (response) {
+                            if (!response || !response.json) {
+                                _loadFallBack(d);
+                                return;
+                            }
                             _game = response;
                             _source = "DB game";
                             d.resolve();
                         },
                         error: function (response) {
                             console.log('can\'t load game.');
-                            require(['games/aroundtheworld/aroundtheworld'], function (game) {
-                                _game = game;
-                                _source = "fallback game";
-                                d.resolve();
-                            });
+                            _loadFallBack(d);
                         }
                     });
                 }
