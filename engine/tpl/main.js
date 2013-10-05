@@ -66,14 +66,17 @@ define([
 
         openSavegame = function () {
             if (!item) {
-                var template = Handlebars.compile(savegameTpl),
-                    savegames = savegame.getAll();
-                $('#forms').html(template({'savegames': savegames}));
-                item = new SaveGamePanel();
-                item.show();
-                gamestage = require('engine/stage/main');
-                gamestage.get().addChild(item);
-                gamestage.update();
+                var template = Handlebars.compile(savegameTpl);
+                var savegames;
+                var d = savegame.getAll();
+                d.done(function (savegames) {
+                    $('#forms').html(template({'savegames': savegames}));
+                    item = new SaveGamePanel();
+                    item.show();
+                    gamestage = require('engine/stage/main');
+                    gamestage.get().addChild(item);
+                    gamestage.update();
+                });
             }
         },
 
