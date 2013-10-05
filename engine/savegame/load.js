@@ -11,12 +11,13 @@ define([
             var tr = $(button).closest("tr");
             var slot = parseInt(tr.find("td.slot").html(), 10);
             var loadgame = require('engine/savegame/main').load(slot);
-            require('engine/tpl/main').close();
-
-            gamestate.setFromJSON(loadgame.json);
-            var gamestage = require('engine/stage/main');
-            gamemusic.playMusic(gamestage.get().getCurrentScene().music);
-            gamestage.play();
+            if (loadgame.json) {
+                require('engine/tpl/main').close();
+                gamestate.setFromJSON(loadgame.json);
+                var gamestage = require('engine/stage/main');
+                gamemusic.playMusic(gamestage.get().getCurrentScene().music);
+                gamestage.play();
+            }
         },
 
         loadCancel = function (button) {

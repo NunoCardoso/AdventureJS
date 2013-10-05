@@ -1,4 +1,4 @@
-/*global define, createjs, alert */
+/*global define, createjs, alert, Image */
 
 define([
     'engine/lib/assets',
@@ -13,16 +13,33 @@ define([
     var _games   = new Array(5),
         _initRun = false,
 
-        _init = function () {
+        _emptySlot = function (i) {
+            return {
+                'slot'  : i,
+                'image' : assets.getQueueLoaded().getResult('image.savegame.noimage').src,
+                'date'  : undefined,
+                'json'  : undefined
+            };
+        },
+
+        _filledSpot = function (savegame, i) {
+            return {
+                'slot'  : i,
+                'image' : new Image().src = savegame.image,
+                'date'  : savegame.saved_at,
+                'json'  : savegame.json
+            };
+        },
+
+        _init = function (savegamesFromDB) {
             var i;
             // it has to be a for loop without the in.
             for (i = 0; i < _games.length; i++) {
-                _games[i] = {
-                    'slot'  : i,
-                    'image' : assets.getQueueLoaded().getResult('image.savegame.noimage').src,
-                    'date'  : undefined,
-                    'json'  : ''
-                };
+                if (savegamesFromDB && savegamesFromDB[i]) {
+                    _games[i] = _filledSpot(savegamesFromDB[i], i);
+                } else {
+                    _games[i] = _emptySlot(i);
+                }
             }
         },
 
@@ -39,11 +56,11 @@ define([
             // If game was loaded from DB... save savegame there
             if (game.getSource() === "DB game") {
                 $.ajax({
-                    'method' : 'POST',
-                    'url' : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/' + slot,
-                    'data' : {
-                        'json' : jsonstring,
-                        'image' : image,
+                    'method' : 'PUT',
+                    'url'    : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/' + slot,
+                    'data'   : {
+                        'json'   : jsonstring,
+                        'image'  : image,
                         'slotId' : slot
                     },
                     success: function (response) {
@@ -80,11 +97,26 @@ define([
 
         getAll = function () {
             // let's have a lazy load here
+            var d = $.Deferred();
+
             if (!_initRun) {
                 _initRun = true;
-                _init();
+                var game = require('engine/main').getGame();
+                if (game.getSource() === "DB game") {
+                    $.ajax({
+                        'method' : 'GET',
+                        'url'    : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/',
+                        success  : function (response) {
+                            _init(response);
+                            d.resolve(_games);
+                        }
+                    });
+                } else {
+                    _init(null);
+                    d.resolve(_games);
+                }
             }
-            return _games;
+            return d.promise();
         };
 
     return {
