@@ -10,7 +10,7 @@ define([
     savegame
 ) {
 
-    var _games   = new Array(5),
+    var _games   = new Array(9),
         _initRun = false,
 
         _emptySlot = function (i) {
@@ -23,21 +23,28 @@ define([
         },
 
         _filledSpot = function (savegame, i) {
+            var img = new Image();
+            img.src = savegame.image;
             return {
                 'slot'  : i,
-                'image' : new Image().src = savegame.image,
+                'image' : img,
                 'date'  : savegame.saved_at,
                 'json'  : savegame.json
             };
         },
 
         _init = function (savegamesFromDB) {
-            var i;
+            var i, j;
             // it has to be a for loop without the in.
             for (i = 0; i < _games.length; i++) {
-                if (savegamesFromDB && savegamesFromDB[i]) {
-                    _games[i] = _filledSpot(savegamesFromDB[i], i);
-                } else {
+                var processed = false;
+                for (j = 0; j < savegamesFromDB.length; j++) {
+                    if (savegamesFromDB[i].id === i) {
+                        processed = true;
+                        _games[i] = _filledSpot(savegamesFromDB[i], i);
+                    }
+                }
+                if (!processed) {
                     _games[i] = _emptySlot(i);
                 }
             }
