@@ -23,13 +23,11 @@ define([
         },
 
         _filledSpot = function (savegame, i) {
-            var img = new Image();
-            img.src = savegame.image;
             return {
                 'slot'  : i,
-                'image' : img,
+                'image' : savegame.image,
                 'date'  : savegame.saved_at,
-                'json'  : savegame.json
+                'json'  : JSON.parse(savegame.json)
             };
         },
 

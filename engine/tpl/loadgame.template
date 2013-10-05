@@ -7,10 +7,14 @@
                 <td class="slot">{{this.slot}}</td>
                 <td class="image">
                 <a href="#" onClick="require('engine/savegame/load').onImageClick(this);return false;">
-                <img src='{{this.image}}'/>
+                   <img src='{{this.image}}'/>
                 </a>
                 </td>
-                <td class="date">{{this.date}}</td>
+                <td class="info">
+                    <span class="date">{{this.date}}</span>
+                    <br/>
+                    <span class="buttons"></span>
+                </td>
             </tr>
             {{/each}}
         </table>

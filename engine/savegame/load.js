@@ -21,20 +21,28 @@ define([
         },
 
         loadCancel = function (button) {
-            var date = $(button).closest('td');
+            var info = $(button).closest('td');
+            var date = info.find('span.date');
+            var buttons = info.find('span.buttons');
+            buttons.html('');
             date.html(date.data('old-date'));
         },
 
         onImageClick = function (link) {
             var tr = $(link).closest('tr');
             var table = $(link).closest('table');
-            var date = tr.find("td.date");
+            var info = tr.find("td.info");
+            var date = info.find('span.date');
+            var buttons = info.find('span.buttons');
+
+            date.data('old-date', date.html());
 
             var button_html = "<br><button class='okbutton' onClick=\"require('engine/savegame/load').loadOk(this);return false;\">OK</button>";
             button_html += "<br><button class='cancelbutton' onClick=\"require('engine/savegame/load').loadCancel(this);return false;\">Cancel</button>";
             // backup date html
-            date.data('old-date', date.html());
-            date.html(date.html() + button_html);
+
+            date.html(date.html());
+            buttons.html(button_html);
             var gamestage = require('engine/stage/main');
             gamestage.update();
         };
