@@ -1,11 +1,9 @@
 /*global define, $, document */
 
 define([
-    'engine/config',
-    'engine/stage/main'
+    'engine/config'
 ], function (
-    config,
-    gamestage
+    config
 ) {
     var _getDateHtml = function () {
             var currentdate = new Date();
@@ -48,7 +46,7 @@ define([
             var tr = $(button).closest("tr");
             var date = tr.find('td.date span').html();
             var image = _getSnapshotFromImage(tr.find('img')[0]);
-            var json = gamestage.getSavegame(); // savegame JSON was stored here
+            var json = require('engine/stage/main').getSavegame(); // savegame JSON was stored here
             var slot = parseInt(tr.find("td.slot").html(), 10);
             require('engine/savegame/main').save(json, slot, image, date);
             require('engine/tpl/main').close();
@@ -62,7 +60,7 @@ define([
 
         onImageClick = function (link) {
 
-            var newSnapshot = gamestage.getSnapshot();
+            var newSnapshot = require('engine/stage/main').getSnapshot();
             var trgImage = $(link).find("img");
             var tr = $(link).closest('tr');
             var table = $(link).closest('table');
@@ -83,7 +81,7 @@ define([
             button_html += "<br><button class='cancelbutton' onClick=\"require('engine/savegame/save').saveCancel(this);return false;\">Cancel</button>";
 
             date.html(_getDateHtml() + button_html);
-            gamestage.update();
+            require('engine/stage/main').update();
         };
 
     return {

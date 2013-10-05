@@ -56,6 +56,7 @@ define([
             _user,
             _assetList,
             _options,
+            _source,
 
             setUser = function (user) {
                 _user = user;
@@ -71,20 +72,23 @@ define([
                     // require(['games/compass/compass'], function (game) {
                     require(['games/aroundtheworld/aroundtheworld'], function (game) {
                         _game = game;
+                        _source = "fallback game";
                         d.resolve();
                     });
                 } else {
                     $.ajax({
-							url: '/adventure-game-handins/app/advgames/' + adv_game_id + '/engine',
+                        url: '/adventure-game-handins/app/advgames/' + adv_game_id + '/engine',
                         method: 'GET',
                         success: function (response) {
                             _game = response;
+                            _source = "DB game";
                             d.resolve();
                         },
                         error: function (response) {
                             console.log('can\'t load game.');
                             require(['games/aroundtheworld/aroundtheworld'], function (game) {
                                 _game = game;
+                                _source = "fallback game";
                                 d.resolve();
                             });
                         }
@@ -96,6 +100,9 @@ define([
             init = function () {
                 _assetList = settings.images.concat(settings.sounds).concat(settings.musics);
                 gamecharacter.init(settings.characters);
+            },
+            getSource = function () {
+                return _source;
             },
 
             render = function (_scene) {
@@ -179,7 +186,8 @@ define([
             'load'    : load,
             'start'   : start,
             'setUser' : setUser,
-            'getUser' : getUser
+            'getUser' : getUser,
+            'getSource' : getSource
         };
     };
 

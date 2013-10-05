@@ -5,14 +5,10 @@
  * State is responsible for getting/setting state snapshots
  */
 define([
-    'engine/scene/main',
-    'engine/stage/main',
     'engine/character/main',
     'engine/panel/main',
     'engine/flags/main'
 ], function (
-    gamescene,
-    gamestage,
     gamecharacter,
     gamepanel,
     gameflags
@@ -22,7 +18,7 @@ define([
 
             // ask each scene to get a state;
             var key,
-                scenes = gamescene.getAll(),
+                scenes = require('engine/scene/main').getAll(),
                 sceneStates = {},
                 currentSceneName,
                 pcState,
@@ -35,7 +31,7 @@ define([
                 }
             }
 
-            currentSceneName = gamestage.get().getState();
+            currentSceneName = require('engine/stage/main').get().getState();
             pcState = gamecharacter.getPc().getState();
             inventoryState = gamepanel.getInventory().getState();
             flagState = gameflags.getState();

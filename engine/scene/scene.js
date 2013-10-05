@@ -383,26 +383,12 @@ define([
 
         this.getState = function () {
             var i, o,
-                objectStates = {},
-                objectsBack,
-                objectsFore;
-
-            if (this.dynamicContainer.children.length > 0) {
-                objectsBack = this.dynamicContainer.children[0].getChildByName('container.objects');
-                objectsFore = this.dynamicContainer.children[2].getChildByName('container.objects');
+                objectStates = {};
+            
+            for (i in this.objects) {
+                objectStates[this.objects[i].name] = this.objects[i];
             }
-            if (objectsBack && objectsBack.children) {
-                for (i in objectsBack.children) {
-                    o = objectsBack.children[i];
-                    objectStates[o.name] = o.getState();
-                }
-            }
-            if (objectsFore && objectsFore.children) {
-                for (i in objectsFore.children) {
-                    o = objectsFore.children[i];
-                    objectStates[o.name] = o.getState();
-                }
-            }
+            
             return {
                 'objects'          : objectStates,
                 'backgroundOffset' : this.backgroundOffset
