@@ -80,24 +80,8 @@ define([
         },
 
         load = function (slot) {
-            var game = require('engine/main').getGame();
-
-            // If game was loaded from DB... save savegame there
-            if (game.getSource() === "DB game") {
-                $.ajax({
-                    'method' : 'GET',
-                    'url' : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/' + slot,
-                    success: function (response) {
-                        if (response) {
-                            alert('got savegame from DB');
-                        } else {
-                            alert('got savegame from DB FAILED');
-                        }
-                    }
-                });
-            } else {
-                return _games[slot];
-            }
+            // getAll already loaded and cached everything...
+            return _games[slot];
         },
 
         getAll = function () {
