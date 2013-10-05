@@ -73,13 +73,6 @@ define([
             this.removeChild(toscene);
         };
 
-        this.setState = function (_currentScene) {
-            this.removeAllChildren();
-            var toscene = gamescene.get(_currentScene);
-            this.addChild(toscene);
-            this.currentScene = toscene;
-        };
-
         this.switchScene = function (_fromscene, _toscene, _toExit) {
             var fromscene = this.getChildByName(_fromscene),
                 toscene   = gamescene.get(_toscene),
@@ -119,6 +112,10 @@ define([
             if (toscene.hasBeginCutscene()) {
                 toscene.performBeginCutscene();
             }
+        };
+
+        this.setState = function (_toScene) {
+            this.switchScene(this.currentScene, _toScene);
         };
     };
     return GameStage;

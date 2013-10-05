@@ -55,11 +55,12 @@ define([
             gameflags.setState(savegame.flags);
             gamecharacter.getPc().setState(savegame.pc);
             gamepanel.getInventory().setState(savegame.inventory);
-            var gamestage = require('engine/stage/main');
-            gamestage.get().setState(savegame.currentScene);
 
             require('engine/interaction/action').reset();
+
+            var gamestage = require('engine/stage/main');
             gamestage.activateCursorFor('play');
+            gamestage.get().setState(savegame.currentScene);
         };
 
     return {
