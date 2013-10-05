@@ -27,10 +27,11 @@ define([
 
     var item,
         gamestage,
+        template,
 
         openSettings = function () {
             if (!item) {
-                var template = Handlebars.compile(settingsTpl);
+                template = Handlebars.compile(settingsTpl);
                 $('#forms').html(template({}));
                 item = new SettingsPanel();
                 item.show();
@@ -42,7 +43,7 @@ define([
 
         openHelp = function (text) {
             if (!item) {
-                var template = Handlebars.compile(helpTpl);
+                template = Handlebars.compile(helpTpl);
                 $('#forms').html(template({
                     text: text || 'No description available.'
                 }));
@@ -64,33 +65,49 @@ define([
             $('#forms').html('');
         },
 
+        doSavegame = function (savegames) {
+            $('#forms').html(template({'savegames': savegames}));
+            item = new SaveGamePanel();
+            item.show();
+            gamestage = require('engine/stage/main');
+            gamestage.get().addChild(item);
+            gamestage.update();
+        },
+
         openSavegame = function () {
             if (!item) {
-                var template = Handlebars.compile(savegameTpl);
+                template = Handlebars.compile(savegameTpl);
                 var d = savegame.getAll();
-                d.done(function (savegames) {
-                    $('#forms').html(template({'savegames': savegames}));
-                    item = new SaveGamePanel();
-                    item.show();
-                    gamestage = require('engine/stage/main');
-                    gamestage.get().addChild(item);
-                    gamestage.update();
-                });
+
+                // d can be either a deferred, or the object.
+                if (d.done) {
+                    d.done(doSavegame);
+                } else {
+                    doSavegame(d);
+                }
             }
+        },
+
+        doLoadgame = function (savegames) {
+            $('#forms').html(template({'savegames': savegames}));
+            item = new LoadGamePanel();
+            item.show();
+            gamestage = require('engine/stage/main');
+            gamestage.get().addChild(item);
+            gamestage.update();
         },
 
         openLoadgame = function () {
             if (!item) {
-                var template = Handlebars.compile(loadgameTpl);
+                template = Handlebars.compile(loadgameTpl);
                 var d = savegame.getAll();
-                d.done(function (savegames) {
-                    $('#forms').html(template({'savegames': savegames}));
-                    item = new LoadGamePanel();
-                    item.show();
-                    gamestage = require('engine/stage/main');
-                    gamestage.get().addChild(item);
-                    gamestage.update();
-                });
+
+                // d can be either a deferred, or the object.
+                if (d.done) {
+                    d.done(doLoadgame);
+                } else {
+                    doLoadgame(d);
+                }
             }
         };
 

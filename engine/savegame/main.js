@@ -120,6 +120,8 @@ define([
                     _init(null);
                     d.resolve(_games);
                 }
+            } else {
+                return _games;
             }
             return d.promise();
         };

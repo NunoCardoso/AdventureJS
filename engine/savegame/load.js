@@ -29,6 +29,7 @@ define([
         },
 
         onImageClick = function (link) {
+            $('span.buttons').html('');
             var tr = $(link).closest('tr');
             var table = $(link).closest('table');
             var info = tr.find("td.info");
