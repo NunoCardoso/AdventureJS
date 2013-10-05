@@ -1,9 +1,9 @@
-/*global define, createjs */
+/*global define, createjs, alert */
 
 define([
     'engine/lib/assets',
     'engine/savegame/load', // preloaded it, as it is triggered by a template
-    'engine/savegame/save', // preloaded it, as it is triggered by a template
+    'engine/savegame/save'  // preloaded it, as it is triggered by a template
 ], function (
     assets,
     loadgame,
@@ -33,10 +33,49 @@ define([
                 'date'  : date,
                 'slot'  : slot
             };
+
+            var game = require('engine/main').getGame();
+
+            // If game was loaded from DB... save savegame there
+            if (game.getSource() === "DB game") {
+                $.ajax({
+                    'method' : 'POST',
+                    'url' : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/' + slot,
+                    'data' : {
+                        'json' : jsonstring,
+                        'image' : image,
+                        'slotId' : slot
+                    },
+                    success: function (response) {
+                        if (response) {
+                            alert('Saved savegame into DB');
+                        } else {
+                            alert('Saved savegame into DB FAILED');
+                        }
+                    }
+                });
+            }
         },
 
         load = function (slot) {
-            return _games[slot];
+            var game = require('engine/main').getGame();
+
+            // If game was loaded from DB... save savegame there
+            if (game.getSource() === "DB game") {
+                $.ajax({
+                    'method' : 'GET',
+                    'url' : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/' + slot,
+                    success: function (response) {
+                        if (response) {
+                            alert('got savegame from DB');
+                        } else {
+                            alert('got savegame from DB FAILED');
+                        }
+                    }
+                });
+            } else {
+                return _games[slot];
+            }
         },
 
         getAll = function () {

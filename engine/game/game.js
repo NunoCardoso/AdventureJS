@@ -53,6 +53,7 @@ define([
          */
 
         var _game,
+            _gameId,
             _user,
             _assetList,
             _options,
@@ -88,6 +89,7 @@ define([
                                 return;
                             }
                             _game = response.json;
+                            _gameId = response.id;
                             _source = "DB game";
                             d.resolve();
                         },
@@ -104,8 +106,13 @@ define([
                 _assetList = settings.images.concat(settings.sounds).concat(settings.musics);
                 gamecharacter.init(settings.characters);
             },
+
             getSource = function () {
                 return _source;
+            },
+
+            getId = function () {
+                return _gameId;
             },
 
             render = function (_scene) {
@@ -190,7 +197,8 @@ define([
             'start'   : start,
             'setUser' : setUser,
             'getUser' : getUser,
-            'getSource' : getSource
+            'getSource' : getSource,
+            'getId'   : getId
         };
     };
 

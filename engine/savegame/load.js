@@ -1,11 +1,9 @@
 /*global define, $, document, createjs */
 
 define([
-    'engine/stage/main',
     'engine/state/main',
     'engine/game/music'
 ], function (
-    gamestage,
     gamestate,
     gamemusic
 ) {
@@ -16,6 +14,7 @@ define([
             require('engine/tpl/main').close();
 
             gamestate.setFromJSON(loadgame.json);
+            var gamestage = require('engine/stage/main');
             gamemusic.playMusic(gamestage.get().getCurrentScene().music);
             gamestage.play();
         },
@@ -35,6 +34,7 @@ define([
             // backup date html
             date.data('old-date', date.html());
             date.html(date.html() + button_html);
+            var gamestage = require('engine/stage/main');
             gamestage.update();
         };
 

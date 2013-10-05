@@ -20,6 +20,10 @@ define([
             return _user;
         },
 
+        getGame = function () {
+            return _game;
+        },
+
         init = function () {
 
             _game = new Game();
@@ -32,7 +36,7 @@ define([
                     canvas   : 'canvas',
                     role     : 'play'
                 });
-            }); 
+            });
         };
 
     // TODO: to remove when we have a way to load a game, then trigger the init method
@@ -41,6 +45,7 @@ define([
     return {
         'setUser' : setUser,
         'getUser' : getUser,
-        'init' :  init
+        'init' :  init,
+        'getGame' : getGame
     };
 });
