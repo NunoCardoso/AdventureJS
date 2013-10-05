@@ -37,9 +37,9 @@ define([
             for (i = 0; i < _games.length; i++) {
                 var processed = false;
                 for (j = 0; j < savegamesFromDB.length; j++) {
-                    if (savegamesFromDB[i].id === i) {
+                    if (savegamesFromDB[j].id === i) {
                         processed = true;
-                        _games[i] = _filledSpot(savegamesFromDB[i], i);
+                        _games[i] = _filledSpot(savegamesFromDB[j], i);
                     }
                 }
                 if (!processed) {
