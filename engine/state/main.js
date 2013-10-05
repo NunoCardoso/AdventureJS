@@ -45,21 +45,21 @@ define([
             });
         },
 
-        setFromJSON = function (json) {
-            var key,
-                savegame = JSON.parse(json);
+        setFromJSON = function (savegame) {
+            var key;
 
             for (key in savegame.scenes) {
-                gamescene.get(key).setState(savegame.scenes[key]);
+                require('engine/scene/main').get(key).setState(savegame.scenes[key]);
             }
 
             gameflags.setState(savegame.flags);
             gamecharacter.getPc().setState(savegame.pc);
             gamepanel.getInventory().setState(savegame.inventory);
+            var gamestage = require('engine/stage/main');
             gamestage.get().setState(savegame.currentScene);
-            // erase actions.
+
             require('engine/interaction/action').reset();
-            require('engine/stage/main').activateCursorFor('play');
+            gamestage.activateCursorFor('play');
         };
 
     return {
