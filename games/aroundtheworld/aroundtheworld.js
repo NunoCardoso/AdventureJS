@@ -487,6 +487,10 @@ define([
                         "action" : "setBusyIcon"
                     },
                     {
+                        "action" : "publishAchievement",
+                        "achievement" : "achievement.amulet"
+                    },
+                    {
                         "action": "dialogMessage",
                         "character": "pc.main",
                         "text" : "What is this thing doing here?"
@@ -2055,6 +2059,10 @@ define([
 
         ],
         "achievements": [
+            {
+                "id"    : "achievement.amulet",
+                "title" : "You got an amulet!"
+            },
             {
                 "id"    : "achievement.redberry",
                 "title" : "You got a red berry!"
