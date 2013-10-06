@@ -19,7 +19,7 @@ define([
             if ($(item).data('old-src')) {
                 item.src = $(item).data('old-src');
                 $(item).removeData('old-src');
-                var date = $(item).closest('tr').find('td.date');
+                var date = $(item).closest('.savegame').find('.date');
                 date.html(date.data('old-date'));
                 date.removeData('old-date');
             }
@@ -36,25 +36,26 @@ define([
         },
 
         // iterate images, if they have a stored snapshot, restore it
-        _restoreSavegameSlots = function (table) {
-            table.find('img').each(function (i, item) {
+        _restoreSavegameSlots = function () {
+            $("#savegame-items").find('img').each(function (i, item) {
                 _restoreSlot(item);
             });
+            $(".buttons").html("");
         },
 
         saveOk = function (button) {
-            var tr = $(button).closest("tr");
-            var date = tr.find('td.date span').html();
+            var tr = $(button).closest(".savegame");
+            var date = tr.find('.date').html();
             var image = _getSnapshotFromImage(tr.find('img')[0]);
             var json = require('engine/stage/main').getSavegame(); // savegame JSON was stored here
-            var slot = parseInt(tr.find("td.slot").html(), 10);
+            var slot = parseInt(tr.find(".slot").html(), 10);
             require('engine/savegame/main').save(json, slot, image, date);
             require('engine/tpl/main').close();
 
         },
 
         saveCancel = function (button) {
-            var img = $(button).closest("tr").find("img");
+            var img = $(button).closest(".savegame").find("img");
             _restoreSlot(img[0]);
         },
 
@@ -62,10 +63,13 @@ define([
 
             var newSnapshot = require('engine/stage/main').getSnapshot();
             var trgImage = $(link).find("img");
-            var tr = $(link).closest('tr');
-            var table = $(link).closest('table');
+            var tr = $(link).closest('.savegame');
 
-            _restoreSavegameSlots(table);
+            var info = tr.find(".info");
+            var date = info.find('span.date');
+            var buttons = info.find('span.buttons');
+
+            _restoreSavegameSlots();
 
             // backup old snapshot
             var oldSnapshot = _getSnapshotFromImage(trgImage[0]);
@@ -74,13 +78,14 @@ define([
             trgImage.data('old-src', oldSnapshot);
 
             // backup old data
-            var date = tr.find("td.date");
             date.data('old-date', date.html());
 
             var button_html = "<br><button class='okbutton' onClick=\"require('engine/savegame/save').saveOk(this);return false;\">OK</button>";
             button_html += "<br><button class='cancelbutton' onClick=\"require('engine/savegame/save').saveCancel(this);return false;\">Cancel</button>";
 
-            date.html(_getDateHtml() + button_html);
+            date.html('');
+            buttons.html(button_html);
+
             require('engine/stage/main').update();
         };
 

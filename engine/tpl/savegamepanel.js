@@ -16,7 +16,7 @@ define([
     SaveGamePanel.prototype.SaveGamePanel_initialize = SaveGamePanel.prototype.initialize;
     SaveGamePanel.prototype.initialize = function (options) {
 
-        this.regX = 200;// width = 400
+        this.regX = 350;// width = 700
         this.regY = 250;// height = 500
 
         this.x = config.getCanvasXY().x / 2;

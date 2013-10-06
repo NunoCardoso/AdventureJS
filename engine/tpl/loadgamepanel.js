@@ -18,7 +18,7 @@ define([
      //   LoadGamePanel.prototype.LoadGamePanel_initialize();
 
         this.name = 'LoadGame';
-        this.regX = 200;// width = 400
+        this.regX = 350;// width = 700
         this.regY = 250;// height = 500
 
         this.x = config.getCanvasXY().x / 2;
