@@ -22,7 +22,6 @@ define([
             'removeFromInventory',
             'addToInventory',
             'publishAchievement',
-            'fadeToLeft',
             'endDialog',
             'endGame',
             'goToExit',
@@ -100,10 +99,6 @@ define([
                 break;
             case 'publishAchievement':
                 require('engine/achievement/main').publish(action.achievement);
-                break;
-            case 'fadeToLeft':
-                who = gamedialog.getCharacter(action.character);
-                who.setTargetXY({x: -100, y: who.y});
                 break;
             case 'endDialog':
                 require('engine/interaction/action').reset();
@@ -192,10 +187,9 @@ define([
                 }
             } else {
                 perform({
-                    'action' : 'dialogMessage',
-                    // TODO CHANGE
+                    'action'    : 'dialogMessage',
                     'character' : require('engine/character/main').getPc().name,
-                    'text'   : 'I can\'t do that.'
+                    'text'      : 'I can\'t do that.'
                 });
             }
         },
@@ -205,9 +199,9 @@ define([
         };
 
     return {
-        'decide' : decide,
-        'perform' : perform,
-        'performList' : performList,
+        'decide'        : decide,
+        'perform'       : perform,
+        'performList'   : performList,
         'getAllActions' : getAllActions
     };
 });

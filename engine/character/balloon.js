@@ -1,4 +1,4 @@
-/*global define, createjs, $ */
+/*global define, createjs */
 
 /**
  * This is the balloon over character heads
@@ -58,7 +58,7 @@ define([
             // if balloon and line goes out of bounds from game scene
             var coords = this.localToGlobal(this.balloon.x, this.balloon.y);
             var leftOffset = (coords.x);
-            if ( coords.x < 0) {
+            if (coords.x < 0) {
                 this.balloon.x -= coords.x - 5;
                 this.line.x -= coords.x - 5;
             }

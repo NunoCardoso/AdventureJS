@@ -30,9 +30,9 @@ define([
         };
 
     return {
-        'get' : get,
+        'get'     : get,
         'setText' : setText,
         'getText' : getText,
-        'hide' : hide
+        'hide'    : hide
     };
 });

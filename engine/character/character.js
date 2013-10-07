@@ -31,9 +31,9 @@ define([
         this.label = undefined;
 
         this.character = new Sprite(options);
-        this.balloon = new Balloon({textColor : this.textColor});
+        this.textColor = options.textColor || "#000000";
 
-        this.textColor = options.textColor;
+        this.balloon   = new Balloon({textColor : this.textColor});
 
         this.w = this.character.frames.width;
         this.h = this.character.frames.height;
@@ -48,7 +48,7 @@ define([
         // important, so we can know if this is playable character, ommit some events
         this.isPlayable = false;
 
-        // Deferred for talk
+        // Deferred for talk and walk
         this.talkDeferred = undefined;
         this.walkDeferred = undefined;
 
@@ -100,10 +100,12 @@ define([
 
         // called to restore this character from a state
         this.setState = function (json) {
-            this.setX(json.x);
-            this.setY(json.y);
-            this.resetTargetXY();
-            this.changeAttitudeTo(json.attitude);
+            if (json.x) {
+                this.setX(json.x);
+                this.setY(json.y);
+                this.resetTargetXY();
+                this.changeAttitudeTo(json.attitude);
+            }
         };
 
         // called to convert this character state into json
@@ -123,7 +125,7 @@ define([
             this.y = y;
         };
 
-        this.setTargetXY = function (xy, reference) {
+        this.moveTo = function (xy, reference) {
             var scene = require('engine/stage/main').get().getCurrentScene(),
                 coords,
                 c;
@@ -142,10 +144,6 @@ define([
             this.targetXY = c;
             this.walkDeferred = $.Deferred();
             return this.walkDeferred;
-        };
-
-        this.moveTo = function (position, reference) {
-            return this.setTargetXY(position, reference);
         };
 
         this.resetTargetXY = function () {

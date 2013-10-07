@@ -1,4 +1,4 @@
-/*global define, createjs, $ */
+/*global define, createjs */
 
 /**
  * This is the pane's Achievement class
@@ -19,9 +19,7 @@ define([
 
         this.x = 0;
         this.y = 0;
-
         this.name = options.id;
-
         this.text = new createjs.Text();
 
         this.text.text = config.get('achievement.unlocked') + ":\n" + options.title;
@@ -52,6 +50,7 @@ define([
 
         this.background.regX = this.text.getMeasuredWidth() / 2;
         this.background.regY = 13;
+        
         this.addChild(
             this.background,
             this.text

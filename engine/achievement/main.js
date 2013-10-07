@@ -5,9 +5,7 @@ define([
 ], function (
     Achievement
 ) {
-
     var _  = {},
-        _user,
 
         preload = function (achievements) {
             var i;
@@ -20,10 +18,6 @@ define([
             return _[key];
         },
 
-        setUser = function (user) {
-            _user = user;
-        },
-
         publish = function (achievement) {
             var game = require('engine/main').getGame();
             if (game.getSource() === "DB game") {
@@ -32,16 +26,17 @@ define([
                     method: 'PUT',
                     data: {'achievement' : achievement},
                     success: function (response) {
+                        _[achievement].publish();
                     }
                 });
+            } else {
+                _[achievement].publish();
             }
-            _[achievement].publish(_user);
         };
 
     return {
         'preload' : preload,
         'get'     : get,
-        'publish' : publish,
-        'setUser' : setUser
+        'publish' : publish
     };
 });

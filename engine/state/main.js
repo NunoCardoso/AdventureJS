@@ -47,6 +47,9 @@ define([
 
         setFromJSON = function (savegame) {
             var key;
+            if (typeof savegame === 'string') {
+                savegame = JSON.parse(savegame);
+            }
 
             for (key in savegame.scenes) {
                 require('engine/scene/main').get(key).setState(savegame.scenes[key]);

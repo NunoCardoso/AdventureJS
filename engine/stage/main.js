@@ -21,7 +21,6 @@ define([
 
         _onDragging = false,
         _role,
-        _oldOnPress,
 
         preload = function (options) {
             stage = new GameStage(options.canvas);
@@ -77,8 +76,7 @@ define([
 
         activateCursorFor = function (role) {
             gamecursor.setStage(stage);
-            // backup the old onPress
-            _oldOnPress = stage.onPress;
+
             stage.onMouseMove = function (e) {
                 gamecursor.update({x: e.stageX, y: e.stageY}, role);
             };
@@ -102,7 +100,7 @@ define([
         },
 
         deactivate = function () {
-            stage.onPress = _oldOnPress;
+            stage.onPress = undefined;
         },
 
         activateTick = function () {

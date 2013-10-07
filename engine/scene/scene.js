@@ -64,6 +64,10 @@ define([
         this.dynamicContainer = new createjs.Container();
         this.staticContainer  = new createjs.Container();
 
+        this.backgroundname = scene.background;
+        this.backgroundpath = scene.backgroundpath;
+        this.backgroundmode = scene.backgroundmode;
+
         // used to parallax the background; 
         this.backgroundOffset = 0;
 
@@ -85,12 +89,16 @@ define([
             this.conditions[condition.id] = condition;
         }
 
-        if (scene.background) {
+        this.setBackground = function () {
             this.background = new Background({
-                'background'     : scene.background,
-                'backgroundpath' : scene.backgroundpath,
-                'backgroundmode' : scene.backgroundmode
+                'background'     : this.backgroundname,
+                'backgroundpath' : this.backgroundpath,
+                'backgroundmode' : this.backgroundmode
             });
+        };
+
+        if (scene.background) {
+            this.setBackground();
         }
 
         this.hasExit = function (_exit) {
@@ -296,6 +304,7 @@ define([
         };
 
         this.renderStatic = function (options) {
+            this.staticContainer.removeAllChildren();
 
             if (require('engine/stage/main').isPlayable()) {
                 // first to be rendered. Watch out, getPanel() depends on it.
@@ -382,16 +391,12 @@ define([
         };
 
         this.getState = function () {
-            var i, o,
-                objectStates = {};
-            
-            for (i in this.objects) {
-                objectStates[this.objects[i].name] = this.objects[i];
-            }
-            
             return {
-                'objects'          : objectStates,
-                'backgroundOffset' : this.backgroundOffset
+                'objects'          : this.objects,
+                'backgroundOffset' : this.backgroundOffset,
+                'backgroundname'   : this.backgroundname,
+                'backgroundpath'   : this.backgroundpath,
+                'backgroundmode'   : this.backgroundmode
             };
         };
 
@@ -415,14 +420,14 @@ define([
         };
 
         this.setState = function (json) {
-            this.objects = [];
-            var i;
-            for (i in json.objects) {
-                this.objects[json.objects[i].id] = json.objects[i];
-            }
+            this.objects = json.objects;
+            this.backgroundname = json.backgroundname;
+            this.backgroundpath = json.backgroundpath;
+            this.backgroundmode = json.backgroundmode;
             this.backgroundOffset = json.backgroundOffset;
 
-            // apply the offset
+            // set background, apply the offset, render scene
+            this.setBackground();
             this.applyOffset();
             this.render();
         };

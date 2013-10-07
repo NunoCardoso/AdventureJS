@@ -9,16 +9,7 @@ define([
 ], function (
     Game
 ) {
-    var _user = "Me",
-        _game,
-
-        setUser = function (user) {
-            _user = user;
-        },
-
-        getUser = function () {
-            return _user;
-        },
+    var _game,
 
         getGame = function () {
             return _game;
@@ -28,7 +19,6 @@ define([
 
             _game = new Game();
             _game.init();
-            _game.setUser(_user);
             var deferred = _game.load();
             deferred.done(function () {
                 _game.start({
@@ -43,8 +33,6 @@ define([
     init();
 
     return {
-        'setUser' : setUser,
-        'getUser' : getUser,
         'init' :  init,
         'getGame' : getGame
     };

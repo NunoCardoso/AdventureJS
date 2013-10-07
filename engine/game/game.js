@@ -54,18 +54,9 @@ define([
 
         var _game,
             _gameId,
-            _user,
             _assetList,
             _options,
             _source,
-
-            setUser = function (user) {
-                _user = user;
-            },
-
-            getUser = function () {
-                return _user;
-            },
 
             _loadFallBack = function (d) {
                 require(['games/aroundtheworld/aroundtheworld'], function (game) {
@@ -147,7 +138,6 @@ define([
                     gamecondition.preload(_game.conditions);
                     gamepanel.preload(_game.panel);
                     gameachievement.preload(_game.achievements);
-                    gameachievement.setUser(getUser());
                 }
 
                 gamescene.preload(_game.scenes);
@@ -195,8 +185,6 @@ define([
             'init'    : init,
             'load'    : load,
             'start'   : start,
-            'setUser' : setUser,
-            'getUser' : getUser,
             'getSource' : getSource,
             'getId'   : getId
         };
