@@ -978,7 +978,7 @@ define([
                 "id" : "condition.second",
                 "ifOn": {
                     "test": "higherThan",
-                    "x"   : 1300
+                    "x"   : 1250
                 },
                 "test": "flag",
                 "item": "hasSolvedThreeRiddles",
@@ -988,9 +988,8 @@ define([
                         "action" : "setBusyIcon"
                     },
                     {
-                        "action" : "changeAttitude",
-                        "character" : "pc.main",
-                        "attitude" : "standright"
+                        "action"    : "stopCharacter",
+                        "character" : "pc.main"
                     },
                     {
                         "action" : "dialogMessage",
@@ -1007,7 +1006,7 @@ define([
                         "character" : "pc.main",
                         "position" : {
                             "x" : 1100,
-                            "y" : 350
+                            "y" : 370
                         }
                     },
                     {

@@ -215,6 +215,23 @@ define([
             }
         };
 
+        this.stop = function () {
+            // if he is talking (a taking started), 
+            // let it talk. Just ask it to stand when he is not standing and not tallking
+            if (!this.character.isTalking()) {
+
+                if (this.character.isFacingLeft() && !this.character.isStandingLeft()) {
+                    this.character.attitude = "standleft";
+                } else if (this.character.isFacingRight() && !this.character.isStandingRight()) {
+                    this.character.attitude = "standright";
+                }
+            }
+            // perform the callback action, since the character reached his destination;
+            if (this.walkDeferred  && this.walkDeferred.state() === 'pending') {
+                this.walkDeferred.resolve();
+            }
+        };
+
         this.stand = function () {
             this.isSpeaking = false;
             this.changeAttitudeTo(this.character.getStandAttitude());

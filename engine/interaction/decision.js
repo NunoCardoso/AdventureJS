@@ -30,7 +30,8 @@ define([
             'changeBackground',
             'wait',
             'changeAttitude',
-            'changeFlag'
+            'changeFlag',
+            'stopCharacter'
         ],
 
         perform = function (action) {
