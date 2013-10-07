@@ -107,15 +107,10 @@ define([
             },
 
             render = function (_scene) {
-                // vcleanup progress bar
-                gamestage.get().removeAllChildren();
                 var scene = gamescene.get(_scene);
                 scene.render();
                 gamescene.add(scene);
-                gamestage.get().switchScene(
-                    'scene.start',
-                    scene.name
-                );
+                gamestage.get().switchScene(scene.name);
                 gamemusic.playMenuMusic();
                 keyboard.attachEvents();
                 gamestage.activate();
@@ -161,6 +156,8 @@ define([
                     canvas : options.canvas || 'canvas',
                     role   : options.role
                 });
+                gamestage.get().reset();
+
                 config.setCanvasXY({
                     x : $("#canvas").width(),
                     y : $("#canvas").height()
@@ -172,11 +169,17 @@ define([
                     context.webkitImageSmoothingEnabled = false;
                 }
 
-                var deferred = gamestart.init({
+                gamestart.preload({
                     'assetList' : _assetList.concat(gameAssetList)
                 });
 
-                deferred.done(function () {
+                var st = gamestart.get();
+                gamestage.get().addChild(st);
+                gamestage.get().update();
+
+                var d = st.loadAssets();
+
+                d.done(function () {
                     onAssetsLoaded();
                 });
             };

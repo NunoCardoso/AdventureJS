@@ -10,12 +10,8 @@ define([
 ) {
     var _ = {},
 
-        newScene = function (options) {
-            return new GameScene(options);
-        },
-
         _preloadMenu = function () {
-            var menuscene = newScene({id: 'scene.menu'});
+            var menuscene = new GameScene({id: 'scene.menu'});
             var menu      = require('engine/menu/main').get();
             _[menu.name]  = menu;
         },
@@ -54,7 +50,6 @@ define([
         'preload' : preload,
         'get'     : get,
         'getAll'  : getAll,
-        'newScene': newScene,
         'add'     : add,
         'findSceneWithExit' : findSceneWithExit
     };

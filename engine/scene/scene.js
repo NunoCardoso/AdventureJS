@@ -321,6 +321,10 @@ define([
             }
         };
 
+        this.hasBeginCutscene = function () {
+            return this.beginCutscene !== undefined;
+        };
+
         this.render = function (options) {
 
             this.toExit = (options ? options.toExit : undefined);
@@ -334,7 +338,11 @@ define([
             });
 
             if (require('engine/stage/main').isPlayable()) {
-                gamepanel.renderForVerbsAndInventory();
+                if (this.hasBeginCutscene() && !this.beginCutscenePerformed) {
+                    gamepanel.renderForCutscene();
+                } else {
+                    gamepanel.renderForVerbsAndInventory();
+                }
             }
 
             this.renderStatic({
@@ -396,12 +404,9 @@ define([
                 'backgroundOffset' : this.backgroundOffset,
                 'backgroundname'   : this.backgroundname,
                 'backgroundpath'   : this.backgroundpath,
-                'backgroundmode'   : this.backgroundmode
+                'backgroundmode'   : this.backgroundmode,
+                'beginCutscenePerformed' : this.beginCutscenePerformed
             };
-        };
-
-        this.hasBeginCutscene = function () {
-            return this.beginCutscene !== undefined;
         };
 
         this.performBeginCutscene = function () {
@@ -427,11 +432,46 @@ define([
             this.backgroundpath = json.backgroundpath;
             this.backgroundmode = json.backgroundmode;
             this.backgroundOffset = json.backgroundOffset;
+            this.beginCutscenePerformed = json.beginCutscenePerformed;
 
             // set background, apply the offset, render scene
             this.setBackground();
             this.applyOffset();
             this.render();
+        };
+
+        this.fadeIn = function () {
+            var self = this;
+            var gamestage = require('engine/stage/main').get();
+            this.alpha = 0;
+            var d = $.Deferred();
+
+            var inter = setInterval(function () {
+                self.alpha += 0.1;
+                gamestage.update();
+                if (self.alpha > 0.95) {
+                    clearInterval(inter);
+                    d.resolve();
+                }
+            }, 50);
+            return d;
+        };
+
+        this.fadeOut = function () {
+            var self = this;
+            var gamestage = require('engine/stage/main').get();
+            this.alpha = 1;
+            var d = $.Deferred();
+
+            var inter = setInterval(function () {
+                self.alpha -= 0.1;
+                gamestage.update();
+                if (self.alpha < 0.05) {
+                    clearInterval(inter);
+                    d.resolve();
+                }
+            }, 50);
+            return d;
         };
     };
     return GameScene;

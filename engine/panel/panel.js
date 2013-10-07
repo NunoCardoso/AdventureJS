@@ -55,7 +55,8 @@ define([
             this.background = new BlackBackground();
 
             this.addChild(
-                this.background
+                this.background,
+                gamesentence.get()
             );
             this.mode = 'cutscene';
         };

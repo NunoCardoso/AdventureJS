@@ -115,7 +115,6 @@ define([
                 if (toScene) {
                     var stage = require('engine/stage/main').get();
                     stage.switchScene(
-                        stage.getCurrentScene().name,
                         toScene,
                         action.scene
                     );

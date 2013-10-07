@@ -83,7 +83,6 @@ define([
                 var gamestage = require('engine/stage/main');
                 gamestage.activateTick();
                 gamestage.get().switchScene(
-                    'scene.menu',
                     options.startingScene
                 );
             }
@@ -178,6 +177,40 @@ define([
 
         this.hasBeginCutscene = function () {
             return false;
+        };
+
+        this.fadeIn = function () {
+            var self = this;
+            var gamestage = require('engine/stage/main').get();
+            this.alpha = 0;
+            var d = $.Deferred();
+
+            var inter = setInterval(function () {
+                self.alpha += 0.1;
+                gamestage.update();
+                if (self.alpha > 0.95) {
+                    clearInterval(inter);
+                    d.resolve();
+                }
+            }, 50);
+            return d;
+        };
+
+        this.fadeOut = function () {
+            var self = this;
+            var gamestage = require('engine/stage/main').get();
+            this.alpha = 1;
+            var d = $.Deferred();
+
+            var inter = setInterval(function () {
+                self.alpha -= 0.1;
+                gamestage.update();
+                if (self.alpha < 0.05) {
+                    clearInterval(inter);
+                    d.resolve();
+                }
+            }, 50);
+            return d;
         };
     };
     return GameMenu;

@@ -65,7 +65,7 @@ define([
                     var menu = require('engine/menu/main').get();
                     menu.renderForSaveGame();
                     gamestage.pause();
-                    gamestage.get().addMenuScene('scene.menu');
+                    gamestage.get().addMenuScene();
                     gamemusic.playMenuMusic();
                     return true;
                 }
