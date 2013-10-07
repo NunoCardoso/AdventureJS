@@ -766,9 +766,6 @@ define([
                 "music"              : "music.backyard",
                 "beginCutscene" : [
                     {
-                        "action" : "setBusyIcon"
-                    },
-                    {
                         "action" : "moveTo",
                         "character" : "pc.main",
                         "position" : {

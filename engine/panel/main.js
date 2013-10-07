@@ -60,6 +60,10 @@ define([
             _.renderForDialog(_dialogs);
         },
 
+        renderForCutscene = function () {
+            _.renderForCutscene();
+        },
+
         addDialogOptions = function (dialogoptions) {
             _dialogs.addDialogOptions(dialogoptions);
         },
@@ -82,6 +86,7 @@ define([
         'getVerbs'                   : getVerbs,
         'renderForVerbsAndInventory' : renderForVerbsAndInventory,
         'renderForDialog'            : renderForDialog,
+        'renderForCutscene'          : renderForCutscene,
         'addDialogOptions'           : addDialogOptions,
         'removeDialogOptions'        : removeDialogOptions,
         'getMode'                    : getMode

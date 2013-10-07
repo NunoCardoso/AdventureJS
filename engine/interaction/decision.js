@@ -122,9 +122,11 @@ define([
                 break;
             case 'setBusyIcon':
                 require('engine/cursor/main').setBusy();
+                require('engine/panel/main').renderForCutscene();
                 break;
             case 'setDefaultIcon':
                 require('engine/cursor/main').setNotBusy();
+                require('engine/panel/main').renderForVerbsAndInventory();
                 break;
             case 'changeBackground':
                 scene = require('engine/stage/main').get()

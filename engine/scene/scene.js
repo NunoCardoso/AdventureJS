@@ -409,11 +409,13 @@ define([
                 return;
             }
             gamecursor.setBusy();
+            require('engine/panel/main').renderForCutscene();
             require('engine/stage/main').update();
             require('engine/interaction/decision').performList({
                 taskList: this.beginCutscene,
                 whenDone: function () {
                     gamecursor.setNotBusy();
+                    require('engine/panel/main').renderForVerbsAndInventory();
                 }
             });
             this.beginCutscenePerformed = true;

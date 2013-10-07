@@ -49,6 +49,17 @@ define([
             this.mode = 'verbsAndInventory';
         };
 
+        this.renderForCutscene = function () {
+
+            this.removeAllChildren();
+            this.background = new BlackBackground();
+
+            this.addChild(
+                this.background
+            );
+            this.mode = 'cutscene';
+        };
+
         this.renderForDialog = function (dialogs) {
 
             dialogs.render();
