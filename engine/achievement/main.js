@@ -26,10 +26,12 @@ define([
                     method: 'PUT',
                     data: {'achievement' : achievement},
                     success: function (response) {
+                        require('engine/game/music').playSound('sound.fall');
                         _[achievement].publish();
                     }
                 });
             } else {
+                require('engine/game/music').playSound('sound.fall');
                 _[achievement].publish();
             }
         };

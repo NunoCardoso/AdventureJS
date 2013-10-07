@@ -59,7 +59,6 @@ define([
             switch (event) {
             case 'click':
                 if (mine) {
-                    require('engine/game/music').playSound('sound.fall');
                     require('engine/interaction/action').clickVerb(this);
                     return true;
                 }

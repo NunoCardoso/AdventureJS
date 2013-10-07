@@ -58,7 +58,7 @@ define([
             'sentence.defaultText' : 'Walk to',
 
             'panel.verbs.x' : 55,
-            'panel.verbs.y' : gameHeight + sentenceHeight + 20,
+            'panel.verbs.y' : gameHeight + sentenceHeight + 18,
             'panel.verbs.columns' : verbColumns,
             'panel.verbs.rows' : verbRows,
             'panel.verbs.incrementX' : parseInt(verbWidth / verbColumns, 10),
