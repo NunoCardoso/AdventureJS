@@ -35,6 +35,18 @@ define([
         });
         this.currentScene = undefined;
 
+        this.back = new createjs.Shape();
+
+        this.back.graphics.beginFill("black")
+            .drawRect(
+                0,
+                0,
+                config.get('game.w'),
+                config.get('game.h')
+            );
+
+        this.addChild(this.black);
+
         this.onGame = function () {
             // that hides the cursor;
             $('#canvas').addClass('game');
