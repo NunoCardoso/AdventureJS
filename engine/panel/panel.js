@@ -6,10 +6,12 @@
 define([
     'engine/config',
     'engine/panel/background',
+    'engine/panel/blackbackground',
     'engine/sentence/main'
 ], function (
     config,
     Background,
+    BlackBackground,
     gamesentence
 ) {
     var Panel = function (options) {
@@ -21,7 +23,7 @@ define([
     p.initialize = function (options) {
         this.Panel_initialize();
 
-        this.background = new Background();
+        this.background = undefined;
         this.name = 'panel';
         this.mode = '';
 
@@ -32,8 +34,9 @@ define([
             }
             // ask inventory to re-render
             inventory.render();
-
+            this.background = new Background();
             this.removeAllChildren();
+
             this.addChild(
                 this.background,
                 inventory,
@@ -49,8 +52,9 @@ define([
         this.renderForDialog = function (dialogs) {
 
             dialogs.render();
-
             this.removeAllChildren();
+            this.background = new BlackBackground();
+
             this.addChild(
                 this.background,
                 dialogs
