@@ -21,8 +21,9 @@ define([
         publish = function (achievement) {
             var game = require('engine/main').getGame();
             if (game.getSource() === "DB game") {
+				var url = top.Fronter.Util.getCustomerUrl();
                 $.ajax({
-                    url: '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/achievements',
+                    url: url + '/app/advgames/' + game.getId() + '/achievements',
                     method: 'PUT',
                     data: {'achievement' : achievement},
                     success: function (response) {

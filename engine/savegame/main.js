@@ -61,10 +61,11 @@ define([
             var game = require('engine/main').getGame();
 
             // If game was loaded from DB... save savegame there
-            if (game.getSource() === "DB game") {
+            if (game.getSource() === "DB game") 
+				var url = top.Fronter.Util.getCustomerUrl();
                 $.ajax({
                     'method' : 'PUT',
-                    'url'    : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/' + slot,
+                    'url'    : url + '/app/advgames/' + game.getId() + '/savegames/' + slot,
                     'data'   : {
                         'json'   : jsonstring,
                         'image'  : image,
@@ -94,9 +95,10 @@ define([
                 _initRun = true;
                 var game = require('engine/main').getGame();
                 if (game.getSource() === "DB game") {
+					var url = top.Fronter.Util.getCustomerUrl();
                     $.ajax({
                         'method' : 'GET',
-                        'url'    : '/adventure-games-hand-ins/app/advgames/' + game.getId() + '/savegames/',
+                        'url'    : url + '/app/advgames/' + game.getId() + '/savegames/',
                         success  : function (response) {
                             _init(response);
                             d.resolve(_games);

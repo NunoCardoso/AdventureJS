@@ -71,8 +71,9 @@ define([
                 if (adv_game_id === undefined) {
                     _loadFallBack(d);
                 } else {
+					var url = top.Fronter.Util.getCustomerUrl();
                     $.ajax({
-                        url: '/adventure-games-hand-ins/app/advgames/' + adv_game_id,
+                        url: url + '/app/advgames/' + adv_game_id,
                         method: 'GET',
                         success: function (response) {
                             if (!response || !response.json) {
