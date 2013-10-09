@@ -19,6 +19,7 @@ define([
         snapshot, // an image snapshot of this stage
         savegame, // a JSON snapshot of this stage
 
+        _onMouseDown = false,
         _onDragging = false,
         _role,
 
@@ -77,30 +78,34 @@ define([
         activateCursorFor = function (role) {
             gamecursor.setStage(stage);
 
-            stage.onMouseMove = function (e) {
-                gamecursor.update({x: e.stageX, y: e.stageY}, role);
-            };
+            stage.addEventListener('stagemousedown', function (evt) {
+                _onMouseDown = true;
+            });
 
-            stage.onPress = function (evt) {
-
-                evt.onMouseMove = function (e) {
+            stage.addEventListener("stagemousemove", function (evt) {
+                if (_onMouseDown) {
                     _onDragging = true;
-                    gamecursor.drag({x: e.stageX, y: e.stageY}, role);
-                };
-                evt.onMouseUp = function (e) {
-                    if (_onDragging) {
-                        gamecursor.reset();
-                        _onDragging = false;
-                        gamecursor.undrag({x: evt.stageX, y: evt.stageY}, role);
-                    } else {
-                        gamecursor.click({x: evt.stageX, y: evt.stageY}, role);
-                    }
-                };
-            };
+                    gamecursor.drag({x: evt.stageX, y: evt.stageY}, role);
+                } else {
+                    gamecursor.update({x: evt.stageX, y: evt.stageY}, role);
+                }
+            });
+        
+            stage.addEventListener('stagemouseup', function (evt) {
+                _onMouseDown = false;
+                if (_onDragging) {
+                    gamecursor.reset();
+                    _onDragging = false;
+                    gamecursor.undrag({x: evt.stageX, y: evt.stageY}, role);
+                } else {
+                    gamecursor.click({x: evt.stageX, y: evt.stageY}, role);
+                }
+            });
         },
 
         deactivate = function () {
-            stage.onPress = undefined;
+            stage.removeEventListener('stagemousedown');
+            stage.removeEventListener('stagemousemove');
         },
 
         activateTick = function () {

@@ -93,11 +93,12 @@ define([
             label: 'loadgame',
             w: config.get('button.w'),
             h: config.get('button.h'),
-            r: config.get('button.r'),
-            onClick: function () {
-                require('engine/tpl/main').close();
-                require('engine/tpl/main').openLoadgame();
-            }
+            r: config.get('button.r')
+        });
+
+        this.loadGameButton.on('click', function () {
+            require('engine/tpl/main').close();
+            require('engine/tpl/main').openLoadgame();
         });
 
         this.saveGameButton = new Button({
@@ -106,15 +107,16 @@ define([
             y: config.get('button1of3.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
-            r: config.get('button.r'),
-            onClick: function () {
-                // generate savegame JSON, save it temporarily to stage
-                require('engine/stage/main').setSavegame(
-                    require('engine/state/main').getToJSON()
-                );
-                require('engine/tpl/main').close();
-                require('engine/tpl/main').openSavegame();
-            }
+            r: config.get('button.r')
+        });
+
+        this.saveGameButton.on('click', function () {
+            // generate savegame JSON, save it temporarily to stage
+            require('engine/stage/main').setSavegame(
+                require('engine/state/main').getToJSON()
+            );
+            require('engine/tpl/main').close();
+            require('engine/tpl/main').openSavegame();
         });
 
         this.resumeGameButton = new Button({
@@ -123,14 +125,15 @@ define([
             y: config.get('button3of3.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
-            r: config.get('button.r'),
-            onClick: function () {
-                require('engine/tpl/main').close();
-                var stage = require('engine/stage/main');
-                stage.play();
-                stage.get().removeMenuScene('scene.menu');
-                gamemusic.playMusic(stage.get().getCurrentScene().music);
-            }
+            r: config.get('button.r')
+        });
+
+        this.resumeGameButton.on('click', function () {
+            require('engine/tpl/main').close();
+            var stage = require('engine/stage/main');
+            stage.play();
+            stage.get().removeMenuScene('scene.menu');
+            gamemusic.playMusic(stage.get().getCurrentScene().music);
         });
 
         this.settingsButton = new SettingsButton();

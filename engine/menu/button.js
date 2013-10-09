@@ -31,7 +31,6 @@ define([
         this.r = options.r || 0;
 
         this.button.alpha = 0.5;
-        this.onClick = options.onClick;
 
         this.label = new Label({
             x : config.get('button.w') / 2,
@@ -71,12 +70,12 @@ define([
 
 
         this.on("mouseover", function (e) {
-            e.target.alpha = 1;
+            this.button.alpha = 1;
             gamestage.update();
         });
 
         this.on("mouseout",  function (e) {
-            e.target.alpha = 0.5;
+            this.button.alpha = 0.5;
             gamestage.update();
         });
     };

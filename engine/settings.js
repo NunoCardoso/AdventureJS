@@ -106,16 +106,16 @@ define([
                     'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : [1, 6, 'walkright', 7],
-                    'walkupright'  : [1, 6, 'walkupright', 7],
-                    'walkdownright'  : [1, 6, 'walkdownright', 7],
-                    'walkleft'   : [9, 15, 'walkleft', 7],
-                    'walkupleft'   : [9, 15, 'walkupleft', 7],
-                    'walkdownleft'   : [9, 15, 'walkdownleft', 7],
+                    'walkright'  : [1, 6, 'walkright', 0.25],
+                    'walkupright'  : [1, 6, 'walkupright', 0.25],
+                    'walkdownright'  : [1, 6, 'walkdownright', 0.25],
+                    'walkleft'   : [9, 15, 'walkleft', 0.25],
+                    'walkupleft'   : [9, 15, 'walkupleft', 0.25],
+                    'walkdownleft'   : [9, 15, 'walkdownleft', 0.25],
                     'standright' : 0,
                     'standleft'  : 8,
-                    'talkright'  : [16, 17, 'talkright', 5],
-                    'talkleft'   : [16, 17, 'talkleft', 5],
+                    'talkright'  : [16, 17, 'talkright', 0.2],
+                    'talkleft'   : [16, 17, 'talkleft', 0.2],
                     'fishing'    : 18
                 }
             },
@@ -134,8 +134,8 @@ define([
                 'animations' : {
                     'standleft'  : 0,
                     'standright' : 1,
-                    'talkleft'   : [4, 7, 'talkleft', 6],
-                    'talkright'  : [8, 11, 'talkright', 6]
+                    'talkleft'   : [4, 7, 'talkleft', 0.25],
+                    'talkright'  : [8, 11, 'talkright', 0.25]
                 }
             },
             {
@@ -151,10 +151,10 @@ define([
                     'width'  : 100
                 },
                 'animations' : {
-                    'standleft'  : [0, 1, 'standleft', 6],
-                    'standright' : [0, 1, 'standright', 6],
-                    'talkleft'   : [2, 3, 'talkleft', 6],
-                    'talkright'  : [2, 3, 'talkright', 6]
+                    'standleft'  : [0, 1, 'standleft', 0.25],
+                    'standright' : [0, 1, 'standright', 0.25],
+                    'talkleft'   : [2, 3, 'talkleft', 0.25],
+                    'talkright'  : [2, 3, 'talkright', 0.25]
                 }
             },
             {
@@ -172,8 +172,8 @@ define([
                 'animations' : {
                     'standleft'  : 0,
                     'standright' : 0,
-                    'talkleft'   : [1, 2, 'talkleft', 6],
-                    'talkright'  : [1, 2, 'talkright', 6]
+                    'talkleft'   : [1, 2, 'talkleft', 0.25],
+                    'talkright'  : [1, 2, 'talkright', 0.25]
                 }
             },
             {
@@ -189,10 +189,10 @@ define([
                     'width'  : 208
                 },
                 'animations' : {
-                    'standleft'  : [0, 1, 'standleft', 6],
+                    'standleft'  : [0, 1, 'standleft', 0.25],
                     'standright' : 0,
-                    'talkleft'   : [2, 3, 'talkleft', 6],
-                    'talkright'  : [2, 3, 'talkright', 6]
+                    'talkleft'   : [2, 3, 'talkleft', 0.25],
+                    'talkright'  : [2, 3, 'talkright', 0.25]
                 }
             }
         ]
