@@ -14,7 +14,7 @@ define([
         this.initialize(options);
     };
 
-    var p = Sprite.prototype = new createjs.BitmapAnimation();
+    var p = Sprite.prototype = new createjs.Sprite();
     p.Sprite_initialize = p.initialize;
     p.initialize = function (options) {
         this.Sprite_initialize();

@@ -43,12 +43,12 @@ define([
         });
 
         this.addEventListener("mouseover", function (e) {
-            e.target.button.alpha = 1;
+            e.target.alpha = 1;
             require('engine/stage/main').update();
         });
 
         this.addEventListener("mouseout", function (e) {
-            e.target.button.alpha = 0.5;
+            e.target.alpha = 0.5;
             require('engine/stage/main').update();
         });
 

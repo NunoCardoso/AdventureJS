@@ -70,15 +70,15 @@ define([
         this.render();
 
 
-        this.onMouseOver = function (e) {
-            e.target.button.alpha = 1;
+        this.on("mouseover", function (e) {
+            e.target.alpha = 1;
             gamestage.update();
-        };
+        });
 
-        this.onMouseOut = function (e) {
-            e.target.button.alpha = 0.5;
+        this.on("mouseout",  function (e) {
+            e.target.alpha = 0.5;
             gamestage.update();
-        };
+        });
     };
     return Button;
 });

@@ -77,15 +77,16 @@ define([
             y: config.get('button1of2.y'),
             w: config.get('button.w'),
             h: config.get('button.h'),
-            r: config.get('button.r'),
-            onClick: function () {
-                require('engine/tpl/main').close();
-                var gamestage = require('engine/stage/main');
-                gamestage.activateTick();
-                gamestage.get().switchScene(
-                    options.startingScene
-                );
-            }
+            r: config.get('button.r')
+        });
+
+        this.newGameButton.on('click', function () {
+            require('engine/tpl/main').close();
+            var gamestage = require('engine/stage/main');
+            gamestage.activateTick();
+            gamestage.get().switchScene(
+                options.startingScene
+            );
         });
 
         this.loadGameButton = new Button({
