@@ -29,7 +29,6 @@ define([
             });
         };
 
-    // TODO: to remove when we have a way to load a game, then trigger the init method
     init();
 
     return {

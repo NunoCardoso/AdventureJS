@@ -1,4 +1,4 @@
-/*global define, createjs, alert, Image */
+/*global define, top, createjs, alert, Image */
 
 define([
     'engine/lib/assets',
@@ -61,8 +61,8 @@ define([
             var game = require('engine/main').getGame();
 
             // If game was loaded from DB... save savegame there
-            if (game.getSource() === "DB game") 
-				var url = top.Fronter.Util.getCustomerUrl();
+            if (game.getSource() === "DB game") {
+                var url = top.Fronter.Util.getCustomerUrl();
                 $.ajax({
                     'method' : 'PUT',
                     'url'    : url + '/app/advgames/' + game.getId() + '/savegames/' + slot,
@@ -95,7 +95,7 @@ define([
                 _initRun = true;
                 var game = require('engine/main').getGame();
                 if (game.getSource() === "DB game") {
-					var url = top.Fronter.Util.getCustomerUrl();
+                    var url = top.Fronter.Util.getCustomerUrl();
                     $.ajax({
                         'method' : 'GET',
                         'url'    : url + '/app/advgames/' + game.getId() + '/savegames/',

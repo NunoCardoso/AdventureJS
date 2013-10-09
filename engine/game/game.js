@@ -66,6 +66,13 @@ define([
                 });
             },
 
+            loadAsPreview = function (json) {
+                if (json) {
+                    _game = json;
+                    _source = "preview";
+                }
+            },
+
             load = function () {
                 var d = $.Deferred();
                 if (adv_game_id === undefined) {
@@ -188,6 +195,7 @@ define([
         return {
             'init'    : init,
             'load'    : load,
+            'loadAsPreview' : loadAsPreview,
             'start'   : start,
             'getSource' : getSource,
             'getId'   : getId
