@@ -1,6 +1,8 @@
 /*global jQuery */
 
-(function ($) {
+require([
+  'jquery'
+], function ($) {
     $(function () {
         $('button.gofullscreen').on('click', function () {
             var el = document.getElementById('canvasdiv');
@@ -11,4 +13,4 @@
             }
         });
     });
-}(jQuery));
+});

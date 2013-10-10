@@ -29,8 +29,6 @@ define([
             });
         };
 
-    init();
-
     return {
         'init' :  init,
         'getGame' : getGame

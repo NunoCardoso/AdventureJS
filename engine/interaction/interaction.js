@@ -1,4 +1,4 @@
-/*global define, createjs, $ */
+/*global define */
 
 /**
  * This module is a game interaction class

@@ -1,4 +1,4 @@
-/*global define, createjs */
+/*global define */
 
 /**
  * This is the pane's Achievement class
@@ -50,7 +50,7 @@ define([
 
         this.background.regX = this.text.getMeasuredWidth() / 2;
         this.background.regY = 13;
-        
+
         this.addChild(
             this.background,
             this.text
