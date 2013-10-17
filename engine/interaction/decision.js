@@ -4,11 +4,9 @@
  * This module handles interactions
  */
 define([
-    'createjs',
     'engine/interaction/main',
     'engine/dialog/main'
 ], function (
-    createjs,
     gameinteraction,
     gamedialog
 ) {
