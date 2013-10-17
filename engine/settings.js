@@ -194,6 +194,81 @@ define([
                     'talkleft'   : [2, 3, 'talkleft', 0.25],
                     'talkright'  : [2, 3, 'talkright', 0.25]
                 }
+            },
+            {
+                'id'     : 'npc.fatkid',
+                'images' : 'image.fatkid',
+                'speed'  : 2,
+                'textColor' : 'blue',
+                'frames' : {
+                    'regX'   : 50,
+                    'height' : 114,
+                    'count'  : 1,
+                    'regY'   : 0,
+                    'width'  : 100
+                },
+                'animations' : {
+                    'walkright'  : 0,
+                    'walkupright'  : 0,
+                    'walkdownright'  : 0,
+                    'walkleft'   : 0,
+                    'walkupleft'   : 0,
+                    'walkdownleft'   : 0,
+                    'standright' : 0,
+                    'standleft'  : 0,
+                    'talkright'  : 0,
+                    'talkleft'   : 0
+                }
+            },
+            {
+                'id'     : 'npc.nerdygirl',
+                'images' : 'image.nerdygirl',
+                'speed'  : 2,
+                'textColor' : 'pink',
+                'frames' : {
+                    'regX'   : 50,
+                    'height' : 114,
+                    'count'  : 1,
+                    'regY'   : 0,
+                    'width'  : 100
+                },
+                'animations' : {
+                    'walkright'  : 0,
+                    'walkupright'  : 0,
+                    'walkdownright'  : 0,
+                    'walkleft'   : 0,
+                    'walkupleft'   : 0,
+                    'walkdownleft'   : 0,
+                    'standright' : 0,
+                    'standleft'  : 0,
+                    'talkright'  : 0,
+                    'talkleft'   : 0
+                }
+            },
+            {
+                'id'     : 'npc.teacher',
+                'images' : 'image.teacher',
+                'speed'  : 2,
+                'textColor' : 'green',
+                'frames' : {
+                    'regX'   : 50,
+                    'height' : 114,
+                    'count'  : 1,
+                    'regY'   : 0,
+                    'width'  : 100
+                },
+                'animations' : {
+                    'walkright'  : 0,
+                    'walkupright'  : 0,
+                    'walkdownright'  : 0,
+                    'walkleft'   : 0,
+                    'walkupleft'   : 0,
+                    'walkdownleft'   : 0,
+                    'standright' : 0,
+                    'standleft'  : 0,
+                    'talkright'  : 0,
+                    'talkleft'   : 0
+                }
             }
         ]
     };
