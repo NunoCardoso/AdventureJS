@@ -1,4 +1,4 @@
-/*global define, $ */
+/*global define, $, createjs, window */
 
 /**
  * This module handles interactions
@@ -31,7 +31,8 @@ define([
             'wait',
             'changeAttitude',
             'changeFlag',
-            'stopCharacter'
+            'stopCharacter',
+            'prompt'
         ],
 
         perform = function (action) {
@@ -148,6 +149,16 @@ define([
             case 'setFlag':
                 require('engine/flags/main').set(action.flag, action.value);
                 break;
+            case 'prompt':
+                var gametemplate = require('engine/tpl/main');
+                deferred = gametemplate.openQuestion(action.text);
+                deferred.done(function (answer) {
+                    require('engine/flags/main').set(action.variable, answer);
+                    d.resolve();
+                })
+                //var answer = window.prompt(action.text);
+                return d.promise();
+//              break;
             default:
                 console.log(action.action + ' not implemented!');
                 break;

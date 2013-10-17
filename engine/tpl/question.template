@@ -1,0 +1,9 @@
+<div id="question" class="panel" style="width: 400px;">
+    <span>{{text}}</span>
+    <br>
+    <input type="text" size=50 placeholder="Your answer" name="answer" id="answer"/>
+    <br>
+    <div class="buttondiv">
+       <button class="okbutton" onClick="require('engine/tpl/main').answer();return false;">OK</button>
+    </div>
+</div>

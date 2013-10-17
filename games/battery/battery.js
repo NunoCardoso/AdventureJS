@@ -39,6 +39,10 @@ define([
             {
                 'id'  : 'image.righttable',
                 'src' : 'games/battery/images/objects/right-table.png'
+            },
+            {
+                "id"  : "image.1x1",
+                "src" : "games/aroundtheworld/img/object/1x1.png"
             }
         ],
         "sounds" : [],
@@ -111,6 +115,18 @@ define([
                 "label": "table",
                 "imageInStage" : "image.righttable",
                 "onForeground" : true
+            },
+            {
+                "id": "object.formula",
+                "label": "formula",
+                "imageInStage" : "image.1x1",
+                "onForeground" : false
+            },
+            {
+                "id": "object.periodictable",
+                "label": "periodic table",
+                "imageInStage" : "image.1x1",
+                "onForeground" : false
             }
         ],
         "interactions": [
@@ -150,6 +166,29 @@ define([
                     {
                         "action": "playDialog",
                         "dialog": "dialog.talkToTeacher"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtFormula",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.formula"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "I know who wrote that! It was..."
+                    },
+                    {
+                        "action": "prompt",
+                        "text"  : "Who wrote it?",
+                        "variable" : "formulaAuthor"
+                    },
+                    {
+                        "action": "publishAchievement",
+                        "achievement" : "achievement.formula"
                     }
                 ]
             }
@@ -208,6 +247,20 @@ define([
                         "y"  : 272,
                         "w"  : 113,
                         "h"  : 103
+                    },
+                    {
+                        "id" : "object.periodictable",
+                        "x"  : 205,
+                        "y"  : 35,
+                        "w"  : 195,
+                        "h"  : 105
+                    },
+                    {
+                        "id" : "object.formula",
+                        "x"  : 730,
+                        "y"  : 200,
+                        "w"  : 50,
+                        "h"  : 50
                     }
                 ],
                 "exits" : [
@@ -224,7 +277,9 @@ define([
                 "conditions" : []
             }
         ],
-        "flags" : {},
+        "flags" : {
+            "formulaAuthor" : false
+        },
         "conditions" : [],
         "dialogoptions" : [
             {
@@ -447,8 +502,11 @@ define([
                 ]
             }
         ],
-
         "achievements": [
+            {
+                "id"    : "achievement.formula",
+                "title" : "You guessed a formula's author"
+            },
             {
                 "id"    : "achievement.battery",
                 "title" : "You built a battery!"

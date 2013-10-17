@@ -8,26 +8,31 @@ define([
     'text!engine/tpl/savegame.template',
     'text!engine/tpl/settings.template',
     'text!engine/tpl/help.template',
+    'text!engine/tpl/question.template',
     'engine/tpl/loadgamepanel',
     'engine/tpl/savegamepanel',
     'engine/tpl/settingspanel',
     'engine/tpl/helppanel',
+    'engine/tpl/questionpanel',
     'engine/savegame/main'
 ], function (
     loadgameTpl,
     savegameTpl,
     settingsTpl,
     helpTpl,
+    questionTpl,
     LoadGamePanel,
     SaveGamePanel,
     SettingsPanel,
     HelpPanel,
+    QuestionPanel,
     savegame
 ) {
 
     var item,
         gamestage,
         template,
+        d,
 
         openSettings = function () {
             if (!item) {
@@ -55,12 +60,40 @@ define([
             }
         },
 
+        openQuestion = function (text) {
+            if (!item) {
+                d = $.Deferred();
+                template = Handlebars.compile(questionTpl);
+                $('#forms').html(template({
+                    text: text || 'No description available.'
+                }));
+                item = new QuestionPanel();
+                item.show();
+                gamestage = require('engine/stage/main');
+                gamestage.get().addChild(item);
+                gamestage.update();
+                return d;
+            }
+        },
+
         close = function () {
             gamestage = require('engine/stage/main');
             gamestage.get().removeChild(item);
             if (item) {
                 item.hide();
                 item = undefined;
+            }
+            $('#forms').html('');
+        },
+
+        answer = function () {
+            gamestage = require('engine/stage/main');
+            gamestage.get().removeChild(item);
+            if (item) {
+                var answer = item.getAnswer();
+                item.hide();
+                item = undefined;
+                d.resolve(answer);
             }
             $('#forms').html('');
         },
@@ -114,8 +147,10 @@ define([
     return {
         'openSettings'  : openSettings,
         'openHelp'      : openHelp,
+        'openQuestion'  : openQuestion,
         'openSavegame'  : openSavegame,
         'openLoadgame'  : openLoadgame,
-        'close'         : close
+        'close'         : close,
+        'answer'        : answer
     };
 });
