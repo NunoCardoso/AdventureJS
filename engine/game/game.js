@@ -1,4 +1,4 @@
-/*global define, createjs, $, adv_game_id */
+/*global define, createjs, $, adv_game_id, customer_url */
 
 /**
  * This module bootstraps the game, preloads assets, then lands on the main menu
@@ -78,7 +78,7 @@ define([
                 if (adv_game_id === undefined) {
                     _loadFallBack(d);
                 } else {
-					var url = top.Fronter.Util.getCustomerUrl();
+                    var url = customer_url;
                     $.ajax({
                         url: url + '/app/advgames/' + adv_game_id,
                         method: 'GET',

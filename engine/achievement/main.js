@@ -1,4 +1,4 @@
-/*global define, createjs */
+/*global define, createjs, customer_url */
 
 define([
     'engine/achievement/achievement'
@@ -21,7 +21,7 @@ define([
         publish = function (achievement) {
             var game = require('engine/main').getGame();
             if (game.getSource() === "DB game") {
-				var url = top.Fronter.Util.getCustomerUrl();
+                var url = customer_url;
                 $.ajax({
                     url: url + '/app/advgames/' + game.getId() + '/achievements',
                     method: 'PUT',
