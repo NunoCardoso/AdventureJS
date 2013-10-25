@@ -13,6 +13,22 @@ define([
                 'src' : 'games/aroundtheworld/img/character/main.png'
             },
             {
+                'id'  : 'image.battery.main',
+                'src' : 'games/battery/images/characters/main-character.png'
+            },
+            {
+                'id'  : 'image.battery.fatkid',
+                'src' : 'games/battery/images/characters/fat-kid-character.png'
+            },
+            {
+                'id'  : 'image.battery.nerdygirl',
+                'src' : 'games/battery/images/characters/nerdy-girl-character.png'
+            },
+            {
+                'id'  : 'image.battery.teacher',
+                'src' : 'games/battery/images/characters/teacher-character.png'
+            },
+            {
                 'id'  : 'image.pirate',
                 'src' : 'games/compass/img/character/pirate.png'
             },
@@ -120,6 +136,46 @@ define([
                 }
             },
             {
+                'id'     : 'pc.battery.main',
+                'images' : 'image.battery.main',
+                'speed'  : 2,
+                'textColor' : 'black',
+                'frames' : {
+                    'regX'   : 50,
+                    'height' : 114,
+                    'count'  : 88,
+                    'regY'   : 0,
+                    'width'  : 100
+                },
+                'animations' : {
+                    'walkright'  : [1, 6, 'walkright', 0.25],
+                    'walkupright'  : [1, 6, 'walkupright', 0.25],
+                    'walkdownright'  : [1, 6, 'walkdownright', 0.25],
+                    'walkleft'   : [9, 15, 'walkleft', 0.25],
+                    'walkupleft'   : [9, 15, 'walkupleft', 0.25],
+                    'walkdownleft'   : [9, 15, 'walkdownleft', 0.25],
+
+                    'walkrightGoggle'  : [25, 30, 'walkrightGoggle', 0.25],
+                    'walkuprightGoggle'  : [25, 30, 'walkuprightGoggle', 0.25],
+                    'walkdownrightGoggle'  : [25, 30, 'walkdownrightGoggle', 0.25],
+                    'walkleftGoggle'   : [33, 15, 'walkleftGoggle', 0.25],
+                    'walkupleftGoggle'   : [33, 15, 'walkupleftGoggle', 0.25],
+                    'walkdownleftGoggle'   : [33, 15, 'walkdownleftGoggle', 0.25],
+
+                    'standright' : 0,
+                    'standrightGoggle' : 24,
+                    'standleft'  : 8,
+                    'standleftGoggle'  : 32,
+
+                    'talkright'  : [16, 17, 'talkright', 0.2],
+                    'talkleft'   : [16, 17, 'talkleft', 0.2],
+                    'talkrightGoggle'  : [18, 19, 'talkrightGoggle', 0.2],
+                    'talkleftGoggle'   : [18, 19, 'talkleftGoggle', 0.2],
+                    'talkrightLabcoat'  : [20, 21, 'talkrightGoggle', 0.2],
+                    'talkleftLabcoat'   : [20, 21, 'talkleftGoggle', 0.2]
+                }
+            },
+            {
                 'id'     : 'npc.pirate01',
                 'images' : 'image.pirate',
                 'textColor' : 'red',
@@ -197,77 +253,77 @@ define([
             },
             {
                 'id'     : 'npc.fatkid',
-                'images' : 'image.fatkid',
+                'images' : 'image.battery.fatkid',
                 'speed'  : 2,
                 'textColor' : 'blue',
                 'frames' : {
                     'regX'   : 50,
                     'height' : 114,
-                    'count'  : 1,
+                    'count'  : 6,
                     'regY'   : 0,
                     'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : 0,
-                    'walkupright'  : 0,
-                    'walkdownright'  : 0,
-                    'walkleft'   : 0,
-                    'walkupleft'   : 0,
-                    'walkdownleft'   : 0,
-                    'standright' : 0,
-                    'standleft'  : 0,
-                    'talkright'  : 0,
-                    'talkleft'   : 0
+                    'walkright'  : [0, 2, 'walkright', 0.25],
+                    'walkupright'  : [0, 2, 'walkupright', 0.25],
+                    'walkdownright'  : [0, 2, 'walkdownright', 0.25],
+                    'walkleft'   : [0, 2, 'walkleft', 0.25],
+                    'walkupleft'   : [0, 2, 'walkupleft', 0.25],
+                    'walkdownleft'   : [0, 2, 'walkdownleft', 0.25],
+                    'standright' : [0, 2, 'standright', 0.25],
+                    'standleft'  : [0, 2, 'standleft', 0.25],
+                    'talkright'  : [3, 5, 'talkright', 0.2],
+                    'talkleft'   : [3, 5, 'talkleft', 0.2]
                 }
             },
             {
                 'id'     : 'npc.nerdygirl',
-                'images' : 'image.nerdygirl',
+                'images' : 'image.battery.nerdygirl',
                 'speed'  : 2,
                 'textColor' : 'pink',
                 'frames' : {
                     'regX'   : 50,
                     'height' : 114,
-                    'count'  : 1,
+                    'count'  : 6,
                     'regY'   : 0,
                     'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : 0,
-                    'walkupright'  : 0,
-                    'walkdownright'  : 0,
-                    'walkleft'   : 0,
-                    'walkupleft'   : 0,
-                    'walkdownleft'   : 0,
-                    'standright' : 0,
-                    'standleft'  : 0,
-                    'talkright'  : 0,
-                    'talkleft'   : 0
+                    'walkright'  : [0, 2, 'walkright', 0.25],
+                    'walkupright'  : [0, 2, 'walkupright', 0.25],
+                    'walkdownright'  : [0, 2, 'walkdownright', 0.25],
+                    'walkleft'   : [0, 2, 'walkleft', 0.25],
+                    'walkupleft'   : [0, 2, 'walkupleft', 0.25],
+                    'walkdownleft'   : [0, 2, 'walkdownleft', 0.25],
+                    'standright' : [0, 2, 'standright', 0.25],
+                    'standleft'  : [0, 2, 'standleft', 0.25],
+                    'talkright'  : [3, 5, 'talkright', 0.2],
+                    'talkleft'   : [3, 5, 'talkleft', 0.2]
                 }
             },
             {
                 'id'     : 'npc.teacher',
-                'images' : 'image.teacher',
+                'images' : 'image.battery.teacher',
                 'speed'  : 2,
                 'textColor' : 'green',
                 'frames' : {
                     'regX'   : 50,
                     'height' : 114,
-                    'count'  : 1,
+                    'count'  : 6,
                     'regY'   : 0,
                     'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : 0,
-                    'walkupright'  : 0,
-                    'walkdownright'  : 0,
-                    'walkleft'   : 0,
-                    'walkupleft'   : 0,
-                    'walkdownleft'   : 0,
-                    'standright' : 0,
-                    'standleft'  : 0,
-                    'talkright'  : 0,
-                    'talkleft'   : 0
+                    'walkright'  : [0, 2, 'walkright', 0.25],
+                    'walkupright'  : [0, 2, 'walkupright', 0.25],
+                    'walkdownright'  : [0, 2, 'walkdownright', 0.25],
+                    'walkleft'   : [0, 2, 'walkleft', 0.25],
+                    'walkupleft'   : [0, 2, 'walkupleft', 0.25],
+                    'walkdownleft'   : [0, 2, 'walkdownleft', 0.25],
+                    'standright' : [0, 2, 'standright', 0.25],
+                    'standleft'  : [0, 2, 'standleft', 0.25],
+                    'talkright'  : [3, 5, 'talkright', 0.2],
+                    'talkleft'   : [3, 5, 'talkleft', 0.2]
                 }
             }
         ]

@@ -203,6 +203,7 @@ define([
 
         this.update = function (scene) {
             move.move(this, scene);
+            scene.checkCharacterZ();
         };
 
         this.talk = function (text) {

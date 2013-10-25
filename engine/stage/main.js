@@ -41,7 +41,7 @@ define([
                     for (i in npcs) {
                         npcs[i].update(scene);
                     }
-                }
+                }                    
                 stage.update(event);
             }
         },

@@ -9,24 +9,12 @@ define([
                 'src' : 'games/aroundtheworld/img/background/around-the-world.jpg'
             },
             {
-                'id'  : 'image.fatkid',
-                'src' : 'games/battery/images/characters/fat-kid-character.png'
-            },
-            {
-                'id'  : 'image.nerdygirl',
-                'src' : 'games/battery/images/characters/nerdy-girl-character.png'
-            },
-            {
-                'id'  : 'image.teacher',
-                'src' : 'games/battery/images/characters/teacher-character.png'
-            },
-            {
                 'id'  : 'image.classroom',
                 'src' : 'games/battery/images/backgrounds/background.png'
             },
             {
                 'id'  : 'image.classroom.path',
-                'src' : 'games/aroundtheworld/img/background/all.path.png'
+                'src' : 'games/battery/images/backgrounds/background.path.png'
             },
             {
                 'id'  : 'image.lefttable',
@@ -126,6 +114,13 @@ define([
                 "id": "object.periodictable",
                 "label": "periodic table",
                 "imageInStage" : "image.1x1",
+                "onForeground" : false
+            },
+            {
+                "id": "object.lemon",
+                "label": "lemon",
+                "imageInStage" : "image.1x1",
+                "imageInInventory" : "image.1x1",
                 "onForeground" : false
             }
         ],

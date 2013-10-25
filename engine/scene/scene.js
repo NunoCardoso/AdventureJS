@@ -245,19 +245,6 @@ define([
                 }
             }
 
-            // npcs
-            this.sceneNpcs = [];
-            if (scene.npcs) {
-                for (i = 0; i < scene.npcs.length; i++) {
-                    var _id = scene.npcs[i].id;
-                    // set the npc position according to what the scene says
-                    options.npcs[_id].setX(scene.npcs[i].position.x);
-                    options.npcs[_id].setY(scene.npcs[i].position.y);
-                    this.dynamicBack.addChild(options.npcs[_id]);
-                    this.sceneNpcs.push(options.npcs[_id]);
-                }
-            }
-
             // update scene's background width.
             this.backgroundWidth = this.dynamicBack.w;
             if (this.getBackground().children[0].scaleX) {
@@ -278,6 +265,7 @@ define([
             this.dynamicMiddle.removeAllChildren();
 
             this.scenePc = undefined;
+
             if (options.pc) {
 
                 // playable character in new scene - reset clickedXY.
@@ -298,9 +286,37 @@ define([
                 this.scenePc = options.pc;
             }
 
+            // npcs
+            this.sceneNpcs = [];
+            if (options.npcs) {
+                for (i = 0; i < scene.npcs.length; i++) {
+                    var _id = scene.npcs[i].id;
+                    // set the npc position according to what the scene says
+                    options.npcs[_id].setX(scene.npcs[i].position.x);
+                    options.npcs[_id].setY(scene.npcs[i].position.y);
+                    this.dynamicMiddle.addChild(options.npcs[_id]);
+                    this.sceneNpcs.push(options.npcs[_id]);
+                }
+            }
+
             var t = gamecursor.getTarget();
             this.dynamicMiddle.addChild(t);
             this.targetCursor = t;
+        };
+
+        this.checkCharacterZ = function () {
+            var l = this.dynamicMiddle.children.length;
+            if (l > 1) {
+                for (var i = 0; i < l - 1; i++) {
+                    for (var j = i + 1; j < l; j++) {
+                        if (this.dynamicMiddle.children[i].y > this.dynamicMiddle.children[j].y) {
+                            var temp = this.dynamicMiddle.children[i];
+                            this.dynamicMiddle.children[i] = this.dynamicMiddle.children[j];
+                            this.dynamicMiddle.children[j] = temp;
+                        }
+                    }
+                }
+            }
         };
 
         this.renderStatic = function (options) {
@@ -333,8 +349,7 @@ define([
             this.removeAllChildren();
 
             this.renderDynamic({
-                'pc'   : gamecharacter.getPc(),
-                'npcs' : gamecharacter.getNpcs()
+                'pc' : gamecharacter.getPc()
             });
 
             if (require('engine/stage/main').isPlayable()) {
@@ -350,7 +365,8 @@ define([
             });
 
             this.renderMiddle({
-                'pc' : gamecharacter.getPc()
+                'pc'   : gamecharacter.getPc(),
+                'npcs' : gamecharacter.getNpcs()
             });
 
             this.dynamicContainer.addChild(this.dynamicBack);
