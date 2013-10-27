@@ -141,13 +141,14 @@ define([
 
             var d = _calculateDirection(c, scene);
             var diffX;
+            var thisAttitude;
 
             if (!d) {
                 return;
             }
             if (d.a !== 'stand') {
 
-                c.character.attitude = d.a;
+                thisAttitude = d.a;
                 // save the x diff, useful for panning the scene on the other way.
                 diffX = d.x - c.x;
                 c.setX(d.x);
@@ -180,9 +181,8 @@ define([
             }
 
             // change attitude only if it is different
-            if (c.character.currentAnimation !== c.character.attitude) {
-                c.character.currentAnimation = c.character.attitude;
-                c.character.gotoAndPlay(c.character.attitude);
+            if (thisAttitude && c.character.currentAnimation !== thisAttitude) {
+                c.changeAttitudeTo(thisAttitude);
             }
 
             // if the scene has X conditions

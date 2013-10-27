@@ -777,7 +777,7 @@ define([
                     },
                     {
                         "action": "publishAchievement",
-                        "achievement": "Got goggles"
+                        "achievement": "achievement.gotgoggles"
                     }
                 ]
             },
@@ -815,7 +815,7 @@ define([
                     },
                     {
                         "action": "publishAchievement",
-                        "achievement": "Got lab coat!"
+                        "achievement": "achievement.gotlabcoat"
                     }
                 ]
             },
@@ -910,7 +910,7 @@ define([
                     },
                     {
                         "action": "publishAchievement",
-                        "achievement": "wearing goggles!"
+                        "achievement": "achievement.wearinggoggles"
                     }
                 ]
             },
@@ -932,7 +932,7 @@ define([
                     },
                     {
                         "action": "publishAchievement",
-                        "achievement": "Weared lab coat!"
+                        "achievement": "achievement.wearinglabcoat"
                     }
                 ]
             }
@@ -1022,8 +1022,8 @@ define([
                     },
                     {
                         "id" : "object.labcoat",
-                        "x"  : 10,
-                        "y"  : 130,
+                        "x"  : 0,
+                        "y"  : 220,
                         "w"  : 70,
                         "h"  : 100
                     },
@@ -1310,6 +1310,22 @@ define([
             {
                 "id"    : "achievement.battery",
                 "title" : "You built a battery!"
+            },
+            {
+                "id"    : "achievement.gotgoggles",
+                "title" : "Got goggles!"
+            },
+            {
+                "id"    : "achievement.gotlabcoat",
+                "title" : "Got lab coat!"
+            },
+            {
+                "id"    : "achievement.wearinggoggles",
+                "title" : "Weared goggles!"
+            },
+            {
+                "id"    : "achievement.wearinglabcoat",
+                "title" : "Weared lab coat!"
             }
         ]
     };

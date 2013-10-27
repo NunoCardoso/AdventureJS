@@ -79,7 +79,7 @@ define([
             case 'click':
                 if (mine) {
                     if (this.role === 'begin') {
-                        return true;
+                        return false;
                     }
                     scene.getPc().actForExitClick({x : x, y : y}, {
                         from: this,
@@ -89,6 +89,9 @@ define([
                 }
                 return false;
             case 'hover':
+                if (this.role === 'begin') {
+                    return false;
+                }
                 if (mine && !this.isMouseOver) {
                     this.isMouseOver = mine;
                     gamecursor.changeTo('image.cursor.' + this.arrow);

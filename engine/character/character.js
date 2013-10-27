@@ -38,6 +38,8 @@ define([
         this.w = this.character.frames.width;
         this.h = this.character.frames.height;
 
+        this.salt = [];
+
         // the register X and Y should be the feet of the sprite
         this.regX = 0;
         this.regY = this.h;
@@ -222,9 +224,9 @@ define([
             if (!this.character.isTalking()) {
 
                 if (this.character.isFacingLeft() && !this.character.isStandingLeft()) {
-                    this.character.attitude = "standleft";
+                    this.changeAttitudeTo('standleft');
                 } else if (this.character.isFacingRight() && !this.character.isStandingRight()) {
-                    this.character.attitude = "standright";
+                    this.changeAttitudeTo('standright');
                 }
             }
             // perform the callback action, since the character reached his destination;
@@ -285,6 +287,13 @@ define([
                 return false;
             default:
                 return false;
+            }
+        };
+
+        this.addSalt = function (_salt) {
+            if (this.salt.indexOf(_salt) === -1) {
+                this.salt.push(_salt);
+                this.salt.sort();
             }
         };
 

@@ -32,7 +32,8 @@ define([
             'changeAttitude',
             'changeFlag',
             'stopCharacter',
-            'prompt'
+            'prompt',
+            'addCharacterSalt'
         ],
 
         perform = function (action) {
@@ -155,10 +156,12 @@ define([
                 deferred.done(function (answer) {
                     require('engine/flags/main').set(action.variable, answer);
                     d.resolve();
-                })
-                //var answer = window.prompt(action.text);
+                });
                 return d.promise();
-//              break;
+            case 'addCharacterSalt':
+                var char = require('engine/character/main').getPc();
+                char.addSalt(action.salt);
+                break;
             default:
                 console.log(action.action + ' not implemented!');
                 break;
