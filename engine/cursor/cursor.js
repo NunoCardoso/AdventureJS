@@ -90,7 +90,13 @@ define([
                     if (isHandled) {
                         return;
                     }
-                    
+
+                    interactables = scene.getDynamicMiddleChildrens();
+                    isHandled =  this.doTest(event, scene, interactables, role);
+                    if (isHandled) {
+                        return;
+                    }
+
                     interactables = scene.getDynamicBackSceneChildrens();
                     isHandled = this.doTest(event, scene, interactables, role);
                     if (isHandled) {

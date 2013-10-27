@@ -59,7 +59,8 @@ define([
             _source,
 
             _loadFallBack = function (d) {
-                require(['games/battery/battery'], function (game) {
+                require(['games/aroundtheworld/aroundtheworld'], function (game) { 
+//               require(['games/battery/battery'], function (game) {
                     _game = game;
                     _source = "fallback game";
                     d.resolve();

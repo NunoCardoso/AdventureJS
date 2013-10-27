@@ -4,6 +4,7 @@ define([
 ], function () {
     return {
         'images': [
+        /* backgrounds */
             {
                 'id'  : 'image.battery',
                 'src' : 'games/aroundtheworld/img/background/around-the-world.jpg'
@@ -16,6 +17,7 @@ define([
                 'id'  : 'image.classroom.path',
                 'src' : 'games/battery/images/backgrounds/background.path.png'
             },
+        /* static objects */
             {
                 'id'  : 'image.lefttable',
                 'src' : 'games/battery/images/objects/left-table.png'
@@ -29,9 +31,47 @@ define([
                 'src' : 'games/battery/images/objects/right-table.png'
             },
             {
+                'id'  : 'image.hotte',
+                'src' : 'games/battery/images/objects/hotte.png'
+            },
+            {
+                "id"  : "image.1x1",
+                "src" : "games/aroundtheworld/img/object/1x1.png"
+            },
+            {
+                "id"  : "image.1x1",
+                "src" : "games/aroundtheworld/img/object/1x1.png"
+            },
+        /* dynamic objects */
+  /*          {
+                'id'  : 'image.labcoat',
+                'src' : 'games/battery/images/objects/labcoat.png'
+            },
+            {
+                'id'  : 'image.goggles',
+                'src' : 'games/battery/images/objects/goggles.png'
+            },
+            {
+                'id'  : 'image.righttable',
+                'src' : 'games/battery/images/objects/right-table.png'
+            },
+            {
+                'id'  : 'image.hotte',
+                'src' : 'games/battery/images/objects/hotte.png'
+            },
+            {
+                "id"  : "image.1x1",
+                "src" : "games/aroundtheworld/img/object/1x1.png"
+            },
+            {
                 "id"  : "image.1x1",
                 "src" : "games/aroundtheworld/img/object/1x1.png"
             }
+        /* inventory */
+           /* {
+                'id'  : 'image.inventory.labcoat',
+                'src' : 'games/battery/images/objects/labcoat-inventory.png'
+            }*/
         ],
         "sounds" : [],
         "musics" : [

@@ -23,6 +23,8 @@ define([
         _onDragging = false,
         _role,
 
+        _evt,
+
         preload = function (options) {
             stage = new GameStage(options.canvas);
             _role = options.role;
@@ -79,26 +81,35 @@ define([
             gamecursor.setStage(stage);
 
             stage.addEventListener('stagemousedown', function (evt) {
-                _onMouseDown = true;
+                if (! (_evt && _evt.timeStamp === evt.timeStamp)) {
+                    _onMouseDown = true;
+                    _evt = evt;
+                }
             });
 
             stage.addEventListener("stagemousemove", function (evt) {
-                if (_onMouseDown) {
-                    _onDragging = true;
-                    gamecursor.drag({x: evt.stageX, y: evt.stageY}, role);
-                } else {
-                    gamecursor.update({x: evt.stageX, y: evt.stageY}, role);
+                if (! (_evt && _evt.timeStamp === evt.timeStamp)) {
+                    if (_onMouseDown) {
+                        _onDragging = true;
+                        gamecursor.drag({x: evt.stageX, y: evt.stageY}, role);
+                    } else {
+                        gamecursor.update({x: evt.stageX, y: evt.stageY}, role);
+                    }
+                    _evt = evt;
                 }
             });
         
             stage.addEventListener('stagemouseup', function (evt) {
-                _onMouseDown = false;
-                if (_onDragging) {
-                    gamecursor.reset();
-                    _onDragging = false;
-                    gamecursor.undrag({x: evt.stageX, y: evt.stageY}, role);
-                } else {
-                    gamecursor.click({x: evt.stageX, y: evt.stageY}, role);
+                if (! (_evt && _evt.timeStamp === evt.timeStamp)) {
+                    _onMouseDown = false;
+                    if (_onDragging) {
+                        gamecursor.reset();
+                        _onDragging = false;
+                        gamecursor.undrag({x: evt.stageX, y: evt.stageY}, role);
+                    } else {
+                        gamecursor.click({x: evt.stageX, y: evt.stageY}, role);
+                    }
+                    _evt = evt;
                 }
             });
         },

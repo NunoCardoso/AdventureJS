@@ -391,6 +391,10 @@ define([
             return this.dynamicContainer.children[0].children;
         };
 
+        this.getDynamicMiddleChildrens = function () {
+            return this.dynamicContainer.children[1].children;
+        };
+
         this.getDynamicForeSceneChildrens = function () {
             return this.dynamicContainer.children[2].children;
         };
