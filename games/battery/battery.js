@@ -38,12 +38,8 @@ define([
                 "id"  : "image.1x1",
                 "src" : "games/aroundtheworld/img/object/1x1.png"
             },
-            {
-                "id"  : "image.1x1",
-                "src" : "games/aroundtheworld/img/object/1x1.png"
-            },
         /* dynamic objects */
-  /*          {
+            {
                 'id'  : 'image.labcoat',
                 'src' : 'games/battery/images/objects/labcoat.png'
             },
@@ -52,26 +48,78 @@ define([
                 'src' : 'games/battery/images/objects/goggles.png'
             },
             {
-                'id'  : 'image.righttable',
-                'src' : 'games/battery/images/objects/right-table.png'
+                'id'  : 'image.lamptable',
+                'src' : 'games/battery/images/objects/lampred.png'
             },
             {
-                'id'  : 'image.hotte',
-                'src' : 'games/battery/images/objects/hotte.png'
+                'id'  : 'image.lamp',
+                'src' : 'games/battery/images/objects/lamp.png'
             },
             {
-                "id"  : "image.1x1",
-                "src" : "games/aroundtheworld/img/object/1x1.png"
+                "id"  : "image.wire",
+                "src" : "games/battery/images/objects/wire.png"
             },
             {
-                "id"  : "image.1x1",
-                "src" : "games/aroundtheworld/img/object/1x1.png"
-            }
+                'id'  : 'image.sulphuricacid',
+                'src' : 'games/battery/images/objects/sulphuricacid.png'
+            },
         /* inventory */
-           /* {
+            {
                 'id'  : 'image.inventory.labcoat',
                 'src' : 'games/battery/images/objects/labcoat-inventory.png'
-            }*/
+            },
+            {
+                'id'  : 'image.inventory.goggle',
+                'src' : 'games/battery/images/objects/goggles-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.coin',
+                'src' : 'games/battery/images/objects/coin-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.lamp',
+                'src' : 'games/battery/images/objects/lamp-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.wire',
+                'src' : 'games/battery/images/objects/wire-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.essaywithclip',
+                'src' : 'games/battery/images/objects/essaywithclip-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.essay',
+                'src' : 'games/battery/images/objects/essay-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.clip',
+                'src' : 'games/battery/images/objects/clip-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.lemon',
+                'src' : 'games/battery/images/objects/lemon-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.lemonwithcoin',
+                'src' : 'games/battery/images/objects/lemonwithcoin-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.lemonwithclip',
+                'src' : 'games/battery/images/objects/lemonwithclip-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.lemonwithcoinandclip',
+                'src' : 'games/battery/images/objects/lemonwithcoinandclip-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.lemonwithcoinandclipandwire',
+                'src' : 'games/battery/images/objects/lemonwithcoinandclipandwire-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.sulphuricacid',
+                'src' : 'games/battery/images/objects/sulphuricacid-inventory.png'
+            }
         ],
         "sounds" : [],
         "musics" : [
@@ -112,6 +160,8 @@ define([
         },
         "panel" : {
             "startingInventory" : [
+                'object.coin',
+                'object.essaywithclip'
             ],
             "verbs" : [
                 {"first": "Give",    "nr" : 2, "second": "to"},
@@ -121,7 +171,7 @@ define([
                 {"first": "Push",    "nr" : 1},
                 {"first": "Look at", "nr" : 1},
                 {"first": "Close",   "nr" : 1},
-                {"first": "Break",   "nr" : 1},
+                {"first": "Dismantle", "nr" : 1},
                 {"first": "Talk to", "nr" : 1}
             ]
         },
@@ -162,9 +212,97 @@ define([
                 "imageInStage" : "image.1x1",
                 "imageInInventory" : "image.1x1",
                 "onForeground" : false
+            },
+            {
+                "id": "object.coin",
+                "label": "coin",
+                "imageInInventory" : "image.inventory.coin"
+            },
+            {
+                "id": "object.essay",
+                "label": "essay",
+                "imageInInventory" : "image.inventory.essay"
+            },
+            {
+                "id": "object.essaywithclip",
+                "label": "essay with clip",
+                "imageInInventory" : "image.inventory.essaywithclip"
+            },
+            {
+                "id": "object.hotte",
+                "label": "fume hood",
+                "imageInStage" : "image.hotte",
+                "onForeground" : false
+            },
+            {
+                "id": "object.goggles",
+                "label": "goggles",
+                "imageInStage" : "image.goggles",
+                "imageInInventory" : "image.inventory.goggles",
+                "onForeground" : false
+            },
+            {
+                "id": "object.labcoat",
+                "label": "lab coat",
+                "imageInStage" : "image.labcoat",
+                "imageInInventory" : "image.inventory.labcoat",
+                "onForeground" : false
+            },
+            {
+                "id": "object.lamptable",
+                "label": "table lamp",
+                "imageInStage" : "image.lamptable",
+                "onForeground" : true
+            },
+            {
+                "id": "object.lamp",
+                "label": "lamp",
+                "imageInStage" : "image.lamp",
+                "imageInInventory" : "image.inventory.lamp",
+                "onForeground" : true
+            },
+            {
+                "id": "object.lemonwithclip",
+                "label": "lemon with clip",
+                "imageInInventory" : "image.inventory.lemonwithclip"
+            },
+            {
+                "id": "object.lemonwithcoin",
+                "label": "lemon with coin",
+                "imageInInventory" : "image.inventory.lemonwithcoin"
+            },
+            {
+                "id": "object.lemonwithcoinandclip",
+                "label": "lemon with coin and clip",
+                "imageInInventory" : "image.inventory.lemonwithcoinandclip"
+            },
+            {
+                "id": "object.lemonwithcoinandclipandwire",
+                "label": "lemon with coin, clip and wire",
+                "imageInInventory" : "image.inventory.lemonwithcoinandclipandwire"
+            },
+            {
+                "id": "object.paperclip",
+                "label": "paperclip",
+                "imageInInventory" : "image.inventory.paperclip"
+            },
+            {
+                "id": "object.sulphuricacid",
+                "label": "sulphuric acid",
+                "imageInStage" : "image.sulphuricacid",
+                "imageInInventory" : "image.inventory.sulphuricacid",
+                "onForeground" : false
+            },
+            {
+                "id": "object.wire",
+                "label": "wire",
+                "imageInStage" : "image.wire",
+                "imageInInventory" : "image.inventory.wire",
+                "onForeground" : true
             }
         ],
         "interactions": [
+        /* talk to */
             {
                 "id" : "interaction.talkToFatKid",
                 "verb" : "Talk to",
@@ -204,6 +342,8 @@ define([
                     }
                 ]
             },
+
+        /* look at */
             {
                 "id" : "interaction.lookAtFormula",
                 "verb" : "Look at",
@@ -226,7 +366,531 @@ define([
                         "achievement" : "achievement.formula"
                     }
                 ]
-            }
+            },
+            {
+                "id" : "interaction.lookAtTable1",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lefttable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "This is my classroom table."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtTable2",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.middletable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "This is that nerdy girl's table."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtTable3",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.righttable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "This is that fat kid's table."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtPeriodicTable",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.periodictable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "A periodic table. Cool."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlemon",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lemon",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "There is a lemontree outside with lemons."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlemon",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lemon",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "It's a lemon, and it is mine now."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtCoin",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.coin",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "My lunch money - a zinc coin"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtEssayWithClip",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.essaywithclip",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Today's essay - build a battery. And a paper clip."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtEssay",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.essay",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Today's essay - build a battery."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtHotte",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.hotte"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "The classroom's fume hood. The vent is on."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtGoggles",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.goggles"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Safety goggles. Always use them with acids. Plus, I look nice with them."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtLabcoat",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.labcoat"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "A lab coat. Reminds me of hospitals."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlamptable",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lamptable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "My lamp table. It's not connected."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlamp",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lamp"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "It's a lamp. Hope it's not broken."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlemonwithclip",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lemonwithclip"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "The lemon with a paperclip as cathode."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlemonwithcoin",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lemonwithcoin"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "The lemon with a coin as anode."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlemonwithcoinandclip",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lemonwithcoinandclip"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "The lemon with a coin as anode, and a clip as cathode."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtlemonwithcoinandclipandwire",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.lemonwithcoinandclipandwire"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "The lemon with a coin as anode, clip as cathode, and electric wires."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtpaperclip",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.paperclip"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "A metal paper clip."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtsulphuricacid",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.sulphuricacid"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "H2SO4. Sulphuric Acid. Cool."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtWire",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.wire",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "The lamp's wire. It is loose."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtWire",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.wire",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                       "text" : "An electric wire."
+                    }
+                ]
+            },
+        /* pick up */
+            {
+                "id" : "interaction.pickuplefttable",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.lefttable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "I can't put a table in my pocket."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickupmiddletable",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.middletable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "I can't put a table in my pocket."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickuprighttable",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.righttable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "I can't put a table in my pocket."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickupperiodictable",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.periodictable"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Nah. I have better posters in my room."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickuplemon",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.lemon",
+                    "inInventory" : false 
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.lemon"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Yay, a lemon. Now I can have lunch."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickupgoggles",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.goggles",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.goggles"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Yay, goggles!"
+                    },
+                    {
+                        "action": "publishAchievement",
+                        "achievement": "Got goggles"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickuphotte",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.hotte",
+                    "inInventory" : false 
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "No thanks. I don't need that."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickuplabcoat",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.labcoat",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.labcoat"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Time to do some science!"
+                    },
+                    {
+                        "action": "publishAchievement",
+                        "achievement": "Got lab coat!"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickuptablelamp",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.tablelamp",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "No way. It is broken!"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickuplamp",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.lamp",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.lamp"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Need something to test electric current."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickupsulphuricacid",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.sulphuricacid",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.sulphuricacid"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Careful, this is dangerous stuff."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickupwire",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.wire",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.wire"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "An electric wire, and now it's mine."
+                    }
+                ]
+            },
         ],
 
         "scenes": [
@@ -293,8 +957,64 @@ define([
                     {
                         "id" : "object.formula",
                         "x"  : 730,
-                        "y"  : 200,
+                        "y"  : 190,
                         "w"  : 50,
+                        "h"  : 50
+                    },
+                    {
+                        "id" : "object.lemon",
+                        "x"  : 503,
+                        "y"  : 185,
+                        "w"  : 20,
+                        "h"  : 20
+                    },
+                    {
+                        "id" : "object.hotte",
+                        "x"  : 67,
+                        "y"  : 0,
+                        "w"  : 112,
+                        "h"  : 249
+                    },
+                    {
+                        "id" : "object.labcoat",
+                        "x"  : 10,
+                        "y"  : 130,
+                        "w"  : 70,
+                        "h"  : 100
+                    },
+                    {
+                        "id" : "object.goggles",
+                        "x"  : 420,
+                        "y"  : 110,
+                        "w"  : 30,
+                        "h"  : 30
+                    },
+                    {
+                        "id" : "object.lamptable",
+                        "x"  : 180,
+                        "y"  : 220,
+                        "w"  : 70,
+                        "h"  : 70
+                    },
+                    {
+                        "id" : "object.lamp",
+                        "x"  : 220,
+                        "y"  : 236,
+                        "w"  : 30,
+                        "h"  : 20
+                    },
+                    {
+                        "id" : "object.sulphuricacid",
+                        "x"  : 400,
+                        "y"  : 142,
+                        "w"  : 70,
+                        "h"  : 70
+                    },
+                    {
+                        "id" : "object.wire",
+                        "x"  : 200,
+                        "y"  : 270,
+                        "w"  : 30,
                         "h"  : 50
                     }
                 ],

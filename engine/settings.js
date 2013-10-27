@@ -289,14 +289,14 @@ define([
                     'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : [0, 2, 'walkright', 0.25],
-                    'walkupright'  : [0, 2, 'walkupright', 0.25],
-                    'walkdownright'  : [0, 2, 'walkdownright', 0.25],
-                    'walkleft'   : [0, 2, 'walkleft', 0.25],
-                    'walkupleft'   : [0, 2, 'walkupleft', 0.25],
-                    'walkdownleft'   : [0, 2, 'walkdownleft', 0.25],
-                    'standright' : [0, 2, 'standright', 0.25],
-                    'standleft'  : [0, 2, 'standleft', 0.25],
+                    'walkright'  : [0, 0, 'walkright', 0.25],
+                    'walkupright'  : [0, 0, 'walkupright', 0.25],
+                    'walkdownright'  : [0, 0, 'walkdownright', 0.25],
+                    'walkleft'   : [0, 0, 'walkleft', 0.25],
+                    'walkupleft'   : [0, 0, 'walkupleft', 0.25],
+                    'walkdownleft'   : [0, 0, 'walkdownleft', 0.25],
+                    'standright' : [0, 0, 'standright', 0.25],
+                    'standleft'  : [0, 0, 'standleft', 0.25],
                     'talkright'  : [3, 5, 'talkright', 0.2],
                     'talkleft'   : [3, 5, 'talkleft', 0.2]
                 }
@@ -314,16 +314,16 @@ define([
                     'width'  : 100
                 },
                 'animations' : {
-                    'walkright'  : [0, 2, 'walkright', 0.25],
-                    'walkupright'  : [0, 2, 'walkupright', 0.25],
-                    'walkdownright'  : [0, 2, 'walkdownright', 0.25],
-                    'walkleft'   : [0, 2, 'walkleft', 0.25],
-                    'walkupleft'   : [0, 2, 'walkupleft', 0.25],
-                    'walkdownleft'   : [0, 2, 'walkdownleft', 0.25],
-                    'standright' : [0, 2, 'standright', 0.25],
-                    'standleft'  : [0, 2, 'standleft', 0.25],
-                    'talkright'  : [3, 5, 'talkright', 0.2],
-                    'talkleft'   : [3, 5, 'talkleft', 0.2]
+                    'walkright'  : [0, 2, 'walkright', 0.05],
+                    'walkupright'  : [0, 2, 'walkupright', 0.05],
+                    'walkdownright'  : [0, 2, 'walkdownright', 0.05],
+                    'walkleft'   : [0, 2, 'walkleft', 0.05],
+                    'walkupleft'   : [0, 2, 'walkupleft', 0.05],
+                    'walkdownleft'   : [0, 2, 'walkdownleft', 0.05],
+                    'standright' : [0, 2, 'standright', 0.05],
+                    'standleft'  : [0, 2, 'standleft', 0.05],
+                    'talkright'  : [3, 5, 'talkright', 0.25],
+                    'talkleft'   : [3, 5, 'talkleft', 0.25]
                 }
             }
         ]

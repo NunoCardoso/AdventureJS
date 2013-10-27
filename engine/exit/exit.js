@@ -68,6 +68,9 @@ define([
             );
 
         this.test = function (x, y, event, scene, role) {
+            /*if (this.role === 'begin') {
+                return true;
+            }*/
             var coords = this.globalToLocal(x, y),
                 mine   = this.hitTest(coords.x, coords.y);
 
@@ -75,6 +78,9 @@ define([
 
             case 'click':
                 if (mine) {
+                    if (this.role === 'begin') {
+                        return true;
+                    }
                     scene.getPc().actForExitClick({x : x, y : y}, {
                         from: this,
                         to: this.to

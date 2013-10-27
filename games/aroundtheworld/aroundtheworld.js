@@ -1513,7 +1513,7 @@ define([
                     },
                     {
                         "character" : "npc.tatsu",
-                        "text"      : "Maybe I do, maybe I don't. Wha do you care?"
+                        "text"      : "Maybe I do, maybe I don't. What do you care?"
                     },
                     {
                         "character" : "pc.main",

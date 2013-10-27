@@ -42,6 +42,7 @@ define([
         this.text.textAlign = "center";
         this.text.textBaseline = "middle";
         this.text.alpha = 0.7;
+        this.text.maxWidth = 100;
 
         // set text to middle of tile, and with left margin of 10;
         this.text.y = this.h / 2;
