@@ -133,7 +133,7 @@ define([
             }
         ],
         "pc" : {
-            "id"    : "pc.main",
+            "id"    : "pc.battery.main",
             "label" : "you"
         },
         "npcs" : [
@@ -353,7 +353,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "I know who wrote that! It was..."
                     },
                     {
@@ -376,7 +376,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "This is my classroom table."
                     }
                 ]
@@ -390,7 +390,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "This is that nerdy girl's table."
                     }
                 ]
@@ -404,7 +404,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "This is that fat kid's table."
                     }
                 ]
@@ -418,7 +418,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "A periodic table. Cool."
                     }
                 ]
@@ -433,7 +433,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "There is a lemontree outside with lemons."
                     }
                 ]
@@ -448,7 +448,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "It's a lemon, and it is mine now."
                     }
                 ]
@@ -463,7 +463,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "My lunch money - a zinc coin"
                     }
                 ]
@@ -478,7 +478,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Today's essay - build a battery. And a paper clip."
                     }
                 ]
@@ -493,7 +493,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Today's essay - build a battery."
                     }
                 ]
@@ -507,7 +507,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "The classroom's fume hood. The vent is on."
                     }
                 ]
@@ -521,7 +521,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Safety goggles. Always use them with acids. Plus, I look nice with them."
                     }
                 ]
@@ -535,7 +535,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "A lab coat. Reminds me of hospitals."
                     }
                 ]
@@ -549,7 +549,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "My lamp table. It's not connected."
                     }
                 ]
@@ -563,7 +563,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "It's a lamp. Hope it's not broken."
                     }
                 ]
@@ -577,7 +577,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "The lemon with a paperclip as cathode."
                     }
                 ]
@@ -591,7 +591,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "The lemon with a coin as anode."
                     }
                 ]
@@ -605,7 +605,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "The lemon with a coin as anode, and a clip as cathode."
                     }
                 ]
@@ -619,7 +619,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "The lemon with a coin as anode, clip as cathode, and electric wires."
                     }
                 ]
@@ -633,7 +633,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "A metal paper clip."
                     }
                 ]
@@ -647,7 +647,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "H2SO4. Sulphuric Acid. Cool."
                     }
                 ]
@@ -662,7 +662,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "The lamp's wire. It is loose."
                     }
                 ]
@@ -677,7 +677,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "An electric wire."
                     }
                 ]
@@ -692,7 +692,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "I can't put a table in my pocket."
                     }
                 ]
@@ -706,7 +706,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "I can't put a table in my pocket."
                     }
                 ]
@@ -720,7 +720,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "I can't put a table in my pocket."
                     }
                 ]
@@ -734,7 +734,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Nah. I have better posters in my room."
                     }
                 ]
@@ -753,7 +753,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Yay, a lemon. Now I can have lunch."
                     }
                 ]
@@ -772,7 +772,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Yay, goggles!"
                     },
                     {
@@ -791,7 +791,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "No thanks. I don't need that."
                     }
                 ]
@@ -810,7 +810,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Time to do some science!"
                     },
                     {
@@ -829,7 +829,7 @@ define([
                 "actions" : [
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "No way. It is broken!"
                     }
                 ]
@@ -848,7 +848,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Need something to test electric current."
                     }
                 ]
@@ -867,7 +867,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Careful, this is dangerous stuff."
                     }
                 ]
@@ -886,7 +886,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "An electric wire, and now it's mine."
                     }
                 ]
@@ -905,7 +905,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Mode goggles activated."
                     },
                     {
@@ -927,7 +927,7 @@ define([
                     },
                     {
                         "action": "dialogMessage",
-                        "character": "pc.main",
+                        "character": "pc.battery.main",
                         "text" : "Doctor mode activated."
                     },
                     {
@@ -1150,7 +1150,7 @@ define([
                 "to"    : "npc.fatkid",
                 "lines" : [
                     {
-                        "character" : "pc.main",
+                        "character" : "pc.battery.main",
                         "text"      : "What are you listening to?"
                     },
                     {
@@ -1170,7 +1170,7 @@ define([
                 "to"    : "npc.fatkid",
                 "lines" : [
                     {
-                        "character" : "pc.main",
+                        "character" : "pc.battery.main",
                         "text"      : "Bye, see you later."
                     },
                     {
@@ -1206,7 +1206,7 @@ define([
                 "to"    : "npc.nerdygirl",
                 "lines" : [
                     {
-                        "character" : "pc.main",
+                        "character" : "pc.battery.main",
                         "text"      : "What are you doing? A battery?"
                     },
                     {
@@ -1226,7 +1226,7 @@ define([
                 "to"    : "npc.nerdygirl",
                 "lines" : [
                     {
-                        "character" : "pc.main",
+                        "character" : "pc.battery.main",
                         "text"      : "Bye, see you later."
                     },
                     {
@@ -1262,7 +1262,7 @@ define([
                 "to"    : "npc.teacher",
                 "lines" : [
                     {
-                        "character" : "pc.main",
+                        "character" : "pc.battery.main",
                         "text"      : "Er... started what?"
                     },
                     {
@@ -1286,7 +1286,7 @@ define([
                 "to"    : "npc.teacher",
                 "lines" : [
                     {
-                        "character" : "pc.main",
+                        "character" : "pc.battery.main",
                         "text"      : "Bye, see you later."
                     },
                     {

@@ -93,7 +93,8 @@ define([
 
         this.changeAttitudeTo = function (attitude) {
             this.character.attitude = attitude;
-            this.character.gotoAndPlay(this.character.attitude);
+            this.character.saltAttitude = this.character.attitude + this.getSalt();
+            this.character.gotoAndPlay(this.character.saltAttitude);
         };
 
         this.setLabel = function (label) {
@@ -294,7 +295,12 @@ define([
             if (this.salt.indexOf(_salt) === -1) {
                 this.salt.push(_salt);
                 this.salt.sort();
+                this.changeAttitudeTo(this.character.attitude);
             }
+        };
+
+        this.getSalt = function () {
+            return this.salt.join("");
         };
 
         this.actForNpcClick = function (xy, npc, scene) {

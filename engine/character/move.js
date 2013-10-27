@@ -181,7 +181,7 @@ define([
             }
 
             // change attitude only if it is different
-            if (thisAttitude && c.character.currentAnimation !== thisAttitude) {
+            if (thisAttitude && c.character.attitude !== thisAttitude) {
                 c.changeAttitudeTo(thisAttitude);
             }
 

@@ -26,8 +26,8 @@ define([
         });
         this.frames   = options.frames;
         this.attitude = 'standright';
-        this.currentAnimation   = undefined;
-        this.gotoAndPlay(this.attitude);
+        this.saltAttitude = this.attitude;
+        this.gotoAndPlay(this.saltAttitude);
 
         this.isStandingLeft = function () {
             return this.attitude === "standleft";
