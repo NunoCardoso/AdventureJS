@@ -743,6 +743,63 @@ define([
                     }
                 ]
             },
+            {
+                "id" : "interaction.lookAtBeakerEmpty",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.beakerempty"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "An empty beaker."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtBeakerWithWater",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.beakerwithwater",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "An beaker with distilled water."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtDistilledWater",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.distilledwater"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "Distilled H2O. My favourite kind of water."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.lookAtDillutedAcid",
+                "verb" : "Look at",
+                "first" : {
+                    "item" : "object.beakerwithdillutedacid"
+                },
+                "actions" : [
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "Now the acid is dilluted and not dangerous."
+                    }
+                ]
+            },
         /* pick up */
             {
                 "id" : "interaction.pickuplefttable",
@@ -952,6 +1009,44 @@ define([
                     }
                 ]
             },
+            {
+                "id" : "interaction.pickupwater",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.distilledwater",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.distilledwater"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "Good, I am thirsty."
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.pickupbeaker",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.beakerempty",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.beakerempty"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "An empty beaker is always useful."
+                    }
+                ]
+            },
         /* wear */
             {
                 "id" : "interaction.weargoggles",
@@ -994,6 +1089,72 @@ define([
                     {
                         "action": "publishAchievement",
                         "achievement": "achievement.wearinglabcoat"
+                    }
+                ]
+            },
+        /* use */
+            {
+                "id"    : "interaction.usebeakerwithacid1",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.beakerempty",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.sulphuricacid"
+                },
+                "actions" : [
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "The bottle is not opened."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.usebeakerwithacid2",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.beakerempty",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.sulphuricacidopen"
+                },
+                "actions" : [
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "No. Water should go first."
+                    },
+                    {
+                        "action"        : "publishAchievement",
+                        "character"     : "ahievement.triedacidbeforewater"
+                    }
+                ]
+            },
+
+        /* open */
+            {
+                "id" : "interaction.opensulphuricacid",
+                "verb" : "Open",
+                "first" : {
+                    "item" : "object.sulphuricacid",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.sulphuricacid"
+                    },
+                    {
+                        "action"     : "addToInventory",
+                        "object"     : "object.sulphuricacidopen"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "Opened. Wow, toxic smoke!"
                     }
                 ]
             }
@@ -1084,7 +1245,7 @@ define([
                     {
                         "id" : "object.labcoat",
                         "x"  : 0,
-                        "y"  : 220,
+                        "y"  : 180,
                         "w"  : 70,
                         "h"  : 100
                     },
@@ -1401,6 +1562,10 @@ define([
             {
                 "id"    : "achievement.wearinglabcoat",
                 "title" : "Weared lab coat!"
+            },
+            {
+                "id"    : "achievement.triedacidbeforewater",
+                "title" : "Tried to pour acid before water!"
             }
         ]
     };

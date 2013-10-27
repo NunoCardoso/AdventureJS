@@ -157,7 +157,7 @@ define([
             });
         };
 
-        // mouse position click can be the target click on most ocations,
+        // mouse position click can be the target click on most locations,
         // but if we clicked on items/characters, we don't want to land
         // on top of them, so let's compute a margin distance.
         this.calculateTargetXY = function (mousexy, item, scene) {
