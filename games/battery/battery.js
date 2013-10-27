@@ -7,7 +7,7 @@ define([
         /* backgrounds */
             {
                 'id'  : 'image.battery',
-                'src' : 'games/aroundtheworld/img/background/around-the-world.jpg'
+                'src' : 'games/battery/images/backgrounds/game.png'
             },
             {
                 'id'  : 'image.classroom',
@@ -168,7 +168,7 @@ define([
                 {"first": "Use",     "nr" : 2, "second": "with"},
                 {"first": "Pick up", "nr" : 1},
                 {"first": "Open",    "nr" : 1},
-                {"first": "Push",    "nr" : 1},
+                {"first": "Wear",    "nr" : 1},
                 {"first": "Look at", "nr" : 1},
                 {"first": "Close",   "nr" : 1},
                 {"first": "Dismantle", "nr" : 1},
@@ -678,7 +678,7 @@ define([
                     {
                         "action": "dialogMessage",
                         "character": "pc.main",
-                       "text" : "An electric wire."
+                        "text" : "An electric wire."
                     }
                 ]
             },
@@ -744,7 +744,7 @@ define([
                 "verb" : "Pick up",
                 "first" : {
                     "item" : "object.lemon",
-                    "inInventory" : false 
+                    "inInventory" : false
                 },
                 "actions" : [
                     {
@@ -786,7 +786,7 @@ define([
                 "verb" : "Pick up",
                 "first" : {
                     "item" : "object.hotte",
-                    "inInventory" : false 
+                    "inInventory" : false
                 },
                 "actions" : [
                     {
@@ -891,6 +891,51 @@ define([
                     }
                 ]
             },
+        /* wear */
+            {
+                "id" : "interaction.weargoggles",
+                "verb" : "Wear",
+                "first" : {
+                    "item" : "object.goggles"
+                },
+                "actions" : [
+                    {
+                        "action" : "addCharacterSalt",
+                        "salt"   : "goggles"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Mode goggles activated."
+                    },
+                    {
+                        "action": "publishAchievement",
+                        "achievement": "wearing goggles!"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.wearlabcoat",
+                "verb" : "Wear",
+                "first" : {
+                    "item" : "object.labcoat"
+                },
+                "actions" : [
+                    {
+                        "action" : "addCharacterSalt",
+                        "salt"   : "labcoat"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.main",
+                        "text" : "Doctor mode activated."
+                    },
+                    {
+                        "action": "publishAchievement",
+                        "achievement": "Weared lab coat!"
+                    }
+                ]
+            }
         ],
 
         "scenes": [
