@@ -63,13 +63,29 @@ define([
                 'id'  : 'image.sulphuricacid',
                 'src' : 'games/battery/images/objects/sulphuricacid.png'
             },
+            {
+                'id'  : 'image.beakerempty',
+                'src' : 'games/battery/images/objects/beakerempty.png'
+            },
+            {
+                'id'  : 'image.beakerwithwater',
+                'src' : 'games/battery/images/objects/beakerwithwater.png'
+            },
+            {
+                'id'  : 'image.beakerwithdillutedacid',
+                'src' : 'games/battery/images/objects/beakerwithdillutedacid.png'
+            },
+            {
+                'id'  : 'image.distilledwater',
+                'src' : 'games/battery/images/objects/distilledwater.png'
+            },
         /* inventory */
             {
                 'id'  : 'image.inventory.labcoat',
                 'src' : 'games/battery/images/objects/labcoat-inventory.png'
             },
             {
-                'id'  : 'image.inventory.goggle',
+                'id'  : 'image.inventory.goggles',
                 'src' : 'games/battery/images/objects/goggles-inventory.png'
             },
             {
@@ -119,6 +135,26 @@ define([
             {
                 'id'  : 'image.inventory.sulphuricacid',
                 'src' : 'games/battery/images/objects/sulphuricacid-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.sulphuricacidopen',
+                'src' : 'games/battery/images/objects/sulphuricacidopen-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.sulphuricacidopen',
+                'src' : 'games/battery/images/objects/sulphuricacidopen-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.beakerempty',
+                'src' : 'games/battery/images/objects/beakerempty-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.beakerwithdillutedacid',
+                'src' : 'games/battery/images/objects/beakerwithdillutedacid-inventory.png'
+            },
+            {
+                'id'  : 'image.inventory.distilledwater',
+                'src' : 'games/battery/images/objects/distilledwater-inventory.png'
             }
         ],
         "sounds" : [],
@@ -288,10 +324,15 @@ define([
             },
             {
                 "id": "object.sulphuricacid",
-                "label": "sulphuric acid",
+                "label": "bottle of sulphuric acid",
                 "imageInStage" : "image.sulphuricacid",
                 "imageInInventory" : "image.inventory.sulphuricacid",
                 "onForeground" : false
+            },
+            {
+                "id": "object.sulphuricacidopen",
+                "label": "open bottle of sulphuric acid",
+                "imageInInventory" : "image.inventory.sulphuricacidopen"
             },
             {
                 "id": "object.wire",
@@ -299,6 +340,26 @@ define([
                 "imageInStage" : "image.wire",
                 "imageInInventory" : "image.inventory.wire",
                 "onForeground" : true
+            },
+            {
+                "id": "object.beakerempty",
+                "label": "empty beaker",
+                "imageInStage" : "image.beakerempty",
+                "imageInInventory" : "image.inventory.beakerempty",
+                "onForeground" : false
+            },
+            {
+                "id": "object.beakerwithwater",
+                "label": "beaker with water",
+                "imageInStage" : "image.beakerwithwater",
+                "onForeground" : false
+            },
+            {
+                "id": "object.distilledwater",
+                "label": "distilled water",
+                "imageInStage" : "image.distilledwater",
+                "imageInInventory" : "image.inventory.distilledwater",
+                "onForeground" : false
             }
         ],
         "interactions": [
@@ -965,8 +1026,8 @@ define([
                     {
                         "id" : "npc.teacher",
                         "position" : {
-                            "x"    : 600,
-                            "y"    : 280
+                            "x"    : 720,
+                            "y"    : 370
                         }
                     }
                 ],
@@ -1050,15 +1111,29 @@ define([
                     },
                     {
                         "id" : "object.sulphuricacid",
-                        "x"  : 400,
-                        "y"  : 142,
-                        "w"  : 70,
-                        "h"  : 70
+                        "x"  : 395,
+                        "y"  : 162,
+                        "w"  : 50,
+                        "h"  : 50
                     },
                     {
                         "id" : "object.wire",
                         "x"  : 200,
                         "y"  : 270,
+                        "w"  : 30,
+                        "h"  : 50
+                    },
+                    {
+                        "id" : "object.beakerempty",
+                        "x"  : 430,
+                        "y"  : 182,
+                        "w"  : 20,
+                        "h"  : 30
+                    },
+                    {
+                        "id" : "object.distilledwater",
+                        "x"  : 80,
+                        "y"  : 130,
                         "w"  : 30,
                         "h"  : 50
                     }
