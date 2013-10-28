@@ -1588,6 +1588,11 @@ define([
                         "persistence" : "once"
                     },
                     {
+                        "text"        : "Can you help me build a battery?",
+                        "dialog"      : "dialog.withFatKidBattery",
+                        "persistence" : "once"
+                    },
+                    {
                         "text"        : "Bye.",
                         "dialog"      : "dialog.withFatKidBye",
                         "persistence" : "always"
@@ -1600,6 +1605,11 @@ define([
                     {
                         "text"        : "Hi. What are you doing?",
                         "dialog"      : "dialog.withNerdyGirlDoing",
+                        "persistence" : "once"
+                    },
+                    {
+                        "text"        : "Can you help me build a battery?",
+                        "dialog"      : "dialog.withNerdyGirlBattery",
                         "persistence" : "once"
                     },
                     {
@@ -1643,6 +1653,34 @@ define([
                 ]
             },
             {
+                "id"    : "dialog.withFatKidBattery",
+                "to"    : "npc.fatkid",
+                "lines" : [
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "Can you help me build a battery?"
+                    },
+                    {
+                        "character" : "npc.fatkid",
+                        "text"      : "Why? your walkman needs batteries? Loser!"
+                    },
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "No, it's for today's project."
+                    },
+                    {
+                        "character" : "npc.fatkid",
+                        "text"      : "Bah, whatever, I bought one battery, that should give me an A."
+                    }
+                ],
+                "onEnd" : [
+                    {
+                        "action"        : "startDialogOptions",
+                        "dialogOptions" : "dialogoption.withFatKid"
+                    }
+                ]
+            },
+            {
                 "id"    : "dialog.withFatKidListening",
                 "to"    : "npc.fatkid",
                 "lines" : [
@@ -1652,7 +1690,7 @@ define([
                     },
                     {
                         "character" : "npc.fatkid",
-                        "text"      : "Celine Dion. She rocks!"
+                        "text"      : "Some band you never heard of, Bieber boy."
                     }
                 ],
                 "onEnd" : [
@@ -1672,7 +1710,7 @@ define([
                     },
                     {
                         "character" : "npc.fatkid",
-                        "text"      : "Later, bro."
+                        "text"      : "Mmmpf, loser."
                     }
                 ],
                 "onEnd" : [
@@ -1708,7 +1746,43 @@ define([
                     },
                     {
                         "character" : "npc.nerdygirl",
-                        "text"      : "Pff, I assembled batteries when I was 6."
+                        "text"      : "Pff, I assembled batteries when I was 6. That is kids stuff."
+                    },
+                    {
+                        "character" : "npc.nerdygirl",
+                        "text"      : "I am building a high-capacity atomic transducer charger."
+                    },
+                    {
+                        "character" : "npc.nerdygirl",
+                        "text"      : "Now THAT is a challenge for me."
+                    }
+                ],
+                "onEnd" : [
+                    {
+                        "action"        : "continueDialogOptions",
+                        "dialogOptions" : "dialogoption.withNerdyGirl"
+                    }
+                ]
+            },
+            {
+                "id"    : "dialog.withNerdyGirlBattery",
+                "to"    : "npc.nerdygirl",
+                "lines" : [
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "Can you help me build a battery, please?"
+                    },
+                    {
+                        "character" : "npc.nerdygirl",
+                        "text"      : "Pff, don't disturb me with boring stuff like that."
+                    },
+                    {
+                        "character" : "npc.nerdygirl",
+                        "text"      : "I am on my way to a Nobel prize, and you are bothering me."
+                    },
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "Ok, geez, just asking..."
                     }
                 ],
                 "onEnd" : [
@@ -1764,7 +1838,7 @@ define([
                     },
                     {
                         "character" : "npc.teacher",
-                        "text"      : "The battery, of course. I expect you tot build a battery in the next hour."
+                        "text"      : "The battery, of course. I expect you to build a battery in the next hour."
                     },
                     {
                         "character" : "npc.teacher",

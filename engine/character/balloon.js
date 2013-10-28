@@ -57,12 +57,21 @@ define([
 
             // if balloon and line goes out of bounds from game scene
             var coords = this.localToGlobal(this.balloon.x, this.balloon.y);
-            var leftOffset = (coords.x);
+
+            // if ballon is way too much to the left
             if (coords.x < 0) {
                 this.balloon.x -= coords.x - 5;
                 this.line.x -= coords.x - 5;
             }
 
+            // if ballon is way too much to the right
+            if (coords.x + this.line.lineWidth > config.get('game.w')) {
+                var diff = coords.x + this.line.lineWidth - config.get('game.w');
+                this.balloon.x -= diff + 10;
+                this.line.x -= diff + 10;
+            }
+
+            // if ballon is way too much to the top
             if (coords.y < 0) {
                 this.balloon.y -= coords.y - 5;
                 this.line.y -= coords.y - 5;
