@@ -71,10 +71,25 @@ define([
             return this.currentScene.name;
         };
 
+        this.getSceneIndexOnTop = function () {
+            var i,
+                o,
+                l = this.children.length;
+            for (i = l - 1; i >= 0; i--) {
+                o = this.children[i];
+                if (o.name && o.name.startsWith('scene')) {
+                    return i;
+                }
+            }
+            return null;
+        };
+
         // used to add a scene over a scene (temporary menu)
         this.addMenuScene = function () {
             var self = this;
-            var sceneindex = self.children.length - 1;
+
+
+            var sceneindex = self.getSceneIndexOnTop();
 
             this.notOnGame();
 
@@ -83,7 +98,7 @@ define([
                 var toscene = gamescene.get('scene.menu');
                 toscene.alpha = 0;
                 self.addChild(toscene);
-                var menuindex = self.children.length - 1;
+                var menuindex = self.getSceneIndexOnTop();
 
                 var d2 = self.children[menuindex].fadeIn();
                 d2.done(function () {
@@ -97,18 +112,17 @@ define([
 
         // used to remove top scene (temporary menu)
         // only happens on play mode, so it's save for activateCursorOnPlay
-        this.removeMenuScene = function (_toscene) {
+        this.removeMenuScene = function () {
             var self = this;
-
             self.onGame();
 
-            var menuindex = self.children.length - 1;
-            var sceneindex = self.children.length - 2;
+            var menuindex = self.getSceneIndexOnTop();
 
             var d = self.children[menuindex].fadeOut();
             d.done(function () {
                 // remove last one. which is the game menu
                 self.removeChildAt(menuindex);
+                var sceneindex = self.getSceneIndexOnTop();
                 var d2 = self.children[sceneindex].fadeIn();
                 d2.done(function () {
                     require('engine/stage/main').activateCursorFor('play');
@@ -118,7 +132,7 @@ define([
 
         this.switchScene = function (_toscene, _toExit) {
             var self      = this,
-                fromindex = self.children.length - 1,
+                fromindex = self.getSceneIndexOnTop(),
                 toscene   = gamescene.get(_toscene),
                 stagemain = require('engine/stage/main');
 
@@ -148,7 +162,7 @@ define([
 
                 toscene.alpha = 0;
                 self.addChild(toscene);
-                var sceneindex = self.children.length - 1;
+                var sceneindex = self.getSceneIndexOnTop();
                 var d2 = self.children[sceneindex].fadeIn();
                 d2.done(function () {
 

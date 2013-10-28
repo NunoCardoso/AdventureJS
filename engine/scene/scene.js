@@ -126,8 +126,8 @@ define([
                     index = i;
                 }
             }
-            if (index >= 0) {
-                this.objects.splice(index, 1);
+            if (index) {
+                delete this.objects[index];
                 var o;
                 if (this.objects.onForeground) {
                     o = this.dynamicFore.getChildByName(object);

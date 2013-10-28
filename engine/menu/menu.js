@@ -132,7 +132,7 @@ define([
             require('engine/tpl/main').close();
             var stage = require('engine/stage/main');
             stage.play();
-            stage.get().removeMenuScene('scene.menu');
+            stage.get().removeMenuScene();
             gamemusic.playMusic(stage.get().getCurrentScene().music);
         });
 

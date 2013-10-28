@@ -106,3 +106,7 @@ left: 50;
 #canvas.game {
     cursor: none;
 }
+
+span.date {
+    font-size: 10px;
+}
