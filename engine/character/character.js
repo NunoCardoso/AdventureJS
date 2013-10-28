@@ -106,6 +106,7 @@ define([
             if (json.x) {
                 this.setX(json.x);
                 this.setY(json.y);
+                this.salt = json.salt;
                 this.resetTargetXY();
                 this.changeAttitudeTo(json.attitude);
             }
@@ -116,6 +117,7 @@ define([
             return {
                 'x'        : this.x,
                 'y'        : this.y,
+                'salt'     : this.salt,
                 'attitude' : this.character.getStandAttitude()
             };
         };
