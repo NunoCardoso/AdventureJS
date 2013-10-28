@@ -129,6 +129,10 @@ define([
                 "src" : "games/battery/images/objects/lemonwithcoinandclipandwire-inventory.png"
             },
             {
+                "id"  : "image.inventory.lemonwithcoinandclipandwireandlamp",
+                "src" : "games/battery/images/objects/lemonwithcoinandclipandwireandlamp-inventory.png"
+            },
+            {
                 "id"  : "image.inventory.sulphuricacid",
                 "src" : "games/battery/images/objects/sulphuricacid-inventory.png"
             },
@@ -314,8 +318,13 @@ define([
             },
             {
                 "id": "object.lemonwithcoinandclipandwire",
-                "label": "lemon with coin, clip and wire",
+                "label": "lemon battery",
                 "imageInInventory" : "image.inventory.lemonwithcoinandclipandwire"
+            },
+            {
+                "id": "object.lemonwithcoinandclipandwireandlamp",
+                "label": "lemon battery with lamp",
+                "imageInInventory" : "image.inventory.lemonwithcoinandclipandwireandlamp"
             },
             {
                 "id": "object.paperclip",
@@ -361,6 +370,13 @@ define([
                 "label": "distilled water",
                 "imageInStage" : "image.distilledwater",
                 "imageInInventory" : "image.inventory.distilledwater",
+                "onForeground" : false
+            },
+            {
+                "id": "object.beakerwithdillutedacid",
+                "label": "beaker with dilluted acid",
+                "imageInStage" : "image.beakerwithdillutedacid",
+                "imageInInventory" : "image.inventory.beakerwithdillutedacid",
                 "onForeground" : false
             }
         ],
@@ -1241,7 +1257,8 @@ define([
                 "id"    : "interaction.usedistilledwaterwithbeakerempty",
                 "verb"  : "Use",
                 "first" : {
-                    "item" : "object.distilledwater"
+                    "item" : "object.distilledwater",
+                    "inInventory" : false
                 },
                 "second" : {
                     "item" : "object.beakerempty",
@@ -1263,9 +1280,9 @@ define([
                         }
                     },
                     {
-                        "action"        : "dialogMessage",
-                        "character"     : "pc.battery.main",
-                        "text"          : "There. The beaker is now with water."
+                        "action"     : "dialogMessage",
+                        "character"  : "pc.battery.main",
+                        "text"       : "There. The beaker is now with water."
                     }
                 ]
             },
@@ -1273,7 +1290,8 @@ define([
                 "id"    : "interaction.usedistilledwaterwithbeakerempty2",
                 "verb"  : "Use",
                 "first" : {
-                    "item" : "object.distilledwater"
+                    "item" : "object.distilledwater",
+                    "inInventory" : true
                 },
                 "second" : {
                     "item" : "object.beakerempty",
@@ -1289,9 +1307,9 @@ define([
                         "object"     : "object.beakerwithwater"
                     },
                     {
-                        "action"        : "dialogMessage",
-                        "character"     : "pc.battery.main",
-                        "text"          : "There. The beaker is now with water."
+                        "action"     : "dialogMessage",
+                        "character"  : "pc.battery.main",
+                        "text"       : "There. The beaker is now with water."
                     }
                 ]
             },
@@ -1328,6 +1346,190 @@ define([
                 ]
             },
             {
+                "id"    : "interaction.useclipwithlemon",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.lemon",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.paperclip"
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.lemon"
+                    },
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.paperclip"
+                    },
+                    {
+                        "action"     : "addToInventory",
+                        "object"     : "object.lemonwithclip"
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "Always wanted a lemon with a paper clip."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.useclipwithlemon",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.lemon",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.coin"
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.lemon"
+                    },
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.coin"
+                    },
+                    {
+                        "action"     : "addToInventory",
+                        "object"     : "object.lemonwithcoin"
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "Always wanted a lemon with a coin in it."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.usecoinwithlemonwithclip",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.lemonwithclip",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.coin"
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.lemonwithclip"
+                    },
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.coin"
+                    },
+                    {
+                        "action"     : "addToInventory",
+                        "object"     : "object.lemonwithcoinandclip"
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "Mmmm... I know what you are thinking."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.useclipwithlemonwithcoin",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.lemonwithcoin",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.paperclip"
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.lemonwithcoin"
+                    },
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.paperclip"
+                    },
+                    {
+                        "action"     : "addToInventory",
+                        "object"     : "object.lemonwithcoinandclip"
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "Mmmm... I know what you are thinking."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.uselemonwithcoinandclipwithwire",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.lemonwithcoinandclip",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.wire"
+                },
+                "actions" : [
+                    {
+                        "action"      : "removeFromInventory",
+                        "object"      : "object.lemonwithcoinandclip"
+                    },
+                    {
+                        "action"      : "removeFromInventory",
+                        "object"      : "object.wire"
+                    },
+                    {
+                        "action"      : "addToInventory",
+                        "object"      : "object.lemonwithcoinandclipandwire"
+                    },
+                    {
+                        "action"      : "dialogMessage",
+                        "character"   : "pc.battery.main",
+                        "text"        : "There, a lemon battery. Now I need to see if it works."
+                    },
+                    {
+                        "action"      : "publishAchievement",
+                        "achievement" : "achievement.lemonbattery"
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.uselemonwithcoinandclipandwirewithlamp",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.lemonwithcoinandclipandwire",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.lamp"
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.lemonwithcoinandclipandwire"
+                    },
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.lamp"
+                    },
+                    {
+                        "action"     : "addToInventory",
+                        "object"     : "object.lemonwithcoinandclipandwireandlamp"
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "Wow, the lamp is on! It works!"
+                    }
+                ]
+            },
+            {
                 "id" : "interaction.opensulphuricacid",
                 "verb" : "Open",
                 "first" : {
@@ -1353,6 +1555,40 @@ define([
                     {
                         "action"    : "testCondition",
                         "condition" : "condition.isacidonhotte"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.giveunfinishedlemonbatterytoteacher",
+                "verb" : "Give",
+                "first" : {
+                    "item" : "object.lemonwithcoinandclipandwire",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "npc.teacher"
+                },
+                "actions" : [
+                    {
+                        "action": "playDialog",
+                        "dialog": "dialog.giveunfinishedlemonbatterytoteacher"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.givelemonbatterytoteacher",
+                "verb" : "Give",
+                "first" : {
+                    "item" : "object.lemonwithcoinandclipandwireandlamp",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "npc.teacher"
+                },
+                "actions" : [
+                    {
+                        "action": "playDialog",
+                        "dialog": "dialog.givelemonbatterytoteacher"
                     }
                 ]
             },
@@ -1871,6 +2107,66 @@ define([
                         "character" : "npc.teacher"
                     }
                 ]
+            },
+            {
+                "id"    : "dialog.givelemonbatterytoteacher",
+                "to"    : "npc.teacher",
+                "lines" : [
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "Hi. Here, this is my battery."
+                    },
+                    {
+                        "character" : "npc.teacher",
+                        "text"      : "I'll be damned, a lemon battery! Does it work?"
+                    },
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "Well, the lamp is on, so looks like it."
+                    },
+                    {
+                        "character" : "npc.teacher",
+                        "text"      : "Well done. You really surprised me."
+                    }
+                ],
+                "onEnd" : [
+                    {
+                        "action"    : "endDialog",
+                        "character" : "npc.teacher"
+                    },
+                    {
+                        "action"      : "publishAchievement",
+                        "achievement" : "achievement.endgame"
+                    }
+                ]
+            },
+            {
+                "id"    : "dialog.giveunfinishedlemonbatterytoteacher",
+                "to"    : "npc.teacher",
+                "lines" : [
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "Hi. Here, this is my battery."
+                    },
+                    {
+                        "character" : "npc.teacher",
+                        "text"      : "I'll be damned, a lemon battery! Does it work?"
+                    },
+                    {
+                        "character" : "pc.battery.main",
+                        "text"      : "Well, maybe... I don't know."
+                    },
+                    {
+                        "character" : "npc.teacher",
+                        "text"      : "Well, prove to me that there is current in it, first!"
+                    }
+                ],
+                "onEnd" : [
+                    {
+                        "action"    : "endDialog",
+                        "character" : "npc.teacher"
+                    }
+                ]
             }
         ],
         "achievements": [
@@ -1879,8 +2175,12 @@ define([
                 "title" : "You guessed a formula's author"
             },
             {
-                "id"    : "achievement.battery",
-                "title" : "You built a battery!"
+                "id"    : "achievement.lemonbattery",
+                "title" : "You built a lemon battery!"
+            },
+            {
+                "id"    : "achievement.acidbattery",
+                "title" : "You built an acid battery!"
             },
             {
                 "id"    : "achievement.gotgoggles",
@@ -1901,6 +2201,10 @@ define([
             {
                 "id"    : "achievement.triedacidbeforewater",
                 "title" : "Tried to pour acid before water!"
+            },
+            {
+                "id"    : "achievement.endgame",
+                "title" : "You ended the game!"
             }
         ]
     };

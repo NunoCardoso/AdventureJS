@@ -22,6 +22,21 @@ define([
             }
         },
 
+        _checkForInventory = function (found, it, item, name) {
+            // wait... if object, let's see if it is in inventory
+            if (item.inInventory !== undefined) {
+                var isit = require('engine/panel/main').isInInventory(name);
+                if (item.inInventory === true && isit) {
+                    found.push(it);
+                } else if (item.inInventory === false && !isit) {
+                    found.push(it);
+                }
+            } else {
+                found.push(it);
+            }
+            return found;
+        },
+
         find = function (verb, first, second) {
             var i,
                 firstname,
@@ -40,26 +55,13 @@ define([
 
                         // if there is no second name, it is a match.
                         if (second === undefined && _[i].second === undefined) {
-
-                            // wait... if object, let's see if it is in inventory
-                            if (_[i].first.inInventory !== undefined) {
-                                var isit = require('engine/panel/main').isInInventory(firstname);
-
-                                if (_[i].first.inInventory === true && isit) {
-                                    found.push(_[i]);
-                                } else if (_[i].first.inInventory === false && !isit) {
-                                    found.push(_[i]);
-                                }
-                            } else {
-                                found.push(_[i]);
-                            }
+                            found = _checkForInventory(found, _[i], _[i].first, firstname);
                         }
-
                         if (second !== undefined) {
                             // if there is a second name, test it.
                             secondname = _[i].second.item;
                             if (second.name === secondname) {
-                                found.push(_[i]);
+                                found = _checkForInventory(found, _[i], _[i].second, secondname);
                             }
                         }
                     } else {
@@ -68,7 +70,7 @@ define([
                         if (second !== undefined) {
                             secondname = _[i].second.item;
                             if ((first.name === secondname) && firstname === second.name) {
-                                found.push(_[i]);
+                                found = _checkForInventory(found, _[i], _[i].first, secondname);
                             }
                         }
                     }

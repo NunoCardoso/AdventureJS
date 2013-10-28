@@ -151,7 +151,7 @@ define([
                     'walkright'  : [1, 6, 'walkright', 0.25],
                     'walkupright'  : [1, 6, 'walkupright', 0.25],
                     'walkdownright'  : [1, 6, 'walkdownright', 0.25],
-                    'walkdown'  : [1, 6, 'walkdownright', 0.25],
+                    'walkdown'  : [1, 6, 'walkdown', 0.25],
                     'walkleft'   : [9, 15, 'walkleft', 0.25],
                     'walkupleft'   : [9, 15, 'walkupleft', 0.25],
                     'walkdownleft'   : [9, 15, 'walkdownleft', 0.25],
