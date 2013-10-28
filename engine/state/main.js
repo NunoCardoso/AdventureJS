@@ -64,6 +64,7 @@ define([
             var gamestage = require('engine/stage/main');
             gamestage.get().setState(savegame.currentScene);
             gamestage.activateCursorFor('play');
+            gamestage.activateTick();
         };
 
     return {
