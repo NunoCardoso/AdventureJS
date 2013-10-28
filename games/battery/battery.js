@@ -105,7 +105,7 @@ define([
                 "src" : "games/battery/images/objects/essay-inventory.png"
             },
             {
-                "id"  : "image.inventory.clip",
+                "id"  : "image.inventory.paperclip",
                 "src" : "games/battery/images/objects/clip-inventory.png"
             },
             {
@@ -137,12 +137,16 @@ define([
                 "src" : "games/battery/images/objects/sulphuricacidopen-inventory.png"
             },
             {
-                "id"  : "image.inventory.sulphuricacidopen",
+                "id"  : "image.sulphuricacidopen",
                 "src" : "games/battery/images/objects/sulphuricacidopen-inventory.png"
             },
             {
                 "id"  : "image.inventory.beakerempty",
                 "src" : "games/battery/images/objects/beakerempty-inventory.png"
+            },
+            {
+                "id"  : "image.inventory.beakerwithwater",
+                "src" : "games/battery/images/objects/beakerwithwater-inventory.png"
             },
             {
                 "id"  : "image.inventory.beakerwithdillutedacid",
@@ -242,7 +246,7 @@ define([
                 "id": "object.lemon",
                 "label": "lemon",
                 "imageInStage" : "image.1x1",
-                "imageInInventory" : "image.1x1",
+                "imageInInventory" : "image.inventory.lemon",
                 "onForeground" : false
             },
             {
@@ -328,6 +332,7 @@ define([
             {
                 "id": "object.sulphuricacidopen",
                 "label": "open bottle of sulphuric acid",
+                "imageInStage" : "image.sulphuricacidopen",
                 "imageInInventory" : "image.inventory.sulphuricacidopen"
             },
             {
@@ -348,6 +353,7 @@ define([
                 "id": "object.beakerwithwater",
                 "label": "beaker with water",
                 "imageInStage" : "image.beakerwithwater",
+                "imageInInventory" : "image.inventory.beakerwithwater",
                 "onForeground" : false
             },
             {
@@ -533,7 +539,7 @@ define([
                     {
                         "action": "dialogMessage",
                         "character": "pc.battery.main",
-                        "text" : "Today's essay - build a battery. And a paper clip."
+                        "text" : "Today's essay - build a battery. Today."
                     }
                 ]
             },
@@ -1040,6 +1046,25 @@ define([
                 ]
             },
             {
+                "id" : "interaction.pickupbeaker",
+                "verb" : "Pick up",
+                "first" : {
+                    "item" : "object.beakerwithdillutedacid",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action" : "fromSceneToInventory",
+                        "object" : "object.beakerwithdillutedacid"
+                    },
+                    {
+                        "action": "dialogMessage",
+                        "character": "pc.battery.main",
+                        "text" : "A beaker with dilluted acid. Cool."
+                    }
+                ]
+            },
+            {
                 "id" : "interaction.weargoggles",
                 "verb" : "Wear",
                 "first" : {
@@ -1106,7 +1131,7 @@ define([
                 "verb"  : "Use",
                 "first" : {
                     "item" : "object.beakerempty",
-                    "inInventory" : true
+                    "inInventory" : false
                 },
                 "second" : {
                     "item" : "object.sulphuricacidopen"
@@ -1124,6 +1149,185 @@ define([
                 ]
             },
             {
+                "id"    : "interaction.usebeakerwithhotte",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.beakerempty",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.hotte"
+                },
+                "actions" : [
+                    {
+                        "action"     : "fromInventoryToScene",
+                        "object"     : "object.beakerempty",
+                        "position"   : {
+                            "x"      : 110,
+                            "y"      : 145,
+                            "w"      : 20,
+                            "h"      : 30
+                        }
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "There. The beaker is now inside the fume hood."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.usewaterbeakerwithhotte",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.beakerwithwater",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.hotte"
+                },
+                "actions" : [
+                    {
+                        "action"     : "fromInventoryToScene",
+                        "object"     : "object.beakerwithwater",
+                        "position"   : {
+                            "x"      : 110,
+                            "y"      : 145,
+                            "w"      : 20,
+                            "h"      : 30
+                        }
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "There. The beaker with water is now inside the fume hood."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.useacidwithhotte",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.sulphuricacid",
+                    "inInventory" : true
+                },
+                "second" : {
+                    "item" : "object.hotte"
+                },
+                "actions" : [
+                    {
+                        "action"     : "fromInventoryToScene",
+                        "object"     : "object.sulphuricacid",
+                        "position"   : {
+                            "x"      : 130,
+                            "y"      : 133,
+                            "w"      : 30,
+                            "h"      : 40
+                        }
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "There. The acid is now inside the fume hood."
+                    },
+                    {
+                        "action"      : "setFlag",
+                        "flag"        : "isAcidOnHotte",
+                        "value"       : true
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.usedistilledwaterwithbeakerempty",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.distilledwater"
+                },
+                "second" : {
+                    "item" : "object.beakerempty",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromScene",
+                        "object"     : "object.beakerempty"
+                    },
+                    {
+                        "action"     : "addToScene",
+                        "object"     : "object.beakerwithwater",
+                        "position"   : {
+                            "x"      : 110,
+                            "y"      : 145,
+                            "w"      : 20,
+                            "h"      : 30
+                        }
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "There. The beaker is now with water."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.usedistilledwaterwithbeakerempty2",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.distilledwater"
+                },
+                "second" : {
+                    "item" : "object.beakerempty",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromInventory",
+                        "object"     : "object.beakerempty"
+                    },
+                    {
+                        "action"     : "addToInventory",
+                        "object"     : "object.beakerwithwater"
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "There. The beaker is now with water."
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.usewaterbeakerwithhotte",
+                "verb"  : "Use",
+                "first" : {
+                    "item" : "object.beakerwithwater",
+                    "inInventory" : false
+                },
+                "second" : {
+                    "item" : "object.sulphuricacidopen"
+                },
+                "actions" : [
+                    {
+                        "action"     : "removeFromScene",
+                        "object"     : "object.beakerwithwater"
+                    },
+                    {
+                        "action"     : "addToScene",
+                        "object"     : "object.beakerwithdillutedacid",
+                        "position"   : {
+                            "x"      : 110,
+                            "y"      : 145,
+                            "w"      : 20,
+                            "h"      : 30
+                        }
+                    },
+                    {
+                        "action"        : "dialogMessage",
+                        "character"     : "pc.battery.main",
+                        "text"          : "The beaker now has dilluted acid. Now it is safe to take it"
+                    }
+                ]
+            },
+            {
                 "id" : "interaction.opensulphuricacid",
                 "verb" : "Open",
                 "first" : {
@@ -1132,17 +1336,50 @@ define([
                 },
                 "actions" : [
                     {
-                        "action"     : "removeFromInventory",
-                        "object"     : "object.sulphuricacid"
+                        "action"    : "dialogMessage",
+                        "character" : "pc.battery.main",
+                        "text"      : "Are you crazy?! Open acid here? And the fumes?!"
+                    }
+                ]
+            },
+            {
+                "id" : "interaction.opensulphuricacid",
+                "verb" : "Open",
+                "first" : {
+                    "item" : "object.sulphuricacid",
+                    "inInventory" : false
+                },
+                "actions" : [
+                    {
+                        "action"    : "testCondition",
+                        "condition" : "condition.isacidonhotte"
+                    }
+                ]
+            },
+            {
+                "id"    : "interaction.dismantleessaywithclip",
+                "verb"  : "Dismantle",
+                "first" : {
+                    "item"        : "object.essaywithclip",
+                    "inInventory" : true
+                },
+                "actions" : [
+                    {
+                        "action"  : "removeFromInventory",
+                        "object"  : "object.essaywithclip"
                     },
                     {
-                        "action"     : "addToInventory",
-                        "object"     : "object.sulphuricacidopen"
+                        "action" : "addToInventory",
+                        "object" : "object.essay"
                     },
                     {
-                        "action": "dialogMessage",
-                        "character": "pc.battery.main",
-                        "text" : "Opened. Wow, toxic smoke!"
+                        "action" : "addToInventory",
+                        "object" : "object.paperclip"
+                    },
+                    {
+                        "action"    : "dialogMessage",
+                        "character" : "pc.battery.main",
+                        "text"      : "Another paper clip for my collection."
                     }
                 ]
             }
@@ -1150,30 +1387,30 @@ define([
 
         "scenes": [
             {
-                "id"                 : "scene.classroom",
-                "background"         : "image.classroom",
-                "backgroundpath"     : "image.classroom.path",
-                "backgroundmode"     : "fit",
-                "description"        : "Come on, this is easy. Just do what the teacher challlenged you to do.",
-                "interactable"       : true,
-                "music"              : "music.classroom",
+                "id"             : "scene.classroom",
+                "background"     : "image.classroom",
+                "backgroundpath" : "image.classroom.path",
+                "backgroundmode" : "fit",
+                "description"    : "Come on, this is easy. Just do what the teacher challlenged you to do.",
+                "interactable"   : true,
+                "music"          : "music.classroom",
                 "npcs" : [
                     {
-                        "id" : "npc.fatkid",
+                        "id"       : "npc.fatkid",
                         "position" : {
                             "x"    : 475,
                             "y"    : 370
                         }
                     },
                     {
-                        "id" : "npc.nerdygirl",
+                        "id"       : "npc.nerdygirl",
                         "position" : {
                             "x"    : 300,
                             "y"    : 370
                         }
                     },
                     {
-                        "id" : "npc.teacher",
+                        "id"       : "npc.teacher",
                         "position" : {
                             "x"    : 720,
                             "y"    : 370
@@ -1283,28 +1520,64 @@ define([
                         "id" : "object.distilledwater",
                         "x"  : 80,
                         "y"  : 130,
-                        "w"  : 30,
+                        "w"  : 25,
                         "h"  : 50
                     }
                 ],
                 "exits" : [
                     {
-                        "id" : "exit.classroom",
+                        "id"    : "exit.classroom",
                         "label" : "begin",
-                        "role" : "begin",
-                        "x" : 50,
-                        "y" : 170,
-                        "w" : 100,
-                        "h" : 200
+                        "role"  : "begin",
+                        "x"     : 50,
+                        "y"     : 170,
+                        "w"     : 100,
+                        "h"     : 200
                     }
                 ],
                 "conditions" : []
             }
         ],
         "flags" : {
-            "formulaAuthor" : false
+            "formulaAuthor" : false,
+            "isAcidOnHotte" : false
         },
-        "conditions" : [],
+        "conditions" : [
+            {
+                "id"          : "condition.isacidonhotte",
+                "test"        : "flag",
+                "item"        : "isAcidOnHotte",
+                "persistence" : "always",
+                "onSuccess"   : [
+                    {
+                        "action"   : "removeFromScene",
+                        "object"   : "object.sulphuricacid"
+                    },
+                    {
+                        "action"   : "addToScene",
+                        "object"   : "object.sulphuricacidopen",
+                        "position" : {
+                            "x"    : 130,
+                            "y"    : 133,
+                            "w"    : 30,
+                            "h"    : 40
+                        }
+                    },
+                    {
+                        "action"    : "dialogMessage",
+                        "character" : "pc.battery.main",
+                        "text"      : "Acid bottle opened on the fume hood."
+                    }
+                ],
+                "onFail" : [
+                    {
+                        "action"    : "dialogMessage",
+                        "character" : "pc.battery.main",
+                        "text"      : "What? No way! The fumes are toxic!"
+                    }
+                ]
+            }
+        ],
         "dialogoptions" : [
             {
                 "id"      : "dialogoption.withFatKid",

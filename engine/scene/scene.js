@@ -147,6 +147,27 @@ define([
             this.objects[object.id] = object;
         };
 
+
+        this.addObjectToScene = function (objectname, position) {
+            this.objects[objectname] = {
+                'id' : objectname,
+                'x'  : position.x,
+                'y'  : position.y,
+                'w'  : position.w,
+                'h'  : position.h
+            };
+
+            var o = gameobject.get(objectname);
+            o.renderAs('stage', this.objects[objectname]);
+            var child;
+            if (o.onForeground) {
+                child = this.dynamicBack.getChildByName('container.fore.objects');
+            } else {
+                child = this.dynamicBack.getChildByName('container.back.objects');
+            }
+            child.addChild(o);
+        };
+
         this.applyOffset = function () {
             this.dynamicContainer.x = this.backgroundOffset;
             this.background.path.x = -this.backgroundOffset;
@@ -186,8 +207,8 @@ define([
                 objectContainerBack = new createjs.Container(),
                 objectContainerFore = new createjs.Container();
 
-            objectContainerBack.name = 'container.objects';
-            objectContainerFore.name = 'container.objects';
+            objectContainerBack.name = 'container.back.objects';
+            objectContainerFore.name = 'container.fore.objects';
 
             // background
             if (this.background) {
@@ -305,12 +326,12 @@ define([
         };
 
         this.checkCharacterZ = function () {
-            var l = this.dynamicMiddle.children.length;
+            var i, j, temp, l = this.dynamicMiddle.children.length;
             if (l > 1) {
-                for (var i = 0; i < l - 1; i++) {
-                    for (var j = i + 1; j < l; j++) {
+                for (i = 0; i < l - 1; i++) {
+                    for (j = i + 1; j < l; j++) {
                         if (this.dynamicMiddle.children[i].y > this.dynamicMiddle.children[j].y) {
-                            var temp = this.dynamicMiddle.children[i];
+                            temp = this.dynamicMiddle.children[i];
                             this.dynamicMiddle.children[i] = this.dynamicMiddle.children[j];
                             this.dynamicMiddle.children[j] = temp;
                         }

@@ -19,8 +19,11 @@ define([
             'playDialog',
             'dialogMessage',
             'fromSceneToInventory',
+            'fromInventoryToScene',
             'removeFromInventory',
+            'removeFromScene',
             'addToInventory',
+            'addToScene',
             'publishAchievement',
             'endDialog',
             'endGame',
@@ -33,7 +36,8 @@ define([
             'changeFlag',
             'stopCharacter',
             'prompt',
-            'addCharacterSalt'
+            'addCharacterSalt',
+            'testCondition'
         ],
 
         perform = function (action) {
@@ -94,11 +98,24 @@ define([
                     .getCurrentScene().removeObject(action.object);
                 require('engine/panel/main').addToInventory(action.object);
                 break;
+            case 'fromInventoryToScene':
+                require('engine/stage/main').get()
+                    .getCurrentScene().addObjectToScene(action.object, action.position);
+                require('engine/panel/main').removeFromInventory(action.object);
+                break;
             case 'removeFromInventory':
                 require('engine/panel/main').removeFromInventory(action.object);
                 break;
+            case 'removeFromScene':
+                require('engine/stage/main').get()
+                    .getCurrentScene().removeObject(action.object);
+                break;
             case 'addToInventory':
                 require('engine/panel/main').addToInventory(action.object);
+                break;
+            case 'addToScene': 
+                require('engine/stage/main').get()
+                    .getCurrentScene().addObjectToScene(action.object, action.position);
                 break;
             case 'publishAchievement':
                 require('engine/achievement/main').publish(action.achievement);
@@ -161,6 +178,13 @@ define([
             case 'addCharacterSalt':
                 var char = require('engine/character/main').getPc();
                 char.addSalt(action.salt);
+                break;
+            case 'testCondition':
+                var condition = require('engine/condition/main').get(action.condition);
+                condition.doTest();
+                if (condition.persistence === 'once') {
+                    condition.executed = true;
+                }
                 break;
             default:
                 console.log(action.action + ' not implemented!');
