@@ -3,158 +3,154 @@
 define([
 ], function () {
     return {
-        'images': [
-        /* backgrounds */
+        "images": [
             {
-                'id'  : 'image.battery',
-                'src' : 'games/battery/images/backgrounds/game.png'
+                "id"  : "image.battery",
+                "src" : "games/battery/images/backgrounds/game.png"
             },
             {
-                'id'  : 'image.classroom',
-                'src' : 'games/battery/images/backgrounds/background.png'
+                "id"  : "image.classroom",
+                "src" : "games/battery/images/backgrounds/background.png"
             },
             {
-                'id'  : 'image.classroom.path',
-                'src' : 'games/battery/images/backgrounds/background.path.png'
-            },
-        /* static objects */
-            {
-                'id'  : 'image.lefttable',
-                'src' : 'games/battery/images/objects/left-table.png'
+                "id"  : "image.classroom.path",
+                "src" : "games/battery/images/backgrounds/background.path.png"
             },
             {
-                'id'  : 'image.middletable',
-                'src' : 'games/battery/images/objects/middle-table.png'
+                "id"  : "image.lefttable",
+                "src" : "games/battery/images/objects/left-table.png"
             },
             {
-                'id'  : 'image.righttable',
-                'src' : 'games/battery/images/objects/right-table.png'
+                "id"  : "image.middletable",
+                "src" : "games/battery/images/objects/middle-table.png"
             },
             {
-                'id'  : 'image.hotte',
-                'src' : 'games/battery/images/objects/hotte.png'
+                "id"  : "image.righttable",
+                "src" : "games/battery/images/objects/right-table.png"
+            },
+            {
+                "id"  : "image.hotte",
+                "src" : "games/battery/images/objects/hotte.png"
             },
             {
                 "id"  : "image.1x1",
                 "src" : "games/aroundtheworld/img/object/1x1.png"
             },
-        /* dynamic objects */
             {
-                'id'  : 'image.labcoat',
-                'src' : 'games/battery/images/objects/labcoat.png'
+                "id"  : "image.labcoat",
+                "src" : "games/battery/images/objects/labcoat.png"
             },
             {
-                'id'  : 'image.goggles',
-                'src' : 'games/battery/images/objects/goggles.png'
+                "id"  : "image.goggles",
+                "src" : "games/battery/images/objects/goggles.png"
             },
             {
-                'id'  : 'image.lamptable',
-                'src' : 'games/battery/images/objects/lampred.png'
+                "id"  : "image.lamptable",
+                "src" : "games/battery/images/objects/lampred.png"
             },
             {
-                'id'  : 'image.lamp',
-                'src' : 'games/battery/images/objects/lamp.png'
+                "id"  : "image.lamp",
+                "src" : "games/battery/images/objects/lamp.png"
             },
             {
                 "id"  : "image.wire",
                 "src" : "games/battery/images/objects/wire.png"
             },
             {
-                'id'  : 'image.sulphuricacid',
-                'src' : 'games/battery/images/objects/sulphuricacid.png'
+                "id"  : "image.sulphuricacid",
+                "src" : "games/battery/images/objects/sulphuricacid.png"
             },
             {
-                'id'  : 'image.beakerempty',
-                'src' : 'games/battery/images/objects/beakerempty.png'
+                "id"  : "image.beakerempty",
+                "src" : "games/battery/images/objects/beakerempty.png"
             },
             {
-                'id'  : 'image.beakerwithwater',
-                'src' : 'games/battery/images/objects/beakerwithwater.png'
+                "id"  : "image.beakerwithwater",
+                "src" : "games/battery/images/objects/beakerwithwater.png"
             },
             {
-                'id'  : 'image.beakerwithdillutedacid',
-                'src' : 'games/battery/images/objects/beakerwithdillutedacid.png'
+                "id"  : "image.beakerwithdillutedacid",
+                "src" : "games/battery/images/objects/beakerwithdillutedacid.png"
             },
             {
-                'id'  : 'image.distilledwater',
-                'src' : 'games/battery/images/objects/distilledwater.png'
-            },
-        /* inventory */
-            {
-                'id'  : 'image.inventory.labcoat',
-                'src' : 'games/battery/images/objects/labcoat-inventory.png'
+                "id"  : "image.distilledwater",
+                "src" : "games/battery/images/objects/distilledwater.png"
             },
             {
-                'id'  : 'image.inventory.goggles',
-                'src' : 'games/battery/images/objects/goggles-inventory.png'
+                "id"  : "image.inventory.labcoat",
+                "src" : "games/battery/images/objects/labcoat-inventory.png"
             },
             {
-                'id'  : 'image.inventory.coin',
-                'src' : 'games/battery/images/objects/coin-inventory.png'
+                "id"  : "image.inventory.goggles",
+                "src" : "games/battery/images/objects/goggles-inventory.png"
             },
             {
-                'id'  : 'image.inventory.lamp',
-                'src' : 'games/battery/images/objects/lamp-inventory.png'
+                "id"  : "image.inventory.coin",
+                "src" : "games/battery/images/objects/coin-inventory.png"
             },
             {
-                'id'  : 'image.inventory.wire',
-                'src' : 'games/battery/images/objects/wire-inventory.png'
+                "id"  : "image.inventory.lamp",
+                "src" : "games/battery/images/objects/lamp-inventory.png"
             },
             {
-                'id'  : 'image.inventory.essaywithclip',
-                'src' : 'games/battery/images/objects/essaywithclip-inventory.png'
+                "id"  : "image.inventory.wire",
+                "src" : "games/battery/images/objects/wire-inventory.png"
             },
             {
-                'id'  : 'image.inventory.essay',
-                'src' : 'games/battery/images/objects/essay-inventory.png'
+                "id"  : "image.inventory.essaywithclip",
+                "src" : "games/battery/images/objects/essaywithclip-inventory.png"
             },
             {
-                'id'  : 'image.inventory.clip',
-                'src' : 'games/battery/images/objects/clip-inventory.png'
+                "id"  : "image.inventory.essay",
+                "src" : "games/battery/images/objects/essay-inventory.png"
             },
             {
-                'id'  : 'image.inventory.lemon',
-                'src' : 'games/battery/images/objects/lemon-inventory.png'
+                "id"  : "image.inventory.clip",
+                "src" : "games/battery/images/objects/clip-inventory.png"
             },
             {
-                'id'  : 'image.inventory.lemonwithcoin',
-                'src' : 'games/battery/images/objects/lemonwithcoin-inventory.png'
+                "id"  : "image.inventory.lemon",
+                "src" : "games/battery/images/objects/lemon-inventory.png"
             },
             {
-                'id'  : 'image.inventory.lemonwithclip',
-                'src' : 'games/battery/images/objects/lemonwithclip-inventory.png'
+                "id"  : "image.inventory.lemonwithcoin",
+                "src" : "games/battery/images/objects/lemonwithcoin-inventory.png"
             },
             {
-                'id'  : 'image.inventory.lemonwithcoinandclip',
-                'src' : 'games/battery/images/objects/lemonwithcoinandclip-inventory.png'
+                "id"  : "image.inventory.lemonwithclip",
+                "src" : "games/battery/images/objects/lemonwithclip-inventory.png"
             },
             {
-                'id'  : 'image.inventory.lemonwithcoinandclipandwire',
-                'src' : 'games/battery/images/objects/lemonwithcoinandclipandwire-inventory.png'
+                "id"  : "image.inventory.lemonwithcoinandclip",
+                "src" : "games/battery/images/objects/lemonwithcoinandclip-inventory.png"
             },
             {
-                'id'  : 'image.inventory.sulphuricacid',
-                'src' : 'games/battery/images/objects/sulphuricacid-inventory.png'
+                "id"  : "image.inventory.lemonwithcoinandclipandwire",
+                "src" : "games/battery/images/objects/lemonwithcoinandclipandwire-inventory.png"
             },
             {
-                'id'  : 'image.inventory.sulphuricacidopen',
-                'src' : 'games/battery/images/objects/sulphuricacidopen-inventory.png'
+                "id"  : "image.inventory.sulphuricacid",
+                "src" : "games/battery/images/objects/sulphuricacid-inventory.png"
             },
             {
-                'id'  : 'image.inventory.sulphuricacidopen',
-                'src' : 'games/battery/images/objects/sulphuricacidopen-inventory.png'
+                "id"  : "image.inventory.sulphuricacidopen",
+                "src" : "games/battery/images/objects/sulphuricacidopen-inventory.png"
             },
             {
-                'id'  : 'image.inventory.beakerempty',
-                'src' : 'games/battery/images/objects/beakerempty-inventory.png'
+                "id"  : "image.inventory.sulphuricacidopen",
+                "src" : "games/battery/images/objects/sulphuricacidopen-inventory.png"
             },
             {
-                'id'  : 'image.inventory.beakerwithdillutedacid',
-                'src' : 'games/battery/images/objects/beakerwithdillutedacid-inventory.png'
+                "id"  : "image.inventory.beakerempty",
+                "src" : "games/battery/images/objects/beakerempty-inventory.png"
             },
             {
-                'id'  : 'image.inventory.distilledwater',
-                'src' : 'games/battery/images/objects/distilledwater-inventory.png'
+                "id"  : "image.inventory.beakerwithdillutedacid",
+                "src" : "games/battery/images/objects/beakerwithdillutedacid-inventory.png"
+            },
+            {
+                "id"  : "image.inventory.distilledwater",
+                "src" : "games/battery/images/objects/distilledwater-inventory.png"
             }
         ],
         "sounds" : [],
@@ -196,8 +192,8 @@ define([
         },
         "panel" : {
             "startingInventory" : [
-                'object.coin',
-                'object.essaywithclip'
+                "object.coin",
+                "object.essaywithclip"
             ],
             "verbs" : [
                 {"first": "Give",    "nr" : 2, "second": "to"},
@@ -363,7 +359,6 @@ define([
             }
         ],
         "interactions": [
-        /* talk to */
             {
                 "id" : "interaction.talkToFatKid",
                 "verb" : "Talk to",
@@ -403,8 +398,6 @@ define([
                     }
                 ]
             },
-
-        /* look at */
             {
                 "id" : "interaction.lookAtFormula",
                 "verb" : "Look at",
@@ -800,7 +793,6 @@ define([
                     }
                 ]
             },
-        /* pick up */
             {
                 "id" : "interaction.pickuplefttable",
                 "verb" : "Pick up",
@@ -1047,7 +1039,6 @@ define([
                     }
                 ]
             },
-        /* wear */
             {
                 "id" : "interaction.weargoggles",
                 "verb" : "Wear",
@@ -1092,7 +1083,6 @@ define([
                     }
                 ]
             },
-        /* use */
             {
                 "id"    : "interaction.usebeakerwithacid1",
                 "verb"  : "Use",
@@ -1133,8 +1123,6 @@ define([
                     }
                 ]
             },
-
-        /* open */
             {
                 "id" : "interaction.opensulphuricacid",
                 "verb" : "Open",

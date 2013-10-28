@@ -62,8 +62,8 @@ define([
             require('engine/interaction/action').reset();
 
             var gamestage = require('engine/stage/main');
-            gamestage.activateCursorFor('play');
             gamestage.get().setState(savegame.currentScene);
+            gamestage.activateCursorFor('play');
         };
 
     return {
